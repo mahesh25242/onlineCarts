@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   loggedSubScrioption: Subscription;
   signOutSubscription: Subscription;
   loggedUser$: Observable<User>;
-
+  isNavbarCollapsed:boolean = true;
   constructor(private _modalService: NgbModal,
     private userService: UserService,
     private router: Router) { }
