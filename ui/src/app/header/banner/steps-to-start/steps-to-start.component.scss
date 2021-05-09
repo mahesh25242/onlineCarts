@@ -1,0 +1,40 @@
+@import '../../../../variables';
+
+.item{
+  padding-top: 40px;
+  padding-bottom: 0px;
+  .toparea{
+    position: relative;
+    background: #fff;
+    margin-top: -80px;
+    border-radius: 50px;
+    padding-top: 30px;
+    .numberstep{
+      background-color: $primaryColor;
+      border-radius: 50%;
+      color: #fff;
+      margin-right: 4px;
+      text-align: center;
+      height: 60px;
+      width: 60px;
+      line-height: 60px;
+      display: inline-block;
+      font-size: 25px;
+      font-weight: 700;
+      margin-top: 20px;
+    }
+    .numbertext{
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 38px;
+      color: #444;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 10px;
+    }
+    p{
+      margin: 0 0 10px;
+    }
+  }
+}
+

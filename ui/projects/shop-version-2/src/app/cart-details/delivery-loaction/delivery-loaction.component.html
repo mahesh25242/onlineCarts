@@ -1,0 +1,51 @@
+<form [formGroup]="customerFrm">
+  <div class="selectDelevery" >
+    <h3>Delivered to: </h3>
+
+    <mat-tab-group mat-align-tabs="start" *ngIf="(shop$ | async) as shop" dynamicHeight >
+      <mat-tab label="Pickup From Shop">
+        <ng-template matTabContent>
+          <mat-error *ngIf="!customerFrm.controls.selectedLocation.value">
+            Please choose a pick up location
+          </mat-error>
+          <mat-accordion>
+            <mat-expansion-panel   *ngFor="let shop_delivery of shop?.shop_delivery.free"
+            [expanded]="shop_delivery.isOpened"
+            (opened)="shop_delivery.isOpened = true"
+              (closed)="shop_delivery.isOpened = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{shop_delivery.name}}
+                </mat-panel-title>
+                <mat-panel-description>
+                  <span *ngIf="shop_delivery.charge" class="charge">
+                    Delivery Charge @ ₹ {{ shop_delivery.charge}}
+                  </span>
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+                <p [innerHTML]="shop_delivery.description"></p>
+                <app-order-form
+                [shopDelivery]="shop_delivery" [mapUrl]="mapUrl"
+                *ngIf="shop_delivery.isOpened"
+                [formGroup]="customerFrm"></app-order-form>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </ng-template>
+      </mat-tab>
+      <mat-tab label="Home Delivery">
+        <ng-template matTabContent>
+          <ng-container *ngIf="f.selectedLocation.value">
+            <p [innerHTML]="f.selectedLocation.value?.description"></p>
+            <p>Delivery Cost: {{ f.selectedLocation.value?.charge }}</p>
+          </ng-container>
+
+
+          <app-order-form  [mapUrl]="mapUrl"
+          [deliveryloc]="shop?.shop_delivery.paid"
+          [formGroup]="customerFrm"></app-order-form>
+        </ng-template>
+      </mat-tab>
+    </mat-tab-group>
+
+  </div>
+</form>

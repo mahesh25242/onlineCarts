@@ -1,0 +1,13 @@
+<section class="home-banner" *ngIf="showBanner$ | async">
+  <ngb-carousel [showNavigationIndicators]="false">
+    <ng-template ngbSlide *ngFor="let image of images">
+      <div class="picsum-img-wrapper" [ngStyle]="{'background-image': 'url(' + image.image + ')'}"></div>
+      <div class="carousel-caption">
+        <h3>{{ image.title }}</h3>
+        <p>{{ image.description }}</p>
+      </div>
+    </ng-template>
+  </ngb-carousel>
+  <app-steps-to-start></app-steps-to-start>
+</section>
+

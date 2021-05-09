@@ -1,0 +1,7 @@
+<div class="row" *ngIf="shopCategory$ | async as shopCategory">
+  <div class="col-xs-12 col-md-4 text-center" *ngFor="let sc of shopCategory">
+    <img [src]="sc.image" alt="website template image" class="img-responsive">
+    <h3 class="text-center">{{ sc.name }}</h3>
+    <p>{{ sc.shop_count }} shops was registed.</p>
+  </div>
+</div>
