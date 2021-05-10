@@ -304,6 +304,15 @@ class ShopsController extends Controller
     }
 
     public function register(Request $request){
+
+        $recaptcha = new \ReCaptcha\ReCaptcha(env("RECAPTCHA_SECRET"));
+        $resp = $recaptcha->setExpectedAction("SignUp")
+                        //->setExpectedHostname(env("APP_URL"))
+                        ->verify($request->input('recaptcha'), $request->ip());
+        if (!$resp->isSuccess()) {
+           return response(['message' => 'Validation errors', 'errors' =>  $resp->getErrorCodes(), 'status' => false], 422);
+        }
+
         $validator = Validator::make($request->all(), [
             'name' => ['required'],
             'country_id' => ['required'],
