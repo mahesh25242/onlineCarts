@@ -20,7 +20,7 @@ class ShopAuthenticate
 
         $shopKey = $request->header('shopKey');
         if($shopKey){
-            $user = \App\User::whereHas("userRole.shop", function($q) use($shopKey){
+            $user = \App\Models\Shop::whereHas("userRole.shop", function($q) use($shopKey){
                 $q->where("shop_key", $shopKey);
             })->where("status", 1)->where("id", Auth::id())->get()->first();
             if($user->userRole->shop->status)

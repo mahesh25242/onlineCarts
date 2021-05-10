@@ -24,7 +24,7 @@ class AppMiddleware
 
             $isApps = $request->header('IsApps');
             if($isApps){
-                $user = \App\User::find(Auth::id());
+                $user = \App\Models\User::find(Auth::id());
                 if($user->userRole->count() && $user->userRole->first()->shop()->count() &&
                 $user->userRole->first()->shop()->get()->first()->shop_key){
                     $request->headers->set('shopKey', $user->userRole->first()->shop()->get()->first()->shop_key);

@@ -14,7 +14,7 @@ class ShopsController extends Controller
 
 
     public function shops(Request $request){
-        $shops = \App\Shop::get();
+        $shops = \App\Models\Shop::get();
         return response($shops);
     }
 
@@ -56,20 +56,20 @@ class ShopsController extends Controller
 
 
         if($request->input("id", 0)){
-            $shop = \App\Shop::where('id', $request->input("id", 0))->update($input);
-            $shop =  \App\Shop::find( $request->input("id", 0));
+            $shop = \App\Models\Shop::where('id', $request->input("id", 0))->update($input);
+            $shop =  \App\Models\Shop::find( $request->input("id", 0));
         }else{
             $input["shop_key"] = sha1(time());
-            $shop = \App\Shop::create($input);
+            $shop = \App\Models\Shop::create($input);
         }
 
         if($request->input("isRegister", null)){
             $name = $request->input("displayName", '');
             $email = $request->input("email", '');
 
-            $userExists = \App\User::where("email", $email)->exists();
+            $userExists = \App\Models\User::where("email", $email)->exists();
             if(!$userExists ){
-                $user = new \App\User;
+                $user = new \App\Models\User;
                 $user->fname = $name;
                 $user->lname = "";
                 $user->email = $email;
@@ -77,7 +77,7 @@ class ShopsController extends Controller
                 $user->status = 1;
                 $user->save();
 
-                $userRole = \App\UserRole::updateOrCreate(
+                $userRole = \App\Models\UserRole::updateOrCreate(
                     [
                         "shop_id" => $shop->id,
                         "role_id" => 2,
@@ -145,12 +145,12 @@ class ShopsController extends Controller
     }
 
     public function delete(Request $request, $id=0){
-       $shop =  \App\Shop::where('id', $id)->delete();
+       $shop =  \App\Models\Shop::where('id', $id)->delete();
        return response(['message' => 'successfully deleted!', 'status' => true]);
     }
 
     public function getAShop(Request $request, $id=0){
-       $shop =  \App\Shop::with(["country", "state",
+       $shop =  \App\Models\Shop::with(["country", "state",
        "city", "shopCategory", "userRole"=> function($q){
            $q->with(["user"])->where("role_id", 2);
        }])->where("shop_key", $id)->get()->first();
@@ -163,7 +163,7 @@ class ShopsController extends Controller
         $shopKey = ($shopKey) ? $shopKey : $request->input("shop_key");
 
         if($shopKey){
-            $shop = \App\Shop::with(["country", "state", "city", "shopDelivery"])->where("shop_key", $shopKey)->get()->first();
+            $shop = \App\Models\Shop::with(["country", "state", "city", "shopDelivery"])->where("shop_key", $shopKey)->get()->first();
             return response($shop);
         }else{
             return response(['message' => 'No data found!', 'status' => false]);
@@ -197,13 +197,13 @@ class ShopsController extends Controller
         $shopKey = ($shopKey) ? $shopKey : $request->input("shop_key",'');
 
         if($shopKey){
-            $shop = \App\Shop::where("shop_key", $shopKey)->get()->first();
+            $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
         }else{
             $shopKey = $request->input("shop_key");
-            $shop = \App\Shop::where("shop_key", $shopKey)->get()->first();
+            $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
         }
 
-        \App\Shop::where('id', $shop->id)->update($shopInput);
+        \App\Models\Shop::where('id', $shop->id)->update($shopInput);
         return response(['message' => 'successfully saved',  'status' => true]);
     }
 
@@ -214,21 +214,21 @@ class ShopsController extends Controller
 
         $shop = null;
         if($shopKey){
-            $shop = \App\Shop::where("shop_key", $shopKey)->get()->first();
+            $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
         }else{
             $shopKey = $request->input("shop_key");
-            $shop = \App\Shop::where("shop_key", $shopKey)->get()->first();
+            $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
         }
         $stat = [
-            "products" => \App\ShopProduct::where("shop_id", $shop->id)->count(),
-            "active_products" => \App\ShopProduct::where("shop_id", $shop->id)->where("status", 1)->count(),
-            "categories" => \App\ShopProductCategory::where("shop_id", $shop->id)->count(),
-            "active_categories" => \App\ShopProductCategory::where("shop_id", $shop->id)->where("status", 1)->count(),
-            "orders" => \App\ShopOrder::where("shop_id", $shop->id)->count(),
-            "cancelled" => \App\ShopOrder::where("shop_id", $shop->id)->where("status", 5)->count(),
-            "delivered" => \App\ShopOrder::where("shop_id", $shop->id)->where("status", 4)->count(),
-            "latest_orders" => \App\ShopOrder::with(["shopCustomer", 'shopDelivery'])->where("shop_id", $shop->id)->orderBy("id", "DESC")->take(10)->get(),
-            "delivery_locations" => \App\ShopDelivery::where("shop_id", $shop->id)->count(),
+            "products" => \App\Models\ShopProduct::where("shop_id", $shop->id)->count(),
+            "active_products" => \App\Models\ShopProduct::where("shop_id", $shop->id)->where("status", 1)->count(),
+            "categories" => \App\Models\ShopProductCategory::where("shop_id", $shop->id)->count(),
+            "active_categories" => \App\Models\ShopProductCategory::where("shop_id", $shop->id)->where("status", 1)->count(),
+            "orders" => \App\Models\ShopOrder::where("shop_id", $shop->id)->count(),
+            "cancelled" => \App\Models\ShopOrder::where("shop_id", $shop->id)->where("status", 5)->count(),
+            "delivered" => \App\Models\ShopOrder::where("shop_id", $shop->id)->where("status", 4)->count(),
+            "latest_orders" => \App\Models\ShopOrder::with(["shopCustomer", 'shopDelivery'])->where("shop_id", $shop->id)->orderBy("id", "DESC")->take(10)->get(),
+            "delivery_locations" => \App\Models\ShopDelivery::where("shop_id", $shop->id)->count(),
         ];
 
         return response($stat);
@@ -237,7 +237,7 @@ class ShopsController extends Controller
     public function generateSite(Request $request){
         $files = Storage::allFiles("shopSite");
         $shopKey = $request->input("shop_key", '3d9f5a8eec71764c7c2df5a56496c8a1320dd921');
-        $shop =  \App\Shop::where("shop_key", $shopKey)->get()->first();
+        $shop =  \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
 
         $toBasePath = 'shop/'.$shopKey.'/www';
 
@@ -365,6 +365,21 @@ class ShopsController extends Controller
         }
         $request->merge(["isRegister"=> true]);
 
+
+        $idToken = "asas";
+        $auth = app('firebase.auth');
+        //$signInResult = $auth->getUser($uid);;
+
+        try {
+            $verifiedIdToken = $auth->signInWithGoogleIdToken($idToken);
+        } catch (InvalidToken $e) {
+            echo 'The token is invalid: '.$e->getMessage();
+        } catch (\InvalidArgumentException $e) {
+            echo 'The token could not be parsed: '.$idToken.'=='.$e->getMessage();
+        }
+
+        $authUser = $auth->getUser($verifiedIdToken->firebaseUserId());
+        return response(["success" => 1]);
 
         $this->store($request);
 

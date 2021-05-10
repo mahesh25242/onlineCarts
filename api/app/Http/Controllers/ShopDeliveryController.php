@@ -13,15 +13,15 @@ class ShopDeliveryController extends Controller
 
         $shopKey = $request->header('shopKey');
         if($shopKey){
-            $shop = \App\Shop::where("shop_key", $shopKey)->get()->first();
+            $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
             $shopId = ($shop) ? $shop->id : 0;
         }else{
             $shopKey = $request->input('shop_key');
-            $shop = \App\Shop::where("shop_key", $shopKey)->get()->first();
+            $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
             $shopId = ($shop) ? $shop->id : 0;
         }
 
-        $deliveries = \App\ShopDelivery::where("shop_id", $shopId)->orderBy("sortorder", "ASC")->get();
+        $deliveries = \App\Models\ShopDelivery::where("shop_id", $shopId)->orderBy("sortorder", "ASC")->get();
         return response($deliveries);
     }
 
@@ -48,18 +48,18 @@ class ShopDeliveryController extends Controller
             "address" => $request->input("address", ''),
         ];
         if($request->input("id", 0)){
-            \App\ShopDelivery::where('id', $request->input("id", 0))->update($deliveryInput);
-            $shopDelivery = \App\ShopDelivery::find($request->input("id", 0));
+            \App\Models\ShopDelivery::where('id', $request->input("id", 0))->update($deliveryInput);
+            $shopDelivery = \App\Models\ShopDelivery::find($request->input("id", 0));
         }else{
             if($shopKey){
-                $shop = \App\Shop::where("shop_key", $shopKey)->get()->first();
+                $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
                 $deliveryInput["shop_id"] = ($shop) ? $shop->id : 0;
             }else{
                 $shopKey = $request->input("shop_key");
-                $shop = \App\Shop::where("shop_key", $shopKey)->get()->first();
+                $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
                 $deliveryInput["shop_id"] = ($shop) ? $shop->id : 0;
             }
-            $shopDelivery = \App\ShopDelivery::create($deliveryInput);
+            $shopDelivery = \App\Models\ShopDelivery::create($deliveryInput);
         }
         return response(['data' => $shopDelivery, 'message' => 'successfully saved!', 'status' => true]);
     }
@@ -67,7 +67,7 @@ class ShopDeliveryController extends Controller
     public function delete(Request $request){
         $id = $request->input("id", 0);
         if($id){
-            $shopDelivery = \App\ShopDelivery::where("id", $id)->delete();
+            $shopDelivery = \App\Models\ShopDelivery::where("id", $id)->delete();
         }
         return response(['message' => 'successfully deleted!', 'status' => true]);
     }

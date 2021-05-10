@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Storage;
 class ShopProductCategoryController extends Controller
 {
     public function showCategories(Request $request){
-        //event(new \App\Events\OrderChangedEvent(\App\ShopOrder::find(48)));
+        //event(new \App\Events\OrderChangedEvent(\App\Models\ShopOrder::find(48)));
         $request->request->add(['status' => 1]);
         return $this->categories($request);
     }
@@ -18,15 +18,15 @@ class ShopProductCategoryController extends Controller
     public function categories(Request $request){
         $shopKey = $request->header('shopKey');
         if($shopKey){
-            $shop = \App\Shop::where("shop_key", $shopKey)->get()->first();
+            $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
             $shopId = ($shop) ? $shop->id : 0;
         }else{
             $shopKey = $request->input("shop_key", '');
-            $shop = \App\Shop::where("shop_key", $shopKey)->get()->first();
+            $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
             $shopId = ($shop) ? $shop->id : 0;
         }
 
-        $categories = \App\ShopProductCategory::withCount(["shopProduct"])->where("shop_id", $shopId);
+        $categories = \App\Models\ShopProductCategory::withCount(["shopProduct"])->where("shop_id", $shopId);
         if($request->input("status", 0)){
             $categories->where("status", $request->input("status", 0));
         }
@@ -66,18 +66,18 @@ class ShopProductCategoryController extends Controller
 
 
         if($request->input("id", 0)){
-            $shopProductCategory = \App\ShopProductCategory::where('id', $request->input("id", 0))->update($input);
-            $shopProductCategory =  \App\ShopProductCategory::find($request->input("id", 0));
+            $shopProductCategory = \App\Models\ShopProductCategory::where('id', $request->input("id", 0))->update($input);
+            $shopProductCategory =  \App\Models\ShopProductCategory::find($request->input("id", 0));
         }else{
             if($shopKey){
-                $shop = \App\Shop::where("shop_key", $shopKey)->get()->first();
+                $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
                 $input["shop_id"] = ($shop) ? $shop->id : 0;
             }else{
                 $shopKey = $request->input("shop_key", 0);
-                $shop = \App\Shop::where("shop_key", $shopKey)->get()->first();
+                $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
                 $input["shop_id"] = ($shop) ? $shop->id : 0;
             }
-            $shopProductCategory = \App\ShopProductCategory::create($input);
+            $shopProductCategory = \App\Models\ShopProductCategory::create($input);
         }
 
         $iconImage =  '';
@@ -137,10 +137,10 @@ class ShopProductCategoryController extends Controller
     public function delete(Request $request){
        $shopKey = $request->header('shopKey');
        $shopKey = ($shopKey) ? $shopKey : $request->input("shop_key");
-       $shop = \App\Shop::where("shop_key", $shopKey)->get()->first();
+       $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
        $shopId = ($shop) ? $shop->id : 0;
 
-       $shopCategory =  \App\ShopProductCategory::where('id', $request->input("id"))
+       $shopCategory =  \App\Models\ShopProductCategory::where('id', $request->input("id"))
        ->where("shop_id", $shopId)->delete();
        return response(['message' => 'successfully deleted!', 'status' => true]);
     }
@@ -148,10 +148,10 @@ class ShopProductCategoryController extends Controller
     public function changeStatus(Request $request){
         $shopKey = $request->header('shopKey');
         $shopKey = ($shopKey) ? $shopKey : $request->input("shop_key");
-        $shop = \App\Shop::where("shop_key", $shopKey)->get()->first();
+        $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
         $shopId = ($shop) ? $shop->id : 0;
 
-        $shopCategory =  \App\ShopProductCategory::where('id', $request->input("id"))
+        $shopCategory =  \App\Models\ShopProductCategory::where('id', $request->input("id"))
         ->where("shop_id", $shopId)->get()->first();
         $shopCategory->status = !$shopCategory->status;
         $shopCategory->save();

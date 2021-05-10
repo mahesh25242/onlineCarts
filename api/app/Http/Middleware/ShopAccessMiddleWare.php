@@ -20,7 +20,7 @@ class ShopAccessMiddleWare
 
         $shopKey = $request->header('shopKey');
         if($shopKey){
-            $shop = \App\Shop::where("shop_key",$shopKey)->get()->first();
+            $shop = \App\Models\Shop::where("shop_key",$shopKey)->get()->first();
 
             if($shop->status)
                 return $next($request);

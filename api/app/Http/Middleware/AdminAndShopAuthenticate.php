@@ -20,7 +20,7 @@ class AdminAndShopAuthenticate
 
         $shopKey = $request->header('shopKey');
         if($shopKey){
-            $exists = \App\User::whereHas("userRole.shop", function($q) use($shopKey){
+            $exists = \App\Models\User::whereHas("userRole.shop", function($q) use($shopKey){
                 $q->where("shop_key", $shopKey);
             })->where("status", 1)->where("id", Auth::id())->exists();
             if($exists)
@@ -29,12 +29,12 @@ class AdminAndShopAuthenticate
 
         if (Auth::check() )
         {
-            if(\App\User::find(Auth::id())->isSuperAdmin()->exists())
+            if(\App\Models\User::find(Auth::id())->isSuperAdmin()->exists())
                 return $next($request);
 
             $isApps = $request->header('IsApps');
             if($isApps){
-                $user = \App\User::find(Auth::id());
+                $user = \App\Models\User::find(Auth::id());
                 if($user->userRole->count() && $user->userRole->first()->shop()->count() &&
                 $user->userRole->first()->shop()->get()->first()->shop_key){
                     $request->headers->set('shopKey', $user->userRole->first()->shop()->get()->first()->shop_key);

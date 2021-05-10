@@ -29,7 +29,7 @@ class ContactUsController extends Controller
             return response(['message' => 'Validation errors', 'errors' =>  $validator->errors(), 'status' => false], 422);
         }
 
-        $contact = new \App\Contact;
+        $contact = new \App\Models\Contact;
         $contact->name = $request->input("name", '');
         $contact->email = $request->input("email", '');
         $contact->phone = $request->input("phone", '');

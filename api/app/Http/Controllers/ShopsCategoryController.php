@@ -7,7 +7,7 @@ use Validator;
 class ShopsCategoryController extends Controller
 {
     public function categories(Request $request){
-        $categories = \App\ShopCategory::get();
+        $categories = \App\Models\ShopCategory::get();
         return response($categories);
     }
 
@@ -28,10 +28,10 @@ class ShopsCategoryController extends Controller
         }
         $input = $request->all();
         if($request->input("id", 0)){
-            $shopCategory = \App\ShopCategory::where('id', $request->input("id", 0))->update($input);
-            $shopCategory = \App\ShopCategory::find($shopCategory);
+            $shopCategory = \App\Models\ShopCategory::where('id', $request->input("id", 0))->update($input);
+            $shopCategory = \App\Models\ShopCategory::find($shopCategory);
         }else{
-            $shopCategory = \App\ShopCategory::create($input);
+            $shopCategory = \App\Models\ShopCategory::create($input);
         }
 
         if ($request->hasFile('image')) {
@@ -50,12 +50,12 @@ class ShopsCategoryController extends Controller
     }
 
     public function delete(Request $request, $id=0){
-       $shopCategory =  \App\ShopCategory::where('id', $id)->delete();
+       $shopCategory =  \App\Models\ShopCategory::where('id', $id)->delete();
        return response(['message' => 'successfully deleted!', 'status' => true]);
     }
 
     public function activeCategories(Request $request){
-        $categories = \App\ShopCategory::withCount("shop")->get();
+        $categories = \App\Models\ShopCategory::withCount("shop")->get();
         return response($categories);
     }
 

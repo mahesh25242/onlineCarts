@@ -23,15 +23,15 @@ $app = new Laravel\Lumen\Application(
     dirname(__DIR__)
 );
 
- //$app->withFacades();
+// $app->withFacades();
 
- $app->withEloquent();
+$app->withEloquent();
 
- $app->withFacades(true, [
+
+$app->withFacades(true, [
     'Intervention\Image\Facades\Image' => 'Image',
     'Illuminate\Support\Facades\Mail' => 'Mail',
 ]);
-
 
 class_alias(\LaravelFCM\Facades\FCM::class, 'FCM');
 class_alias(\LaravelFCM\Facades\FCMGroup::class, 'FCMGroup');
@@ -66,14 +66,7 @@ $app->singleton('filesystem', function ($app) {
     return $app->loadComponent('filesystems', 'Illuminate\Filesystem\FilesystemServiceProvider', 'filesystem');
 });
 
-$app->routeMiddleware([
-    'auth' => App\Http\Middleware\Authenticate::class,
-    'maintanance' => App\Http\Middleware\SiteMaintenanceMiddleware::class,
-    'admin' => \App\Http\Middleware\AdminAuthenticate::class,
-    'shop' => \App\Http\Middleware\ShopAuthenticate::class,
-    'adminAndShop' => \App\Http\Middleware\AdminAndShopAuthenticate::class,
-    'AppMiddleware' => \App\Http\Middleware\AppMiddleware::class,
-]);
+
 /*
 |--------------------------------------------------------------------------
 | Register Config Files
@@ -84,14 +77,13 @@ $app->routeMiddleware([
 | the default version. You may register other files below as needed.
 |
 */
-$app->middleware([
-    App\Http\Middleware\CorsMiddleware::class,
-    App\Http\Middleware\ShopAccessMiddleWare::class,
- ]);
-
 
 $app->configure('app');
 $app->configure('auth');
+$app->configure('mail');
+$app->configure('filesystems');
+$app->configure('dompdf');
+
 /*
 |--------------------------------------------------------------------------
 | Register Middleware
@@ -106,11 +98,23 @@ $app->configure('auth');
 // $app->middleware([
 //     App\Http\Middleware\ExampleMiddleware::class
 // ]);
+
+// $app->routeMiddleware([
+//     'auth' => App\Http\Middleware\Authenticate::class,
+// ]);
+
 $app->middleware([
     App\Http\Middleware\CorsMiddleware::class,
+    App\Http\Middleware\ShopAccessMiddleWare::class,
  ]);
 
 $app->routeMiddleware([
+    'auth' => App\Http\Middleware\Authenticate::class,
+    'maintanance' => App\Http\Middleware\SiteMaintenanceMiddleware::class,
+    'admin' => \App\Http\Middleware\AdminAuthenticate::class,
+    'shop' => \App\Http\Middleware\ShopAuthenticate::class,
+    'adminAndShop' => \App\Http\Middleware\AdminAndShopAuthenticate::class,
+    'AppMiddleware' => \App\Http\Middleware\AppMiddleware::class,
     'auth' => App\Http\Middleware\Authenticate::class,
     'client' => \Laravel\Passport\Http\Middleware\CheckClientCredentials::class,
 ]);
@@ -126,6 +130,10 @@ $app->routeMiddleware([
 |
 */
 
+// $app->register(App\Providers\AppServiceProvider::class);
+// $app->register(App\Providers\AuthServiceProvider::class);
+// $app->register(App\Providers\EventServiceProvider::class);
+
 $app->register(App\Providers\AppServiceProvider::class);
 $app->register(App\Providers\AuthServiceProvider::class);
 $app->register(App\Providers\EventServiceProvider::class);
@@ -137,10 +145,10 @@ $app->register(Intervention\Image\ImageServiceProvider::class);
 $app->register(Illuminate\Mail\MailServiceProvider::class);
 $app->register(\Barryvdh\DomPDF\ServiceProvider::class);
 
-$app->register(Irazasyed\Larasupport\Providers\ArtisanServiceProvider::class);
 
 
 $app->register(LaravelFCM\FCMServiceProvider::class);
+
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes
@@ -151,11 +159,8 @@ $app->register(LaravelFCM\FCMServiceProvider::class);
 | can respond to, as well as the controllers that may handle them.
 |
 */
-$app->configure('app');
-$app->configure('auth');
-$app->configure('mail');
-$app->configure('filesystems');
-$app->configure('dompdf');
+
+
 
 \Dusterio\LumenPassport\LumenPassport::routes($app, ['prefix' => 'v1/oauth']);
 

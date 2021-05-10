@@ -45,7 +45,7 @@ class ShopOrderController extends Controller
         $shopKey = $request->header('shopKey');
         $shopKey = ( $shopKey ) ?  $shopKey  :$request->input("shop_key");
         if($shopKey){
-            $shop = \App\Shop::where("shop_key", $shopKey)->get()->first();
+            $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
         }
         //return response([$shop->country->phonecode], 422);
         if($shop){
@@ -61,7 +61,7 @@ class ShopOrderController extends Controller
                 }
             }
             $phone = ($phone) ? $phone : ' ';
-            $shopCustomer = \App\ShopCustomer::updateOrCreate(
+            $shopCustomer = \App\Models\ShopCustomer::updateOrCreate(
                 [
                     "name" => $request->input("name", ''),
                     "email" => $request->input("email", ''),
@@ -80,8 +80,8 @@ class ShopOrderController extends Controller
                 if($request->input("delivery_date", null))
                     $delivery_date = \Carbon\Carbon::parse($request->input("delivery_date"))->format('Y-m-d H:i:s');
 
-                $shopDelivery = \App\ShopDelivery::find($request->input("selectedLocation.id", 0));
-                $shopOrder = new \App\ShopOrder;
+                $shopDelivery = \App\Models\ShopDelivery::find($request->input("selectedLocation.id", 0));
+                $shopOrder = new \App\Models\ShopOrder;
                 $shopOrder->shop_id =  $shop->id;
                 $shopOrder->delivery_at =  $delivery_date;
                 $shopOrder->shop_customer_id =  $shopCustomer->id;
@@ -109,9 +109,9 @@ class ShopOrderController extends Controller
                     if(is_array($cart) && !empty($cart)){
                         foreach($cart as $crt){
                             if($crt["product"]["shop_product_selected_variant"]["id"]){
-                                $shopProductVarient = \App\ShopProductVariant::find($crt["product"]["shop_product_selected_variant"]["id"]);
+                                $shopProductVarient = \App\Models\ShopProductVariant::find($crt["product"]["shop_product_selected_variant"]["id"]);
                                 if($shopProductVarient->id){
-                                    $shopOrderItem = new \App\ShopOrderItem;
+                                    $shopOrderItem = new \App\Models\ShopOrderItem;
                                     $shopOrderItem->shop_order_id = $shopOrder->id;
                                     $shopOrderItem->shop_product_variant_id = $crt["product"]["shop_product_selected_variant"]["id"];
                                     $shopOrderItem->qty = $crt["qty"];
@@ -131,7 +131,7 @@ class ShopOrderController extends Controller
 
 
 
-                    return response(\App\ShopOrder::with(["shopCustomer"])->find($shopOrder->id) );
+                    return response(\App\Models\ShopOrder::with(["shopCustomer"])->find($shopOrder->id) );
                 }else{
                     return response(['message' => 'sorry order cant\'t be created', 'status' => false], 422);
                 }
@@ -150,9 +150,9 @@ class ShopOrderController extends Controller
         $shopKey = $request->header('shopKey');
         $shopKey = ( $shopKey ) ?  $shopKey  :$request->input("shop_key");
         if($shopKey){
-            $shop = \App\Shop::where("shop_key", $shopKey)->get()->first();
+            $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
         }
-        $orders = \App\ShopOrder::with(["shopCustomer", "shopOrderItem.ShopProductVariant.shopProduct", "shopDelivery"])
+        $orders = \App\Models\ShopOrder::with(["shopCustomer", "shopOrderItem.ShopProductVariant.shopProduct", "shopDelivery"])
         ->where("shop_id", $shop->id);
 
         if($request->input("q", '')){
@@ -191,7 +191,7 @@ class ShopOrderController extends Controller
             return response(['message' => 'Validation errors', 'errors' =>  $validator->errors(), 'status' => false], 422);
         }
         $isChanged = false;
-        $shopOrder = \App\ShopOrder::find($request->input("id"));
+        $shopOrder = \App\Models\ShopOrder::find($request->input("id"));
         $shopOrder->status = $request->input("status", 1);
         if($shopOrder->isDirty("status")){
             $isChanged = true;
@@ -210,7 +210,7 @@ class ShopOrderController extends Controller
 
     public function showOrderDetail(Request $request){
         $id =  $request->input("id", null);
-        $shopOrder = \App\ShopOrder::with(["shopCustomer", "shopDelivery", "shopOrderItem.shopProductVariant.shopProduct", "shopOrderItem.shopProductVariant.shopProductImage"])->where("sec_key", $id)->get()->first();
+        $shopOrder = \App\Models\ShopOrder::with(["shopCustomer", "shopDelivery", "shopOrderItem.shopProductVariant.shopProduct", "shopOrderItem.shopProductVariant.shopProductImage"])->where("sec_key", $id)->get()->first();
         return response($shopOrder);
     }
 

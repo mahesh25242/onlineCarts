@@ -20,7 +20,7 @@ class AdminAuthenticate
 
        if (Auth::check() )
        {
-        if(\App\User::has("isSuperAdmin")->find(Auth::id()) && \App\User::has("isSuperAdmin")->find(Auth::id())->exists())
+        if(\App\Models\User::has("isSuperAdmin")->find(Auth::id()) && \App\Models\User::has("isSuperAdmin")->find(Auth::id())->exists())
                 return $next($request);
        }
        return response('Unauthorized.', 401);;

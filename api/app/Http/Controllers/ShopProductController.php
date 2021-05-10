@@ -19,15 +19,15 @@ class ShopProductController extends Controller
         $perPage = $request->input("pageSize", 20);
         $shopKey = $request->header('shopKey');
         if($shopKey){
-            $shop = \App\Shop::where("shop_key", $shopKey)->get()->first();
+            $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
             $shopId = ($shop) ? $shop->id : 0;
         }else{
             $shopKey = $request->input('shop_key');
-            $shop = \App\Shop::where("shop_key", $shopKey)->get()->first();
+            $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
             $shopId = ($shop) ? $shop->id : 0;
         }
 
-        $products = \App\ShopProduct::with(["shopProductCategory", "shopProductPrimaryVariant.shopProductImage",
+        $products = \App\Models\ShopProduct::with(["shopProductCategory", "shopProductPrimaryVariant.shopProductImage",
         "shopProductVariant.shopProductImage"])->where("shop_id", $shopId);
 
         if($request->input("status", 0)){
@@ -94,25 +94,25 @@ class ShopProductController extends Controller
         $shopKey = $request->header('shopKey');
 
         if($request->input("id", 0)){
-            \App\ShopProduct::where('id', $request->input("id", 0))->update($productIns);
-            $shopProduct = \App\ShopProduct::find($request->input("id", 0));
+            \App\Models\ShopProduct::where('id', $request->input("id", 0))->update($productIns);
+            $shopProduct = \App\Models\ShopProduct::find($request->input("id", 0));
         }else{
             if($shopKey){
-                $shop = \App\Shop::where("shop_key", $shopKey)->get()->first();
+                $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
                 $productIns["shop_id"] = ($shop) ? $shop->id : 0;
             }else{
                 $shopKey = $request->input("shop_key");
-                $shop = \App\Shop::where("shop_key", $shopKey)->get()->first();
+                $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
                 $productIns["shop_id"] = ($shop) ? $shop->id : 0;
             }
-            $shopProduct = \App\ShopProduct::create($productIns);
+            $shopProduct = \App\Models\ShopProduct::create($productIns);
         }
 
         $variants = $request->input("variants", null);
         if($shopProduct && $variants && is_array($variants) && !empty($variants)){
             $insVariantId = [];
             foreach($variants as $ind=>$variant){
-                $shopProductVariant = \App\ShopProductVariant::updateOrCreate(
+                $shopProductVariant = \App\Models\ShopProductVariant::updateOrCreate(
                     [
                      "shop_product_id" =>  $shopProduct->id,
                      "id" =>  $variant["id"],
@@ -216,7 +216,7 @@ class ShopProductController extends Controller
                 }
 
                 if($productImg){
-                    $shopProductImage = \App\ShopProductImage::where("shop_product_id", $shopProduct->id)
+                    $shopProductImage = \App\Models\ShopProductImage::where("shop_product_id", $shopProduct->id)
                     ->where("shop_product_variant_id", $shopProductVariant->id)->get()->first();
                     if($shopProductImage){
                         if(Storage::disk('public')->exists("shop/{$shopProduct->shop->shop_key}/products/{$shopProductImage->image}")){
@@ -255,7 +255,7 @@ class ShopProductController extends Controller
                     }
 
 
-                    \App\ShopProductImage::updateOrCreate(
+                    \App\Models\ShopProductImage::updateOrCreate(
                         [
                          "shop_product_id" =>  $shopProduct->id,
                          "shop_product_variant_id" =>  $shopProductVariant->id
@@ -273,10 +273,10 @@ class ShopProductController extends Controller
 
             }
 
-            \App\ShopProductVariant::whereNotIn("id", $insVariantId)->where("shop_product_id",  $shopProduct->id)->delete();
+            \App\Models\ShopProductVariant::whereNotIn("id", $insVariantId)->where("shop_product_id",  $shopProduct->id)->delete();
 
-            if(!\App\ShopProductVariant::where("shop_product_id",  $shopProduct->id)->where("is_primary", 1)->exists()){
-                $shopProductVariant = \App\ShopProductVariant::where("shop_product_id",  $shopProduct->id)->get()->first();
+            if(!\App\Models\ShopProductVariant::where("shop_product_id",  $shopProduct->id)->where("is_primary", 1)->exists()){
+                $shopProductVariant = \App\Models\ShopProductVariant::where("shop_product_id",  $shopProduct->id)->get()->first();
                 $shopProductVariant->is_primary = 1;
                 $shopProductVariant->save();
             }
@@ -288,10 +288,10 @@ class ShopProductController extends Controller
     public function delete(Request $request){
         $shopKey = $request->header('shopKey');
         $shopKey = ($shopKey) ? $shopKey : $request->input("shop_key");
-        $shop = \App\Shop::where("shop_key", $shopKey)->get()->first();
+        $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
         $shopId = ($shop) ? $shop->id : 0;
 
-        $shpProduct =  \App\ShopProduct::where('id', $request->input("id"))
+        $shpProduct =  \App\Models\ShopProduct::where('id', $request->input("id"))
         ->where('shop_id', $shopId)->delete();
         return response(['message' => 'successfully deleted!', 'status' => true]);
     }
@@ -299,10 +299,10 @@ class ShopProductController extends Controller
     public function changeStatus(Request $request){
         $shopKey = $request->header('shopKey');
         $shopKey = ($shopKey) ? $shopKey : $request->input("shop_key");
-        $shop = \App\Shop::where("shop_key", $shopKey)->get()->first();
+        $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
         $shopId = ($shop) ? $shop->id : 0;
 
-        $shopProduct =  \App\ShopProduct::where('id', $request->input("id"))
+        $shopProduct =  \App\Models\ShopProduct::where('id', $request->input("id"))
         ->where("shop_id", $shopId)->get()->first();
         $shopProduct->status = !$shopProduct->status;
         $shopProduct->save();
@@ -310,7 +310,7 @@ class ShopProductController extends Controller
      }
 
     public function showProductDetails(Request $request){
-        $shpProduct =  \App\ShopProduct::with(["shopProductCategory", "shopProductPrimaryVariant.shopProductImage",
+        $shpProduct =  \App\Models\ShopProduct::with(["shopProductCategory", "shopProductPrimaryVariant.shopProductImage",
         "shopProductVariant.shopProductImage"])->where("status", 1)
         ->where('url', $request->input("url"))->get()->first();
         return response($shpProduct);

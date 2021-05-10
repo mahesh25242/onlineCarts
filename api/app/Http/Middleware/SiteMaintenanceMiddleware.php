@@ -24,8 +24,8 @@ class SiteMaintenanceMiddleware
      */
     public function handle($request, Closure $next)
     {
-    //     $site_down = \App\Setting::where('setname', "site_down")->get()->first();
-    //   //  $site_downTxt = \App\Setting::where('setname', "landing_page")->get()->first();
+    //     $site_down = \App\Models\Setting::where('setname', "site_down")->get()->first();
+    //   //  $site_downTxt = \App\Models\Setting::where('setname', "landing_page")->get()->first();
 
 
     //     if($site_down && $site_down->setvalue == "1" && Auth::user() && Auth::user()->user_type !==1 && !Auth::user()->block_user){

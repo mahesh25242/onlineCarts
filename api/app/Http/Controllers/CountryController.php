@@ -9,7 +9,7 @@ class CountryController extends Controller
 
 
     public function countries(Request $request){
-        $countries = \App\Country::all();
+        $countries = \App\Models\Country::all();
         return response($countries);
     }
 
