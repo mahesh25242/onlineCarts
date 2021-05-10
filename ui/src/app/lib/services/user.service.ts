@@ -6,6 +6,8 @@ import { Pagination, User, UserWithPagination } from '../interfaces';
 import { environment } from '../../../environments/environment';
 import * as _ from 'lodash';
 
+import { AngularFireAuth } from "@angular/fire/auth";
+
 @Injectable({
   providedIn: 'root'
 })
@@ -14,7 +16,8 @@ export class UserService {
     private user$: BehaviorSubject<User> = new BehaviorSubject<User>(null);
     private users$: BehaviorSubject<UserWithPagination> = new BehaviorSubject<UserWithPagination>(null);
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    public afAuth: AngularFireAuth) { }
 
 
   get getloggedUser() {
@@ -132,6 +135,7 @@ export class UserService {
   deleteUser(urlPart:string='', user: User= null){
     return this.http.post<any>(`/${urlPart}/delete`, user);
   }
+
 
 
 }

@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { environment }  from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
 
@@ -28,14 +29,7 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
 
 
 
-var config = {
-  apiKey: "AIzaSyBbf4J9nchYp2WSNePGZcRoYOUCYdCUiI0",
-  authDomain: "mayatutor-f5748.firebaseapp.com",
-  databaseURL: "https://mayatutor-f5748.firebaseio.com",
-  projectId: "mayatutor-f5748",
-  storageBucket: "mayatutor-f5748.appspot.com",
-  messagingSenderId: "552545840820"
-};
+
 
 
 
@@ -63,7 +57,7 @@ var config = {
     SharedModuleModule,
     HttpClientModule,
     HttpClientXsrfModule.disable(),
-    AngularFireModule.initializeApp(config),
+    AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule
   ],
   providers: [
