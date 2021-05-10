@@ -17,7 +17,7 @@ import { auth, User } from 'firebase/app';
 export class RegisterComponent implements OnInit {
 
   user$: Observable<User>;
-
+  FullName: string = '';
   constructor(
     private userService: UserService,
     public afAuth: AngularFireAuth) {}
@@ -31,7 +31,9 @@ export class RegisterComponent implements OnInit {
 
 
 
-    this.user$ = this.afAuth.authState;
+    this.user$ = this.afAuth.authState.pipe(tap(res=>{
+      this.FullName = res?.displayName;
+    }));
 
 
 

@@ -1,8 +1,13 @@
 <section class="page-section">
   <div class="container page__container">
     <div class="row">
-      <div class="col-md-5 col">
-        <h4 class="c-title">Shop Register</h4>
+      <div class="col-md-7 col">
+        <h4 class="c-title" *ngIf="FullName">
+          {{FullName}}'s Shop
+        </h4>
+        <h4 class="c-title" *ngIf="!FullName">
+          Sign In
+        </h4>
       </div>
     </div>
 
