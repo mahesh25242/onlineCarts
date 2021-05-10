@@ -63,6 +63,37 @@ class ShopsController extends Controller
             $shop = \App\Shop::create($input);
         }
 
+        if($request->input("isRegister", null)){
+            $name = $request->input("displayName", '');
+            $email = $request->input("email", '');
+
+            $userExists = \App\User::where("email", $email)->exists();
+            if(!$userExists ){
+                $user = new \App\User;
+                $user->fname = $name;
+                $user->lname = "";
+                $user->email = $email;
+                $user->password = Hash::make(uniqid());
+                $user->status = 1;
+                $user->save();
+
+                $userRole = \App\UserRole::updateOrCreate(
+                    [
+                        "shop_id" => $shop->id,
+                        "role_id" => 2,
+                        "user_id" => $user->id
+                    ],
+                    [
+                        "shop_id" => $shop->id,
+                        "role_id" => 2,
+                        "user_id" => $user->id
+                    ]
+                );
+            }
+
+
+        }
+
         if ($request->hasFile('favicon')) {
             $destinationPath = "assets/shop/{$shop->shop_key}/general";
             $request->file('favicon')->move($destinationPath, "favicon.ico");
@@ -333,6 +364,7 @@ class ShopsController extends Controller
             return response(['message' => 'Validation errors', 'errors' =>  $validator->errors(), 'status' => false], 422);
         }
         $request->merge(["isRegister"=> true]);
+
 
         $this->store($request);
 

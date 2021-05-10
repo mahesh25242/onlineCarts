@@ -40,6 +40,7 @@ export class RegistrationStepTwoComponent implements OnInit {
       Notiflix.Block.Pulse(`#registerForm`);
       const postData = {
         email: '',
+        displayName: '',
         name: this.f.name.value,
         country_id: this.f.country_id.value,
         shop_category_id: this.f.shop_category_id.value,
@@ -60,6 +61,7 @@ export class RegistrationStepTwoComponent implements OnInit {
         this.afAuth.authState.pipe(mergeMap(res=>{
           if(res){
             postData.email = res.email;
+            postData.displayName = res.displayName;
             return this.shopService.registerShop(postData)
           } else{
             return throwError(null);
