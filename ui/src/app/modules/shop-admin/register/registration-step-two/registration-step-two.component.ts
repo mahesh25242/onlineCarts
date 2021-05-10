@@ -30,13 +30,13 @@ export class RegistrationStepTwoComponent implements OnInit {
     save(){
       const postData = {
         name: this.f.name.value,
-        country_id: this.f.country.value,
-        shop_category_id: this.f.category.value,
+        country_id: this.f.country_id.value,
+        shop_category_id: this.f.shop_category_id.value,
         short_name: this.f.short_name.value,
         phone: this.f.phone.value,
         address: this.f.address.value,
-        state_id: this.f.state.value,
-        city_id: this.f.city.value,
+        state_id: this.f.state_id.value,
+        city_id: this.f.city_id.value,
         pin: this.f.pin.value,
         local: this.f.local.value,
         terms: this.f.terms.value
@@ -59,15 +59,15 @@ export class RegistrationStepTwoComponent implements OnInit {
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
-      country: [null, []],
-      category: [null, []],
+      country_id: [null, []],
+      shop_category_id: [null, []],
       name: [null, []],
       short_name:[null, []],
       //email: [null, []],
       phone: [null, []],
       address: [null, []],
-      state: [null, []],
-      city: [null, []],
+      state_id: [null, []],
+      city_id: [null, []],
       pin: [null, []],
       local: [null, []],
       terms: [null, []]
@@ -76,12 +76,12 @@ export class RegistrationStepTwoComponent implements OnInit {
     this.shopCategories$ = this.shopCategoryService.categories();
 
     this.countries$ = this.countryService.countries();
-    this.countrySubscription = this.f.country.valueChanges.subscribe(res=>{
+    this.countrySubscription = this.f.country_id.valueChanges.subscribe(res=>{
       if(res)
         this.states$ = this.stateService.states(res.id);
     });
 
-    this.stateSubscription = this.f.state.valueChanges.subscribe(res=>{
+    this.stateSubscription = this.f.state_id.valueChanges.subscribe(res=>{
       if(res)
         this.cities$ = this.cityService.cities(res.id);
     });

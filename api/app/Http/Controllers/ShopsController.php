@@ -306,13 +306,13 @@ class ShopsController extends Controller
     public function register(Request $request){
         $validator = Validator::make($request->all(), [
             'name' => ['required'],
-            'country' => ['required'],
-            'category' => ['required'],
+            'country_id' => ['required'],
+            'shop_category_id' => ['required'],
             'email' => ['required'],
             'phone' => ['required'],
             'address' => ['required'],
-            'state' => ['required'],
-            'city' => ['required'],
+            'state_id' => ['required'],
+            'city_id' => ['required'],
             'pin' => ['required'],
             'local' => ['required'],
         ]);

@@ -12,16 +12,16 @@
       </div>
 
       <div class="form-group col-md-6">
-        <label for="category">Category</label>
+        <label for="shop_category_id">Category</label>
         <ng-select [items]="(shopCategories$ | async)"
-        [ngClass]="{'is-invalid': ( f.category.errors && f.category.errors.error)}"
+        [ngClass]="{'is-invalid': ( f.shop_category_id.errors && f.shop_category_id.errors.error)}"
         bindLabel="name"
-        id="category"
+        id="shop_category_id"
         placeholder="Choose your shop category"
-        formControlName="category">
+        formControlName="shop_category_id">
         </ng-select>
-        <div *ngIf="f.category.errors && f.category.errors.error" class="invalid-feedback">
-          {{f.category.errors.error}}
+        <div *ngIf="f.shop_category_id.errors && f.shop_category_id.errors.error" class="invalid-feedback">
+          {{f.shop_category_id.errors.error}}
         </div>
       </div>
 
@@ -37,16 +37,16 @@
       </div> -->
 
       <div class="form-group col-md-6">
-        <label for="country">Country</label>
+        <label for="country_id">Country</label>
         <ng-select [items]="(countries$ | async)"
         bindLabel="name"
-        id="country"
-        [ngClass]="{'is-invalid': ( f.country.errors && f.country.errors.error)}"
+        id="country_id"
+        [ngClass]="{'is-invalid': ( f.country_id.errors && f.country_id.errors.error)}"
         placeholder="Choose your shop country"
-        formControlName="country">
+        formControlName="country_id">
         </ng-select>
-        <div *ngIf="f.country.errors && f.country.errors.error" class="invalid-feedback">
-          {{f.country.errors.error}}
+        <div *ngIf="f.country_id.errors && f.country_id.errors.error" class="invalid-feedback">
+          {{f.country_id.errors.error}}
         </div>
       </div>
 
@@ -54,8 +54,8 @@
         <label for="phone">Mobile</label>
 
         <div class="input-group mb-2">
-          <div class="input-group-prepend" *ngIf="f.country.value?.phonecode">
-            <div class="input-group-text">+{{ f.country.value?.phonecode }}</div>
+          <div class="input-group-prepend" *ngIf="f.country_id.value?.phonecode">
+            <div class="input-group-text">+{{ f.country_id.value?.phonecode }}</div>
           </div>
           <input type="tel" class="form-control" id="phone"
             [ngClass]="{'is-invalid': ( f.phone.errors && f.phone.errors.error)}"
@@ -82,30 +82,30 @@
 
 
       <div class="form-group col-md-6">
-        <label for="State">State</label>
+        <label for="state_id">State</label>
         <ng-select [items]="(states$ | async)"
           bindLabel="name"
-          [ngClass]="{'is-invalid': ( f.state.errors && f.state.errors.error)}"
-          id="state"
+          [ngClass]="{'is-invalid': ( f.state_id.errors && f.state_id.errors.error)}"
+          id="state_id"
           placeholder="Choose the state"
-          formControlName="state">
+          formControlName="state_id">
           </ng-select>
-        <div *ngIf="f.state.errors && f.state.errors.error" class="invalid-feedback">
-          {{f.state.errors.error}}
+        <div *ngIf="f.state_id.errors && f.state_id.errors.error" class="invalid-feedback">
+          {{f.state_id.errors.error}}
         </div>
       </div>
 
       <div class="form-group col-md-6">
-        <label for="City">City</label>
+        <label for="city_id">City</label>
         <ng-select [items]="(cities$ | async)"
-        [ngClass]="{'is-invalid': ( f.city.errors && f.city.errors.error)}"
+        [ngClass]="{'is-invalid': ( f.city_id.errors && f.city_id.errors.error)}"
           bindLabel="name"
-          id="city"
+          id="city_id"
           placeholder="Choose the city"
-          formControlName="city">
+          formControlName="city_id">
           </ng-select>
-          <div *ngIf="f.city.errors && f.city.errors.error" class="invalid-feedback">
-            {{f.city.errors.error}}
+          <div *ngIf="f.city_id.errors && f.city_id.errors.error" class="invalid-feedback">
+            {{f.city_id.errors.error}}
           </div>
       </div>
 
