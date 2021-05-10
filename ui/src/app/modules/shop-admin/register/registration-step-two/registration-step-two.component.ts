@@ -52,17 +52,25 @@ export class RegistrationStepTwoComponent implements OnInit {
         pin: this.f.pin.value,
         local: this.f.local.value,
         terms: this.f.terms.value,
-        recaptcha: ''
+        recaptcha: '',
+        idToken: ''
+
       };
 
       this.reCaptchaV3Service.execute(environment.recaptchaKey, 'SignUp', (token) => {
         postData.recaptcha = token;
 
         this.afAuth.authState.pipe(mergeMap(res=>{
+          console.log(res)
+
+
           if(res){
             postData.email = res.email;
             postData.displayName = res.displayName;
-            return this.shopService.registerShop(postData)
+            return this.afAuth.idToken.pipe(mergeMap(idTkn=>{
+              postData.idToken = idTkn;
+              return this.shopService.registerShop(postData);
+            }))
           } else{
             return throwError(null);
           }
@@ -73,9 +81,10 @@ export class RegistrationStepTwoComponent implements OnInit {
           Notiflix.Notify.Success(`successfully created`);
 
         }, error=>{
+          console.log(error)
           Notiflix.Block.Remove(`#registerForm`);
           for(let result in this.f){
-            if(error.error.errors[result]){
+            if(error?.error?.errors[result]){
               this.f[result].setErrors({ error: error.error.errors[result] });
             }else{
               this.f[result].setErrors(null);

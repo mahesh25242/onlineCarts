@@ -366,7 +366,7 @@ class ShopsController extends Controller
         $request->merge(["isRegister"=> true]);
 
 
-        $idToken = "asas";
+        $idToken = $request->input("idToken", null);
         $auth = app('firebase.auth');
         //$signInResult = $auth->getUser($uid);;
 
@@ -378,8 +378,7 @@ class ShopsController extends Controller
             echo 'The token could not be parsed: '.$idToken.'=='.$e->getMessage();
         }
 
-        $authUser = $auth->getUser($verifiedIdToken->firebaseUserId());
-        return response(["success" => 1]);
+       return  $authUser = $auth->getUser($verifiedIdToken->firebaseUserId());
 
         $this->store($request);
 

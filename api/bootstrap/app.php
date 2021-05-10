@@ -149,6 +149,9 @@ $app->register(\Barryvdh\DomPDF\ServiceProvider::class);
 
 $app->register(LaravelFCM\FCMServiceProvider::class);
 
+$app->register(Kreait\Laravel\Firebase\ServiceProvider::class);
+
+
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes
