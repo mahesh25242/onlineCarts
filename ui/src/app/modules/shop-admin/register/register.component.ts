@@ -3,7 +3,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { City, Country, ShopCategory, State } from 'src/app/lib/interfaces';
-import { CityService, CountryService, ShopCategoryService, StateService } from 'src/app/lib/services';
+import { CityService, CountryService,
+  ShopCategoryService, StateService, ShopService } from 'src/app/lib/services';
 
 @Component({
   selector: 'app-register',
@@ -23,10 +24,37 @@ export class RegisterComponent implements OnInit {
     private shopCategoryService: ShopCategoryService,
     private countryService: CountryService,
     private stateService: StateService,
-    private cityService: CityService) {}
+    private cityService: CityService,
+    private shopService: ShopService) {}
 
   get f(){ return this.registerForm.controls; }
   save(){
+    const postData = {
+      country_id: this.f.country.value,
+      shop_category_id: this.f.category.value,
+      name: this.f.name.value,
+      short_name: this.f.short_name.value,
+      email: this.f.email.value,
+      phone: this.f.phone.value,
+      address: this.f.address.value,
+      state_id: this.f.state.value,
+      city_id: this.f.city.value,
+      pin: this.f.pin.value,
+      local: this.f.local.value,
+      terms: this.f.terms.value
+    };
+
+    this.shopService.registerShop(postData).subscribe(res=>{
+
+    }, error=>{
+      for(let result in this.f){
+        if(error.error.errors[result]){
+          this.f[result].setErrors({ error: error.error.errors[result] });
+        }else{
+          this.f[result].setErrors(null);
+        }
+      }
+    });
 
   }
 
@@ -44,7 +72,8 @@ export class RegisterComponent implements OnInit {
       state: [null, []],
       city: [null, []],
       pin: [null, []],
-      local: [null, []]
+      local: [null, []],
+      terms: [null, []]
     });
 
     this.shopCategories$ = this.shopCategoryService.categories();

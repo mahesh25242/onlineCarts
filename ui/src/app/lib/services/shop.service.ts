@@ -44,6 +44,10 @@ export class ShopService {
     return this.http.post<any>("/admin/shops/store", postData);
   }
 
+  registerShop(postData: any = null){
+    return this.http.post<any>("/register", postData);
+  }
+
   saveShopDetail(postData: any = null){
     return this.http.post<any>("/shop/store", postData);
   }

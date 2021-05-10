@@ -302,4 +302,31 @@ class ShopsController extends Controller
         $zip->close();
         return response()->download($zip_file)->deleteFileAfterSend(true);
     }
+
+    public function register(Request $request){
+        $validator = Validator::make($request->all(), [
+            'name' => ['required'],
+            'country' => ['required'],
+            'category' => ['required'],
+            'email' => ['required'],
+            'phone' => ['required'],
+            'address' => ['required'],
+            'state' => ['required'],
+            'city' => ['required'],
+            'pin' => ['required'],
+            'local' => ['required'],
+        ]);
+
+
+
+
+        if($validator->fails()){
+            return response(['message' => 'Validation errors', 'errors' =>  $validator->errors(), 'status' => false], 422);
+        }
+        $request->merge(["isRegister"=> true]);
+
+        $this->store($request);
+
+        return response(['data' => $shop, 'message' => 'Account created successfully!', 'status' => true]);
+    }
 }

@@ -5,35 +5,31 @@
         <h4 class="c-title">Shop Register</h4>
       </div>
     </div>
-    <form [formGroup]="registerForm" (cubmit)="save()">
+    <form [formGroup]="registerForm" (submit)="save()">
       <div class="page-content">
         <div class="row">
           <div class="form-group col-md-6">
             <label for="name">Name</label>
             <input type="text" class="form-control" id="name" placeholder="Name"
-            [ngClass]="{'is-invalid': f.name.invalid && ((f.name.dirty || f.name.touched))}"
+            [ngClass]="{'is-invalid': ( f.name.errors && f.name.errors.error)}"
             formControlName="name">
-            <ng-container *ngIf="f.name.invalid && (f.name.dirty || f.name.touched)">
-              <div *ngIf="f.name.errors.required" class="invalid-feedback">
-                Name is required.
-              </div>
-            </ng-container>
+            <div *ngIf="f.name.errors && f.name.errors.error" class="invalid-feedback">
+              {{f.name.errors.error}}
+            </div>
           </div>
 
           <div class="form-group col-md-6">
             <label for="category">Category</label>
             <ng-select [items]="(shopCategories$ | async)"
-          [ngClass]="{'is-invalid': ( f.category.errors && f.category.errors.error)}"
+            [ngClass]="{'is-invalid': ( f.category.errors && f.category.errors.error)}"
             bindLabel="name"
             id="category"
             placeholder="select Category"
             formControlName="category">
             </ng-select>
-            <ng-container *ngIf="f.category.invalid && (f.category.dirty || f.category.touched)">
-              <div *ngIf="f.category.errors.required" class="invalid-feedback">
-                Category is required.
-              </div>
-            </ng-container>
+            <div *ngIf="f.category.errors && f.category.errors.error" class="invalid-feedback">
+              {{f.category.errors.error}}
+            </div>
           </div>
 
           <div class="form-group col-md-6">
@@ -139,7 +135,26 @@
               {{f.local.errors.error}}
             </div>
           </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <a href="javascript:{}" class="float-right">Click Here to read our terms</a>
+          </div>
+          <div class="col">
+            <div class="custom-control custom-checkbox ">
+              <input type="checkbox" class="custom-control-input" id="terms" formControlName="terms">
+              <label class="custom-control-label" for="terms">Agree Terms</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-10">
 
+          </div>
+          <div class="col-md-2 mt-3">
+              <button type="submit" class="btn btn-primary float-right btn-block"
+               name="save" [disabled]="!f.terms.value">Save</button>
+          </div>
         </div>
       </div>
     </form>

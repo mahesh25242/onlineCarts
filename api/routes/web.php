@@ -31,8 +31,10 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
     $router->get('states','StateController@states');
     $router->get('cities','CityController@cities');
     $router->get('categories','ShopsCategoryController@activeCategories');
+    $router->post('sentContact','ContactUsController@sentContact');
+    $router->post('register','ShopsController@register');
 
-
+    /* Billing apps */
     $router->group(['prefix' => 'shop', 'middleware' =>  'AppMiddleware'], function () use ($router) {
         $router->get('/','ShopsController@shopDetails');
         $router->get('/adminHomeStat','ShopsController@adminHomeStat');
@@ -44,15 +46,6 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
             $router->post('showProductDetails','ShopProductController@showProductDetails');
         });
     });
-
-
-
-    $router->post('sentContact','ContactUsController@sentContact');
-
-
-
-
-
 
     $router->group(['middleware' => 'auth'], function () use ($router) {
 
