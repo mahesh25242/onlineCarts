@@ -23,6 +23,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { BannerComponent } from './header/banner/banner.component';
 import { FeaturesComponent } from './home/features/features.component';
 import { StepsToStartComponent } from './header/banner/steps-to-start/steps-to-start.component';
+import { TermsAndConditionComponent } from './terms-and-condition/terms-and-condition.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 
 
 
@@ -50,7 +52,9 @@ var config = {
     PageNotFoundComponent,
     BannerComponent,
     FeaturesComponent,
-    StepsToStartComponent
+    StepsToStartComponent,
+    TermsAndConditionComponent,
+    PrivacyPolicyComponent
   ],
   imports: [
     BrowserModule,

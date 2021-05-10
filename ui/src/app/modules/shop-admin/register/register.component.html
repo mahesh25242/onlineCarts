@@ -1,0 +1,147 @@
+<section class="page-section">
+  <div class="container page__container">
+    <div class="row">
+      <div class="col-md-5 col">
+        <h4 class="c-title">Shop Register</h4>
+      </div>
+    </div>
+    <form [formGroup]="registerForm" (cubmit)="save()">
+      <div class="page-content">
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" placeholder="Name"
+            [ngClass]="{'is-invalid': f.name.invalid && ((f.name.dirty || f.name.touched))}"
+            formControlName="name">
+            <ng-container *ngIf="f.name.invalid && (f.name.dirty || f.name.touched)">
+              <div *ngIf="f.name.errors.required" class="invalid-feedback">
+                Name is required.
+              </div>
+            </ng-container>
+          </div>
+
+          <div class="form-group col-md-6">
+            <label for="category">Category</label>
+            <ng-select [items]="(shopCategories$ | async)"
+          [ngClass]="{'is-invalid': ( f.category.errors && f.category.errors.error)}"
+            bindLabel="name"
+            id="category"
+            placeholder="select Category"
+            formControlName="category">
+            </ng-select>
+            <ng-container *ngIf="f.category.invalid && (f.category.dirty || f.category.touched)">
+              <div *ngIf="f.category.errors.required" class="invalid-feedback">
+                Category is required.
+              </div>
+            </ng-container>
+          </div>
+
+          <div class="form-group col-md-6">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email"
+            [ngClass]="{'is-invalid': ( f.email.errors && f.email.errors.error)}"
+            placeholder="Email"
+            formControlName="email">
+            <div *ngIf="f.email.errors && f.email.errors.error" class="invalid-feedback">
+              {{f.email.errors.error}}
+            </div>
+          </div>
+
+          <div class="form-group col-md-6">
+            <label for="country">Country</label>
+            <ng-select [items]="(countries$ | async)"
+            bindLabel="name"
+            id="country"
+            [ngClass]="{'is-invalid': ( f.country.errors && f.country.errors.error)}"
+            placeholder="select Country"
+            formControlName="country">
+            </ng-select>
+            <div *ngIf="f.country.errors && f.country.errors.error" class="invalid-feedback">
+              {{f.country.errors.error}}
+            </div>
+          </div>
+
+          <div class="form-group col-md-6">
+            <label for="phone">Phone</label>
+
+            <div class="input-group mb-2">
+              <div class="input-group-prepend" *ngIf="f.country.value?.phonecode">
+                <div class="input-group-text">+{{ f.country.value?.phonecode }}</div>
+              </div>
+              <input type="tel" class="form-control" id="phone"
+                [ngClass]="{'is-invalid': ( f.phone.errors && f.phone.errors.error)}"
+                placeholder="Phone"
+                formControlName="phone">
+            </div>
+            <div *ngIf="f.phone.errors && f.phone.errors.error" class="invalid-feedback">
+              {{f.phone.errors.error}}
+            </div>
+          </div>
+
+          <div class="form-group col-md-6">
+            <label for="address">Address</label>
+            <textarea class="form-control" id="address"
+            [ngClass]="{'is-invalid': ( f.address.errors && f.address.errors.error)}"
+            placeholder="Address"
+            formControlName="address">
+            </textarea>
+            <div *ngIf="f.address.errors && f.address.errors.error" class="invalid-feedback">
+              {{f.address.errors.error}}
+            </div>
+          </div>
+
+
+          <div class="form-group col-md-6">
+            <label for="State">State</label>
+            <ng-select [items]="(states$ | async)"
+              bindLabel="name"
+              [ngClass]="{'is-invalid': ( f.state.errors && f.state.errors.error)}"
+              id="state"
+              placeholder="select State"
+              formControlName="state">
+              </ng-select>
+            <div *ngIf="f.state.errors && f.state.errors.error" class="invalid-feedback">
+              {{f.state.errors.error}}
+            </div>
+          </div>
+
+          <div class="form-group col-md-6">
+            <label for="City">City</label>
+            <ng-select [items]="(cities$ | async)"
+            [ngClass]="{'is-invalid': ( f.city.errors && f.city.errors.error)}"
+              bindLabel="name"
+              id="city"
+              placeholder="select City"
+              formControlName="city">
+              </ng-select>
+              <div *ngIf="f.city.errors && f.city.errors.error" class="invalid-feedback">
+                {{f.city.errors.error}}
+              </div>
+          </div>
+
+          <div class="form-group col-md-6">
+            <label for="Pin">Pin</label>
+            <input type="text" class="form-control" id="Pin"
+            [ngClass]="{'is-invalid': ( f.pin.errors && f.pin.errors.error)}"
+            placeholder="Pin"
+            formControlName="pin">
+            <div *ngIf="f.pin.errors && f.pin.errors.error" class="invalid-feedback">
+              {{f.pin.errors.error}}
+            </div>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="Local">Local Place</label>
+            <input type="text" class="form-control" id="Local"
+            [ngClass]="{'is-invalid': ( f.local.errors && f.local.errors.error)}"
+            placeholder="Local Place"
+            formControlName="local">
+            <div *ngIf="f.local.errors && f.local.errors.error" class="invalid-feedback">
+              {{f.local.errors.error}}
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </form>
+  </div>
+</section>

@@ -5,13 +5,13 @@
 export const environment = {
   production: false,
   tinyMceApi: 'n6mryrdzt1pclqabsvpbvw6mtym3kj9gpwjguof89d2sv52q',
-  baseUrl: 'http://localhost/cart/api/public/v1',
+  baseUrl: 'http://localhost/onlineCart/api/public/v1',
   //baseUrl: 'https://agoranature.com/api/public/v1', //test
-  recaptchaKey: '6Ld2McEZAAAAABDjGwyJ63pD3ETCQkWCiZqEH39C',
+  recaptchaKey: '6Lca6c0aAAAAAAEXWHxR2Sl7t0OO8L6AdbPkCJq8',
   lumenSecret: 'K6IlhS1oZBgxNQciIEtCoXzlHRGu0MefIkNkp68b',
   client_id: 2 ,
   grant_type: "password",
-  siteAddress: 'http://localhost/cart/api/public',
+  siteAddress: 'http://localhost/onlineCart/api/public',
   //siteAddress: 'https://agoranature.com/api/public', //test
   gMapUrl: `http://maps.google.com`,
   openstreetmap: `https://nominatim.openstreetmap.org`,

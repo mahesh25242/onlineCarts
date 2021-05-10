@@ -5,6 +5,8 @@ import { AboutUsComponent } from './about-us/about-us.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { HowItWorksComponent } from './how-it-works/how-it-works.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { TermsAndConditionComponent } from './terms-and-condition/terms-and-condition.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 
 const routes: Routes = [
   {
@@ -24,8 +26,20 @@ const routes: Routes = [
     component: ContactUsComponent
   },
   {
+    path: 'terms-and-condition',
+    component: TermsAndConditionComponent
+  },
+  {
+    path: 'privacy-policy',
+    component: PrivacyPolicyComponent
+  },
+  {
     path: 'admin',
     loadChildren: () => import('./modules/admin/admin.module').then(m => m.AdminModule)
+  },
+  {
+    path: 'shop',
+    loadChildren: () => import('./modules/shop-admin/shop-admin.module').then(m => m.ShopAdminModule)
   },
   { path: '**', component: PageNotFoundComponent }
 ];
