@@ -390,10 +390,11 @@ class ShopsController extends Controller
             return response(['message' => 'Validation errors', 'errors' =>  $validator->errors(), 'status' => false], 422);
         }
 
+        $eliminatedFolderList = ["api", "assets", "cgi-bin"];
         $base_path = $request->input("base_path", '');
         $base_path = sprintf("/%s/",$base_path);
         $slugCheck = \App\Models\Shop::where("base_path", $base_path)->exists();
-        if($slugCheck ){
+        if($slugCheck || in_array($request->input("base_path", ''), $eliminatedFolderList)){
             return response(['message' => 'Validation errors', 'errors' =>  ["base_path" => 'The give shop url was already taken'], 'status' => false], 422);
         }
 
