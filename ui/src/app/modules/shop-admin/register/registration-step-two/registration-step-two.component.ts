@@ -8,6 +8,7 @@ import Notiflix from "notiflix";
 import { environment } from 'src/environments/environment';
 import { AngularFireAuth } from "@angular/fire/auth";
 import { mergeMap } from 'rxjs/operators';
+import { uniqueId } from 'lodash';
 
 
 @Component({
@@ -39,8 +40,6 @@ export class RegistrationStepTwoComponent implements OnInit {
     save(){
       Notiflix.Block.Pulse(`#registerForm`);
       const postData = {
-        email: '',
-        displayName: '',
         name: this.f.name.value,
         country_id: this.f.country_id.value,
         shop_category_id: this.f.shop_category_id.value,
@@ -53,27 +52,17 @@ export class RegistrationStepTwoComponent implements OnInit {
         local: this.f.local.value,
         terms: this.f.terms.value,
         recaptcha: '',
-        idToken: ''
-
+        idToken: '',
+        uid: ''
       };
 
       this.reCaptchaV3Service.execute(environment.recaptchaKey, 'SignUp', (token) => {
         postData.recaptcha = token;
 
-        this.afAuth.authState.pipe(mergeMap(res=>{
-          console.log(res)
+        this.afAuth.idToken.pipe(mergeMap(idTkn=>{
+          postData.idToken = idTkn;
 
-
-          if(res){
-            postData.email = res.email;
-            postData.displayName = res.displayName;
-            return this.afAuth.idToken.pipe(mergeMap(idTkn=>{
-              postData.idToken = idTkn;
-              return this.shopService.registerShop(postData);
-            }))
-          } else{
-            return throwError(null);
-          }
+          return this.shopService.registerShop(postData);
         })).subscribe(res=>{
           Notiflix.Block.Remove(`#registerForm`);
           this.registerForm.reset();

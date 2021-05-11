@@ -7,6 +7,7 @@ use Validator;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Image;
+use Illuminate\Support\Facades\Hash;
 
 class ShopsController extends Controller
 {
@@ -348,7 +349,6 @@ class ShopsController extends Controller
             'name' => ['required'],
             'country_id' => ['required'],
             'shop_category_id' => ['required'],
-            'email' => ['required'],
             'phone' => ['required'],
             'address' => ['required'],
             'state_id' => ['required'],
@@ -357,31 +357,46 @@ class ShopsController extends Controller
             'local' => ['required'],
         ]);
 
-
-
-
         if($validator->fails()){
             return response(['message' => 'Validation errors', 'errors' =>  $validator->errors(), 'status' => false], 422);
         }
-        $request->merge(["isRegister"=> true]);
+
+
 
 
         $idToken = $request->input("idToken", null);
         $auth = app('firebase.auth');
         //$signInResult = $auth->getUser($uid);;
-
         try {
-            $verifiedIdToken = $auth->signInWithGoogleIdToken($idToken);
+            $verifiedIdToken = $auth->verifyIdToken($idToken);
         } catch (InvalidToken $e) {
             echo 'The token is invalid: '.$e->getMessage();
         } catch (\InvalidArgumentException $e) {
             echo 'The token could not be parsed: '.$idToken.'=='.$e->getMessage();
         }
+        $uid = $verifiedIdToken->claims()->get('sub');
+        $authUser = $auth->getUser($uid);
 
-       return  $authUser = $auth->getUser($verifiedIdToken->firebaseUserId());
+        if( $authUser){
+            $request->merge(
+                [
+                    "isRegister"=> true,
+                    "email" =>  $authUser->email,
+                    "displayName" =>  $authUser->displayName,
+                    "status" => 1,
+                    "city_id" => ($request->input("city_id" , null)) ? json_encode($request->input("city_id" , null)) : null,
+                    "country_id" => ($request->input("country_id" , null)) ? json_encode($request->input("country_id" , null)) : null,
+                    "shop_category_id" => ($request->input("shop_category_id" , null)) ? json_encode($request->input("shop_category_id" , null)) : null,
+                    "state_id" => ($request->input("state_id" , null)) ? json_encode($request->input("state_id" , null)) : null,
+                ]
+            );
+            return $this->store($request);
+        }else{
+            return response(['message' => 'Validation errors', 'errors' =>  ["name" => 'Sorry the logged user has some issue please contact onlinecartsin@gmail.com'], 'status' => false], 422);
+        }
 
-        $this->store($request);
 
-        return response(['data' => $shop, 'message' => 'Account created successfully!', 'status' => true]);
+
+
     }
 }
