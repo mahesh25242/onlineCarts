@@ -26,7 +26,7 @@ class Shop extends Model implements AuthenticatableContract, AuthorizableContrac
         'state_id', 'city_id', 'pin', 'local', 'map',
         'shop_key', 'shop_url', 'status', 'shop_category_id',
         'created_by', 'updated_by', 'deleted_by', 'base_path', 'favicon',
-        'theme_color', 'bg_color', 'short_name', 'icons', 'logo'
+        'theme_color', 'bg_color', 'short_name', 'icons', 'logo', 'is_default'
     ];
 
     protected $appends = array('status_text','is_generated');

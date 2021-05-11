@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Image;
 use Illuminate\Support\Facades\Hash;
+use App\Mail\ShopRegisterNotification;
+use Mail;
 
 class ShopsController extends Controller
 {
@@ -21,7 +23,6 @@ class ShopsController extends Controller
 
 
     public function store(Request $request){
-
         $validator = Validator::make($request->all(), [
             'name' => ['required'],
             'status' => ['required'],
@@ -78,6 +79,16 @@ class ShopsController extends Controller
                 $user->status = 1;
                 $user->save();
 
+                //copy data from default shop
+                $defaultShop = \App\Models\Shop::where("is_default", 1)->get()->take(1)->first();
+                $shop->favicon = $defaultShop->favicon;
+                $shop->theme_color = $defaultShop->theme_color;
+                $shop->bg_color = $defaultShop->bg_color;
+                $shop->short_name = $shop->name;
+                $shop->icons = $defaultShop->icons;
+                $shop->logo = $defaultShop->logo;
+                $shop->save();
+
                 $userRole = \App\Models\UserRole::updateOrCreate(
                     [
                         "shop_id" => $shop->id,
@@ -92,6 +103,16 @@ class ShopsController extends Controller
                 );
             }
 
+            $toEMail = $user->email;
+            if(env('APP_ENV') == 'local'){
+                $toEMail = env('DEVELOPER_MAIL');
+            }
+
+            try{
+                Mail::to($toEMail)->send(new ShopRegisterNotification($user, $shop));
+            }catch (\Swift_TransportException $e) {
+              //  echo 'Caught exception: ',  $e->getMessage(), "\n";
+            }
 
         }
 
@@ -355,13 +376,26 @@ class ShopsController extends Controller
             'city_id' => ['required'],
             'pin' => ['required'],
             'local' => ['required'],
+            'base_path' => ['required', 'alpha_dash'],
+        ],[],[
+            'country_id' => 'country',
+            'shop_category_id' => 'category',
+            'state_id' => 'state',
+            'city_id' => 'city',
+            'local' => 'local place',
+            'base_path' => 'shop url',
         ]);
 
         if($validator->fails()){
             return response(['message' => 'Validation errors', 'errors' =>  $validator->errors(), 'status' => false], 422);
         }
 
-
+        $base_path = $request->input("base_path", '');
+        $base_path = sprintf("/%s/",$base_path);
+        $slugCheck = \App\Models\Shop::where("base_path", $base_path)->exists();
+        if($slugCheck ){
+            return response(['message' => 'Validation errors', 'errors' =>  ["base_path" => 'The give shop url was already taken'], 'status' => false], 422);
+        }
 
 
         $idToken = $request->input("idToken", null);

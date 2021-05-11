@@ -12,6 +12,21 @@
       </div>
 
       <div class="form-group col-md-6">
+        <label for="base_path">Shop Url</label>
+        <input type="base_path" class="form-control" id="base_path"
+        [ngClass]="{'is-invalid': ( f.base_path.errors)}"
+        placeholder="Shop Url"
+        formControlName="base_path">
+        <div *ngIf="f.base_path.errors && f.base_path.errors.error" class="invalid-feedback">
+          {{f.base_path.errors.error}}
+        </div>
+        <small>This will keep as shop url. Example:
+          https://www.onlinecarts.com/{{ (f.base_path.value) ? f.base_path.value : 'shop-name' }}.
+          You can choose only available url
+        </small>
+      </div>
+
+      <div class="form-group col-md-6">
         <label for="shop_category_id">Category</label>
         <ng-select [items]="(shopCategories$ | async)"
         [ngClass]="{'is-invalid': ( f.shop_category_id.errors && f.shop_category_id.errors.error)}"
@@ -25,16 +40,7 @@
         </div>
       </div>
 
-      <!-- <div class="form-group col-md-6">
-        <label for="email">Email</label>
-        <input type="email" class="form-control" id="email"
-        [ngClass]="{'is-invalid': ( f.email.errors && f.email.errors.error)}"
-        placeholder="Email"
-        formControlName="email">
-        <div *ngIf="f.email.errors && f.email.errors.error" class="invalid-feedback">
-          {{f.email.errors.error}}
-        </div>
-      </div> -->
+
 
       <div class="form-group col-md-6">
         <label for="country_id">Country</label>

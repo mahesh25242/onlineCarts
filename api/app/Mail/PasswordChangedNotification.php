@@ -1,7 +1,7 @@
 <?php
 namespace App\Mail;
 use Illuminate\Mail\Mailable;
-use App\User;
+use App\Models\User;
 class PasswordChangedNotification extends Mailable
 {
     /**

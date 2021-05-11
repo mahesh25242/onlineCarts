@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, Subscription, throwError } from 'rxjs';
 import { City, Country, ShopCategory, State } from 'src/app/lib/interfaces';
 import { CityService, CountryService, ShopCategoryService, ShopService, StateService } from 'src/app/lib/services';
@@ -51,6 +51,7 @@ export class RegistrationStepTwoComponent implements OnInit {
         pin: this.f.pin.value,
         local: this.f.local.value,
         terms: this.f.terms.value,
+        base_path: this.f.base_path.value,
         recaptcha: '',
         idToken: '',
         uid: ''
@@ -91,12 +92,13 @@ export class RegistrationStepTwoComponent implements OnInit {
 
 
   ngOnInit(): void {
+
     this.registerForm = this.formBuilder.group({
       country_id: [null, []],
       shop_category_id: [null, []],
       name: [null, []],
       short_name:[null, []],
-      //email: [null, []],
+      base_path: [null, []],
       phone: [null, []],
       address: [null, []],
       state_id: [null, []],
