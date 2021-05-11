@@ -102,10 +102,23 @@ class ShopsController extends Controller
                     ]
                 );
             }
+            //generate the registered site
+            $this->generateSite(
+                $request->merge(
+                    [
+                        "shop_key"=> $shop->shop_key
+                    ]
+                )
+            );
 
             $toEMail = $user->email;
             if(env('APP_ENV') == 'local'){
                 $toEMail = env('DEVELOPER_MAIL');
+            }else{
+                //copy file to root
+                $fromPath = 'assets/shop/'.$shop->shop_key.'/www';
+                $toPath = 'assets/aaa/';
+                \File::copyDirectory( $fromPath, resource_path($toPath));
             }
 
             try{
@@ -328,6 +341,11 @@ class ShopsController extends Controller
                 }
             }
          }
+
+         $fromPath = 'assets/shop/'.$shop->shop_key.'/www';
+        $toPath = 'assets/aaa/';
+        Storage::copy($fromPath,$toPath);
+
          return response(['message' => 'successfully generated',  'status' => true]);
     }
 
