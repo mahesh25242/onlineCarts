@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Mail\ShopRegisterNotification;
 use Mail;
 
+
 class ShopsController extends Controller
 {
 
@@ -117,8 +118,8 @@ class ShopsController extends Controller
             }else{
                 //copy file to root
                 $fromPath = 'assets/shop/'.$shop->shop_key.'/www';
-                $toPath = 'assets/aaa/';
-                \File::copyDirectory( $fromPath, resource_path($toPath));
+                $toPath = '../../..'.rtrim($shop->base_path, '/');
+                File::copyDirectory( $fromPath, '../../../');
             }
 
             try{
@@ -342,9 +343,8 @@ class ShopsController extends Controller
             }
          }
 
-         $fromPath = 'assets/shop/'.$shop->shop_key.'/www';
-        $toPath = 'assets/aaa/';
-        Storage::copy($fromPath,$toPath);
+
+
 
          return response(['message' => 'successfully generated',  'status' => true]);
     }
@@ -437,6 +437,7 @@ class ShopsController extends Controller
                     "email" =>  $authUser->email,
                     "displayName" =>  $authUser->displayName,
                     "status" => 1,
+                    "base_path" => $base_path,
                     "city_id" => ($request->input("city_id" , null)) ? json_encode($request->input("city_id" , null)) : null,
                     "country_id" => ($request->input("country_id" , null)) ? json_encode($request->input("country_id" , null)) : null,
                     "shop_category_id" => ($request->input("shop_category_id" , null)) ? json_encode($request->input("shop_category_id" , null)) : null,
