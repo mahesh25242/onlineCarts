@@ -408,7 +408,7 @@ class ShopsController extends Controller
             return response(['message' => 'Validation errors', 'errors' =>  $validator->errors(), 'status' => false], 422);
         }
 
-        $eliminatedFolderList = ["api", "assets", "cgi-bin"];
+        $eliminatedFolderList = ["api", "assets", "cgi-bin", "shop"];
         $base_path = $request->input("base_path", '');
         $base_path = sprintf("/%s/",$base_path);
         $slugCheck = \App\Models\Shop::where("base_path", $base_path)->exists();
