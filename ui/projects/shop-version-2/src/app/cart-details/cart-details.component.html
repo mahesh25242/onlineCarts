@@ -77,7 +77,7 @@
         </mat-card>
         <div class="order-total">
           <mat-card>
-            <div class="text-center">
+            <div [ngClass.lt-md]="'text-center'" [ngClass.gt-md]="'text-right'">
               <h1>Total: ₹ {{ grandTotal }}</h1>
               <small>( Inclusive of all taxes )</small>
               <!-- <div fxFlex="25%">
