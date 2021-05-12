@@ -48,9 +48,10 @@
       </h1>
       <div >
         <mat-card *ngFor="let item of cart"
-        [ngClass.xs]="'grid-my-list'" >
+        [ngClass.lt-md]="'grid-my-lt-md-list'"
+        [ngClass.gt-md]="'grid-my-gt-md-list'" >
           <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
-            <div fxFlex="12%" fxFlex.xs="10%">
+            <div fxFlex="10%" fxFlex.xs="100%">
               <div class="product-img" [ngStyle]="{'background-image': 'url(' + ((item.product?.shop_product_selected_variant?.shop_product_image?.image) ?  item.product.shop_product_selected_variant.shop_product_image.image_path : 'assets/no-image.jpg') + ')'}">
                 <div *ngIf="item.product?.shop_product_selected_variant?.type.id"
                 [matTooltip]="(item.product?.shop_product_selected_variant?.type.id == 1) ? 'Veg' : ( (item.product?.shop_product_selected_variant?.type.id == 2) ? 'Non-Veg':'' )"
@@ -58,12 +59,12 @@
               <div fxShow fxHide.gt-xs="true" class="inner-img"></div>
               </div>
             </div>
-            <div fxFlex="60%" fxFlex.xs="60%">
+            <div fxFlex="65%" fxFlex.xs="100%">
               <div class="middle">
                 <h4 class="cart-item-header pl-1">
                   <a href="javascript:{}" [routerLink]="'/'+item.product.shop_product_category?.url+'/'+item.product.url"> {{item.product.name}}</a>
                 </h4>
-                <div fxLayout.xs="row" fxLayoutAlign="space-between">
+                <div fxLayout.xs="row" fxLayout.gt-xs="column" fxLayoutAlign="space-between">
                   <small class="block pl-1">
                     {{item.product.shop_product_selected_variant.name}}
                     {{ item.qty}} {{ (item.qty > 1) ? 'packets': 'packet' }}
@@ -87,16 +88,19 @@
                 </div>
               </div>
             </div>
-            <div fxFlex="60%" fxFlex.xs="60%">
-              <button fxFlex="50%"  mat-raised-button  color="primary" (click)="editMessage(item)"
-              [matTooltip]="'Add a custom message for '+item.product.name">
-                <mat-icon>add_comment</mat-icon> Custom Message
-              </button>
-            <!-- </ng-container> -->
-              <button fxFlex="50%"  mat-raised-button  color="warn" (click)="deleteItem(item)"
-              [matTooltip]="'Remove ' +item.product.name+ ' from cart'">
-               <mat-icon>delete</mat-icon> Remove
-              </button>
+            <div fxFlex="25%" fxFlex.xs="100%">
+              <div fxLayout="row" fxLayoutAlign="center center">
+                <button fxFlex.xs="50%" class="itm-block-btn"  mat-flat-button  color="warn" (click)="deleteItem(item)"
+                [matTooltip]="'Remove ' +item.product.name+ ' from cart'">
+                 <mat-icon>delete</mat-icon> Remove
+                </button>
+                <button fxFlex.xs="50%" class="itm-block-btn" mat-flat-button  color="primary" (click)="editMessage(item)"
+                [matTooltip]="'Add a custom message for '+item.product.name">
+                  <mat-icon>add_comment</mat-icon> Custom Message
+                </button>
+              </div>
+
+
             </div>
           </div>
 
@@ -120,8 +124,15 @@
       </div>
 
 
-      <div class="fixed">asasas</div>
+      <div class="bottom-fixed" fxHide.gt-xs="true">
+        <ng-container *ngTemplateOutlet="sayHelloTemplate">
+        </ng-container>
+      </div>
     </ng-container>
   </form>
 </ng-container>
 </div>
+
+<ng-template #sayHelloTemplate>
+  <p> Say Hello</p>
+</ng-template>
