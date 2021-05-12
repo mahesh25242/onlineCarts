@@ -58,7 +58,7 @@
               </div>
             </div>
             <div fxFlex="25%" fxFlex.xs="100%" >
-              <div fxLayout="row" fxLayoutAlign="center center" fxFill="fill">
+              <div fxLayout="row" fxLayoutAlign="center end" fxFill="fill">
                 <button fxFlex.xs="50%" class="itm-block-btn"  mat-flat-button  color="warn" (click)="deleteItem(item)"
                 [matTooltip]="'Remove ' +item.product.name+ ' from cart'">
                  <mat-icon>delete</mat-icon> <span fxHide.sm="true">Remove</span>
@@ -66,7 +66,7 @@
                 <button fxFlex.xs="50%" class="itm-block-btn" mat-flat-button
                   color="primary" (click)="editMessage(item)"
                 [matTooltip]="'Add a custom message for '+item.product.name">
-                  <mat-icon>add_comment</mat-icon> <span fxHide.sm="true">Custom Message</span>
+                  <mat-icon>add_comment</mat-icon> <span fxHide.sm="true"> Custom Message</span>
                 </button>
               </div>
 
@@ -86,7 +86,7 @@
             </div>
 
             <section fxHide.lt-sm="true" class="right-section"  [matTooltip]="(!terms) ? 'Please accept terms' : ''"
-                fxLayout.lt-md="column" fxLayout.gt-md="row" fxLayoutAlign="space-between">
+                fxLayout="row" fxLayoutAlign="space-between">
                 <ng-container *ngTemplateOutlet="sayHelloTemplate">
                 </ng-container>
             </section>
