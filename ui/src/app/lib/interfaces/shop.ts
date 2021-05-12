@@ -32,6 +32,7 @@ export interface Shop {
   user_role?: UserRole,
   shop_url?: string,
   shop_delivery?: ShopDelivery[],
+  shop_delivery_filtered: { free?: ShopDelivery[], paid?: ShopDelivery[] }
   is_generated?: boolean,
   base_path?: string,
   favicon?: string,

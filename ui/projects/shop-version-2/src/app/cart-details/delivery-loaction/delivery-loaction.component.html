@@ -9,7 +9,7 @@
             Please choose a pick up location
           </mat-error>
           <mat-accordion>
-            <mat-expansion-panel   *ngFor="let shop_delivery of shop?.shop_delivery.free"
+            <mat-expansion-panel   *ngFor="let shop_delivery of shop?.shop_delivery_filtered.free"
             [expanded]="shop_delivery.isOpened"
             (opened)="shop_delivery.isOpened = true"
               (closed)="shop_delivery.isOpened = false">
@@ -41,7 +41,7 @@
 
 
           <app-order-form  [mapUrl]="mapUrl"
-          [deliveryloc]="shop?.shop_delivery.paid"
+          [deliveryloc]="shop?.shop_delivery_filtered.paid"
           [formGroup]="customerFrm"></app-order-form>
         </ng-template>
       </mat-tab>

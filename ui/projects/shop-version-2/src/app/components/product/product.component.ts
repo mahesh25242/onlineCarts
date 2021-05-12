@@ -20,7 +20,7 @@ export class ProductComponent implements OnInit, OnDestroy {
   products$: Observable<ShopProductWithPagination>;
   allProduct: ShopProduct[];
 
-  breakpoint:number;
+
 
   environment = environment;
   current_page: number = 0;
@@ -36,11 +36,6 @@ export class ProductComponent implements OnInit, OnDestroy {
     }
 
 
-
-
-    onResize(event) {
-      this.breakpoint = (event.target.innerWidth <= 600) ? 2 : 4;
-    }
 
 
     loadMore(){
@@ -73,7 +68,7 @@ export class ProductComponent implements OnInit, OnDestroy {
     }
 
   ngOnInit(): void {
-    this.breakpoint = (window.innerWidth <= 400) ? 2 : 4;
+
 
     this.shopProductService.allProduct = [];
     this.products$ = this.shopProductService.products.pipe(tap(res=>{

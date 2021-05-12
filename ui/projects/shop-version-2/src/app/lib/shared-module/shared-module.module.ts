@@ -14,6 +14,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
 import { FocusInvalidInputDirective } from '../../components/focus-invalid-input.directive';
 
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
@@ -67,6 +68,7 @@ Notiflix.Block.Init({ svgColor:"#204486", });
     NgxMatTimepickerModule,
     NgxMatDatetimePickerModule,
     NgxMatNativeDateModule,
+    FlexLayoutModule,
 
     MatIconModule,
     MatButtonModule,
@@ -109,6 +111,7 @@ Notiflix.Block.Init({ svgColor:"#204486", });
     NgxMatDatetimePickerModule,
     NgxMatNativeDateModule,
 
+    FlexLayoutModule,
 
     MatIconModule,
     MatButtonModule,

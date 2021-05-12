@@ -20,7 +20,7 @@ export class ShopService {
     return this.shop$.asObservable().pipe(map(res=>{
         const delivery = res?.shop_delivery;
         if(delivery){
-          res.shop_delivery = delivery.reduce(function (r, a) {
+          res.shop_delivery_filtered = delivery.reduce(function (r, a) {
             let idx = (a.charge) ? 'paid': 'free';
             r[idx] = r[idx] || [];
             r[idx].push(a);
