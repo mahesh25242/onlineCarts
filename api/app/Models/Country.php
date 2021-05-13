@@ -23,6 +23,7 @@ class Country extends Model implements AuthenticatableContract, AuthorizableCont
         'code', 'name', 'phonecode'
     ];
 
+
     public function shop()
     {
         return $this->hasMany('App\Models\Shop');

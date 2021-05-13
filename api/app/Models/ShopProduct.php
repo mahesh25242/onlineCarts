@@ -25,6 +25,15 @@ class ShopProduct extends Model implements AuthenticatableContract, Authorizable
         'shop_product_category_id', 'created_by', 'updated_by', 'deleted_by'
     ];
 
+    protected $casts = [
+        'status' => 'boolean',
+        'shop_id' => 'integer',
+        'sortorder' => 'integer',
+        'shop_product_category_id' => 'integer',
+        'created_by' => 'integer',
+        'updated_by' => 'integer',
+        'deleted_by' => 'integer'
+    ];
 
     public static function boot() {
         parent::boot();

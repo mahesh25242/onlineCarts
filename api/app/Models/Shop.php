@@ -29,6 +29,18 @@ class Shop extends Model implements AuthenticatableContract, AuthorizableContrac
         'theme_color', 'bg_color', 'short_name', 'icons', 'logo', 'is_default'
     ];
 
+    protected $casts = [
+        'status' => 'boolean',
+        'is_default' => 'boolean',
+        'country_id' => 'integer',
+        'state_id' => 'integer',
+        'city_id' => 'integer',
+        'shop_category_id' => 'integer',
+        'created_by' => 'integer',
+        'updated_by' => 'integer',
+        'deleted_by' => 'integer'
+    ];
+
     protected $appends = array('status_text','is_generated');
 
     public function getStatusTextAttribute()

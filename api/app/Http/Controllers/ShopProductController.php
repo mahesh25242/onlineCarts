@@ -59,7 +59,7 @@ class ShopProductController extends Controller
             'name' => ['required'],
             'status' => ['required'],
             'variants.*.name' => ['required', 'string'],
-            'variants.*.price' => ['required', 'integer'],
+            'variants.*.price' => ['required', 'numeric'],
         ];
 
 
@@ -146,9 +146,9 @@ class ShopProductController extends Controller
 
                     // $productImg = pathinfo($productImg, PATHINFO_FILENAME).'.webp';
 
-                    if(Storage::disk('public')->exists(str_replace("assets/", "", $destinationPath)."/{$productImg}")){
-                        Storage::disk('public')->delete(str_replace("assets/", "", $destinationPath)."/{$productImg}");
-                    }
+                    // if(Storage::disk('public')->exists(str_replace("assets/", "", $destinationPath)."/{$productImg}")){
+                    //     Storage::disk('public')->delete(str_replace("assets/", "", $destinationPath)."/{$productImg}");
+                    // }
 
                     if(!Storage::disk('public')->exists("shop/index.html")){
                         Storage::disk('public')->put("shop/index.html", 'unauthorised access');
@@ -166,19 +166,19 @@ class ShopProductController extends Controller
                         Storage::disk('public')->put("shop/{$shopProduct->shop->shop_key}/products/index.html", 'unauthorised access');
                     }
 
-                    $img = Image::make($destinationPath.'/'.$productImg)->resize(350, null, function ($constraint) {
-                        $constraint->aspectRatio();
-                    });
+                    // $img = Image::make($destinationPath.'/'.$productImg)->resize(350, null, function ($constraint) {
+                    //     $constraint->aspectRatio();
+                    // });
 
 
-                    $img->text($shopProduct->shop->name, 20, 20, function($font) {
-                        $font->size(24);
-                        $font->color(array(255, 255, 255, 0.5));
+                    // $img->text($shopProduct->shop->name, 20, 20, function($font) {
+                    //     $font->size(24);
+                    //     $font->color(array(255, 255, 255, 0.5));
 
-                    });
+                    // });
 
 
-                    $img->save($destinationPath.'/'.$productImg, 60);
+                    // $img->save($destinationPath.'/'.$productImg, 60);
 
 
 

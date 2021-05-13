@@ -24,6 +24,9 @@ class City extends Model implements AuthenticatableContract, AuthorizableContrac
     ];
 
 
+    protected $casts = [
+        'state_id' => 'integer'
+    ];
 
     public function user()
     {

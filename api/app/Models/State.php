@@ -23,6 +23,10 @@ class State extends Model implements AuthenticatableContract, AuthorizableContra
     protected $fillable = [
         'name', 'country_id'
     ];
+    protected $casts = [
+        'country_id' => 'integer'
+    ];
+
 
 
     public function shop()
