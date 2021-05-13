@@ -4,12 +4,13 @@ import { DashBoardComponent } from './dash-board/dash-board.component';
 import { AdminAuthGuard, NegateAuthGuard } from '../../lib/guard';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { AdminHomeComponent } from './admin-home.component';
-
-
-
-
+import { SignInComponent } from './sign-in/sign-in.component';
 
 const routes: Routes = [
+  {
+    path: 'login',
+    component: SignInComponent,
+  },
   {
     path: '',
     component: AdminHomeComponent,

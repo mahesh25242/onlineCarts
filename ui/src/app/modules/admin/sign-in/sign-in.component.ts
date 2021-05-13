@@ -1,12 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../../environments/environment';
 
-import { UserService } from '../lib/services';
+import { UserService } from '../../../lib/services';
 import { Subscription } from 'rxjs';
 import Notiflix from "notiflix";
 import { mergeMap, map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-in',
@@ -19,8 +19,8 @@ export class SignInComponent implements OnInit, OnDestroy {
   invalidlogin:boolean = false;
   signInSubscription: Subscription;
   constructor(private formBuilder: FormBuilder,
-    public modal: NgbActiveModal,
-    private userService: UserService) { }
+    private userService: UserService,
+    private router: Router,) { }
 
   get f() { return this.signInFrm.controls; }
 
@@ -57,9 +57,8 @@ export class SignInComponent implements OnInit, OnDestroy {
       }));
     })).subscribe(()=>{
 
-      this.modal.dismiss('cancel click')
       Notiflix.Loading.Remove();
-      //this.router.navigate([`/${res.role_url}`]);
+      this.router.navigate([`/admin/shops`]);
     }, ()=>{
       Notiflix.Loading.Remove();
         this.invalidlogin = true;

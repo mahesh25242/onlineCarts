@@ -15,7 +15,6 @@ import { AppComponent } from './app.component';
 
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
-import { SignInComponent } from './sign-in/sign-in.component';
 import { HomeComponent } from './home/home.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { HowItWorksComponent } from './how-it-works/how-it-works.component';
@@ -38,7 +37,6 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    SignInComponent,
     HomeComponent,
     AboutUsComponent,
     HowItWorksComponent,

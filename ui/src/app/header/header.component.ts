@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { SignInComponent } from '../sign-in/sign-in.component';
+
 import { UserService } from '../lib/services';
 import { Subscription, Observable } from 'rxjs';
 import { User } from '../lib/interfaces';
@@ -20,8 +19,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   signOutSubscription: Subscription;
   loggedUser$: Observable<User>;
   isNavbarCollapsed:boolean = true;
-  constructor(private _modalService: NgbModal,
-    private userService: UserService,
+  constructor(private userService: UserService,
     private router: Router) { }
 
   ngOnInit(): void {
@@ -31,12 +29,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
   }
 
-  signIn(){
-    const activeModal = this._modalService.open(SignInComponent, {
-      size: 'lg'
-    });
-    //activeModal.componentInstance.isEdit = false;
-  }
+
 
   signOut(){
     this.signOutSubscription = this.userService.setUserLogin({action:'SignOut'}).pipe(mergeMap(sRes=>{

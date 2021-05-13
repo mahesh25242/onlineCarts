@@ -27,6 +27,7 @@ export class AdminAuthGuard implements CanActivate {
           return true;
         }),
         catchError(x => {
+          this.router.navigate([`/admin/login`]);
           return throwError(x);
         })
       );
