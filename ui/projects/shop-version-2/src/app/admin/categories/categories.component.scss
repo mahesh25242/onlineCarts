@@ -1,7 +1,4 @@
-.container {
-    width:100%;
-    max-width: calc(100% - 83px);
-}
+
 .mb-10 {
     margin-bottom:15px;
 }
@@ -9,7 +6,7 @@
 
 .mat-icon-button {
     width:40px;
-    height:22px;  
+    height:22px;
     line-height:22px;
 }
 td, th {
@@ -28,13 +25,13 @@ td, th {
 }
 
 @media only screen and (max-width: 768px) {
-   
+
     .container {
         max-width: calc(100% - 15px);
     }
     tr {
         border-right: 1px solid #eaeaea;
-       
+
     }
 
 }

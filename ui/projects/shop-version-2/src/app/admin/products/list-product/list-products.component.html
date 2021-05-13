@@ -1,9 +1,13 @@
 <div class="header-inner"></div>
 <div class="container">
-<h1>
-  Products
-  <button mat-raised-button color="primary" type="button" class="float-right"  routerLink="add/0"><mat-icon class="add-icon-position">add</mat-icon>Create Product</button>
-</h1>
+
+  <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
+    <h1 fxFlex="80%" fxFlex.xs="100%">
+      Products
+    </h1>
+    <button fxFlex="20%" fxFlex.xs="100%"  mat-raised-button color="primary" type="button" class="float-right"  routerLink="add/0"><mat-icon class="add-icon-position">add</mat-icon>Create Product</button>
+  </div>
+
 
 
 <app-search-product  [pageEvent]="pageEvent"></app-search-product>
