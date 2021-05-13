@@ -20,6 +20,9 @@ export class HomeComponent implements OnInit {
     orders?: number,
     products?: number,
   }>;
+  displayedColumns: string[] = ['id', 'name', 'total', 'shop_delivery', 'created_at', 'status_text'];
+
+
   constructor(private generalService: GeneralService) { }
 
   ngOnInit(): void {
