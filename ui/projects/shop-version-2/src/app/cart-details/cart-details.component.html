@@ -59,11 +59,11 @@
             </div>
             <div fxFlex="25%" fxFlex.xs="100%" >
               <div fxLayout="row" fxLayoutAlign="center end" fxFill="fill">
-                <button fxFlex.xs="50%" class="itm-block-btn"  mat-flat-button  color="warn" (click)="deleteItem(item)"
+                <button type="button" fxFlex.xs="50%" class="itm-block-btn"  mat-flat-button  color="warn" (click)="deleteItem(item)"
                 [matTooltip]="'Remove ' +item.product.name+ ' from cart'">
                  <mat-icon>delete</mat-icon> <span fxHide.sm="true">Remove</span>
                 </button>
-                <button fxFlex.xs="50%" class="itm-block-btn" mat-flat-button
+                <button type="button" fxFlex.xs="50%" class="itm-block-btn" mat-flat-button
                   color="primary" (click)="editMessage(item)"
                 [matTooltip]="'Add a custom message for '+item.product.name">
                   <mat-icon>add_comment</mat-icon> <span fxHide.sm="true"> Custom Message</span>
