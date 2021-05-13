@@ -21,12 +21,14 @@
 
           <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
             <div fxFlex="10%" fxFlex.xs="100%">
-              <div class="product-img" [ngStyle]="{'background-image': 'url(' + ((item.product?.shop_product_selected_variant?.shop_product_image?.image) ?  item.product.shop_product_selected_variant.shop_product_image.image_path : 'assets/no-image.jpg') + ')'}">
-                <div *ngIf="item.product?.shop_product_selected_variant?.type.id"
-                [matTooltip]="(item.product?.shop_product_selected_variant?.type.id == 1) ? 'Veg' : ( (item.product?.shop_product_selected_variant?.type.id == 2) ? 'Non-Veg':'' )"
-              [ngClass]="{'veg': item.product?.shop_product_selected_variant?.type.id == 1, 'nonveg': item.product?.shop_product_selected_variant?.type.id == 2}"></div>
-              <div fxShow fxHide.gt-xs="true" class="inner-img"></div>
-              </div>
+              <a [routerLink]="'/'+item.product.shop_product_category?.url+'/'+item.product.url">
+                <div class="product-img" [ngStyle]="{'background-image': 'url(' + ((item.product?.shop_product_selected_variant?.shop_product_image?.image) ?  item.product.shop_product_selected_variant.shop_product_image.image_path : 'assets/no-image.jpg') + ')'}">
+                  <div *ngIf="item.product?.shop_product_selected_variant?.type.id"
+                  [matTooltip]="(item.product?.shop_product_selected_variant?.type.id == 1) ? 'Veg' : ( (item.product?.shop_product_selected_variant?.type.id == 2) ? 'Non-Veg':'' )"
+                [ngClass]="{'veg': item.product?.shop_product_selected_variant?.type.id == 1, 'nonveg': item.product?.shop_product_selected_variant?.type.id == 2}"></div>
+                <div fxShow fxHide.gt-xs="true" class="inner-img"></div>
+                </div>
+              </a>
             </div>
             <div fxFlex="65%" fxFlex.xs="100%">
               <div class="middle">

@@ -1,18 +1,18 @@
 <form [formGroup]="customerFrm">
   <div class="selectDelevery" >
-    <h3>Delivered to: </h3>
+    <h3>Delivered to:  <mat-error *ngIf="!customerFrm.controls.selectedLocation.value">
+      Please choose a pick up from shop or home delivery
+    </mat-error></h3>
 
     <mat-tab-group mat-align-tabs="start" *ngIf="(shop$ | async) as shop" dynamicHeight >
       <mat-tab label="Pickup From Shop">
         <ng-template matTabContent>
-          <mat-error *ngIf="!customerFrm.controls.selectedLocation.value">
-            Please choose a pick up location
-          </mat-error>
+
           <mat-accordion>
             <mat-expansion-panel   *ngFor="let shop_delivery of shop?.shop_delivery_filtered.free"
             [expanded]="shop_delivery.isOpened"
             (opened)="shop_delivery.isOpened = true"
-              (closed)="shop_delivery.isOpened = false">
+              (closed)="shop_delivery.isOpened = false" [ngClass]="{'selected': customerFrm.controls.selectedLocation.value?.id == shop_delivery.id}">
               <mat-expansion-panel-header>
                 <mat-panel-title>
                   {{shop_delivery.name}}

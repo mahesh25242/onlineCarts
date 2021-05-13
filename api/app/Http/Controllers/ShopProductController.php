@@ -16,6 +16,7 @@ class ShopProductController extends Controller
     }
 
     public function products(Request $request){
+
         $perPage = $request->input("pageSize", 20);
         $shopKey = $request->header('shopKey');
         if($shopKey){
@@ -45,10 +46,14 @@ class ShopProductController extends Controller
 
         if($request->input("q", null)){
             $q = $request->input("q", null);
-            $products = $products->where("name", 'like', "%{$q}%");
-            $products = $products->orwhereHas("shopProductCategory", function($qry) use($q){
-                $qry->where("name", 'like', "%{$q}%");
-            });
+             //$products = $products->where("name", 'like', "%{$q}%");
+             $products = $products->where(function($query)  use($q){
+
+                $query->where("name", 'like', "%{$q}%")->orwhereHas("shopProductCategory", function($qry) use($q){
+                    $qry->where("name", 'like', "%{$q}%");
+                });
+             });
+
         }
         return response($products->orderBy("sortorder", 'ASC')->paginate($perPage ));
     }
