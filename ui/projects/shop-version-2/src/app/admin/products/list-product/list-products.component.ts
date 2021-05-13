@@ -19,7 +19,7 @@ export class ListProductsComponent implements OnInit {
   pageEvent: PageEvent;
   products$: Observable<ShopProductWithPagination>;
   private product$: BehaviorSubject<ShopProduct> = new BehaviorSubject<ShopProduct>(null);
-  displayedColumns: string[] = ['no', 'name', 'category',  'status', 'options'];
+  displayedColumns: string[] = ['no', "image", 'name', 'category',  'status', 'options'];
 
   constructor(private shopProductService: ShopProductService,
     public dialog: MatDialog,

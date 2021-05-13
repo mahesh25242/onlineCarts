@@ -15,7 +15,7 @@ import { environment } from '../../../environments/environment';
 })
 export class ShopDeliveryComponent implements OnInit {
   deliveries$: Observable<ShopDelivery[]>;
-  displayedColumns: string[] = ['no', 'name', 'charge', 'need_cust_loc', 'options'];
+  displayedColumns: string[] = ['no', 'name', 'charge', 'need_cust_loc', 'min_amount', 'options'];
 
   constructor(private shopService: ShopService,
     public dialog: MatDialog,

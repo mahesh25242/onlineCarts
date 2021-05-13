@@ -3,8 +3,8 @@
 <ng-container *ngIf="(stat$ | async) as stat">
 
 
-<div class="stat-grid" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
-  <mat-card class="" fxFlex="25%" fxFlex.lt-sm="100%">
+<div class="stat-grid" fxLayout="row" fxLayout.xs="column" fxFill="fill" fxLayoutAlign="space-between">
+  <mat-card class="" fxFlex="25%" fxFlex.lt-sm="100%" >
    <div class="card-icon card-orange">
      <mat-icon>shopping_basket</mat-icon>
      <h1>{{ stat.categories}}</h1>
@@ -44,13 +44,10 @@
     <div  [ngClass.lt-sm]="'has-mobile-cards'">
       <table mat-table [dataSource]="stat.latest_orders">
 
-        <!--- Note that these columns can be defined in any order.
-              The actual rendered columns are set as a property on the row definition" -->
-
         <!-- id Column -->
         <ng-container matColumnDef="id">
-          <th mat-header-cell *matHeaderCellDef> No. </th>
-          <td mat-cell *matCellDef="let element" data-label="No."> {{element.id}} </td>
+          <th mat-header-cell *matHeaderCellDef>Order No. </th>
+          <td mat-cell *matCellDef="let element" data-label="Order No."> {{element.id}} </td>
         </ng-container>
 
         <!-- Name Column -->
