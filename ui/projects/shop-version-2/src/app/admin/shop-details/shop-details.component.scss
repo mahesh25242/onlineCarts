@@ -1,6 +1,6 @@
 .container {
     width:100%;
-    max-width: calc(100% - 83px);
+    max-width: calc(100% - 30px);
 }
 .grid-form-container {
     display: grid;
@@ -15,14 +15,11 @@ input {
 mat-card {
     padding: 15px!important;
     margin-bottom: 30px;
-   
+
 }
 @media only screen and (max-width: 768px) {
     .grid-form-container {
         grid-template-columns:1fr;
-    }
-    .container {
-        max-width: calc(100% - 15px);
     }
 
 }
