@@ -13,7 +13,7 @@ import { GeneralService } from 'src/app/lib/services';
   styleUrls: ['./banner.component.scss']
 })
 export class BannerComponent implements OnInit, OnDestroy {
-  images: Array<{image: string, title?: string , description?: string}>;
+  images: Array<{image: string}>;
 
   showBanner$: Observable<boolean>;
   constructor(private _modalService: NgbModal,
@@ -23,14 +23,10 @@ export class BannerComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.images = [
       {
-        image: 'assets/banner2.jpg',
-        title: "test",
-        description: "test descrpition"
+        image: 'assets/banner2.jpg'
       },
       {
-        image: 'assets/banner3.jpg',
-        title: "test",
-        description: "test descrpition"
+        image: 'assets/banner3.jpg'
       }
     ];
 
