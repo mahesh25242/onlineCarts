@@ -107,7 +107,7 @@ export class CreateCategoryComponent implements OnInit, OnDestroy {
         id: this.data?.id,
         name: this.data?.name,
         description: this.data?.description,
-        status: (this.data?.status >= 0) ? this.data?.status : 1,
+        status: (this.data?.status) ? 1 : (this.data?.status == 0 ? 0 : 1),
         sortorder: (this.data?.sortorder) ? this.data?.sortorder : 1,
         is_maticon: (this.data?.is_maticon) ? this.data?.is_maticon : 1
       });
