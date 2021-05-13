@@ -51,7 +51,7 @@ export class CreateCategoryComponent implements OnInit, OnDestroy {
     formData.append('id', `${(this.f.id.value) ? this.f.id.value : 0}`);
     formData.append('name', (this.f.name.value) ? this.f.name.value : '');
     formData.append('description', (this.f.description.value) ? this.f.description.value : '');
-    formData.append('status', `${this.f.status.value}`);
+    formData.append('status', (this.f.status.value) ? '1' : '0');
     formData.append('sortorder', `${this.f.sortorder.value}`);
 
     formData.append(`is_maticon`, (this.f.is_maticon.value) ? `1` : `0`);
