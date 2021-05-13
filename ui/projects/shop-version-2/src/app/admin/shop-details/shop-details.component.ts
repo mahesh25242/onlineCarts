@@ -31,6 +31,7 @@ export class ShopDetailsComponent implements OnInit, OnDestroy {
   updateShop(){
     const postData = {
       name: this.f.name.value,
+      short_name: this.f.short_name.value,
       email: this.f.email.value,
       phone: this.f.phone.value,
       address: this.f.address.value,
@@ -39,6 +40,9 @@ export class ShopDetailsComponent implements OnInit, OnDestroy {
       city_id: this.f.city_id.value,
       pin: this.f.pin.value ,
       local: this.f.local.value,
+      theme_color: this.f.theme_color.value,
+      bg_color: this.f.bg_color.value,
+      map: this.f.map.value,
     }
     this.shopService.saveShopDetail(postData).pipe(mergeMap(res=>{
       return this.shopService.shopDetail();
@@ -70,6 +74,7 @@ export class ShopDetailsComponent implements OnInit, OnDestroy {
       const phone = (res?.phone) ? res?.phone.slice(2): '';
       this.shopDetailsFrm.patchValue({
         name: res?.name,
+        short_name: res?.short_name,
         email: res?.email,
         phone: phone,
         address: res?.address,
@@ -78,11 +83,15 @@ export class ShopDetailsComponent implements OnInit, OnDestroy {
         city_id: res?.city,
         pin: res?.pin ,
         local: res?.local,
+        theme_color: res?.theme_color,
+        bg_color: res?.bg_color,
+        map: res?.map,
       });
     }));
 
     this.shopDetailsFrm = this.formBuilder.group({
       name: [null, []],
+      short_name: [null, []],
       email: [null, []],
       phone: [null, []],
       address: [null, []],
@@ -91,6 +100,9 @@ export class ShopDetailsComponent implements OnInit, OnDestroy {
       city_id: [null, []],
       pin: [null, []] ,
       local: [null, []] ,
+      theme_color: [null, []] ,
+      bg_color: [null, []] ,
+      map: [null, []] ,
     });
 
     this.countries$ = this.countryServive.countries();

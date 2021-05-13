@@ -222,12 +222,14 @@ class ShopsController extends Controller
         $phone = $request->input("country_id.phonecode", '91').$phone;
         $shopInput = [
             "name" => $request->input("name", ''),
+            "short_name" => $request->input("short_name", ''),
             "phone" => $phone,
             "address" => $request->input("address", ''),
             "pin" => $request->input("pin", ''),
             "country_id" => $request->input("country_id.id", 0),
             "state_id" => $request->input("state_id.id", 0),
             "city_id" => $request->input("city_id.id", 0),
+            "map" => $request->input("map", ''),
         ];
         $shopKey = $request->header('shopKey');
         $shopKey = ($shopKey) ? $shopKey : $request->input("shop_key",'');

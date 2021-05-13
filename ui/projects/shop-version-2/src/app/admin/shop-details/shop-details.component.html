@@ -8,16 +8,25 @@
       <mat-card>
         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
 
-          <mat-form-field fxFlex="49%" fxFlex.xs="100%" class="full-width-text" appearance="standard">
+          <mat-form-field fxFlex="33%" fxFlex.xs="100%" class="full-width-text" appearance="standard">
             <mat-label>Name</mat-label>
-            <input matInput formControlName="name" placeholder="Ex. KFC" required maxlength="200">
+            <input matInput formControlName="name" placeholder="Ex. Kentucky Fried Chicken" required maxlength="200">
             <mat-hint align="end" *ngIf="f.name?.value?.length">{{f.name?.value?.length}} / 200</mat-hint>
             <mat-error *ngIf="f.name.errors && f.name.errors.error">
               {{ f.name.errors.error }}
             </mat-error>
           </mat-form-field>
 
-          <mat-form-field fxFlex="49%" fxFlex.xs="100%" class="full-width-text" appearance="standard">
+          <mat-form-field fxFlex="33%" fxFlex.xs="100%" class="full-width-text" appearance="standard">
+            <mat-label>Sort Name</mat-label>
+            <input matInput formControlName="short_name" placeholder="Ex. KFC" required maxlength="200">
+            <mat-hint align="end" *ngIf="f.short_name?.value?.length">{{f.short_name?.value?.length}} / 200</mat-hint>
+            <mat-error *ngIf="f.short_name.errors && f.short_name.errors.error">
+              {{ f.short_name.errors.error }}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field fxFlex="33%" fxFlex.xs="100%" class="full-width-text" appearance="standard">
             <mat-label>Email</mat-label>
             <input matInput formControlName="email" placeholder="Ex. kfc@gmail.com" maxlength="200">
             <mat-hint align="end" *ngIf="f.email?.value?.length">{{f.email?.value?.length}} / 200</mat-hint>
@@ -94,6 +103,34 @@
           </mat-form-field>
         </div>
 
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start">
+          <mat-form-field fxFlex="100%"  class="full-width-text" appearance="standard">
+            <mat-label>Map Url</mat-label>
+            <input matInput formControlName="map" placeholder="Ex. http://googlemap.com" maxlength="200">
+            <mat-hint align="end" *ngIf="f.map?.value?.length">{{f.map?.value?.length}} / 200</mat-hint>
+            <mat-error *ngIf="f.map.errors && f.map.errors.error">
+              {{ f.map.errors.error }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <!-- <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start">
+          <mat-form-field fxFlex="33%" fxFlex.xs="100%" class="full-width-text" appearance="standard">
+            <mat-label>Theme Color</mat-label>
+            <input matInput formControlName="theme_color" type="color">
+            <mat-error *ngIf="f.theme_color.errors && f.theme_color.errors.error">
+              {{ f.theme_color.errors.error }}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field fxFlex="33%" fxFlex.xs="100%" class="full-width-text" appearance="standard">
+            <mat-label>Background Color</mat-label>
+            <input matInput formControlName="bg_color" type="color">
+            <mat-error *ngIf="f.bg_color.errors && f.bg_color.errors.error">
+              {{ f.bg_color.errors.error }}
+            </mat-error>
+          </mat-form-field>
+
+        </div> -->
 
 
 
