@@ -29,6 +29,7 @@ class ShopsController extends Controller
 
 
     public function store(Request $request){
+
         $validator = Validator::make($request->all(), [
             'name' => ['required'],
             'status' => ['required'],
@@ -84,30 +85,33 @@ class ShopsController extends Controller
                 $user->password = Hash::make(uniqid());
                 $user->status = 1;
                 $user->save();
-
-                //copy data from default shop
-                $defaultShop = \App\Models\Shop::where("is_default", 1)->get()->take(1)->first();
-                $shop->favicon = $defaultShop->favicon;
-                $shop->theme_color = $defaultShop->theme_color;
-                $shop->bg_color = $defaultShop->bg_color;
-                $shop->short_name = $shop->name;
-                $shop->icons = $defaultShop->icons;
-                $shop->logo = $defaultShop->logo;
-                $shop->save();
-
-                $userRole = \App\Models\UserRole::updateOrCreate(
-                    [
-                        "shop_id" => $shop->id,
-                        "role_id" => 2,
-                        "user_id" => $user->id
-                    ],
-                    [
-                        "shop_id" => $shop->id,
-                        "role_id" => 2,
-                        "user_id" => $user->id
-                    ]
-                );
+            }else{
+                $user = \App\Models\User::where("email", $email)->get()->first();
             }
+
+            //copy data from default shop
+            $defaultShop = \App\Models\Shop::where("is_default", 1)->get()->take(1)->first();
+            $shop->favicon = $defaultShop->favicon;
+            $shop->theme_color = $defaultShop->theme_color;
+            $shop->bg_color = $defaultShop->bg_color;
+            $shop->short_name = $shop->name;
+            $shop->icons = $defaultShop->icons;
+            $shop->logo = $defaultShop->logo;
+            $shop->save();
+
+            $userRole = \App\Models\UserRole::updateOrCreate(
+                [
+                    "shop_id" => $shop->id,
+                    "role_id" => 2,
+                    "user_id" => $user->id
+                ],
+                [
+                    "shop_id" => $shop->id,
+                    "role_id" => 2,
+                    "user_id" => $user->id
+                ]
+            );
+
             //generate the registered site
             $this->generateSite(
                 $request->merge(
@@ -122,9 +126,13 @@ class ShopsController extends Controller
                 $toEMail = env('DEVELOPER_MAIL');
             }else{
                 //copy file to root
+
                 $fromPath = 'assets/shop/'.$shop->shop_key.'/www';
-                $toPath = '../../..'.rtrim($shop->base_path, '/');
-                File::copyDirectory( $fromPath, '../../../');
+                $toPath = dirname(base_path()).rtrim($shop->base_path, '/');
+
+                File::copyDirectory( $fromPath, $toPath);
+
+
             }
 
             try{
