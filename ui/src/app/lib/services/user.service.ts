@@ -42,6 +42,13 @@ export class UserService {
     }));
   }
 
+  demoSignIn(){
+    return this.http.post<string>('/demoSignIn', null).pipe(map(res=>{
+      this.setLogin(res);
+      return res;
+    }));
+  }
+
   signInWith(user: any=null){
     return this.http.post<any>('/socialLogin',user).pipe(map(res=>{
       this.setLogin(res);

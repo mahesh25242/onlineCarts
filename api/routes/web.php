@@ -33,6 +33,7 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
     $router->post('sentContact','ContactUsController@sentContact');
     $router->post('register','ShopsController@register');
     $router->post('socialLogin','UsersController@socialLogin');
+    $router->post('demoSignIn','UsersController@demoSignIn');
 
     /* Billing apps */
     $router->group(['prefix' => 'shop', 'middleware' =>  'AppMiddleware'], function () use ($router) {

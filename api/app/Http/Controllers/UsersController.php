@@ -281,4 +281,27 @@ class UsersController extends Controller
         }
 
     }
+
+    public function demoSignIn(){
+        $http = new \GuzzleHttp\Client;
+
+
+        $res = $http->post(url("v1/oauth/token"), [
+            'form_params' => [
+                'grant_type' => 'password',
+                'client_id' => '2',
+                'client_secret' => 'K6IlhS1oZBgxNQciIEtCoXzlHRGu0MefIkNkp68b',
+                'username' => 'demo@cart.com',
+                'password' => '123456',
+                'scope' => '',
+            ],
+        ]);
+
+        $statusCode = $res->getStatusCode(); // 200
+        if($statusCode == 200){
+            return $res->getBody();
+        }else{
+            return response(["success" => false, "message"=> "user not found"], 401);
+        }
+    }
 }

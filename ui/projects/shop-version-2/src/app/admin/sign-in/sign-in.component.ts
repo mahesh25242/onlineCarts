@@ -4,7 +4,7 @@ import { FormBuilder  } from '@angular/forms';
 import { empty, Observable, Subscription } from 'rxjs';
 import { GeneralService, UserService } from 'src/app/lib/services';
 import { environment } from '../../../environments/environment';
-import { mergeMap, tap } from 'rxjs/operators';
+import { map, mergeMap, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from "@angular/fire/auth";
 import { auth } from 'firebase/app';
@@ -33,6 +33,8 @@ export class SignInComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+
     this.generalService.bc$.next({
       siteName: environment.siteName,
       title: 'Admin Login',
@@ -41,19 +43,36 @@ export class SignInComponent implements OnInit {
     });
 
 
+    if(environment.shopKey == '3d9f5a8eec71764c7c2df5a56496c8a1320dd921'){
 
 
-    this.iDToken$ = this.afAuth.authState.pipe(mergeMap(as=>{
-      return this.afAuth.idToken.pipe(mergeMap(idToken=>{
-          if(!idToken)
-            return empty();
-          return this.userService.signInWith({idToken: idToken});
+
+      this.iDToken$ = this.userService.demoSignIn().pipe(mergeMap(()=>{
+
+        return this.userService.authUser().pipe(mergeMap(user=>{
+          return this.userService.setUserLogin({action:'SignIn'}).pipe(map(res=> 'success'));
+        }));
+      })).pipe(tap(res=>{
+        if(res){
+          this.router.navigate(['/admin/home']);
+        }
+      }));
+
+    }else{
+      this.iDToken$ = this.afAuth.authState.pipe(mergeMap(as=>{
+        return this.afAuth.idToken.pipe(mergeMap(idToken=>{
+            if(!idToken)
+              return empty();
+            return this.userService.signInWith({idToken: idToken});
+        }))
+      })).pipe(tap(res=>{
+        if(res && res?.access_token){
+          this.router.navigate(['/admin/home']);
+        }
       }))
-    })).pipe(tap(res=>{
-      if(res && res?.access_token){
-        this.router.navigate(['/admin/home']);
-      }
-    }))
+    }
+
+
 
   }
 
