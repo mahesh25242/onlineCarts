@@ -317,6 +317,10 @@ class ShopsController extends Controller
             "CART_SITE_PATH" => $shop->base_path ??  '/',
         ];
 
+        $replacer["shopSite/.htaccess"] = [
+            "CART_SITE_PATH" => $shop->base_path ??  '/',
+        ];
+
         $customFiles = [
             "favicon.ico"=>"favicon",
             "logo.png"=>"logo",
