@@ -2,7 +2,7 @@ export const environment = {
   production: true,
   tinyMceApi: 'n6mryrdzt1pclqabsvpbvw6mtym3kj9gpwjguof89d2sv52q',
   baseUrl: 'https://api.onlinecarts.in/public/v1',
-  recaptchaKey: '6Ld2McEZAAAAABDjGwyJ63pD3ETCQkWCiZqEH39C',
+  recaptchaKey: '6LcZDNQaAAAAAIieSLB3rZgoCSgxeh6cXJEF9pLH',
   lumenSecret: 'K6IlhS1oZBgxNQciIEtCoXzlHRGu0MefIkNkp68b',
   client_id: 2 ,
   grant_type: "password",

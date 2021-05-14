@@ -1,0 +1,34 @@
+<h3>Trash Shop</h3>
+<table class="table">
+  <thead>
+    <tr>
+      <th>
+        ID
+      </th>
+      <th>
+        Name
+      </th>
+      <th>
+        Status
+      </th>
+      <th>
+        Options
+      </th>
+    </tr>
+  </thead>
+  <tbody *ngIf="shops$ | async as shops">
+    <tr *ngFor="let shop of shops">
+      <td>
+        {{shop.id}}
+      </td>
+      <td>{{shop.name}}</td>
+      <td>
+        {{shop.status_text}}
+      </td>
+      <td>
+        <a href="javascript:{}" (click)="delete(shop)">Delete</a> |
+        <a href="javascript:{}" (click)="restore(shop)">Restore</a>
+      </td>
+    </tr>
+  </tbody>
+</table>

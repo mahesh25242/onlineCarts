@@ -22,6 +22,11 @@ class ShopsController extends Controller
         return response($shops);
     }
 
+    public function trashShops(Request $request){
+        $shops = \App\Models\Shop::onlyTrashed()->get();
+        return response($shops);
+    }
+
 
     public function store(Request $request){
         $validator = Validator::make($request->all(), [
@@ -181,7 +186,14 @@ class ShopsController extends Controller
     }
 
     public function delete(Request $request, $id=0){
-       $shop =  \App\Models\Shop::where('id', $id)->delete();
+        if($request->input("force", null)){
+            $shop =  \App\Models\Shop::where('id', $id)->forceDelete();
+        }else if($request->input("restore", null)){
+            $shop =  \App\Models\Shop::where('id', $id)->restore();
+        }else{
+            $shop =  \App\Models\Shop::where('id', $id)->delete();
+        }
+
        return response(['message' => 'successfully deleted!', 'status' => true]);
     }
 

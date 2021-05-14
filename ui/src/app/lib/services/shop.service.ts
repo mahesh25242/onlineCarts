@@ -40,6 +40,13 @@ export class ShopService {
     }));
   }
 
+  getAllTrashShops(postData: any = null){
+    return this.http.post<Shop[]>("/admin/shops/trash", postData).pipe(map(res=>{
+      this.shops$.next(res);
+      return res;
+    }));
+  }
+
   saveShop(postData: any = null){
     return this.http.post<any>("/admin/shops/store", postData);
   }

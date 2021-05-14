@@ -8,8 +8,9 @@ import { DashBoardComponent } from './dash-board/dash-board.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 
+
 @NgModule({
-  declarations: [AdminHomeComponent, DashBoardComponent, EditProfileComponent, SignInComponent ],
+  declarations: [AdminHomeComponent, DashBoardComponent, EditProfileComponent, SignInComponent],
   imports: [
     CommonModule,
     SharedModuleModule,

@@ -91,6 +91,7 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
 
             $router->group(['prefix' => 'shops'], function () use ($router) {
                 $router->post('/','ShopsController@shops');
+                $router->post('/trash','ShopsController@trashShops');
                 $router->get('/shop/{id}','ShopsController@getAShop');
                 $router->post('store','ShopsController@store');
                 $router->post('delete/{id}','ShopsController@delete');

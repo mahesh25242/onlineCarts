@@ -30,6 +30,12 @@ const routes: Routes = [
         canActivate: [AdminAuthGuard],
 
       },
+      {
+        path: 'trash',
+        loadChildren: () => import('./trashed/trashed.module').then(m => m.TrashedModule),
+        canActivate: [AdminAuthGuard],
+
+      },
     ]
   },
 

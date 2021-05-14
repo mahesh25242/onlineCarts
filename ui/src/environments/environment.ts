@@ -7,7 +7,7 @@ export const environment = {
   tinyMceApi: 'n6mryrdzt1pclqabsvpbvw6mtym3kj9gpwjguof89d2sv52q',
   baseUrl: 'http://localhost/onlineCart/api/public/v1',
   //baseUrl: 'https://agoranature.com/api/public/v1', //test
-  recaptchaKey: '6Lca6c0aAAAAAAEXWHxR2Sl7t0OO8L6AdbPkCJq8',
+  recaptchaKey: '6LcZDNQaAAAAAIieSLB3rZgoCSgxeh6cXJEF9pLH',
   lumenSecret: 'K6IlhS1oZBgxNQciIEtCoXzlHRGu0MefIkNkp68b',
   client_id: 2 ,
   grant_type: "password",
