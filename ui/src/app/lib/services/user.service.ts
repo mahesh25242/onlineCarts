@@ -42,6 +42,13 @@ export class UserService {
     }));
   }
 
+  signInWith(user: any=null){
+    return this.http.post<any>('/socialLogin',user).pipe(map(res=>{
+      this.setLogin(res);
+      return res;
+    }));
+  }
+
 
   refreshToken(){
 

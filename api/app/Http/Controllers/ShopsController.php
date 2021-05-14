@@ -75,6 +75,7 @@ class ShopsController extends Controller
         if($request->input("isRegister", null)){
             $name = $request->input("displayName", '');
             $email = $request->input("email", '');
+            $uid = $request->input("uid", '');
 
             $userExists = \App\Models\User::where("email", $email)->exists();
             if(!$userExists ){
@@ -82,7 +83,7 @@ class ShopsController extends Controller
                 $user->fname = $name;
                 $user->lname = "";
                 $user->email = $email;
-                $user->password = Hash::make(uniqid());
+                $user->password = Hash::make($uid);
                 $user->status = 1;
                 $user->save();
             }else{
@@ -464,6 +465,7 @@ class ShopsController extends Controller
                 [
                     "isRegister"=> true,
                     "email" =>  $authUser->email,
+                    "uid" =>  $authUser->uid,
                     "displayName" =>  $authUser->displayName,
                     "status" => 1,
                     "base_path" => $base_path,

@@ -9,6 +9,7 @@ import { mergeMap, map } from 'rxjs/operators';
 import { GeneralService as LocalGeneralService } from '../lib/services/index';
 import { GeneralService } from 'src/app/lib/services';
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-admin-header',
@@ -32,6 +33,7 @@ export class AdminHeaderComponent implements OnInit, OnDestroy {
     private shopService: ShopService,
     public generalService: GeneralService,
     public localGeneralService: LocalGeneralService,
+    public afAuth: AngularFireAuth
     ) {
 
     }
@@ -65,10 +67,14 @@ export class AdminHeaderComponent implements OnInit, OnDestroy {
   signOut(){
     this.signOutSubscription = this.userService.setUserLogin({action:'SignOut'}).pipe(mergeMap(sRes=>{
       return this.userService.signOut().pipe(mergeMap(res=>{
+        this.afAuth.signOut().then(gres=>{
+          console.log(gres)
+        })
         localStorage.removeItem('token');
         return this.userService.authUser();
       }))
     })).subscribe(res=>{
+
 
     }, err=>{
       this.router.navigate(['/']);

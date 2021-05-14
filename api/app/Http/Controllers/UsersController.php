@@ -122,6 +122,8 @@ class UsersController extends Controller
         $refreshTokenRepository = app('Laravel\Passport\RefreshTokenRepository');
         $refreshTokenRepository->revokeRefreshTokensByAccessTokenId($request->user()->token()->id);
 
+
+
         return response([
             'message' => 'successfully logged!', 'status' => true
         ]);
@@ -241,5 +243,42 @@ class UsersController extends Controller
         return response([
             'message' => 'successfully deleted', 'status' => 1
         ]);
+    }
+
+    public function socialLogin(Request $request){
+        $idToken = $request->input("idToken", null);
+        $auth = app('firebase.auth');
+        //$signInResult = $auth->getUser($uid);;
+        try {
+            $verifiedIdToken = $auth->verifyIdToken($idToken);
+        } catch (InvalidToken $e) {
+            echo 'The token is invalid: '.$e->getMessage();
+        } catch (\InvalidArgumentException $e) {
+            echo 'The token could not be parsed: '.$idToken.'=='.$e->getMessage();
+        }
+        $uid = $verifiedIdToken->claims()->get('sub');
+        $authUser = $auth->getUser($uid);
+
+        $http = new \GuzzleHttp\Client;
+
+
+        $res = $http->post(url("v1/oauth/token"), [
+            'form_params' => [
+                'grant_type' => 'password',
+                'client_id' => '2',
+                'client_secret' => 'K6IlhS1oZBgxNQciIEtCoXzlHRGu0MefIkNkp68b',
+                'username' => $authUser->email,
+                'password' => $authUser->uid,
+                'scope' => '',
+            ],
+        ]);
+
+        $statusCode = $res->getStatusCode(); // 200
+        if($statusCode == 200){
+            return $res->getBody();
+        }else{
+            return response(["success" => false, "message"=> "user not found"], 401);
+        }
+
     }
 }
