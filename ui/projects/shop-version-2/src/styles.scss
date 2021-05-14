@@ -62,6 +62,25 @@ main {
     padding-top: 12px;
 }
 
+.alert-warning {
+  color: #664d03;
+  background-color:#fff3cd;
+  border-color: #ffecb5;
+}
+
+.alert-danger {
+  background-color: #f44336; /* Red */
+}
+.alert-success {
+  background-color: #36f456;
+}
+.alert{
+  position: relative;
+  padding: 1rem 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: .25rem;
+}
 
 .float-right{
   float: right;

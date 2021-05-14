@@ -8,7 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { AddToCartComponent } from '../add-to-cart/add-to-cart.component';
 import { first } from 'lodash';
-import { mergeMap, tap } from 'rxjs/operators';
+import { map, mergeMap, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-product',
@@ -71,16 +71,16 @@ export class ProductComponent implements OnInit, OnDestroy {
 
 
     this.shopProductService.allProduct = [];
-    this.products$ = this.shopProductService.products.pipe(tap(res=>{
-      this.current_page = (res.current_page && res.next_page_url) ? res.current_page : 0;
-      const product:ShopProduct = first(res.data);
+    this.products$ = this.shopProductService.products.pipe(map(res=>{
+      this.current_page = (res?.current_page && res?.next_page_url) ? res?.current_page : 0;
+      const product:ShopProduct = first(res?.data);
       if(!this.isSearch){
         this.shopProductCategoryService.selectedCategory$.next(product?.shop_product_category);
       }else{
         this.shopProductCategoryService.selectedCategory$.next(null);
       }
 
-      if(res.data){
+      if(res?.data){
         res.data.map(itm =>{
           this.shopProductService.allProduct.push(itm);
         });
@@ -93,6 +93,7 @@ export class ProductComponent implements OnInit, OnDestroy {
         backUrl: ''
       });
       this.allProduct = this.shopProductService.allProduct;
+      return (res.data && res.data.length) ? res: null;
     }));
   }
 

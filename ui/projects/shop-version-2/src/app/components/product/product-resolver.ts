@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot  } from '@angular/router';
 import { first } from 'lodash';
-import { empty, Observable } from 'rxjs';
+import { empty, Observable, of } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
 import { ShopProductCategory } from 'src/app/lib/interfaces';
 import { ShopProductCategoryService, ShopProductService } from 'src/app/lib/services';
@@ -25,8 +25,10 @@ export class ProductResolver implements Resolve<any> {
         });
       }))
     }else{
+
       this.shopProductService.allProduct = [];
       return this.shopProductCategoryService.showCategories().pipe(mergeMap(res=>{
+
         const cat:ShopProductCategory = first(res);
 
         if(cat){
@@ -36,7 +38,7 @@ export class ProductResolver implements Resolve<any> {
             pageSize : environment.productListPerPage
           });
         }else{
-          return empty();
+          return of(true);
         }
       }));
 

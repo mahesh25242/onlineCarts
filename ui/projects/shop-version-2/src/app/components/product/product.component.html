@@ -8,9 +8,12 @@ infiniteScroll
 infiniteScrollContainer=".my-sidenav-content" [fromRoot]="true"
 ></div>
 
-<div fxLayout="row wrap" fxLayout.xs="column"  *ngIf="(products$ | async) as products">
+<div fxLayout="row wrap" fxLayout.xs="column"  *ngIf="(products$ | async) as products else noProduct">
   <div  [fxFlex.gt-sm]="(100/4)" [fxFlex.sm]="(100/3)" *ngFor="let product of allProduct">
     <app-product-item [shopProduct]="product"></app-product-item>
   </div>
 </div>
+<ng-template #noProduct>
+  <div class="alert alert-warning">No product found</div>
+</ng-template>
 
