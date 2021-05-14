@@ -20,7 +20,7 @@ $router->get('/key', function() {
     return \Illuminate\Support\Str::random(32);
 });
 
-
+$router->get('test','UsersController@test');
 
 //$router->get('/{sitemap}','SiteMapController@index');
 

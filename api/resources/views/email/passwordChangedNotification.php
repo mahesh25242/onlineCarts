@@ -1,2 +1,2 @@
-<p>Hello  <?php echo $user["userContact"]["fname"] ;?>,</p>
+<p>Hello  test,</p>
 <p>Your password was successfully changed.</p>

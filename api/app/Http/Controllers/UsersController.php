@@ -10,11 +10,20 @@ use Illuminate\Support\Facades\Cookie;
 use Image;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
+use App\Mail\ShopRegisterNotification;
+use Mail;
 
 class UsersController extends Controller
 {
 
 
+    public function test(){
+        try{
+            Mail::to("mahesh25242@gmail.com")->send(new ShopRegisterNotification(\App\Models\User::find(1), \App\Models\Shop::find(1)));
+        }catch (\Swift_TransportException $e) {
+          //  echo 'Caught exception: ',  $e->getMessage(), "\n";
+        }
+    }
     public function createAdmin(Request $request)
     {
 

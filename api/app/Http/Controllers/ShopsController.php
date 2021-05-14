@@ -135,11 +135,14 @@ class ShopsController extends Controller
 
             }
 
-            try{
-                Mail::to($toEMail)->send(new ShopRegisterNotification($user, $shop));
-            }catch (\Swift_TransportException $e) {
-              //  echo 'Caught exception: ',  $e->getMessage(), "\n";
+            if($toEMail){
+                try{
+                    Mail::to($toEMail)->send(new ShopRegisterNotification($user, $shop));
+                }catch (\Swift_TransportException $e) {
+                  //  echo 'Caught exception: ',  $e->getMessage(), "\n";
+                }
             }
+
 
         }
 
