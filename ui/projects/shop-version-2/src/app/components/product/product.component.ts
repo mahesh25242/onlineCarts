@@ -93,7 +93,7 @@ export class ProductComponent implements OnInit, OnDestroy {
         backUrl: ''
       });
       this.allProduct = this.shopProductService.allProduct;
-      return (res.data && res.data.length) ? res: null;
+      return (res?.data && res?.data.length) ? res: null;
     }));
   }
 

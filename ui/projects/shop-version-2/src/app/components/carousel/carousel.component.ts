@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { GeneralService } from '../../lib/services';
 
 @Component({
@@ -12,6 +13,7 @@ export class CarouselComponent implements OnInit {
   constructor(private generalService: GeneralService) { }
 
   ngOnInit(): void {
+
     this.slides$ = this.generalService.getAllBanners();
   }
 
