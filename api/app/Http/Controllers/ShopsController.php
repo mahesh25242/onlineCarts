@@ -121,7 +121,7 @@ class ShopsController extends Controller
                 )
             );
 
-            $toEMail = $user->email;
+            $toEMail = $email;
             if(env('APP_ENV') == 'local'){
                 $toEMail = env('DEVELOPER_MAIL');
             }else{
