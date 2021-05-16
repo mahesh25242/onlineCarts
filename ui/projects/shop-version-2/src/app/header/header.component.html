@@ -24,7 +24,7 @@
   </ng-container>
 
 </mat-toolbar>
-<div *ngIf="(localGeneralService.shopDisabled | async)">
+<div *ngIf="(localGeneralService.shopDisabled | async)" class="alert alert-warning shop-message">
   Your shop was disabled by admin
 </div>
 

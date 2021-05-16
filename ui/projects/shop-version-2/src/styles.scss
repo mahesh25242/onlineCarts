@@ -82,6 +82,12 @@ main {
   border-radius: .25rem;
 }
 
+.shop-message{
+  position: absolute;
+  top: 64px;
+  z-index: 100;
+  width: 100%;
+}
 .float-right{
   float: right;
 }

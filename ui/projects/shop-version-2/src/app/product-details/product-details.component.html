@@ -20,37 +20,6 @@
                 <!-- <img loading="lazy"  [src]="(product.shop_product_selected_variant?.shop_product_image?.image) ?  product.shop_product_selected_variant.shop_product_image.image_path : 'assets/no-image.jpg'" [alt]="product.name+' '+product.shop_product_selected_variant?.name"> -->
               </div>
 
-              <mat-form-field fxFlex="100%" appearance="standard" *ngIf="(product.shop_product_variant.length > 1)">
-                <mat-label>Choose Varient</mat-label>
-                <mat-select formControlName="shop_product_variant_id" required (selectionChange)="chooseVarient()">
-                  <mat-option *ngFor="let shop_product_variant of product.shop_product_variant" [value]="shop_product_variant.id">
-                    {{shop_product_variant.name}} - ₹ {{shop_product_variant.price}}
-                  </mat-option>
-                </mat-select>
-                <mat-error *ngIf="f.shop_product_variant_id.errors && f.shop_product_variant_id.errors.error">
-                  {{f.shop_product_variant_id.errors.error}}
-                </mat-error>
-              </mat-form-field>
-
-              <div fxFlex="100%">
-                <div class="relativePosition" fxFlex="40%" fxFlex.lt-md="100%">
-                  <button type="button" mat-icon-button color="primary" (click)="updateCart('-')" [disabled]="qty<2"
-                  matTooltip="Decrease the quantity" class="animate__animated"
-                  [ngClass]="{'animate__flipInY' : qty<2 }">
-                    <mat-icon>remove_circle_outline</mat-icon>
-                  </button>
-                  {{qty}}
-                  <button type="button" mat-icon-button color="primary" (click)="updateCart('+')"
-                  matTooltip="Increase the quantity">
-                    <mat-icon>add_circle_outline</mat-icon>
-                  </button>
-                </div>
-                <div fxFlex="60%" fxFlex.lt-md="100%" class="price" fxLayoutAlign="center center"  *ngIf="product.shop_product_selected_variant?.price">
-                  <del *ngIf="product.shop_product_selected_variant?.actual_price">₹ {{ product.shop_product_selected_variant?.actual_price * qty }}</del>
-                  &nbsp;&nbsp;<span class="weight-bold animate__animated animate__flipInX"> ₹ {{ product.shop_product_selected_variant?.price * qty }} </span>
-                </div>
-              </div>
-
 
             </div>
 
@@ -62,6 +31,37 @@
           </div>
           <div fxFlex="65%" fxFlex.xs="100%" [ngClass.gt-sm]="'description'">
             <h3>About {{product.name}} </h3>
+
+            <mat-form-field  appearance="standard" *ngIf="(product.shop_product_variant.length > 1)">
+              <mat-label>Choose Varient</mat-label>
+              <mat-select formControlName="shop_product_variant_id" required (selectionChange)="chooseVarient()">
+                <mat-option *ngFor="let shop_product_variant of product.shop_product_variant" [value]="shop_product_variant.id">
+                  {{shop_product_variant.name}} - ₹ {{shop_product_variant.price}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="f.shop_product_variant_id.errors && f.shop_product_variant_id.errors.error">
+                {{f.shop_product_variant_id.errors.error}}
+              </mat-error>
+            </mat-form-field>
+
+
+            <div class="relativePosition" >
+              <button type="button" mat-icon-button color="primary" (click)="updateCart('-')" [disabled]="qty<2"
+              matTooltip="Decrease the quantity" class="animate__animated"
+              [ngClass]="{'animate__flipInY' : qty<2 }">
+                <mat-icon>remove_circle_outline</mat-icon>
+              </button>
+              {{qty}}
+              <button type="button" mat-icon-button color="primary" (click)="updateCart('+')"
+              matTooltip="Increase the quantity">
+                <mat-icon>add_circle_outline</mat-icon>
+              </button>
+            </div>
+            <div  class="price"   *ngIf="product.shop_product_selected_variant?.price">
+              <del *ngIf="product.shop_product_selected_variant?.actual_price">₹ {{ product.shop_product_selected_variant?.actual_price * qty }}</del>
+              &nbsp;&nbsp;<span class="weight-bold animate__animated animate__flipInX"> ₹ {{ product.shop_product_selected_variant?.price * qty }} </span>
+            </div>
+
             <p *ngIf="product.description">
               {{ product.description}}
             </p>

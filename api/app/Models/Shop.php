@@ -111,4 +111,9 @@ class Shop extends Model implements AuthenticatableContract, AuthorizableContrac
         return $this->hasMany('App\Models\ShopOrder');
     }
 
+    public function ShopRenewal()
+    {
+        return $this->hasMany('App\Models\ShopRenewal');
+    }
+
 }
