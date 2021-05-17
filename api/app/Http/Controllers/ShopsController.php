@@ -10,7 +10,7 @@ use Image;
 use Illuminate\Support\Facades\Hash;
 use App\Mail\ShopRegisterNotification;
 use Mail;
-
+use Carbon\Carbon;
 
 class ShopsController extends Controller
 {
@@ -100,6 +100,14 @@ class ShopsController extends Controller
             $shop->logo = $defaultShop->logo;
             $shop->save();
 
+            $plan = \App\Models\Setting::where("name", 'shop_expiry')->get()->first();
+            $planDays = ($plan) ? (int) $plan->value : 90;
+            $shop->ShopRenewal()->create([
+                "amount" => 0,
+                "from_date" => Carbon::now()->startOfDay(),
+                "to_date" => Carbon::now()->addDays($planDays)->endOfDay(),
+                "status" => 1
+            ]);
             $userRole = \App\Models\UserRole::updateOrCreate(
                 [
                     "shop_id" => $shop->id,
