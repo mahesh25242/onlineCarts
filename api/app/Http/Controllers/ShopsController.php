@@ -231,7 +231,7 @@ class ShopsController extends Controller
         $shopKey = ($shopKey) ? $shopKey : $request->input("shop_key");
 
         if($shopKey){
-            $shop = \App\Models\Shop::with(["country", "state", "city", "shopDelivery"])->where("shop_key", $shopKey)->get()->first();
+            $shop = \App\Models\Shop::with(["country", "state", "city", "shopDelivery", "shopTheme.theme"])->where("shop_key", $shopKey)->get()->first();
             return response($shop);
         }else{
             return response(['message' => 'No data found!', 'status' => false]);

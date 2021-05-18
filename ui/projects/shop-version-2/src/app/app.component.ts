@@ -12,6 +12,8 @@ import { SwUpdate } from '@angular/service-worker';
 import Notiflix from 'notiflix';
 import { empty, Observable, of, Subscription } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
+import { Shop } from 'src/app/lib/interfaces';
+import { ShopService } from 'src/app/lib/services';
 import { GeneralService, MessagingService } from './lib/services';
 
 @Component({
@@ -24,10 +26,15 @@ export class AppComponent implements OnInit, OnDestroy{
   showPushNoti: Subscription;
   receiveMessageSubScr: Subscription;
   isAdmin$: Observable<boolean>;
-  constructor(public router: Router, private generalService: GeneralService,
+  shop: Shop;
+
+  shopUnsbScr: Subscription;
+  constructor(public router: Router,
+    private generalService: GeneralService,
     private swUpdate: SwUpdate,
     private messagingService: MessagingService,
-    private matSnackBar: MatSnackBar,) {
+    private matSnackBar: MatSnackBar,
+    private shopService: ShopService) {
 
       swUpdate.available.subscribe(event => {
         console.log('current version is', event.current);
@@ -63,7 +70,9 @@ export class AppComponent implements OnInit, OnDestroy{
   ngOnInit(): void {
 
 
-
+    this.shopUnsbScr = this.shopService.aShop.subscribe(res=>{
+      this.shop = res;
+    });
 
     this.isAdmin$ = this.generalService.isAdmin$.asObservable();
 
@@ -94,11 +103,8 @@ export class AppComponent implements OnInit, OnDestroy{
    }
 
    ngOnDestroy(){
-     if(this.showPushNoti){
-       this.showPushNoti.unsubscribe();
-     }
-     if(this.receiveMessageSubScr){
-      this.receiveMessageSubScr.unsubscribe();
-     }
+    this.showPushNoti && this.showPushNoti.unsubscribe();
+    this.receiveMessageSubScr && this.receiveMessageSubScr.unsubscribe();
+    this.shopUnsbScr && this.shopUnsbScr.unsubscribe();
    }
 }

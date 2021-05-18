@@ -2,8 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { mergeMap, tap } from 'rxjs/operators';
-import { City, Country, Shop, State } from 'src/app/lib/interfaces';
-import { CityService, CountryService, GeneralService, ShopService, StateService } from 'src/app/lib/services';
+import { City, Country, Shop, State, Theme } from 'src/app/lib/interfaces';
+import { CityService, CountryService, GeneralService, ShopService, StateService, ThemeService } from 'src/app/lib/services';
 import Notiflix from "notiflix";
 import { environment } from '../../../environments/environment';
 
@@ -18,15 +18,34 @@ export class ShopDetailsComponent implements OnInit, OnDestroy {
   countries$: Observable<Country[]>;
   states$: Observable<State[]>;
   cities$: Observable<City[]>;
+  thems$: Observable<Theme[]>;
+  theme_id: number;
+
 
   countrySubscription: Subscription;
   stateSubscription: Subscription;
+  saveThemeSubscription: Subscription;
   constructor(private shopService: ShopService,
     private formBuilder: FormBuilder,
     private countryServive: CountryService,
     private stateService: StateService,
     private cityService: CityService,
-    private generalService: GeneralService) { }
+    private generalService: GeneralService,
+    private themeService: ThemeService) { }
+
+    chooseTheme(){
+      Notiflix.Block.Merge({svgSize:'20px',});
+      Notiflix.Block.Dots(`mat-form-field`);
+      this.saveThemeSubscription =  this.themeService.saveTheme(this.theme_id).pipe(mergeMap(res=>{
+        return this.shopService.shopDetail();
+      })).subscribe(res=>{
+        Notiflix.Notify.Success(`Successfully saved the theme `);
+        Notiflix.Block.Remove(`mat-form-field`);
+      }, err=>{
+        Notiflix.Notify.Failure(`Sorry unexpected error occur `);
+        Notiflix.Block.Remove(`mat-form-field`);
+      })
+    }
 
   updateShop(){
     const postData = {
@@ -70,8 +89,13 @@ export class ShopDetailsComponent implements OnInit, OnDestroy {
       backUrl: null
     });
 
+    this.thems$ = this.themeService.themes();
+
     this.shop$ = this.shopService.aShop.pipe(tap(res=>{
       const phone = (res?.phone) ? res?.phone.slice(2): '';
+
+      this.theme_id = res.shop_theme.theme_id;
+
       this.shopDetailsFrm.patchValue({
         name: res?.name,
         short_name: res?.short_name,
@@ -120,13 +144,10 @@ export class ShopDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(){
-    if(this.countrySubscription){
-      this.countrySubscription.unsubscribe();
-    }
+    this.saveThemeSubscription && this.saveThemeSubscription.unsubscribe();
+    this.countrySubscription && this.countrySubscription.unsubscribe();
+    this.stateSubscription && this.stateSubscription.unsubscribe();
 
-    if(this.stateSubscription){
-      this.stateSubscription.unsubscribe();
-    }
   }
 
 }

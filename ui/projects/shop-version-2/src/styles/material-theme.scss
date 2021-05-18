@@ -11,20 +11,10 @@ $theme: mat-light-theme($primary, $accent, $warn);
 
 @include angular-material-theme($theme);
 
-// Our dark theme
-.shop-theme-dark-yellow {
-  color: $light-primary-text;
-  $shop-theme-1-primary: mat-palette($mat-yellow);
-  $shop-theme-1-accent: mat-palette($mat-amber, A400, A100, A700);
-  $shop-theme-1-warn: mat-palette($mat-red);
-  $shop-theme-1-theme: mat-dark-theme($shop-theme-1-primary, $shop-theme-1-accent, $shop-theme-1-warn);
 
 
-  @include angular-material-theme($shop-theme-1-theme);
-}
 
-
-.shop-theme-light-yellow {
+.shop-default-light-theme {
   color: $dark-primary-text;
   $dark-primary: mat-palette($mat-blue-grey);
   $dark-accent: mat-palette($mat-amber, A400, A100, A700);
@@ -35,4 +25,175 @@ $theme: mat-light-theme($primary, $accent, $warn);
   @include angular-material-theme($dark-theme);
 }
 
+
+.shop-default-pink-light-theme {
+  color: $dark-primary-text;
+  $dark-primary: mat-palette($mat-pink);
+  $dark-accent: mat-palette($mat-amber, A400, A100, A700);
+  $dark-warn: mat-palette($mat-red);
+  $dark-theme: mat-light-theme($dark-primary, $dark-accent, $dark-warn);
+
+
+  @include angular-material-theme($dark-theme);
+}
+
+.shop-default-purple-light-theme {
+  color: $dark-primary-text;
+  $dark-primary: mat-palette($mat-purple);
+  $dark-accent: mat-palette($mat-amber, A400, A100, A700);
+  $dark-warn: mat-palette($mat-red);
+  $dark-theme: mat-light-theme($dark-primary, $dark-accent, $dark-warn);
+
+
+  @include angular-material-theme($dark-theme);
+}
+
+.shop-default-deep-purple-light-theme {
+  color: $dark-primary-text;
+  $dark-primary: mat-palette($mat-deep-purple);
+  $dark-accent: mat-palette($mat-amber, A400, A100, A700);
+  $dark-warn: mat-palette($mat-red);
+  $dark-theme: mat-light-theme($dark-primary, $dark-accent, $dark-warn);
+
+
+  @include angular-material-theme($dark-theme);
+}
+.shop-default-indigo-light-theme {
+  color: $dark-primary-text;
+  $dark-primary: mat-palette($mat-indigo);
+  $dark-accent: mat-palette($mat-amber, A400, A100, A700);
+  $dark-warn: mat-palette($mat-red);
+  $dark-theme: mat-light-theme($dark-primary, $dark-accent, $dark-warn);
+  @include angular-material-theme($dark-theme);
+}
+
+
+.shop-default-blue-light-theme {
+  color: $dark-primary-text;
+  $dark-primary: mat-palette($mat-blue);
+  $dark-accent: mat-palette($mat-amber, A400, A100, A700);
+  $dark-warn: mat-palette($mat-red);
+  $dark-theme: mat-light-theme($dark-primary, $dark-accent, $dark-warn);
+  @include angular-material-theme($dark-theme);
+}
+
+
+.shop-default-light-blue-light-theme {
+  color: $dark-primary-text;
+  $dark-primary: mat-palette($mat-light-blue);
+  $dark-accent: mat-palette($mat-amber, A400, A100, A700);
+  $dark-warn: mat-palette($mat-red);
+  $dark-theme: mat-light-theme($dark-primary, $dark-accent, $dark-warn);
+  @include angular-material-theme($dark-theme);
+}
+
+.shop-default-cyan-light-theme {
+  color: $dark-primary-text;
+  $dark-primary: mat-palette($mat-cyan);
+  $dark-accent: mat-palette($mat-amber, A400, A100, A700);
+  $dark-warn: mat-palette($mat-red);
+  $dark-theme: mat-light-theme($dark-primary, $dark-accent, $dark-warn);
+  @include angular-material-theme($dark-theme);
+}
+
+.shop-default-teal-light-theme {
+  color: $dark-primary-text;
+  $dark-primary: mat-palette($mat-teal);
+  $dark-accent: mat-palette($mat-amber, A400, A100, A700);
+  $dark-warn: mat-palette($mat-red);
+  $dark-theme: mat-light-theme($dark-primary, $dark-accent, $dark-warn);
+  @include angular-material-theme($dark-theme);
+}
+
+
+
+.shop-default-green-light-theme {
+  color: $dark-primary-text;
+  $dark-primary: mat-palette($mat-green);
+  $dark-accent: mat-palette($mat-amber, A400, A100, A700);
+  $dark-warn: mat-palette($mat-red);
+  $dark-theme: mat-light-theme($dark-primary, $dark-accent, $dark-warn);
+  @include angular-material-theme($dark-theme);
+}
+
+.shop-default-light-green-light-theme {
+  color: $dark-primary-text;
+  $dark-primary: mat-palette($mat-light-green);
+  $dark-accent: mat-palette($mat-amber, A400, A100, A700);
+  $dark-warn: mat-palette($mat-red);
+  $dark-theme: mat-light-theme($dark-primary, $dark-accent, $dark-warn);
+  @include angular-material-theme($dark-theme);
+}
+
+.shop-default-lime-light-theme {
+  color: $dark-primary-text;
+  $dark-primary: mat-palette($mat-lime);
+  $dark-accent: mat-palette($mat-amber, A400, A100, A700);
+  $dark-warn: mat-palette($mat-red);
+  $dark-theme: mat-light-theme($dark-primary, $dark-accent, $dark-warn);
+  @include angular-material-theme($dark-theme);
+}
+
+.shop-default-yellow-theme {
+  color: $dark-primary-text;
+  $dark-primary: mat-palette($mat-yellow);
+  $dark-accent: mat-palette($mat-amber, A400, A100, A700);
+  $dark-warn: mat-palette($mat-red);
+  $dark-theme: mat-light-theme($dark-primary, $dark-accent, $dark-warn);
+  @include angular-material-theme($dark-theme);
+}
+
+.shop-default-amber-theme {
+  color: $dark-primary-text;
+  $dark-primary: mat-palette($mat-amber);
+  $dark-accent: mat-palette($mat-amber, A400, A100, A700);
+  $dark-warn: mat-palette($mat-red);
+  $dark-theme: mat-light-theme($dark-primary, $dark-accent, $dark-warn);
+  @include angular-material-theme($dark-theme);
+}
+
+.shop-default-orange-theme {
+  color: $dark-primary-text;
+  $dark-primary: mat-palette($mat-orange);
+  $dark-accent: mat-palette($mat-amber, A400, A100, A700);
+  $dark-warn: mat-palette($mat-red);
+  $dark-theme: mat-light-theme($dark-primary, $dark-accent, $dark-warn);
+  @include angular-material-theme($dark-theme);
+}
+
+.shop-default-deep-orange-theme {
+  color: $dark-primary-text;
+  $dark-primary: mat-palette($mat-deep-orange);
+  $dark-accent: mat-palette($mat-amber, A400, A100, A700);
+  $dark-warn: mat-palette($mat-red);
+  $dark-theme: mat-light-theme($dark-primary, $dark-accent, $dark-warn);
+  @include angular-material-theme($dark-theme);
+}
+
+.shop-default-brown-theme {
+  color: $dark-primary-text;
+  $dark-primary: mat-palette($mat-brown);
+  $dark-accent: mat-palette($mat-amber, A400, A100, A700);
+  $dark-warn: mat-palette($mat-red);
+  $dark-theme: mat-light-theme($dark-primary, $dark-accent, $dark-warn);
+  @include angular-material-theme($dark-theme);
+}
+
+.shop-default-grey-theme {
+  color: $dark-primary-text;
+  $dark-primary: mat-palette($mat-grey);
+  $dark-accent: mat-palette($mat-amber, A400, A100, A700);
+  $dark-warn: mat-palette($mat-red);
+  $dark-theme: mat-light-theme($dark-primary, $dark-accent, $dark-warn);
+  @include angular-material-theme($dark-theme);
+}
+
+.shop-default-blue-gray-theme {
+  color: $dark-primary-text;
+  $dark-primary: mat-palette($mat-blue-grey);
+  $dark-accent: mat-palette($mat-amber, A400, A100, A700);
+  $dark-warn: mat-palette($mat-red);
+  $dark-theme: mat-light-theme($dark-primary, $dark-accent, $dark-warn);
+  @include angular-material-theme($dark-theme);
+}
 

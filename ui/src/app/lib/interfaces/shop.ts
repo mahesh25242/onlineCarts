@@ -32,7 +32,7 @@ export interface Shop {
   user_role?: UserRole,
   shop_url?: string,
   shop_delivery?: ShopDelivery[],
-  shop_delivery_filtered: { free?: ShopDelivery[], paid?: ShopDelivery[] }
+  shop_delivery_filtered? : { free?: ShopDelivery[], paid?: ShopDelivery[] }
   is_generated?: boolean,
   base_path?: string,
   favicon?: string,
@@ -40,5 +40,24 @@ export interface Shop {
   bg_color?: string,
   short_name?: string,
   logo?: string,
-  icons?: any
+  icons?: any,
+  shop_theme?: ShopTheme
+}
+
+
+export interface ShopTheme {
+  id?: number,
+  shop_id?: number,
+  theme_id?: number,
+  theme?: Theme
+}
+
+
+export interface Theme {
+  id?: number,
+  is_default?: number,
+  name?: string,
+  class?: string,
+  theme_color?: string,
+  background_color?: string
 }

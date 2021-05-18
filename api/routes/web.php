@@ -66,6 +66,10 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
                     $router->post('delete','ShopDeliveryController@delete');
                     $router->post('store','ShopDeliveryController@store');
                 });
+                $router->group(['prefix' => 'themes'], function () use ($router) {
+                    $router->get('/','ThemesController@index');
+                    $router->post('/save','ThemesController@store');
+                });
 
 
                 $router->group(['prefix' => 'products'], function () use ($router) {

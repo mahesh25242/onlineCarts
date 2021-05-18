@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateShopRenewalsTable extends Migration
+class CreateShopThemesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,12 @@ class CreateShopRenewalsTable extends Migration
      */
     public function up()
     {
-        Schema::create('shop_renewals', function (Blueprint $table) {
+        Schema::create('shop_themes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('shop_id')->default(0);
-            $table->double('amount', 8 , 2)->default(0);
-            $table->dateTime('from_date')->nullable();
-            $table->dateTime('to_date')->nullable();
-            $table->boolean('status')->default(1);
+            $table->bigInteger('theme_id')->nullable()->index();
             $table->timestamps();
-            $table->softDeletes();
         });
-
-
     }
 
     /**
@@ -34,6 +28,6 @@ class CreateShopRenewalsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('shop_renewals');
+        Schema::dropIfExists('shop_themes');
     }
 }

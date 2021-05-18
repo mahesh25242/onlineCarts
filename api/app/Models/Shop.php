@@ -43,6 +43,18 @@ class Shop extends Model implements AuthenticatableContract, AuthorizableContrac
 
     protected $appends = array('status_text','is_generated');
 
+    public static function boot() {
+        parent::boot();
+
+        static::created(function($shop) { // before delete() method call this
+            $ShopTheme = new \App\Models\ShopTheme;
+            $theme = \App\Models\Theme::where("is_default", 1)->get()->first();
+            $ShopTheme->shop_id = $shop->id;
+            $ShopTheme->theme_id = $theme->id;
+            $ShopTheme->save();
+        });
+    }
+
     public function getStatusTextAttribute()
     {
         return (($this->status) ? 'Active' : 'In-Active');
@@ -114,6 +126,11 @@ class Shop extends Model implements AuthenticatableContract, AuthorizableContrac
     public function ShopRenewal()
     {
         return $this->hasMany('App\Models\ShopRenewal');
+    }
+
+    public function shopTheme()
+    {
+        return $this->hasOne('App\Models\ShopTheme');
     }
 
 }
