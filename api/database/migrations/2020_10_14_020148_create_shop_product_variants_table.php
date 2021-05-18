@@ -17,7 +17,7 @@ class CreateShopProductVariantsTable extends Migration
             $table->id();
             $table->bigInteger('shop_product_id')->default(0);
             $table->string('name')->nullable();
-            $table->string('description')->nullable();
+            $table->mediumText('description')->nullable();
             $table->double('actual_price', 8, 2)->nullable();
             $table->double('price', 8, 2)->nullable();
             $table->integer('sortorder')->default(1);

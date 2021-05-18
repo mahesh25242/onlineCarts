@@ -9,8 +9,14 @@ mat-card-title {
   background-size: cover;
   background-position: center;
   cursor: pointer;
-  min-height: 130px;
+  min-height: 300px;
 }
+
+.relativePosition{
+  margin: 10px;
+  font-size: 18px;
+}
+
 
 .price{
   font-weight: 500;
@@ -22,12 +28,20 @@ mat-card-title {
     font-weight: 700;
     font-size: 30px;
   }
+  &.price-lt-sm{
+    span{
+      font-size: 25px;
+    }
+  }
 }
 
 .description{
   padding: 0px 15px 0px 10px;
+
 }
 
+
 .full-width{
-  width: 100%
+  width: 100%;
+  border-radius: 0%;
 }

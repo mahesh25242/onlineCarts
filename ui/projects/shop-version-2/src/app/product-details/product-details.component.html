@@ -3,10 +3,9 @@
   <div class="container">
     <mat-cart>
       <mat-card-header>
-        <h1 class="product-name-color">{{ product.name }}</h1>
-        <h5>{{ product.shop_product_selected_variant?.name }}</h5>
+        <mat-card-header-text><h1 class="product-name-color">{{ product.name }}</h1></mat-card-header-text>
       </mat-card-header>
-
+      <mat-card-subtitle><h5 class="product-name-color">{{ product.shop_product_selected_variant?.name }}</h5></mat-card-subtitle>
       <form [formGroup]="addToCartFrm" (ngSubmit)="addToCart()">
 
         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
@@ -23,29 +22,38 @@
 
             </div>
 
-            <button  [ngClass.lt-sm]="'full-width'"  mat-raised-button color="primary" type="submit">Add To Cart</button>
+            <button  class="full-width"  mat-raised-button color="primary" type="submit">Add To Cart</button>
 
 
 
 
           </div>
-          <div fxFlex="65%" fxFlex.xs="100%" [ngClass.gt-sm]="'description'">
-            <h3 class="product-name-color">About {{product.name}} </h3>
+          <div fxFlex="65%" fxFlex.xs="100%" [ngClass.gt-xs]="'description'">
+            <h3 fxHide.lt-sm="true" class="product-name-color">About {{product.name}} </h3>
+            <div fxLayout="row" fxLayoutAlign="space-between">
 
-            <mat-form-field  appearance="standard" *ngIf="(product.shop_product_variant.length > 1)">
-              <mat-label>Choose Varient</mat-label>
-              <mat-select formControlName="shop_product_variant_id" required (selectionChange)="chooseVarient()">
-                <mat-option *ngFor="let shop_product_variant of product.shop_product_variant" [value]="shop_product_variant.id">
-                  {{shop_product_variant.name}} - ₹ {{shop_product_variant.price}}
-                </mat-option>
-              </mat-select>
-              <mat-error *ngIf="f.shop_product_variant_id.errors && f.shop_product_variant_id.errors.error">
-                {{f.shop_product_variant_id.errors.error}}
-              </mat-error>
-            </mat-form-field>
+              <mat-form-field fxFlex="40%"  appearance="standard" *ngIf="(product.shop_product_variant.length > 1)">
+                <mat-label>Choose Varient</mat-label>
+                <mat-select formControlName="shop_product_variant_id" required (selectionChange)="chooseVarient()">
+                  <mat-option *ngFor="let shop_product_variant of product.shop_product_variant" [value]="shop_product_variant.id">
+                    {{shop_product_variant.name}} - ₹ {{shop_product_variant.price}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="f.shop_product_variant_id.errors && f.shop_product_variant_id.errors.error">
+                  {{f.shop_product_variant_id.errors.error}}
+                </mat-error>
+              </mat-form-field>
+
+              <div fxLayoutAlign="center center" [ngClass.lt-sm]="'price-lt-sm'" class="price" fxFlex="40%"   *ngIf="product.shop_product_selected_variant?.price">
+                <del *ngIf="product.shop_product_selected_variant?.actual_price">₹ {{ product.shop_product_selected_variant?.actual_price * qty }}</del>
+                &nbsp;&nbsp;<span class="weight-bold animate__animated animate__flipInX"> ₹ {{ product.shop_product_selected_variant?.price * qty }} </span>
+              </div>
+
+            </div>
 
 
-            <div class="relativePosition" >
+
+            <div class="relativePosition" [ngClass.lt-sm]="'text-center'">
               <button type="button" mat-icon-button color="primary" (click)="updateCart('-')" [disabled]="qty<2"
               matTooltip="Decrease the quantity" class="animate__animated"
               [ngClass]="{'animate__flipInY' : qty<2 }">
@@ -57,17 +65,15 @@
                 <mat-icon>add_circle_outline</mat-icon>
               </button>
             </div>
-            <div  class="price"   *ngIf="product.shop_product_selected_variant?.price">
-              <del *ngIf="product.shop_product_selected_variant?.actual_price">₹ {{ product.shop_product_selected_variant?.actual_price * qty }}</del>
-              &nbsp;&nbsp;<span class="weight-bold animate__animated animate__flipInX"> ₹ {{ product.shop_product_selected_variant?.price * qty }} </span>
-            </div>
+
+            <h5>Choosen Varient {{product.name}} - {{product.shop_product_selected_variant.name}}</h5>
+            <p>{{product.shop_product_selected_variant?.description}}</p>
 
             <p *ngIf="product.description">
               {{ product.description}}
             </p>
 
-            <h5>About {{product.name}} - {{product.shop_product_selected_variant.name}}</h5>
-            <p>{{product.shop_product_selected_variant?.description}}</p>
+
           </div>
         </div>
 

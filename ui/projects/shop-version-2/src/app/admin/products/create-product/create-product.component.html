@@ -43,8 +43,8 @@
 
         <mat-form-field fxFlex="33%" fxFlex.xs="100%" class="full-width-text" appearance="standard">
           <mat-label>Description /  Ingredients</mat-label>
-          <textarea matInput formControlName="description" placeholder="Description /  Ingredients" maxlength="200"></textarea>
-          <mat-hint align="end" *ngIf="f.description?.value?.length">{{f.description?.value?.length}} / 200</mat-hint>
+          <textarea matInput formControlName="description" placeholder="Description /  Ingredients" maxlength="4000"></textarea>
+          <mat-hint align="end" *ngIf="f.description?.value?.length">{{f.description?.value?.length}} / 4000</mat-hint>
           <mat-error *ngIf="f.description.errors && f.description.errors.error">
             {{f.description.errors.error}}
           </mat-error>
@@ -105,8 +105,8 @@
                   <mat-list-item fxFill="fill">
                     <mat-form-field class="full-width-text" appearance="standard" fxFill="fill">
                       <mat-label>Description</mat-label>
-                      <textarea matInput formControlName="description" placeholder="Ex. descrtion about varient" maxlength="200"></textarea>
-                      <mat-hint align="end" *ngIf="stat.get('description').value?.length">{{stat.get('description').value?.length}} / 200</mat-hint>
+                      <textarea matInput formControlName="description" placeholder="Ex. descrtion about varient" maxlength="3000"></textarea>
+                      <mat-hint align="end" *ngIf="stat.get('description').value?.length">{{stat.get('description').value?.length}} / 3000</mat-hint>
                       <mat-error *ngIf="stat.get('description').errors && stat.get('description').errors.error">
                         {{stat.get('description').errors.error}}
                       </mat-error>
