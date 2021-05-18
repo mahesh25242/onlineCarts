@@ -1,7 +1,10 @@
 .spacer {
-  flex: 1 1 auto;
+   flex: 1 1 auto;
 }
-
+.search-block{
+  position: absolute;
+  top: 0px;
+}
 mat-toolbar{
   position: fixed;
   z-index: 200;

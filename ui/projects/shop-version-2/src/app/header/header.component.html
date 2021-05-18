@@ -1,27 +1,37 @@
-<mat-toolbar color="primary" *ngIf="(layOutXSmall$ | async) as layOutXSmall">
+<mat-toolbar color="primary">
   <ng-container *ngIf="(bc$ | async) as bc">
-    <div *ngIf="layOutXSmall.matches && bc?.backUrl">
+    <div *ngIf="bc?.backUrl" fxHide.gt-xs="true">
       <button mat-icon-button [routerLink]="bc?.backUrl">
           <mat-icon>arrow_back_ios</mat-icon>
       </button>
     </div>
   </ng-container>
 
-  <a routerLink="/" matRipple>{{title}}</a>
+  <a routerLink="/" matRipple *ngIf="!isSearch">{{title}}</a>
+  <div fxHide.gt-xs="true" *ngIf="isSearch" class="search-block">
+    <app-search [isHead]="true"></app-search>
+  </div>
+
   <div class="spacer"></div>
-  <div class="flex-right" *ngIf="layOutXSmall.matches">
+
+  <div class="flex-right" fxHide.gt-xs="true">
+      <button mat-icon-button matRipple (click)="showSearch()">
+          <mat-icon *ngIf="!isSearch">search</mat-icon>
+          <mat-icon *ngIf="isSearch">close</mat-icon>
+      </button>
+
       <button mat-icon-button (click)="onToggleSidenav()" matRipple>
           <mat-icon>menu</mat-icon>
       </button>
   </div>
 
-  <ng-container *ngIf="!layOutXSmall.matches">
-    <div class="flex-right navmenu">
-      <a routerLink="/" matRipple routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
-      <a matRipple routerLink="/about-us" routerLinkActive="active">About Us</a>
-      <a matRipple routerLink="/contact-us" routerLinkActive="active">Contact Us</a>
+
+  <div class="flex-right navmenu" fxHide.xs="true">
+    <a routerLink="/" matRipple routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+    <a matRipple routerLink="/about-us" routerLinkActive="active">About Us</a>
+    <a matRipple routerLink="/contact-us" routerLinkActive="active">Contact Us</a>
   </div>
-  </ng-container>
+
 
 </mat-toolbar>
 <div *ngIf="(localGeneralService.shopDisabled | async)" class="alert alert-warning shop-message">

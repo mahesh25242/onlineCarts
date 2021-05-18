@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ShopProductCategoryService, ShopProductService } from 'src/app/lib/services';
@@ -10,6 +10,8 @@ import { ShopProductCategoryService, ShopProductService } from 'src/app/lib/serv
 })
 export class SearchComponent implements OnInit {
   searchFrm: FormGroup;
+  @Input() isHead: boolean;
+
   constructor(private formBuilder : FormBuilder,
     private shopProductCategoryService: ShopProductCategoryService,
     private shopProductService: ShopProductService,

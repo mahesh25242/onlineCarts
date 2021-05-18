@@ -1,5 +1,5 @@
 <div class="container" *ngIf="(products$ | async)">
-  <app-search></app-search>
+  <app-search fxHide.xs="true"></app-search>
   <app-product [isSearch]="true"></app-product>
 </div>
 

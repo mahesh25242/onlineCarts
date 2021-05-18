@@ -19,8 +19,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   bc$: Observable<BC>;
   title : string = environment.siteName;
   @Output() public sidenavToggle = new EventEmitter();
+  isSearch: boolean = false;
 
-  layOutXSmall$:Observable<BreakpointState>;
+
 
 
 
@@ -33,13 +34,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     }
 
+    showSearch(){
+      this.isSearch = !this.isSearch
+    }
 
   ngOnInit(): void {
 
 
-    this.layOutXSmall$ = this.breakpointObserver.observe([
-      Breakpoints.XSmall
-    ])
 
 
 
