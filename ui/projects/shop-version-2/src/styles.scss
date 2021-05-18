@@ -41,6 +41,18 @@ table {
   }
 
 
+  .accent-color {
+    color: mat-color($accent) !important;
+  }
+
+  .warn-color {
+    color: mat-color($warn) !important;
+  }
+
+  .product-name-color{
+    color:  #821807;
+  }
+
 .mb1 {
     margin-bottom:1.5rem;
 }

@@ -12,9 +12,11 @@
             <mat-expansion-panel   *ngFor="let shop_delivery of shop?.shop_delivery_filtered.free"
             [expanded]="shop_delivery.isOpened"
             (opened)="shop_delivery.isOpened = true"
-              (closed)="shop_delivery.isOpened = false" [ngClass]="{'selected': customerFrm.controls.selectedLocation.value?.id == shop_delivery.id}">
+              (closed)="shop_delivery.isOpened = false"
+              color="warn"
+               >
               <mat-expansion-panel-header>
-                <mat-panel-title>
+                <mat-panel-title [ngClass]="{'accent-color': customerFrm.controls.selectedLocation.value?.id == shop_delivery.id}">
                   {{shop_delivery.name}}
                 </mat-panel-title>
                 <mat-panel-description>

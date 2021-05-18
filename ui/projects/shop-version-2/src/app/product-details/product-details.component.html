@@ -3,7 +3,7 @@
   <div class="container">
     <mat-cart>
       <mat-card-header>
-        <mat-card-title>{{ product.name }}</mat-card-title>
+        <h1 class="product-name-color">{{ product.name }}</h1>
         <h5>{{ product.shop_product_selected_variant?.name }}</h5>
       </mat-card-header>
 
@@ -30,7 +30,7 @@
 
           </div>
           <div fxFlex="65%" fxFlex.xs="100%" [ngClass.gt-sm]="'description'">
-            <h3>About {{product.name}} </h3>
+            <h3 class="product-name-color">About {{product.name}} </h3>
 
             <mat-form-field  appearance="standard" *ngIf="(product.shop_product_variant.length > 1)">
               <mat-label>Choose Varient</mat-label>

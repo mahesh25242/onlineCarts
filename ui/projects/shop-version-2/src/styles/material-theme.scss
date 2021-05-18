@@ -7,6 +7,8 @@ $accent: mat-palette($mat-pink, A200, A100, A400);
 $warn: mat-palette($mat-red);
 $theme: mat-light-theme($primary, $accent, $warn);
 
+
+
 @include angular-material-theme($theme);
 
 // Our dark theme
@@ -16,6 +18,7 @@ $theme: mat-light-theme($primary, $accent, $warn);
   $shop-theme-1-accent: mat-palette($mat-amber, A400, A100, A700);
   $shop-theme-1-warn: mat-palette($mat-red);
   $shop-theme-1-theme: mat-dark-theme($shop-theme-1-primary, $shop-theme-1-accent, $shop-theme-1-warn);
+
 
   @include angular-material-theme($shop-theme-1-theme);
 }
@@ -28,5 +31,8 @@ $theme: mat-light-theme($primary, $accent, $warn);
   $dark-warn: mat-palette($mat-red);
   $dark-theme: mat-light-theme($dark-primary, $dark-accent, $dark-warn);
 
+
   @include angular-material-theme($dark-theme);
 }
+
+

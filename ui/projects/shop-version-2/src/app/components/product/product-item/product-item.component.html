@@ -10,7 +10,7 @@
 
   <mat-card-header>
 
-    <mat-card-title matRipple [matRippleCentered]="true" [routerLink]="'/'+product.shop_product_category?.url+'/'+product.url"> {{ product.name }}</mat-card-title>
+    <mat-card-title class="product-name-color" matRipple [matRippleCentered]="true" [routerLink]="'/'+product.shop_product_category?.url+'/'+product.url"> {{ product.name }}</mat-card-title>
     <mat-card-subtitle>{{ product.shop_product_primary_variant?.name}} <span *ngIf="product.shop_product_variant.length > 1">
       | {{ product.shop_product_variant.length }} Varients </span> </mat-card-subtitle>
   </mat-card-header>
@@ -29,9 +29,9 @@
         </strike>
       </mat-grid-tile>
       <mat-grid-tile>
-        <button mat-icon-button [matRippleCentered]="true" class="addCart-btn"
+        <button mat-mini-fab [color]="(product.incart) ? 'warn': 'primary'" [matRippleCentered]="true" class="addCart-btn"
         [matTooltip]="(product.incart) ? product.name+' is already added' : 'Click here for add this item to cart'"
-        [ngClass]="{'active': product.incart}" (click)="addToCart(product)"><mat-icon aria-hidden="false" aria-label="Add Icon">add</mat-icon></button>
+        (click)="addToCart(product)"><mat-icon aria-hidden="false" aria-label="Add Icon">add</mat-icon></button>
       </mat-grid-tile>
     </mat-grid-list>
   </mat-card-actions>
