@@ -22,6 +22,8 @@ export class AdminHeaderComponent implements OnInit, OnDestroy {
   loggedUser$: Observable<User>;
   @Output() public sidenavToggle = new EventEmitter();
 
+  isDemoSite: boolean = false;
+
   layOutXSmall$:Observable<BreakpointState>;
   loggedSubScrioption: Subscription;
   signOutSubscription: Subscription;
@@ -55,6 +57,8 @@ export class AdminHeaderComponent implements OnInit, OnDestroy {
     // }));
 
     this.loggedUser$ = this.userService.getloggedUser;
+
+    this.isDemoSite = (environment.shopKey == environment.demoShopKey);
 
     //this.loggedSubScrioption = this.userService.authUser().subscribe();
 

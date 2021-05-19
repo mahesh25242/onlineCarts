@@ -8,6 +8,9 @@
   <a mat-list-item routerLink="/contact-us" (click)="onSidenavClose()" routerLinkActive="active">
       <mat-icon>account_balance</mat-icon><span class="nav-caption">Contact Us</span>
   </a>
+  <a mat-list-item routerLink="/admin" (click)="onSidenavClose()" routerLinkActive="active" *ngIf="isDemoSite">
+      <mat-icon>build</mat-icon><span class="nav-caption">Admin</span>
+  </a>
 
 
 

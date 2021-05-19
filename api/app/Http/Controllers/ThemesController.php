@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Validator;
+use Illuminate\Support\Facades\File;
 
 class ThemesController extends Controller
 {
@@ -33,10 +34,11 @@ class ThemesController extends Controller
             $shopKey = $request->input('shop_key');
             $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
         }
+        $theme_id = $request->input("theme_id", 0);
 
+        $theme = \App\Models\Theme::find($theme_id);
+        if($shop && $theme){
 
-        if($shop){
-            $theme_id = $request->input("theme_id", 0);
             \App\Models\ShopTheme::updateOrCreate(
                 [
                     "shop_id" => $shop->id,
@@ -46,6 +48,10 @@ class ThemesController extends Controller
                     "theme_id" => $theme_id
                 ]
             );
+
+            $shop->theme_color = $theme->theme_color;
+            $shop->bg_color = $theme->background_color;
+            $shop->save();
         }
 
         $http = new \GuzzleHttp\Client;
