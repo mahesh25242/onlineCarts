@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   siteName: document.querySelector("meta[name=shop-name]").getAttribute("content"),
   shopKey: document.querySelector("meta[name=shop-key]").getAttribute("content"),
+  demoShopKey: '3d9f5a8eec71764c7c2df5a56496c8a1320dd921',
   baseUrl: env.baseUrl,
   lumenSecret: env.lumenSecret,
   client_id: env.client_id,

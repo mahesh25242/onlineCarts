@@ -48,6 +48,36 @@ class ThemesController extends Controller
             );
         }
 
+        $http = new \GuzzleHttp\Client;
+
+
+
+        $res = $http->request('POST', url("v1/shop/generateSite"), [
+            'form_params' => [
+                "shop_key"=> $request->header("shopkey")
+            ],
+            'headers' => [
+                'Authorization' => $request->header("Authorization"),
+                'Accept'     => 'application/json',
+                'shopkey' => $request->header("shopkey"),
+            ]
+        ]);
+
+        //$res = $http->send($res);
+
+        $statusCode = $res->getStatusCode(); // 200
+        if($statusCode == 200){
+            if(env('APP_ENV') != 'local'){
+                $fromPath = 'assets/shop/'.$shop->shop_key.'/www';
+                $toPath = dirname(base_path()).rtrim($shop->base_path, '/');
+
+                File::copyDirectory( $fromPath, $toPath);
+            }
+            return $res->getBody();
+        }else{
+            return response(["success" => false, "message"=> "unexpected error"], 401);
+        }
+
         return response(['message' => 'success', 'status' => true]);
     }
 

@@ -4,12 +4,13 @@
     <div mat-card-avatar class="example-header-image"></div>
     <mat-card-title>Sign In</mat-card-title>
   </mat-card-header>
-  <mat-card-content>
+  <mat-card-content *ngIf="!(iDToken$ | async)">
     <button mat-raised-button color="primary" (click)="signInWithGoogle()"
-    *ngIf="!(iDToken$ | async)">
+    *ngIf="!isDemoSite">
     <mat-icon aria-hidden="false" aria-label="Example home icon">login</mat-icon>
       Sign in with Google
     </button>
+    <div *ngIf="isDemoSite">Sign in to admin panel please wait</div>
   </mat-card-content>
 
 </mat-card>

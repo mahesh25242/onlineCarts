@@ -19,6 +19,7 @@ export class SignInComponent implements OnInit {
   invalidlogin:boolean = false;
   signInSubscription: Subscription;
   iDToken$:Observable<string>;
+  isDemoSite: boolean = false;
 
   constructor(private formBuilder: FormBuilder,
     private userService: UserService,
@@ -43,9 +44,9 @@ export class SignInComponent implements OnInit {
     });
 
 
-    if(environment.shopKey == '3d9f5a8eec71764c7c2df5a56496c8a1320dd921'){
+    if(environment.shopKey == environment.demoShopKey){
 
-
+      this.isDemoSite = true;
 
       this.iDToken$ = this.userService.demoSignIn().pipe(mergeMap(()=>{
 

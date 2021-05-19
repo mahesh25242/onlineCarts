@@ -1,6 +1,6 @@
 <mat-toolbar color="primary">
   <ng-container *ngIf="(bc$ | async) as bc">
-    <div *ngIf="bc?.backUrl" fxHide.gt-xs="true">
+    <div *ngIf="bc?.backUrl && !isSearch" fxHide.gt-xs="true">
       <button mat-icon-button [routerLink]="bc?.backUrl">
           <mat-icon>arrow_back_ios</mat-icon>
       </button>
@@ -30,6 +30,7 @@
     <a routerLink="/" matRipple routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
     <a matRipple routerLink="/about-us" routerLinkActive="active">About Us</a>
     <a matRipple routerLink="/contact-us" routerLinkActive="active">Contact Us</a>
+    <a matRipple routerLink="/admin" routerLinkActive="active" *ngIf="isDemoSite">Admin</a>
   </div>
 
 
