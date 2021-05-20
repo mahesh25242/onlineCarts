@@ -52,18 +52,27 @@ class Shop extends Model implements AuthenticatableContract, AuthorizableContrac
             $ShopTheme->shop_id = $shop->id;
             $ShopTheme->theme_id = $theme->id;
             $ShopTheme->save();
+            return true;
         });
 
         static::deleting(function($shop) {
             // Delete registry_detail
             if ($shop->isForceDeleting()) {
                 $shop->ShopTheme()->forceDelete();
+                $shop->shopProduct->each(function($shopProduct) {
+                    $shopProduct->shopProductImage()->forceDelete();
+                    $shopProduct->shopProductVariant()->forceDelete();
+                });
                 $shop->shopProduct()->forceDelete();
                 $shop->shopProductCategory()->forceDelete();
+
+                //$shop->userRole()->user()->forceDelete();
+
                 $shop->userRole()->forceDelete();
                 $shop->shopDelivery()->forceDelete();
                 $shop->shopOrder()->forceDelete();
                 $shop->shopRenewal()->forceDelete();
+                return true;
             }
         });
 

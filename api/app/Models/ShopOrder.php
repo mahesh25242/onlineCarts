@@ -42,6 +42,7 @@ class ShopOrder extends Model implements AuthenticatableContract, AuthorizableCo
         static::created(function($shopOrder) {
             $shopOrder->sec_key =  sha1(time().'-'.$shopOrder->id);
             $shopOrder->save();
+            return true;
         });
 
         static::deleting(function($shopOrder) {
@@ -49,6 +50,7 @@ class ShopOrder extends Model implements AuthenticatableContract, AuthorizableCo
             if ($shopOrder->isForceDeleting()) {
                 $shop->shopOrderItem()->forceDelete();
             }
+            return true;
         });
 
     }

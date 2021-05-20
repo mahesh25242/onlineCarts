@@ -46,7 +46,7 @@ class ShopProduct extends Model implements AuthenticatableContract, Authorizable
                 $shopProduct->shopProductImage()->delete();
                 $shopProduct->shopProductVariant()->delete();
             }
-
+            return true;
              // do the rest of the cleanup...
         });
 
