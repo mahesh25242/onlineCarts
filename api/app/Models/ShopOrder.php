@@ -43,6 +43,14 @@ class ShopOrder extends Model implements AuthenticatableContract, AuthorizableCo
             $shopOrder->sec_key =  sha1(time().'-'.$shopOrder->id);
             $shopOrder->save();
         });
+
+        static::deleting(function($shopOrder) {
+            // Delete registry_detail
+            if ($shopOrder->isForceDeleting()) {
+                $shop->shopOrderItem()->forceDelete();
+            }
+        });
+
     }
 
 

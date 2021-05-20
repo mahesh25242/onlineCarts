@@ -53,6 +53,20 @@ class Shop extends Model implements AuthenticatableContract, AuthorizableContrac
             $ShopTheme->theme_id = $theme->id;
             $ShopTheme->save();
         });
+
+        static::deleting(function($shop) {
+            // Delete registry_detail
+            if ($shop->isForceDeleting()) {
+                $shop->ShopTheme()->forceDelete();
+                $shop->shopProduct()->forceDelete();
+                $shop->shopProductCategory()->forceDelete();
+                $shop->userRole()->forceDelete();
+                $shop->shopDelivery()->forceDelete();
+                $shop->shopOrder()->forceDelete();
+                $shop->shopRenewal()->forceDelete();
+            }
+        });
+
     }
 
     public function getStatusTextAttribute()
@@ -123,7 +137,7 @@ class Shop extends Model implements AuthenticatableContract, AuthorizableContrac
         return $this->hasMany('App\Models\ShopOrder');
     }
 
-    public function ShopRenewal()
+    public function shopRenewal()
     {
         return $this->hasMany('App\Models\ShopRenewal');
     }

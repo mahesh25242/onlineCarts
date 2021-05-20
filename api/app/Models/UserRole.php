@@ -36,6 +36,17 @@ class UserRole extends Model implements AuthenticatableContract, AuthorizableCon
     ];
 
 
+    public static function boot() {
+        parent::boot();
+
+        static::deleting(function($userRole) {
+            // Delete registry_detail
+            if ($userRole->isForceDeleting()) {
+                $userRole->user()->forceDelete();
+            }
+        });
+
+    }
 
     public function user()
     {

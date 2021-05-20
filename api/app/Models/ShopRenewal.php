@@ -26,8 +26,6 @@ class ShopRenewal extends Model implements AuthenticatableContract, Authorizable
     protected $casts = [
         'shop_id' => 'integer',
         'amount' => 'double',
-        'from_date' => 'dateTime',
-        'to_date' => 'dateTime',
         'status' => 'boolean',
     ];
 

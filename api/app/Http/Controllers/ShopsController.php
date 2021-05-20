@@ -102,7 +102,7 @@ class ShopsController extends Controller
 
             $plan = \App\Models\Setting::where("name", 'shop_expiry')->get()->first();
             $planDays = ($plan) ? (int) $plan->value : 90;
-            $shop->ShopRenewal()->create([
+            $shop->shopRenewal()->create([
                 "amount" => 0,
                 "from_date" => Carbon::now()->startOfDay(),
                 "to_date" => Carbon::now()->addDays($planDays)->endOfDay(),
@@ -198,7 +198,22 @@ class ShopsController extends Controller
 
     public function delete(Request $request, $id=0){
         if($request->input("force", null)){
-            $shop =  \App\Models\Shop::where('id', $id)->forceDelete();
+            $shop =  \App\Models\Shop::where("id", $id)->withTrashed()->get()->first();
+            if($shop->shop_key){
+                $fromPath = 'assets/shop/'.$shop->shop_key;
+                if(file_exists($fromPath)){
+                    File::deleteDirectory($fromPath);
+                }
+            }
+            if(env('APP_ENV') != 'local'){
+                if($shop->shop_key){
+                    $toPath = dirname(base_path()).rtrim($shop->base_path, '/');
+                    if(rtrim($shop->base_path, '/') && file_exists($toPath ))
+                        File::deleteDirectory($toPath);
+                }
+
+            }
+            $shop =  $shop->forceDelete();
         }else if($request->input("restore", null)){
             $shop =  \App\Models\Shop::where('id', $id)->restore();
         }else{
@@ -409,7 +424,6 @@ class ShopsController extends Controller
     }
 
     public function register(Request $request){
-
         $recaptcha = new \ReCaptcha\ReCaptcha(env("RECAPTCHA_SECRET"));
         $resp = $recaptcha->setExpectedAction("SignUp")
                         //->setExpectedHostname(env("APP_URL"))
