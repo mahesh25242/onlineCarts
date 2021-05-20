@@ -133,15 +133,6 @@ class ShopsController extends Controller
             $toEMail = $email;
             if(env('APP_ENV') == 'local'){
                 $toEMail = env('DEVELOPER_MAIL');
-            }else{
-                //copy file to root
-
-                $fromPath = 'assets/shop/'.$shop->shop_key.'/www';
-                $toPath = dirname(base_path()).rtrim($shop->base_path, '/');
-
-                File::copyDirectory( $fromPath, $toPath);
-
-
             }
 
             if($toEMail){
@@ -382,7 +373,12 @@ class ShopsController extends Controller
          }
 
 
+         if(env('APP_ENV') != 'local'){
+            $fromPath = 'assets/shop/'.$shop->shop_key.'/www';
+            $toPath = dirname(base_path()).rtrim($shop->base_path, '/');
 
+            File::copyDirectory( $fromPath, $toPath);
+        }
 
          return response(['message' => 'successfully generated',  'status' => true]);
     }

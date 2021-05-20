@@ -22,9 +22,11 @@ class ShopAccessMiddleWare
         if($shopKey){
             $shop = \App\Models\Shop::where("shop_key",$shopKey)->get()->first();
 
+            if(!$shop)
+                return response('Shop is deleted.', 404);
+
             if($shop->status)
                 return $next($request);
-
             else
                 return response('Shop was inactive.', 402);
         }else{

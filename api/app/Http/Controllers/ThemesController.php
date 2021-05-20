@@ -73,12 +73,6 @@ class ThemesController extends Controller
 
         $statusCode = $res->getStatusCode(); // 200
         if($statusCode == 200){
-            if(env('APP_ENV') != 'local'){
-                $fromPath = 'assets/shop/'.$shop->shop_key.'/www';
-                $toPath = dirname(base_path()).rtrim($shop->base_path, '/');
-
-                File::copyDirectory( $fromPath, $toPath);
-            }
             return $res->getBody();
         }else{
             return response(["success" => false, "message"=> "unexpected error"], 401);
