@@ -41,7 +41,8 @@ export interface Shop {
   short_name?: string,
   logo?: string,
   icons?: any,
-  shop_theme?: ShopTheme
+  shop_theme?: ShopTheme,
+  is_mobile_verified?: number
 }
 
 

@@ -2,10 +2,9 @@ import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/cor
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
-import { map, mergeMap } from 'rxjs/operators';
+import { mergeMap } from 'rxjs/operators';
 import { User } from 'src/app/lib/interfaces';
 import { ShopService, UserService } from 'src/app/lib/services';
-import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-admin-side-nav-list',
@@ -17,7 +16,6 @@ export class AdminSideNavListComponent implements OnInit, OnDestroy {
   @Output() sidenavClose = new EventEmitter();
   loggedUser$: Observable<User>;
   signOutSubscription: Subscription;
-  isDemoSite: boolean = false;
 
   constructor(private userService: UserService,
     private router: Router,
@@ -46,7 +44,7 @@ export class AdminSideNavListComponent implements OnInit, OnDestroy {
     //     return user;
     //   }))
     // }));
-    this.isDemoSite = (environment.shopKey == environment.demoShopKey);
+
     this.loggedUser$ = this.userService.getloggedUser;
   }
 

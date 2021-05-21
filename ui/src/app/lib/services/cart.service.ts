@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Cart, City, ShopOrder, ShopOrderWithPagination } from '../interfaces';
+import { Cart, CartDetail, City, ShopOrder, ShopOrderWithPagination } from '../interfaces';
 import { BehaviorSubject, empty, from, Observable, of, throwError } from 'rxjs';
 import { combineAll, concatAll, map, mergeAll, tap, toArray } from 'rxjs/operators';
 import { compact } from 'lodash';
@@ -9,7 +9,7 @@ import { compact } from 'lodash';
   providedIn: 'root'
 })
 export class CartService {
-  cart$: BehaviorSubject<Cart[]> = new BehaviorSubject<Cart[]>(null);
+  cartDetails$: BehaviorSubject<CartDetail> = new BehaviorSubject<CartDetail>(null);
   private orders$: BehaviorSubject<ShopOrderWithPagination> = new BehaviorSubject<ShopOrderWithPagination>(null);
   private isUpdated$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   hideCartComponent$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -23,8 +23,30 @@ export class CartService {
   get orders(){
     return this.orders$.asObservable();
   }
+  get cartDetails(){
+    return this.cartDetails$.asObservable().pipe(map(res=>{
+      let total: number = 0;
+      let grandTotal: number = 0;
 
-  private getCart(){
+
+      res.carts.map(itm=>{
+        total +=itm.price;
+      });
+
+      if(res?.detail?.selectedLocation && res?.detail?.selectedLocation?.charge){
+        grandTotal = total + res?.detail.selectedLocation.charge;
+      }else{
+        grandTotal = total;
+      }
+
+      res.grandTotal = grandTotal;
+      res.total = total;
+
+      return res;
+    }));
+  }
+
+  private getCart(): Cart[]{
     try {
       if(this.shopKey){
         const cart = localStorage.getItem(`${this.shopKey}-cart`);
@@ -39,7 +61,11 @@ export class CartService {
 
   cart(): Observable<Cart[]>{
     return  this.isUpdated.pipe(map(res=>{
-      return this.getCart();
+      const cart:Cart[] = this.getCart();
+      let cartDetails = this.cartDetails$.getValue();
+      cartDetails = {...cartDetails, ...{ carts: cart }};
+      this.cartDetails$.next(cartDetails);
+      return cart;
     }));
   }
 

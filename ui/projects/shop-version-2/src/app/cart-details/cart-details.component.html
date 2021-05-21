@@ -1,21 +1,21 @@
 <div class="header-inner"></div>
 <div class="container">
-  <ng-container *ngIf="(cart$ | async) as cart">
+  <ng-container *ngIf="(cartDetails$ | async) as cartDetails">
 
     <div fxLayout="row" fxLayoutAlign="space-between">
         <mat-card fxFlex="100%">
-          <app-delivery-loaction></app-delivery-loaction>
+          <app-delivery-loaction #deliveryLocationDom></app-delivery-loaction>
         </mat-card>
     </div>
 
-  <div *ngIf="!cart || !cart.length">Your cart is empty</div>
+  <div *ngIf="!cartDetails?.carts || !cartDetails?.carts.length">Your cart is empty</div>
   <form [formGroup]="customerFrm" #delivey (ngSubmit)="sendToShop(delivey)">
-    <ng-container *ngIf="cart && cart.length">
+    <ng-container *ngIf="cartDetails?.carts && cartDetails?.carts.length">
       <div >
         <h1 mat-dialog-title>
-          My Cart ( {{cart.length}} )
+          My Cart ( {{cartDetails?.carts.length}} )
         </h1>
-        <mat-card *ngFor="let item of cart"
+        <mat-card *ngFor="let item of cartDetails?.carts"
         [ngClass.lt-md]="'grid-my-lt-md-list'"
         [ngClass.gt-md]="'grid-my-gt-md-list'" >
 
@@ -79,9 +79,13 @@
         </mat-card>
         <div class="order-total">
           <mat-card>
-            <div [ngClass.lt-md]="'text-center'" [ngClass.gt-md]="'text-right'">
-              <h1>Total: ₹ {{ grandTotal }}</h1>
+            <div [ngClass.lt-md]="'text-center'" [ngClass.gt-sm]="'text-right'">
+              <h1>Total: ₹ {{ cartDetails.grandTotal }}</h1>
               <small>( Inclusive of all taxes )</small>
+              <mat-error *ngIf="!cartDetails?.detail?.selectedLocation">
+                Please choose a pick up from shop or home delivery
+              </mat-error>
+
               <!-- <div fxFlex="25%">
                 {{cart.length}}  {{ (cart.length > 1) ? 'items': 'item' }}
               </div> -->

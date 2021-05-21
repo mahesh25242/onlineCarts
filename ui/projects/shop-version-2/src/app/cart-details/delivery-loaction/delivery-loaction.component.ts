@@ -24,9 +24,7 @@ export class DeliveryLocationComponent implements OnInit, OnDestroy {
   get f(){ return this.customerFrm.controls}
 
   ngOnInit(): void {
-    this.shop$ = this.shopService.aShop.pipe(tap(res=>{
-      console.log(res)
-    }));
+    this.shop$ = this.shopService.aShop;
 
     this.customerFrm = this.formBuilder.group({
       name: [null, []],
@@ -39,6 +37,13 @@ export class DeliveryLocationComponent implements OnInit, OnDestroy {
       is_delivery_date:[ false, []],
       selectedLocation: [null, []]
     });
+
+    this.customerFrm.valueChanges.subscribe(res=>{
+      let cartDetails= this.cartService.cartDetails$.getValue();
+      cartDetails = {...cartDetails, ...{detail: res}}
+      this.cartService.cartDetails$.next(cartDetails)
+    })
+    //this.cartService.cartDetails$.next();
   }
 
   ngOnDestroy(){

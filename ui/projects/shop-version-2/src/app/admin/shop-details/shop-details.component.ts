@@ -20,7 +20,7 @@ export class ShopDetailsComponent implements OnInit, OnDestroy {
   cities$: Observable<City[]>;
   thems$: Observable<Theme[]>;
   theme_id: number;
-
+  isDemoSite:boolean = false;
 
   countrySubscription: Subscription;
   stateSubscription: Subscription;
@@ -48,6 +48,10 @@ export class ShopDetailsComponent implements OnInit, OnDestroy {
     }
 
   updateShop(){
+    if(this.isDemoSite){
+      Notiflix.Notify.Failure('sorry its a demo site you can\'t change any info in demo site');
+      throw 'sorry its a demo site you can\'t change any info in demo site';
+    }
     const postData = {
       name: this.f.name.value,
       short_name: this.f.short_name.value,
@@ -90,9 +94,13 @@ export class ShopDetailsComponent implements OnInit, OnDestroy {
     });
 
     this.thems$ = this.themeService.themes();
+    this.isDemoSite = (environment.shopKey == environment.demoShopKey);
+
 
     this.shop$ = this.shopService.aShop.pipe(tap(res=>{
       const phone = (res?.phone) ? res?.phone.slice(2): '';
+
+
 
       this.theme_id = res.shop_theme.theme_id;
 
@@ -128,6 +136,7 @@ export class ShopDetailsComponent implements OnInit, OnDestroy {
       bg_color: [null, []] ,
       map: [null, []] ,
     });
+
 
     this.countries$ = this.countryServive.countries();
 

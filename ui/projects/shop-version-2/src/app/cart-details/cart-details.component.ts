@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import { empty, Observable,of,pipe, Subscription } from 'rxjs';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { empty, Observable,of,pipe, Subscription, throwError } from 'rxjs';
 import { mergeMap, tap, map } from 'rxjs/operators';
-import { Cart, Shop, ShopDelivery, ShopOrder } from 'src/app/lib/interfaces';
+import { Cart, CartDetail, Shop, ShopDelivery, ShopOrder } from 'src/app/lib/interfaces';
 import { CartService, GeneralService, ShopService } from 'src/app/lib/services';
 import { environment } from '../../environments/environment';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -26,20 +26,17 @@ import { MatAccordion } from '@angular/material/expansion';
 })
 export class CartDetailsComponent implements OnInit, OnDestroy {
   customerFrm: FormGroup;
-  @Output() public showDetails = new EventEmitter();
-  @ViewChild(MatAccordion) accordion: MatAccordion;
+
   cart$: Observable<Cart[]>;
   total:number = 0;
   grandTotal:number = 0;
-  todayDate:Date = new Date();
 
-  panelOpenState:boolean = false;
   environment = environment;
-  deliveries: any;
   shop$:Observable<Shop>;
   selectedLocation: ShopDelivery;
   mapUrl: string = '';
   loc : any =null;
+  cartDetails$: Observable<CartDetail>;
 
   breakPointSubScr: Subscription;
 
@@ -73,36 +70,41 @@ export class CartDetailsComponent implements OnInit, OnDestroy {
     //   return;
     // }
 
-    if(!this.f.delivery_date.value){
-      this.f.is_delivery_date.setValue(false);
-    }
+    // if(!this.f.delivery_date.value){
+    //   this.f.is_delivery_date.setValue(false);
+    // }
     Notiflix.Loading.Arrows();
-    this.sentToShop = this.cart$.pipe(mergeMap(cart=>{
-      if(!cart) {
-        console.log("no cart exists")
-        return empty();
+    this.sentToShop = this.cartDetails$.pipe(mergeMap(cartDetails=>{
+      if(!cartDetails?.carts || !cartDetails?.carts.length) {
+        Notiflix.Notify.Failure('empty cart.');
+        return throwError('no cart exists')
       }
 
       return this.shop$.pipe(mergeMap(shop=>{
         if(!shop) {
-          console.log("no shop exists");
-          return empty();
+          Notiflix.Notify.Failure('shop may be inactive or deleted.');
+          return throwError('shop may be inactive or deleted')
+        }
+
+        if(!shop.is_mobile_verified){
+          Notiflix.Notify.Failure('Shop mobile is not verified so can\'t make any order.');
+          return throwError('mobile not active')
         }
 
 
 
         const postData = {
-          cart: cart,
-          name: this.f.name.value,
-          note: this.f.note.value,
-          email: this.f.email.value,
-          phone: this.f.phone.value,
-          address: this.f.address.value,
-          pin: this.f.pin.value,
-          selectedLocation: this.f.selectedLocation.value,
-          grad_total: this.grandTotal,
+          cart: cartDetails.carts,
+          name: cartDetails?.detail?.name,
+          note: cartDetails?.detail?.note,
+          email: cartDetails?.detail?.email,
+          phone: cartDetails?.detail?.phone,
+          address: cartDetails?.detail?.address,
+          pin: cartDetails?.detail?.pin,
+          selectedLocation: cartDetails?.detail?.selectedLocation,
+          grad_total: cartDetails?.grandTotal,
           loc :this.loc,
-          delivery_date: this.f.delivery_date.value,
+          delivery_date: cartDetails?.detail?.delivery_date,
           token: null
         }
 
@@ -116,11 +118,11 @@ export class CartDetailsComponent implements OnInit, OnDestroy {
             ]).pipe(map(bp =>{
               let txt = `%0a‎ Order from *${postData.name}*`;
 
-              txt += `%0a‎ Order: *${encodeURIComponent(`#${orderRes.id}`)}* ( ${cart.length} ${ (cart.length > 1) ? 'items' : 'item' } )`;
+              txt += `%0a‎ Order: *${encodeURIComponent(`#${orderRes.id}`)}* ( ${cartDetails.carts.length} ${ (cartDetails.carts.length > 1) ? 'items' : 'item' } )`;
               if(postData.phone){
                 txt += `%0a‎ Phone: ${encodeURIComponent(postData.phone)}  `;
               }
-              cart.map((itm, idx)=>{
+              cartDetails.carts.map((itm, idx)=>{
                 txt += `%0a‎ *${encodeURIComponent(itm.product.name)}* `;
                 if(itm.message){
                   txt += `%0a‎ Message: ${encodeURIComponent(itm.message)} `;
@@ -213,12 +215,13 @@ export class CartDetailsComponent implements OnInit, OnDestroy {
           }
         }
 
-        if(this.customerFrm.invalid){
-          document.getElementById('fullName').focus();
-          el.scrollIntoView({behavior:"smooth"});
+        // if(this.customerFrm.invalid){
+        //   if(document.getElementById('fullName'))
+        //     document.getElementById('fullName').focus();
+        //  // el.scrollIntoView({behavior:"smooth"});
 
 
-        }
+        // }
 
       }
 
@@ -328,6 +331,7 @@ export class CartDetailsComponent implements OnInit, OnDestroy {
     });
   }
   ngOnInit(): void {
+    this.cartService.hideCartComponent$.next(true);
 
     this.generalService.bc$.next({
       siteName: environment.siteName,
@@ -335,68 +339,30 @@ export class CartDetailsComponent implements OnInit, OnDestroy {
       url:'',
       backUrl: '/'
     });
-
-    this.cartService.hideCartComponent$.next(true);
     this.shop$ = this.shopService.aShop;
-    // .pipe(tap(res=>{
-    //   this.changeLocation(first(res?.shop_delivery));
-    // }));
-    this.cart$ = this.cartService.cart().pipe(tap(res=>{
+    this.cartDetails$ = this.cartService.cartDetails;
 
 
-      this.total = 0;
-      res.map(itm=>{
-        this.total +=itm.price;
-      });
-
-      if(this.selectedLocation && this.selectedLocation.charge){
-        this.grandTotal = this.total + this.selectedLocation.charge;
-      }else{
-        this.grandTotal = this.total;
-      }
-
-      if(!this.total){
-        this.matSnackBar.open('Your cart is empty.', 'close');
-        this.router.navigate(['/']);
-      }
-
-      this.generalService.bc$.next({
-        siteName: environment.siteName,
-        title: `My Cart ( ${res.length} )`,
-        url:'',
-        backUrl: '/'
-      });
-
-
-    }));
 
     this.customerFrm = this.formBuilder.group({
-      name: [null, []],
-      note: [null, []],
-      email: [null, []],
-      phone: [null, []],
-      address: [null, []],
-      pin: [null, []],
-      delivery_date: [null, []],
-      is_delivery_date:[ false, []],
-      selectedLocation: [null, []],
       terms: [null, []]
     });
 
-    this.f.selectedLocation.valueChanges.subscribe(res=>{
-      if(res?.min_amount && this.grandTotal < res?.min_amount){
-        this.f.selectedLocation.setErrors({
-          error: `${res.name} need atleast ₹ ${res?.min_amount} to delivery.`
-        });
-      }
 
-      if(res?.charge && this.f.selectedLocation.valid){
-        this.grandTotal = this.total + res?.charge;
-      }else{
-        this.grandTotal = this.total;
-      }
+    // this.deliveryLocationDom.f.selectedLocation.valueChanges.subscribe(res=>{
+    //   if(res?.min_amount && this.grandTotal < res?.min_amount){
+    //     this.f.selectedLocation.setErrors({
+    //       error: `${res.name} need atleast ₹ ${res?.min_amount} to delivery.`
+    //     });
+    //   }
 
-    });
+    //   if(res?.charge && this.f.selectedLocation.valid){
+    //     this.grandTotal = this.total + res?.charge;
+    //   }else{
+    //     this.grandTotal = this.total;
+    //   }
+
+    // });
 
   }
 

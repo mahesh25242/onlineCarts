@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddDefaultToShopsTable extends Migration
+class AddIsMobileVerifiedToShopsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddDefaultToShopsTable extends Migration
     public function up()
     {
         Schema::table('shops', function (Blueprint $table) {
-            $table->boolean('is_default')->default(0);
+            $table->boolean('is_mobile_verified')->default(0);
         });
     }
 
@@ -26,7 +26,7 @@ class AddDefaultToShopsTable extends Migration
     public function down()
     {
         Schema::table('shops', function (Blueprint $table) {
-            $table->dropColumn('is_default');
+            $table->dropColumn('is_mobile_verified');
         });
     }
 }

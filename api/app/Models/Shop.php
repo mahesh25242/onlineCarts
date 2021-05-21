@@ -26,7 +26,8 @@ class Shop extends Model implements AuthenticatableContract, AuthorizableContrac
         'state_id', 'city_id', 'pin', 'local', 'map',
         'shop_key', 'shop_url', 'status', 'shop_category_id',
         'created_by', 'updated_by', 'deleted_by', 'base_path', 'favicon',
-        'theme_color', 'bg_color', 'short_name', 'icons', 'logo', 'is_default'
+        'theme_color', 'bg_color', 'short_name', 'icons', 'logo', 'is_default',
+        'is_mobile_verified'
     ];
 
     protected $casts = [
@@ -38,7 +39,8 @@ class Shop extends Model implements AuthenticatableContract, AuthorizableContrac
         'shop_category_id' => 'integer',
         'created_by' => 'integer',
         'updated_by' => 'integer',
-        'deleted_by' => 'integer'
+        'deleted_by' => 'integer',
+        'is_mobile_verified' => 'integer',
     ];
 
     protected $appends = array('status_text','is_generated');

@@ -12,6 +12,9 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
+      <div *ngIf="!shop.is_mobile_verified">
+        Your mobile is not verified so cant get any order to your mobile
+      </div>
     </mat-card>
     <br/>
     <form [formGroup]="shopDetailsFrm"  (ngSubmit)="updateShop()">
