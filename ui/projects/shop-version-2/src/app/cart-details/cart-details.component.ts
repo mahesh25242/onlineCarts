@@ -111,7 +111,7 @@ export class CartDetailsComponent implements OnInit, OnDestroy {
         return this.messagingService.getToken().pipe(mergeMap(tkn=>{
           postData.token = (tkn) ? tkn : '';
           return this.cartService.createOrder(postData).pipe(mergeMap((orderRes : ShopOrder)=>{
-            if(!orderRes) return empty();
+            if(!orderRes) throwError('no response from server');
             return this.breakpointObserver.observe([
               Breakpoints.Handset,
               Breakpoints.Tablet
@@ -195,15 +195,6 @@ export class CartDetailsComponent implements OnInit, OnDestroy {
       Notiflix.Loading.Remove();
 
       if(error.status == 422){
-
-        if(!this.f.selectedLocation.value?.need_cust_loc){
-          let selectedLocation = this.f.selectedLocation.value;
-          if(selectedLocation){
-            selectedLocation.isOpened = (selectedLocation.isOpened) ? selectedLocation.isOpened : true;
-          }
-          this.f.selectedLocation.setValue(selectedLocation);
-        }
-
 
         for(let result in this.customerFrm.controls){
           if(error.error.errors[result]){
