@@ -41,6 +41,12 @@ class ShopOrderController extends Controller
             return response(['message' => 'Validation errors', 'errors' =>  $validator->errors(), 'status' => false], 422);
         }
 
+        $shopDelivery = \App\Models\ShopDelivery::find($request->input("selectedLocation.id", 0));
+        if($shopDelivery->min_amount > $request->input("grad_total", 0)){
+            return response(['message' => 'Validation errors', 'errors' =>["selectedLocation" => sprintf("%s has atleast %d amount order", $shopDelivery->name, $shopDelivery->min_amount )]  , 'status' => false], 422);
+        }
+
+
         $shop = null;
         $shopKey = $request->header('shopKey');
         $shopKey = ( $shopKey ) ?  $shopKey  :$request->input("shop_key");
@@ -80,7 +86,7 @@ class ShopOrderController extends Controller
                 if($request->input("delivery_date", null))
                     $delivery_date = \Carbon\Carbon::parse($request->input("delivery_date"))->format('Y-m-d H:i:s');
 
-                $shopDelivery = \App\Models\ShopDelivery::find($request->input("selectedLocation.id", 0));
+
                 $shopOrder = new \App\Models\ShopOrder;
                 $shopOrder->shop_id =  $shop->id;
                 $shopOrder->delivery_at =  $delivery_date;

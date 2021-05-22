@@ -62,7 +62,7 @@ export class CartDetailsComponent implements OnInit, OnDestroy {
     this.cartSubScr = this.cartService.updateCart(itm, action).subscribe();
   }
 
-  sendToShop(el: HTMLElement){
+  sendToShop(deliveryLocationDom: any){
 
     // if(!this.f.selectedLocation.value?.id){
     //   //this.matSnackBar.open('Please choose a delivery location.', 'close');
@@ -158,6 +158,10 @@ export class CartDetailsComponent implements OnInit, OnDestroy {
               if(postData.selectedLocation.charge){
                 txt += `%0a‎ Delivery Charge: ₹ ${encodeURIComponent(postData.selectedLocation.charge)} %0a `;
               }
+
+              if(orderRes.sec_key){
+                txt += `%0a‎ Track Order: ${shop.shop_url}/order/${orderRes.sec_key} %0a `;
+              }
               let locUrl= null;
               if(postData.loc?.lat && postData.loc?.lon){
                 locUrl = `https://www.google.com/maps/search/?api=1&query=${postData.loc.lat},${postData.loc.lon}`;
@@ -193,26 +197,22 @@ export class CartDetailsComponent implements OnInit, OnDestroy {
     }, error=>{
 
       Notiflix.Loading.Remove();
-
+      let showMsg:boolean = false;
       if(error.status == 422){
 
-        for(let result in this.customerFrm.controls){
+        for(let result in deliveryLocationDom?.customerFrm.controls){
           if(error.error.errors[result]){
-            this.customerFrm.controls[result].markAsTouched();
-            this.customerFrm.controls[result].setErrors({ error: error.error.errors[result] });
+            deliveryLocationDom?.customerFrm.controls[result].markAsTouched();
+            deliveryLocationDom?.customerFrm.controls[result].setErrors({ error: error.error.errors[result] });
+            showMsg = true;
           }else{
-            this.customerFrm.controls[result].setErrors(null);
+            deliveryLocationDom?.customerFrm.controls[result].setErrors(null);
 
           }
         }
-
-        // if(this.customerFrm.invalid){
-        //   if(document.getElementById('fullName'))
-        //     document.getElementById('fullName').focus();
-        //  // el.scrollIntoView({behavior:"smooth"});
+        showMsg && Notiflix.Notify.Failure('Please check delivery from at top.');
 
 
-        // }
 
       }
 
@@ -345,20 +345,6 @@ export class CartDetailsComponent implements OnInit, OnDestroy {
     });
 
 
-    // this.deliveryLocationDom.f.selectedLocation.valueChanges.subscribe(res=>{
-    //   if(res?.min_amount && this.grandTotal < res?.min_amount){
-    //     this.f.selectedLocation.setErrors({
-    //       error: `${res.name} need atleast ₹ ${res?.min_amount} to delivery.`
-    //     });
-    //   }
-
-    //   if(res?.charge && this.f.selectedLocation.valid){
-    //     this.grandTotal = this.total + res?.charge;
-    //   }else{
-    //     this.grandTotal = this.total;
-    //   }
-
-    // });
 
   }
 

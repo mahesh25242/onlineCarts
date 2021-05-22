@@ -4,7 +4,8 @@ import { Cart, Shop } from 'src/app/lib/interfaces';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { Observable, Subscription } from 'rxjs';
 import { CartService, ShopService } from 'src/app/lib/services';
-import { tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
+import { find } from 'lodash';
 
 @Component({
   selector: 'app-delivery-loaction',
@@ -41,7 +42,11 @@ export class DeliveryLocationComponent implements OnInit, OnDestroy {
     this.customerFrm.valueChanges.subscribe(res=>{
       let cartDetails= this.cartService.cartDetails$.getValue();
       cartDetails = {...cartDetails, ...{detail: res}}
-      this.cartService.cartDetails$.next(cartDetails)
+      this.cartService.cartDetails$.next(cartDetails);
+      if(this.f.selectedLocation.value &&  cartDetails.grandTotal < this.f.selectedLocation.value.min_amount){
+        this.customerFrm.controls.selectedLocation.setErrors({error: `${this.f.selectedLocation.value.name} has atleast ${this.f.selectedLocation.value.min_amount} amount order`});
+      }
+
     })
     //this.cartService.cartDetails$.next();
   }

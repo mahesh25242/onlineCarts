@@ -9,7 +9,7 @@
     </div>
 
   <div *ngIf="!cartDetails?.carts || !cartDetails?.carts.length">Your cart is empty</div>
-  <form [formGroup]="customerFrm" #delivey (ngSubmit)="sendToShop(delivey)">
+  <form [formGroup]="customerFrm" (ngSubmit)="sendToShop(deliveryLocationDom)">
     <ng-container *ngIf="cartDetails?.carts && cartDetails?.carts.length">
       <div >
         <h1 mat-dialog-title>

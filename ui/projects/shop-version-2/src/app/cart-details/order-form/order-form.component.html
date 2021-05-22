@@ -5,7 +5,7 @@
   <mat-form-field class="full-width-text" appearance="standard">
     <mat-label>Full Name</mat-label>
     <input matInput formControlName="name"
-    placeholder="Ex. John Doe" maxlength="200" id="fullName">
+    placeholder="Ex. John Doe" maxlength="200" id="fullName" cdkFocusInitial>
     <mat-error *ngIf="f.name.errors && f.name.errors.error">
       {{f.name.errors.error}}
     </mat-error>

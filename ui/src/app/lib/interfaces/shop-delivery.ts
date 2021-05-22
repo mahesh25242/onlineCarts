@@ -12,5 +12,6 @@ export interface ShopDelivery {
   shop?: Shop,
   min_amount?: number,
   address?: string,
-  map_url?: string
+  map_url?: string,
+  isOpened?: number
 }

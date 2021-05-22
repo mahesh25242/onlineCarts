@@ -9,8 +9,8 @@
         <ng-template matTabContent>
 
           <mat-accordion>
-            <mat-expansion-panel   *ngFor="let shop_delivery of shop?.shop_delivery_filtered.free"
-            [expanded]="shop_delivery.isOpened"
+            <mat-expansion-panel   *ngFor="let shop_delivery of shop?.shop_delivery_filtered.free; first as isFirst"
+            [expanded]="isFirst || shop_delivery.isOpened"
             (opened)="shop_delivery.isOpened = true"
               (closed)="shop_delivery.isOpened = false"
               color="warn"
@@ -37,8 +37,15 @@
       <mat-tab label="Home Delivery">
         <ng-template matTabContent>
           <ng-container *ngIf="f.selectedLocation.value">
+            <div fxLayout="row" fxLayoutAlign="space-between">
+              <p>Delivery Cost: {{ f.selectedLocation.value?.charge }}</p>
+              <p *ngIf="f.selectedLocation.value?.min_amount">Minimum Order Amount: {{ f.selectedLocation.value?.min_amount }}</p>
+            </div>
+
+
+
             <p [innerHTML]="f.selectedLocation.value?.description"></p>
-            <p>Delivery Cost: {{ f.selectedLocation.value?.charge }}</p>
+
           </ng-container>
 
 
