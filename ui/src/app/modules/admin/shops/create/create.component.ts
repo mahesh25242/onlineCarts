@@ -50,7 +50,7 @@ export class CreateComponent implements OnInit, OnDestroy {
       pin: this.f.pin.value,
       local: this.f.local.value,
       map: this.f.map.value,
-      status: this.f.status.value,
+      status: (this.f.status.value) ? '1' : '0',
       shop_category_id: this.f.shop_category_id.value,
       shop_url: this.f.shop_url.value,
       short_name: this.f.short_name.value ?? this.f.name.value,

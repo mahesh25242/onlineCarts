@@ -43,7 +43,7 @@
           <div *ngIf="f.image.errors && f.image.errors.error" class="invalid-feedback">
             {{f.image.errors.error}}
           </div>
-          <img [src]="shopCategory.image" *ngIf="shopCategory.image" />
+          <img [src]="shopCategory?.image" *ngIf="shopCategory?.image" />
         </div>
     </div>
     <div footer>
