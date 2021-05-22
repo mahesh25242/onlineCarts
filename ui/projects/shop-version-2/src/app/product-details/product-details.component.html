@@ -48,8 +48,8 @@
               fxLayoutAlign="center center" [ngClass.lt-sm]="'price-lt-sm'"
               class="price" fxFlex="40%"   *ngIf="product.shop_product_selected_variant?.price">
                 <div [ngClass]="{'margin-top-14': product.shop_product_variant.length <= 1}">
-                  <del *ngIf="product.shop_product_selected_variant?.actual_price">₹ {{ product.shop_product_selected_variant?.actual_price * qty }}</del>
-                  &nbsp;&nbsp;<span class="weight-bold animate__animated animate__flipInX"> ₹ {{ product.shop_product_selected_variant?.price * qty }} </span>
+                  <del *ngIf="product.shop_product_selected_variant?.actual_price">₹ {{ product.shop_product_selected_variant?.actual_price }}</del>
+                  &nbsp;&nbsp;<span class="weight-bold animate__animated animate__flipInX"> ₹ {{ product.shop_product_selected_variant?.price }} </span>
                 </div>
               </div>
 
