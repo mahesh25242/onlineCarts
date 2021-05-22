@@ -18,9 +18,12 @@ export class CartComponent implements OnInit {
   total:number = 0;
   cartDetails: boolean = false;
   isChanged = true;
-
+  classExists: boolean = true;
   constructor(private cartService: CartService) {
     cartService.shopKey = environment.shopKey;
+  }
+  dragStarted(evt){
+    this.classExists = false;
   }
 
 
@@ -34,7 +37,11 @@ export class CartComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.hideCartComponent$ = this.cartService.hideCartComponent$.asObservable();
+    this.hideCartComponent$ = this.cartService.hideCartComponent$.asObservable().pipe(tap(res=>{
+      if(res){
+        this.classExists = true;
+      }
+    }));
     let anyChange = 0;
     this.cart$ = this.cartService.cart().pipe(tap(res=>{
       this.total = 0;

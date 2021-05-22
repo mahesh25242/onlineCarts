@@ -87,6 +87,10 @@ export class EditProfileComponent implements OnInit {
     });
   }
   updateProfile(){
+    if(environment.demoShopKey == environment.shopKey){
+      Notiflix.Notify.Failure(`Sorry demo site can't be changed`);
+      throw 'demo site';
+    }
     Notiflix.Loading.Pulse(`${(this.f.fname.value) ? this.f.fname.value : ''} please wait`);
     const postData = {
       fname: this.f.fname.value,
