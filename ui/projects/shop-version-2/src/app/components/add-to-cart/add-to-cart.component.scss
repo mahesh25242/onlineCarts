@@ -1,5 +1,7 @@
 form{
-  min-width:17rem;
+  &.gt-xs {
+    min-width:17rem;
+  }
 
   h1 {
       margin-bottom:8px;

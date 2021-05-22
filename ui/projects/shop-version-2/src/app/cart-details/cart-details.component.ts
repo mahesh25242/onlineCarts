@@ -331,7 +331,12 @@ export class CartDetailsComponent implements OnInit, OnDestroy {
       backUrl: '/'
     });
     this.shop$ = this.shopService.aShop;
-    this.cartDetails$ = this.cartService.cartDetails;
+    this.cartDetails$ = this.cartService.cartDetails.pipe(tap(res=>{
+      if(!res.carts || !res.carts.length){
+        this.matSnackBar.open('Your cart is empty.', 'close');
+        this.router.navigate(['/']);
+      }
+    }));
 
 
 

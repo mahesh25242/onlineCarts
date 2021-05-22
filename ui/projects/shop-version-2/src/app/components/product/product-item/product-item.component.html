@@ -1,4 +1,4 @@
-<mat-card *ngIf="product$ | async as product" class="animate__animated "  [ngClass]="{'active  animate__pulse': isAnimate, 'animate__zoomIn': !isAnimate}">
+<mat-card *ngIf="product$ | async as product" class="animate__animated ">
   <div class="mat-card-headerimage" matRipple [matRippleCentered]="true"
   [ngStyle]="{'background-image': (product.shop_product_primary_variant?.shop_product_image?.image) ? 'url(' +  product.shop_product_primary_variant.shop_product_image.image_path + ')' : 'url(/assets/no-image.jpg)'}"
   [routerLink]="'/'+product.shop_product_category?.url+'/'+product.url">
@@ -19,20 +19,23 @@
     <p [innerHTML]="product.description"></p>
   </mat-card-content>-->
   <mat-card-actions>
-    <mat-grid-list [cols]="3" rowHeight="2:1">
-      <mat-grid-tile class="price">
+
+    <div fxLayout="row" fxLayoutAlign="space-between">
+      <div fxFlex="30%" class="price" fxLayoutAlign="center center">
         ₹ {{ product.shop_product_primary_variant?.price}}
-      </mat-grid-tile>
-      <mat-grid-tile>
+      </div>
+      <div fxFlex="30%" fxLayoutAlign="center center">
         <strike *ngIf="product.shop_product_primary_variant?.actual_price">
           ₹ {{ product.shop_product_primary_variant?.actual_price}}
         </strike>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <button mat-mini-fab [color]="(product.incart) ? 'warn': 'primary'" [matRippleCentered]="true" class="addCart-btn"
-        [matTooltip]="(product.incart) ? product.name+' is already added' : 'Click here for add this item to cart'"
-        (click)="addToCart(product)"><mat-icon aria-hidden="false" aria-label="Add Icon">add</mat-icon></button>
-      </mat-grid-tile>
-    </mat-grid-list>
+      </div>
+      <div fxFlex="30%" fxLayoutAlign="center end">
+        <button [matBadge]="qty"  matBadgeColor="warn" mat-mini-fab [color]="(product.incart) ? 'warn': 'primary'" [matRippleCentered]="true"
+        class="animate__animated addCart-btn" [ngClass]="{'animate__flipInY': product.incart}"
+       [matTooltip]="(product.incart) ? product.name+' is already added' : 'Click here for add this item to cart'"
+       (click)="addToCart(product)"><mat-icon aria-hidden="false" aria-label="Add Icon">add</mat-icon></button>
+
+      </div>
+    </div>
   </mat-card-actions>
 </mat-card>

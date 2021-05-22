@@ -16,8 +16,8 @@ import { AddToCartComponent } from '../../add-to-cart/add-to-cart.component';
 export class ProductItemComponent implements OnInit {
   @Input() shopProduct: ShopProduct;
   product$: Observable<ShopProduct>;
+  qty:number = 0;
 
-  isAnimate: boolean = false;
   constructor(public dialog: MatDialog,
     private cartService: CartService) { }
 
@@ -27,7 +27,7 @@ export class ProductItemComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.isAnimate = result && product.incart && true;
+      console.log(result , product.incart)
     });
 
     /*  this.cartService.cart$.next(cart);*/
@@ -37,12 +37,13 @@ export class ProductItemComponent implements OnInit {
   ngOnInit(): void {
     this.shopProduct.incart = false;
     this.product$ = this.cartService.cart().pipe(map(res=>{
-      let prod = find(res, (pdt) => {
-        if((pdt.product.id == this.shopProduct.id)){
-          this.shopProduct.incart = true;
-          return true;
-        }
-      })
+
+      const prod = find(res, {product: {id: this.shopProduct.id}});
+      if(prod && prod.product){
+        this.shopProduct.incart = true;
+      }
+      this.qty =prod?.qty;
+
       return this.shopProduct;
     }))
   }
