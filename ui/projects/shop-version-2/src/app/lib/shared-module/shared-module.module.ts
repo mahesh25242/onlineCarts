@@ -15,6 +15,7 @@ import { NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerMod
 import { FocusInvalidInputDirective } from '../../components/focus-invalid-input.directive';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
+import {NgxImageCompressService} from 'ngx-image-compress';
 
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
@@ -149,7 +150,8 @@ Notiflix.Block.Init({ svgColor:"#204486", });
   ],
   providers:[
     DatePipe,
-    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500}}
+    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500}},
+    NgxImageCompressService
   ]
 })
 export class SharedModuleModule { }

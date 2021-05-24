@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, Inject, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { empty, from, Observable, of, Subscription } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
@@ -12,6 +12,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { find } from 'lodash';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { CreateCategoryComponent } from '../../categories/create-category/create-category.component';
+import {NgxImageCompressService} from 'ngx-image-compress';
+
 
 @Component({
   selector: 'app-create-product',
@@ -19,6 +21,9 @@ import { CreateCategoryComponent } from '../../categories/create-category/create
   styleUrls: ['./create-product.component.scss']
 })
 export class CreateProductComponent implements OnInit, OnDestroy {
+
+
+
   product: ShopProduct;
   createProductFrm: FormGroup;
   statuses = [
@@ -57,6 +62,7 @@ export class CreateProductComponent implements OnInit, OnDestroy {
     private generalService: GeneralService,
     private router: Router,
     public dialog: MatDialog,
+    private imageCompress: NgxImageCompressService
     ) { }
 
   get f() { return this.createProductFrm.controls}
@@ -144,8 +150,34 @@ export class CreateProductComponent implements OnInit, OnDestroy {
       }
     })
   }
-  handleImageSelection(stat:FormGroup, files: FileList) {
-    stat.controls.image.setValue(files.item(0));
+  handleImageSelection(stat:FormGroup) {
+
+
+    this.imageCompress.uploadFile().then(({image, orientation}) => {
+      //this.imgResultBeforeCompress = image;
+//      console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
+
+
+      this.imageCompress.compressFile(image, -1).then(
+        result => {
+         // this.imgResultAfterCompress = result;
+
+  //        console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
+
+
+          stat.get('currImage').setValue(result)
+          fetch(result)
+          .then(res => res.blob())
+          .then(img=>{
+            stat.controls.image.setValue(img);
+          })
+
+
+        }
+      );
+
+    });
+
   }
 
   addVarient(stat: FormGroup){

@@ -145,15 +145,13 @@
                     <div class="image-wrap" fxFill="fill">
                       <img mat-card-image [src]="stat.get('currImage').value" [alt]="stat.get('currImage').value">
                     </div>
+
                   </mat-list-item>
 
                   <mat-list-item fxFill="fill">
-                    <button (click)="fileInput.click()" type="button" mat-stroked-button color="primary">
+                    <button (click)="handleImageSelection(stat)" type="button" mat-stroked-button color="primary">
                       <span>Choose Image</span>
-                      <input #fileInput type="file" (change)="handleImageSelection(stat, $event.target.files)"
-                      style="display:none;"  accept="image/*" />
                     </button>&nbsp; &nbsp;
-                      (350 x 224)
                   </mat-list-item>
 
                   <mat-list-item fxFill="fill">

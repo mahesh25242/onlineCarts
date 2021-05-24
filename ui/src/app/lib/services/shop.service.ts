@@ -100,4 +100,8 @@ export class ShopService {
       this.shop$.next(res);
     }));
   }
+
+  validatedPhone(idToken: string= null){
+    return this.http.post<any>("/shop/mobile_verified", {idToken})
+  }
 }

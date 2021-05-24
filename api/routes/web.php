@@ -62,6 +62,7 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
                 $router->post('/orders','ShopOrderController@orders');
                 $router->post('/orders/changeStatus','ShopOrderController@changeStatus');
                 $router->post('/generateSite','ShopsController@generateSite');
+                $router->post('/mobile_verified','ShopsController@mobileVerified');
                 $router->group(['prefix' => 'deliveries'], function () use ($router) {
                     $router->post('/','ShopDeliveryController@deliveries');
                     $router->post('delete','ShopDeliveryController@delete');

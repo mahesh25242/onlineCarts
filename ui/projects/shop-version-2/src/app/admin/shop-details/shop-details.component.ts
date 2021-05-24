@@ -6,6 +6,9 @@ import { City, Country, Shop, State, Theme } from 'src/app/lib/interfaces';
 import { CityService, CountryService, GeneralService, ShopService, StateService, ThemeService } from 'src/app/lib/services';
 import Notiflix from "notiflix";
 import { environment } from '../../../environments/environment';
+import {NgxImageCompressService} from 'ngx-image-compress';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { auth } from 'firebase/app';
 
 @Component({
   selector: 'app-shop-details',
@@ -25,13 +28,16 @@ export class ShopDetailsComponent implements OnInit, OnDestroy {
   countrySubscription: Subscription;
   stateSubscription: Subscription;
   saveThemeSubscription: Subscription;
+  validatePhone: Subscription;
   constructor(private shopService: ShopService,
     private formBuilder: FormBuilder,
     private countryServive: CountryService,
     private stateService: StateService,
     private cityService: CityService,
     private generalService: GeneralService,
-    private themeService: ThemeService) { }
+    private themeService: ThemeService,
+    private imageCompress: NgxImageCompressService,
+    public afAuth: AngularFireAuth) { }
 
     chooseTheme(){
       Notiflix.Block.Merge({svgSize:'20px',});
@@ -47,10 +53,68 @@ export class ShopDetailsComponent implements OnInit, OnDestroy {
       })
     }
 
+    handleImageSelection(stat:FormGroup) {
+
+
+      this.imageCompress.uploadFile().then(({image, orientation}) => {
+        //this.imgResultBeforeCompress = image;
+  //      console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
+
+
+        this.imageCompress.compressFile(image, -1).then(
+          result => {
+           // this.imgResultAfterCompress = result;
+
+    //        console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
+
+
+            this.f.logo.setValue(result)
+            fetch(result)
+            .then(res => res.blob())
+            .then(img=>{
+              this.f.up_logo.setValue(img);
+            })
+
+
+          }
+        );
+
+      });
+
+    }
+
+    verifyMobile(shop: Shop){
+      if(!shop.phone){
+        throw 'No phone found with shop';
+      }
+      var applicationVerifier = new auth.RecaptchaVerifier(
+        'recaptcha-container', { 'size': 'invisible'});
+
+      this.afAuth.signInWithPhoneNumber(`+${shop.phone}`, applicationVerifier).then((verificationId:any)=>{
+        console.log(verificationId)
+        var verificationCode = window.prompt('Please enter the verification ' +
+            'code that was sent to your mobile device.');
+        return auth.PhoneAuthProvider.credential(verificationId.verificationId,
+            verificationCode);
+      }).then((phoneCredential) => {
+        return auth().signInWithCredential(phoneCredential);
+      }).then(res=>{
+        this.validatePhone = this.afAuth.idToken.pipe(mergeMap(res=>{
+          return this.shopService.validatedPhone(res).pipe(mergeMap(succ=>{
+            return this.shopService.shopDetail();
+          }));
+        })).subscribe(res=> {
+          Notiflix.Notify.Success(`Successfully varified your mobile `);
+        }, error=>{
+          Notiflix.Notify.Failure(`Sorry we can't verify your mobile please contact us. `);
+        })
+
+      });
+    }
   updateShop(){
     if(this.isDemoSite){
       Notiflix.Notify.Failure('sorry its a demo site you can\'t change any info in demo site');
-      throw 'sorry its a demo site you can\'t change any info in demo site';
+      //throw 'sorry its a demo site you can\'t change any info in demo site';
     }
     const postData = {
       name: this.f.name.value,
@@ -67,7 +131,26 @@ export class ShopDetailsComponent implements OnInit, OnDestroy {
       bg_color: this.f.bg_color.value,
       map: this.f.map.value,
     }
-    this.shopService.saveShopDetail(postData).pipe(mergeMap(res=>{
+
+    const formData = new FormData();
+    formData.append(`name`, postData.name);
+    formData.append(`short_name`, postData.short_name);
+    formData.append(`email`, postData.email);
+    formData.append(`phone`, postData.phone);
+    formData.append(`address`, postData.address);
+    formData.append(`country_id`, (postData.country_id) ? JSON.stringify(postData.country_id) : '');
+    formData.append(`state_id`, (postData.state_id) ? JSON.stringify(postData.state_id) : '');
+    formData.append(`city_id`, (postData.city_id) ? JSON.stringify(postData.city_id) : '');
+    formData.append(`pin`, postData.pin);
+    formData.append(`local`, postData.local);
+    formData.append(`theme_color`, postData.theme_color);
+    formData.append(`bg_color`, postData.bg_color);
+    formData.append(`bg_color`, postData.bg_color);
+    formData.append(`map`, postData.map);
+    this.f.up_logo.value && formData.append(`logo`, this.f.up_logo.value);
+
+    console.log(this.f.up_logo)
+    this.shopService.saveShopDetail(formData).pipe(mergeMap(res=>{
       return this.shopService.shopDetail();
     })).subscribe(res=>{
       Notiflix.Notify.Success(`Successfully saved `);
@@ -118,6 +201,7 @@ export class ShopDetailsComponent implements OnInit, OnDestroy {
         theme_color: res?.theme_color,
         bg_color: res?.bg_color,
         map: res?.map,
+        logo: `./${res?.logo}`,
       });
     }));
 
@@ -135,6 +219,8 @@ export class ShopDetailsComponent implements OnInit, OnDestroy {
       theme_color: [null, []] ,
       bg_color: [null, []] ,
       map: [null, []] ,
+      up_logo: [null, []] ,
+      logo: [null, []] ,
     });
 
 
@@ -156,7 +242,7 @@ export class ShopDetailsComponent implements OnInit, OnDestroy {
     this.saveThemeSubscription && this.saveThemeSubscription.unsubscribe();
     this.countrySubscription && this.countrySubscription.unsubscribe();
     this.stateSubscription && this.stateSubscription.unsubscribe();
-
+    this.validatePhone && this.validatePhone.unsubscribe();
   }
 
 }

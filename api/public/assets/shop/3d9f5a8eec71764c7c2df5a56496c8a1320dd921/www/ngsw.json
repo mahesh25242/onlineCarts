@@ -1,0 +1,100 @@
+{
+  "configVersion": 1,
+  "timestamp": 1615618817947,
+  "index": "/test/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/test/4.5b1ed510db6148c8b087.js",
+        "/test/5.10133803e86b42677314.js",
+        "/test/6.3f8072cc538ce99b83f9.js",
+        "/test/favicon.ico",
+        "/test/firebase-messaging-sw.js",
+        "/test/index.html",
+        "/test/main.20845b64a793c707b13e.js",
+        "/test/manifest.webmanifest",
+        "/test/polyfills.98fb742ccc5360d3caca.js",
+        "/test/runtime.6c29d472d087bb102160.js",
+        "/test/styles.eb5ef59e3f6f0eab6ca6.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/test/assets/banner-2.jpg",
+        "/test/assets/banner.jpg",
+        "/test/assets/icons/icon-128x128.png",
+        "/test/assets/icons/icon-144x144.png",
+        "/test/assets/icons/icon-152x152.png",
+        "/test/assets/icons/icon-192x192.png",
+        "/test/assets/icons/icon-384x384.png",
+        "/test/assets/icons/icon-512x512.png",
+        "/test/assets/icons/icon-72x72.png",
+        "/test/assets/icons/icon-96x96.png",
+        "/test/assets/json/home-banner.json",
+        "/test/assets/json/index.html",
+        "/test/assets/no-image.jpg",
+        "/test/assets/tumb.png"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "/test/4.5b1ed510db6148c8b087.js": "4b32811ba408316d5485f876fb348a93dea30cb7",
+    "/test/5.10133803e86b42677314.js": "e282c55ff0153d3315548992eeb03661789c737f",
+    "/test/6.3f8072cc538ce99b83f9.js": "9ba889f7a6b0e36038bc2efe352d1ad42010ab1b",
+    "/test/assets/banner-2.jpg": "55c7e2699547dbdea7125a1166ef4a466428c098",
+    "/test/assets/banner.jpg": "6212f5c5e0274efd0fd16e00ca498a61c8f140ec",
+    "/test/assets/icons/icon-128x128.png": "dae3b6ed49bdaf4327b92531d4b5b4a5d30c7532",
+    "/test/assets/icons/icon-144x144.png": "b0bd89982e08f9bd2b642928f5391915b74799a7",
+    "/test/assets/icons/icon-152x152.png": "7479a9477815dfd9668d60f8b3b2fba709b91310",
+    "/test/assets/icons/icon-192x192.png": "1abd80d431a237a853ce38147d8c63752f10933b",
+    "/test/assets/icons/icon-384x384.png": "329749cd6393768d3131ed6304c136b1ca05f2fd",
+    "/test/assets/icons/icon-512x512.png": "559d9c4318b45a1f2b10596bbb4c960fe521dbcc",
+    "/test/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
+    "/test/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
+    "/test/assets/json/home-banner.json": "9a4f30a75d6b37fe93938e856795ab4936769d33",
+    "/test/assets/json/index.html": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+    "/test/assets/no-image.jpg": "41d91a5bbdb26c6d5d54f26404980ffc6a8c7118",
+    "/test/assets/tumb.png": "53f5bc7bbf94db70cbadc9e60a74d21dc08a9de5",
+    "/test/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
+    "/test/firebase-messaging-sw.js": "c3e93d14da8833a3455fb57710ec7661ddce1290",
+    "/test/index.html": "b598e88ed0725e9a877acf8e8751a680c863d9d2",
+    "/test/main.20845b64a793c707b13e.js": "455c6994baab579d049b53a56da1646cdfe9dbfe",
+    "/test/manifest.webmanifest": "18e83d0c21aee1fc261d8daba26839a8536fd4b9",
+    "/test/polyfills.98fb742ccc5360d3caca.js": "60125dd6248d83feb3006052b3de8aee58cb87fa",
+    "/test/runtime.6c29d472d087bb102160.js": "f3e62287f5ce94a46baf5d89f5ec0c5ba1e1c59f",
+    "/test/styles.eb5ef59e3f6f0eab6ca6.css": "6f8838b04b165cc2c70dd7673cc22bfc0535108d"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ]
+}

@@ -256,17 +256,24 @@ class ShopsController extends Controller
         if($validator->fails()){
             return response(['message' => 'Validation errors', 'errors' =>  $validator->errors(), 'status' => false], 422);
         }
+
+        $country_id = ($request->input("country_id", null)) ? json_decode($request->input("country_id", null), true) : '' ;
+        $state_id = ($request->input("state_id", null)) ? json_decode($request->input("state_id", null), true) : '' ;
+        $city_id = ($request->input("city_id", null)) ? json_decode($request->input("city_id", null), true) : '' ;
+
+
+
         $phone = $request->input("phone", '');
-        $phone = $request->input("country_id.phonecode", '91').$phone;
+        $phone = ($country_id["phonecode"] ?? '91' ).$phone;
         $shopInput = [
             "name" => $request->input("name", ''),
             "short_name" => $request->input("short_name", ''),
             "phone" => $phone,
             "address" => $request->input("address", ''),
             "pin" => $request->input("pin", ''),
-            "country_id" => $request->input("country_id.id", 0),
-            "state_id" => $request->input("state_id.id", 0),
-            "city_id" => $request->input("city_id.id", 0),
+            "country_id" => $country_id["id"] ?? null,
+            "state_id" => $state_id["id"] ?? null,
+            "city_id" => $city_id["id"] ?? null,
             "map" => $request->input("map", ''),
         ];
         $shopKey = $request->header('shopKey');
@@ -279,7 +286,66 @@ class ShopsController extends Controller
             $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
         }
 
+        if($shop->phone != $phone){
+            $shopInput["is_mobile_verified"] = 0;
+        }
+
         \App\Models\Shop::where('id', $shop->id)->update($shopInput);
+
+        if ($request->hasFile('logo')) {
+            $logoName = sprintf("%s.%s",time(), $request->file('logo')->extension());
+            $destinationPath = "assets/shop/{$shop->shop_key}/general";
+            $request->file('logo')->move($destinationPath, $logoName);
+
+            $png = Image::make($destinationPath.'/'.$logoName)->encode('png');
+            $png->save($destinationPath.'/logo.png');
+
+
+            $png = Image::make($destinationPath.'/logo.png')->resize(72, 72);
+            $png->save($destinationPath.'/icon-72x72.png');
+
+            $png = Image::make($destinationPath.'/logo.png')->resize(96, 96);
+            $png->save($destinationPath.'/icon-96x96.png');
+
+            $png = Image::make($destinationPath.'/logo.png')->resize(128, 128);
+            $png->save($destinationPath.'/icon-128x128.png');
+
+            $png = Image::make($destinationPath.'/logo.png')->resize(144, 144);
+            $png->save($destinationPath.'/icon-144x144.png');
+
+            $png = Image::make($destinationPath.'/logo.png')->resize(152, 152);
+            $png->save($destinationPath.'/icon-152x152.png');
+
+            $png = Image::make($destinationPath.'/logo.png')->resize(192, 192);
+            $png->save($destinationPath.'/icon-192x192.png');
+
+            $png = Image::make($destinationPath.'/logo.png')->resize(384, 384);
+            $png->save($destinationPath.'/icon-384x384.png');
+
+            $png = Image::make($destinationPath.'/logo.png')->resize(512, 512);
+            $png->save($destinationPath.'/icon-512x512.png');
+
+
+            Storage::disk('public')->delete(str_replace("assets/", "", $destinationPath).'/'.$logoName);
+            $shop->logo = 'logo.png';
+            $shop->save();
+        }
+
+        if ($request->hasFile('favicon')) {
+            $destinationPath = "assets/shop/{$shop->shop_key}/general";
+            $request->file('favicon')->move($destinationPath, "favicon.ico");
+            $shop->favicon = 'favicon.ico';
+            $shop->save();
+        }
+
+        $this->generateSite(
+            $request->merge(
+                [
+                    "shop_key"=> $shop->shop_key
+                ]
+            )
+        );
+
         return response(['message' => 'successfully saved',  'status' => true]);
     }
 
@@ -501,5 +567,38 @@ class ShopsController extends Controller
 
 
 
+    }
+
+    public function mobileVerified(Request $request){
+        $idToken = $request->input("idToken", null);
+        if($idToken){
+            $auth = app('firebase.auth');
+            //$signInResult = $auth->getUser($uid);;
+            try {
+                $verifiedIdToken = $auth->verifyIdToken($idToken);
+            } catch (InvalidToken $e) {
+                echo 'The token is invalid: '.$e->getMessage();
+            } catch (\InvalidArgumentException $e) {
+                echo 'The token could not be parsed: '.$idToken.'=='.$e->getMessage();
+            }
+            $uid = $verifiedIdToken->claims()->get('sub');
+
+
+            if( $uid){
+                $shopKey = $request->header('shopKey');
+                $shopKey = ($shopKey) ? $shopKey : $request->input("shop_key",'');
+
+                if($shopKey){
+                    $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
+                }else{
+                    $shopKey = $request->input("shop_key");
+                    $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
+                }
+                $shop->is_mobile_verified = 1;
+                $shop->save();
+                return response(['message' => 'success',  'status' => true]);
+            }
+        }
+        return response(['message' => 'Validation errors', 'errors' =>  ["name" => 'invalida id token'], 'status' => false], 422);
     }
 }

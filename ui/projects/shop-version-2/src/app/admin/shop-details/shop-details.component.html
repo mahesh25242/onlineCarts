@@ -1,5 +1,6 @@
 <div class="header-inner"></div>
 <div class="container">
+  <div id="recaptcha-container"></div>
   <ng-container *ngIf="(shop$ | async) as shop">
     <h1>{{shop.name}} Details</h1>
     <mat-card>
@@ -14,6 +15,7 @@
       </mat-form-field>
       <div *ngIf="!shop.is_mobile_verified">
         Your mobile is not verified so cant get any order to your mobile
+        <a href="javascript:{}" (click)="verifyMobile(shop)">Click here to verify</a>
       </div>
     </mat-card>
     <br/>
@@ -117,7 +119,7 @@
         </div>
 
         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start">
-          <mat-form-field fxFlex="100%"  class="full-width-text" appearance="standard">
+          <mat-form-field fxFlex="50%"  class="full-width-text" appearance="standard">
             <mat-label>Map Url</mat-label>
             <input matInput formControlName="map" placeholder="Ex. http://googlemap.com" maxlength="200">
             <mat-hint align="end" *ngIf="f.map?.value?.length">{{f.map?.value?.length}} / 200</mat-hint>
@@ -125,6 +127,13 @@
               {{ f.map.errors.error }}
             </mat-error>
           </mat-form-field>
+          <div fxFlex="50%">
+            <img mat-card-image [src]="f.logo.value" alt="" *ngIf="f.logo.value" />
+            <button (click)="handleImageSelection()" type="button" mat-stroked-button color="primary">
+              <span>Choose Image</span>
+            </button>
+          </div>
+
         </div>
         <!-- <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start">
           <mat-form-field fxFlex="33%" fxFlex.xs="100%" class="full-width-text" appearance="standard">
