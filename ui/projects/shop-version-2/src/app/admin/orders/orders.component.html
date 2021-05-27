@@ -6,6 +6,7 @@
   </h1>
 
 <app-order-search [pageEvent]="pageEvent"></app-order-search>
+<br/>
 <ng-container *ngIf="(orders$ | async) as orders">
   <div *ngIf="!orders.total">No data found</div>
   <mat-card>

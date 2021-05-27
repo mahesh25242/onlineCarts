@@ -341,7 +341,7 @@ export class CartDetailsComponent implements OnInit, OnDestroy {
 
 
     this.customerFrm = this.formBuilder.group({
-      terms: [null, []]
+      terms: [true, []]
     });
 
 

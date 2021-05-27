@@ -16,184 +16,184 @@ $theme: mat-light-theme($primary, $accent, $warn);
 
 .shop-default-light-theme {
   color: $dark-primary-text;
-  $dark-primary: mat-palette($mat-blue-grey);
-  $dark-accent: mat-palette($mat-amber, A400, A100, A700);
-  $dark-warn: mat-palette($mat-red);
-  $dark-theme: mat-light-theme($dark-primary, $dark-accent, $dark-warn);
+  $sdlt-primary: mat-palette($mat-blue-grey);
+  $sdlt-accent: mat-palette($mat-amber, A400, A100, A700);
+  $sdlt-warn: mat-palette($mat-red);
+  $sdlt-theme: mat-light-theme($sdlt-primary, $sdlt-accent, $sdlt-warn);
 
 
-  @include angular-material-theme($dark-theme);
+  @include angular-material-theme($sdlt-theme);
 }
 
 
 .shop-default-pink-light-theme {
   color: $dark-primary-text;
-  $dark-primary: mat-palette($mat-pink);
-  $dark-accent: mat-palette($mat-amber, A400, A100, A700);
-  $dark-warn: mat-palette($mat-red);
-  $dark-theme: mat-light-theme($dark-primary, $dark-accent, $dark-warn);
+  $sdplt-primary: mat-palette($mat-pink);
+  $sdplt-accent: mat-palette($mat-amber, A400, A100, A700);
+  $sdplt-warn: mat-palette($mat-red);
+  $sdplt-theme: mat-light-theme($sdplt-primary, $sdplt-accent, $sdplt-warn);
 
 
-  @include angular-material-theme($dark-theme);
+  @include angular-material-theme($sdplt-theme);
 }
 
 .shop-default-purple-light-theme {
   color: $dark-primary-text;
-  $dark-primary: mat-palette($mat-purple);
-  $dark-accent: mat-palette($mat-amber, A400, A100, A700);
-  $dark-warn: mat-palette($mat-red);
-  $dark-theme: mat-light-theme($dark-primary, $dark-accent, $dark-warn);
+  $sdpurlt-primary: mat-palette($mat-purple);
+  $sdpurlt-accent: mat-palette($mat-amber, A400, A100, A700);
+  $sdpurlt-warn: mat-palette($mat-red);
+  $sdpurlt-theme: mat-light-theme($sdpurlt-primary, $sdpurlt-accent, $sdpurlt-warn);
 
 
-  @include angular-material-theme($dark-theme);
+  @include angular-material-theme($sdpurlt-theme);
 }
 
 .shop-default-deep-purple-light-theme {
   color: $dark-primary-text;
-  $dark-primary: mat-palette($mat-deep-purple);
-  $dark-accent: mat-palette($mat-amber, A400, A100, A700);
-  $dark-warn: mat-palette($mat-red);
-  $dark-theme: mat-light-theme($dark-primary, $dark-accent, $dark-warn);
+  $sddple-primary: mat-palette($mat-deep-purple);
+  $sddple-accent: mat-palette($mat-amber, A400, A100, A700);
+  $sddple-warn: mat-palette($mat-red);
+  $sddple-theme: mat-light-theme($sddple-primary, $sddple-accent, $sddple-warn);
 
 
-  @include angular-material-theme($dark-theme);
+  @include angular-material-theme($sddple-theme);
 }
 .shop-default-indigo-light-theme {
   color: $dark-primary-text;
-  $dark-primary: mat-palette($mat-indigo);
-  $dark-accent: mat-palette($mat-amber, A400, A100, A700);
-  $dark-warn: mat-palette($mat-red);
-  $dark-theme: mat-light-theme($dark-primary, $dark-accent, $dark-warn);
-  @include angular-material-theme($dark-theme);
+  $sdilt-primary: mat-palette($mat-indigo);
+  $sdilt-accent: mat-palette($mat-amber, A400, A100, A700);
+  $sdilt-warn: mat-palette($mat-red);
+  $sdilt-theme: mat-light-theme($sdilt-primary, $sdilt-accent, $sdilt-warn);
+  @include angular-material-theme($sdilt-theme);
 }
 
 
 .shop-default-blue-light-theme {
   color: $dark-primary-text;
-  $dark-primary: mat-palette($mat-blue);
-  $dark-accent: mat-palette($mat-amber, A400, A100, A700);
-  $dark-warn: mat-palette($mat-red);
-  $dark-theme: mat-light-theme($dark-primary, $dark-accent, $dark-warn);
-  @include angular-material-theme($dark-theme);
+  $sdblt-primary: mat-palette($mat-blue);
+  $sdblt-accent: mat-palette($mat-amber, A400, A100, A700);
+  $sdblt-warn: mat-palette($mat-red);
+  $sdblt-theme: mat-light-theme($sdblt-primary, $sdblt-accent, $sdblt-warn);
+  @include angular-material-theme($sdblt-theme);
 }
 
 
 .shop-default-light-blue-light-theme {
   color: $dark-primary-text;
-  $dark-primary: mat-palette($mat-light-blue);
-  $dark-accent: mat-palette($mat-amber, A400, A100, A700);
-  $dark-warn: mat-palette($mat-red);
-  $dark-theme: mat-light-theme($dark-primary, $dark-accent, $dark-warn);
-  @include angular-material-theme($dark-theme);
+  $sdlblt-primary: mat-palette($mat-light-blue);
+  $sdlblt-accent: mat-palette($mat-amber, A400, A100, A700);
+  $sdlblt-warn: mat-palette($mat-red);
+  $sdlblt-theme: mat-light-theme($sdlblt-primary, $sdlblt-accent, $sdlblt-warn);
+  @include angular-material-theme($sdlblt-theme);
 }
 
 .shop-default-cyan-light-theme {
   color: $dark-primary-text;
-  $dark-primary: mat-palette($mat-cyan);
-  $dark-accent: mat-palette($mat-amber, A400, A100, A700);
-  $dark-warn: mat-palette($mat-red);
-  $dark-theme: mat-light-theme($dark-primary, $dark-accent, $dark-warn);
-  @include angular-material-theme($dark-theme);
+  $sdclt-primary: mat-palette($mat-cyan);
+  $sdclt-accent: mat-palette($mat-amber, A400, A100, A700);
+  $sdclt-warn: mat-palette($mat-red);
+  $sdclt-theme: mat-light-theme($sdclt-primary, $sdclt-accent, $sdclt-warn);
+  @include angular-material-theme($sdclt-theme);
 }
 
 .shop-default-teal-light-theme {
   color: $dark-primary-text;
-  $dark-primary: mat-palette($mat-teal);
-  $dark-accent: mat-palette($mat-amber, A400, A100, A700);
-  $dark-warn: mat-palette($mat-red);
-  $dark-theme: mat-light-theme($dark-primary, $dark-accent, $dark-warn);
-  @include angular-material-theme($dark-theme);
+  $sdtlt-primary: mat-palette($mat-teal);
+  $sdtlt-accent: mat-palette($mat-amber, A400, A100, A700);
+  $sdtlt-warn: mat-palette($mat-red);
+  $sdtlt-theme: mat-light-theme($sdtlt-primary, $sdtlt-accent, $sdtlt-warn);
+  @include angular-material-theme($sdtlt-theme);
 }
 
 
 
 .shop-default-green-light-theme {
   color: $dark-primary-text;
-  $dark-primary: mat-palette($mat-green);
-  $dark-accent: mat-palette($mat-amber, A400, A100, A700);
-  $dark-warn: mat-palette($mat-red);
-  $dark-theme: mat-light-theme($dark-primary, $dark-accent, $dark-warn);
-  @include angular-material-theme($dark-theme);
+  $sdglt-primary: mat-palette($mat-green);
+  $sdglt-accent: mat-palette($mat-amber, A400, A100, A700);
+  $sdglt-warn: mat-palette($mat-red);
+  $sdglt-theme: mat-light-theme($sdglt-primary, $sdglt-accent, $sdglt-warn);
+  @include angular-material-theme($sdglt-theme);
 }
 
 .shop-default-light-green-light-theme {
   color: $dark-primary-text;
-  $dark-primary: mat-palette($mat-light-green);
-  $dark-accent: mat-palette($mat-amber, A400, A100, A700);
-  $dark-warn: mat-palette($mat-red);
-  $dark-theme: mat-light-theme($dark-primary, $dark-accent, $dark-warn);
-  @include angular-material-theme($dark-theme);
+  $sdlglt-primary: mat-palette($mat-light-green);
+  $sdlglt-accent: mat-palette($mat-amber, A400, A100, A700);
+  $sdlglt-warn: mat-palette($mat-red);
+  $sdlglt-theme: mat-light-theme($sdlglt-primary, $sdlglt-accent, $sdlglt-warn);
+  @include angular-material-theme($sdlglt-theme);
 }
 
 .shop-default-lime-light-theme {
   color: $dark-primary-text;
-  $dark-primary: mat-palette($mat-lime);
-  $dark-accent: mat-palette($mat-amber, A400, A100, A700);
-  $dark-warn: mat-palette($mat-red);
-  $dark-theme: mat-light-theme($dark-primary, $dark-accent, $dark-warn);
-  @include angular-material-theme($dark-theme);
+  $sdllt-primary: mat-palette($mat-lime);
+  $sdllt-accent: mat-palette($mat-amber, A400, A100, A700);
+  $sdllt-warn: mat-palette($mat-red);
+  $sdllt-theme: mat-light-theme($sdllt-primary, $sdllt-accent, $sdllt-warn);
+  @include angular-material-theme($sdllt-theme);
 }
 
 .shop-default-yellow-theme {
   color: $dark-primary-text;
-  $dark-primary: mat-palette($mat-yellow);
-  $dark-accent: mat-palette($mat-amber, A400, A100, A700);
-  $dark-warn: mat-palette($mat-red);
-  $dark-theme: mat-light-theme($dark-primary, $dark-accent, $dark-warn);
-  @include angular-material-theme($dark-theme);
+  $sdyt-primary: mat-palette($mat-yellow);
+  $sdyt-accent: mat-palette($mat-amber, A400, A100, A700);
+  $sdyt-warn: mat-palette($mat-red);
+  $sdyt-theme: mat-light-theme($sdyt-primary, $sdyt-accent, $sdyt-warn);
+  @include angular-material-theme($sdyt-theme);
 }
 
 .shop-default-amber-theme {
   color: $dark-primary-text;
-  $dark-primary: mat-palette($mat-amber);
-  $dark-accent: mat-palette($mat-amber, A400, A100, A700);
-  $dark-warn: mat-palette($mat-red);
-  $dark-theme: mat-light-theme($dark-primary, $dark-accent, $dark-warn);
-  @include angular-material-theme($dark-theme);
+  $sdat-primary: mat-palette($mat-amber);
+  $sdat-accent: mat-palette($mat-amber, A400, A100, A700);
+  $sdat-warn: mat-palette($mat-red);
+  $sdat-theme: mat-light-theme($sdat-primary, $sdat-accent, $sdat-warn);
+  @include angular-material-theme($sdat-theme);
 }
 
 .shop-default-orange-theme {
   color: $dark-primary-text;
-  $dark-primary: mat-palette($mat-orange);
-  $dark-accent: mat-palette($mat-amber, A400, A100, A700);
-  $dark-warn: mat-palette($mat-red);
-  $dark-theme: mat-light-theme($dark-primary, $dark-accent, $dark-warn);
-  @include angular-material-theme($dark-theme);
+  $sdot-primary: mat-palette($mat-orange);
+  $sdot-accent: mat-palette($mat-amber, A400, A100, A700);
+  $sdot-warn: mat-palette($mat-red);
+  $sdot-theme: mat-light-theme($sdot-primary, $sdot-accent, $sdot-warn);
+  @include angular-material-theme($sdot-theme);
 }
 
 .shop-default-deep-orange-theme {
   color: $dark-primary-text;
-  $dark-primary: mat-palette($mat-deep-orange);
-  $dark-accent: mat-palette($mat-amber, A400, A100, A700);
-  $dark-warn: mat-palette($mat-red);
-  $dark-theme: mat-light-theme($dark-primary, $dark-accent, $dark-warn);
-  @include angular-material-theme($dark-theme);
+  $sddot-primary: mat-palette($mat-deep-orange);
+  $sddot-accent: mat-palette($mat-amber, A400, A100, A700);
+  $sddot-warn: mat-palette($mat-red);
+  $sddot-theme: mat-light-theme($sddot-primary, $sddot-accent, $sddot-warn);
+  @include angular-material-theme($sddot-theme);
 }
 
 .shop-default-brown-theme {
   color: $dark-primary-text;
-  $dark-primary: mat-palette($mat-brown);
-  $dark-accent: mat-palette($mat-amber, A400, A100, A700);
-  $dark-warn: mat-palette($mat-red);
-  $dark-theme: mat-light-theme($dark-primary, $dark-accent, $dark-warn);
-  @include angular-material-theme($dark-theme);
+  $sdbt-primary: mat-palette($mat-brown);
+  $sdbt-accent: mat-palette($mat-amber, A400, A100, A700);
+  $sdbt-warn: mat-palette($mat-red);
+  $sdbt-theme: mat-light-theme($sdbt-primary, $sdbt-accent, $sdbt-warn);
+  @include angular-material-theme($sdbt-theme);
 }
 
 .shop-default-grey-theme {
   color: $dark-primary-text;
-  $dark-primary: mat-palette($mat-grey);
-  $dark-accent: mat-palette($mat-amber, A400, A100, A700);
-  $dark-warn: mat-palette($mat-red);
-  $dark-theme: mat-light-theme($dark-primary, $dark-accent, $dark-warn);
-  @include angular-material-theme($dark-theme);
+  $sdgt-primary: mat-palette($mat-grey);
+  $sdgt-accent: mat-palette($mat-amber, A400, A100, A700);
+  $sdgt-warn: mat-palette($mat-red);
+  $sdgt-theme: mat-light-theme($sdgt-primary, $sdgt-accent, $sdgt-warn);
+  @include angular-material-theme($sdgt-theme);
 }
 
 .shop-default-blue-gray-theme {
   color: $dark-primary-text;
-  $dark-primary: mat-palette($mat-blue-grey);
-  $dark-accent: mat-palette($mat-amber, A400, A100, A700);
-  $dark-warn: mat-palette($mat-red);
-  $dark-theme: mat-light-theme($dark-primary, $dark-accent, $dark-warn);
-  @include angular-material-theme($dark-theme);
+  $sdbgt-primary: mat-palette($mat-blue-grey);
+  $sdbgt-accent: mat-palette($mat-amber, A400, A100, A700);
+  $sdbgt-warn: mat-palette($mat-red);
+  $sdbgt-theme: mat-light-theme($sdbgt-primary, $sdbgt-accent, $sdbgt-warn);
+  @include angular-material-theme($sdbgt-theme);
 }
 

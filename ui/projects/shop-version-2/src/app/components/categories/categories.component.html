@@ -1,6 +1,6 @@
-<div class="category-menu" *ngIf="!(hideTopCat$  | async)">
+<ng-container class="category-menu" *ngIf="!(hideTopCat$  | async)">
 <ng-container  *ngIf="(categories$  | async) as categories">
-  <ng-container  *ngIf="categories && categories.length > 1">
+  <div class="category-menu"  *ngIf="categories && categories.length > 1">
 
     <nav mat-tab-nav-bar [backgroundColor]="background">
       <a mat-tab-link *ngFor="let category of categories"
@@ -12,7 +12,7 @@
       </a>
     </nav>
 
-  </ng-container>
+  </div>
 </ng-container>
 <ng-content></ng-content>
-</div>
+</ng-container>

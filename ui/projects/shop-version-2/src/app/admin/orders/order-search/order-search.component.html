@@ -1,25 +1,27 @@
 <form [formGroup]="searchFrm" (ngSubmit)="search()">
-<div class="grid-form-container">
-  <mat-form-field appearance="standard">
-    <mat-label>Search Keyword</mat-label>
-    <input matInput type="text" formControlName="q" placeholder="Ex. Black Forest">
-  </mat-form-field>
+  <div fxLayout.gt-xs="row" fxLayout.xs="column" fxLayoutAlign="space-between">
+    <mat-form-field appearance="standard" fxFlex.gt-xs="40%" fxFlex.xs="100%">
+      <mat-label>Search Keyword</mat-label>
+      <input matInput type="text" formControlName="q" placeholder="Ex. Black Forest">
+    </mat-form-field>
 
-  <mat-form-field appearance="standard">
-    <mat-label>Enter order date range</mat-label>
-    <mat-date-range-input [rangePicker]="picker">
-      <input matStartDate placeholder="Start date" formControlName="start_date">
-      <input matEndDate placeholder="End date" formControlName="end_date">
-    </mat-date-range-input>
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-date-range-picker #picker touchUi></mat-date-range-picker>
-  </mat-form-field>
+    <mat-form-field appearance="standard" fxFlex.gt-xs="40%" fxFlex.xs="100%">
+      <mat-label>Enter order date range</mat-label>
+      <mat-date-range-input [rangePicker]="picker">
+        <input matStartDate placeholder="Start date" formControlName="start_date">
+        <input matEndDate placeholder="End date" formControlName="end_date">
+      </mat-date-range-input>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker touchUi></mat-date-range-picker>
+    </mat-form-field>
+    <div fxFlex.gt-xs="20%" fxFlex.xs="100%" fxLayoutAlign.xs="space-between" fxLayoutAlign.gt-xs="center center">
+      <button mat-flat-button color="primary"   >
+        <mat-icon>search</mat-icon>
+      </button>
+      <button mat-flat-button color="primary" [ngClass.gt-xs]="'ml-2'" (click)="reset()" type="button">
+        <mat-icon>refresh</mat-icon>
+      </button>
+    </div>
 
-  <button mat-icon-button matSuffix  >
-    <mat-icon>search</mat-icon>
-  </button>
-  <button mat-icon-button (click)="reset()" type="button">
-    <mat-icon>refresh</mat-icon>
-  </button>
-</div>
+  </div>
 </form>
