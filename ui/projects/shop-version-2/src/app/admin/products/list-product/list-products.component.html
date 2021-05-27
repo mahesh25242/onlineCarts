@@ -20,7 +20,7 @@
       <!-- id Column -->
       <ng-container matColumnDef="no">
         <th mat-header-cell *matHeaderCellDef> No. </th>
-        <td mat-cell *matCellDef="let element" data-label="No."> {{element.id}} </td>
+        <td mat-cell *matCellDef="let element; let i = index;" data-label="No."> {{products.from + i}} </td>
       </ng-container>
 
       <!-- Name Column -->
