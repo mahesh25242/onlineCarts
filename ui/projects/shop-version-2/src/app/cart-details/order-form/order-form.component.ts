@@ -1,7 +1,9 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit } from '@angular/core';
 import { ControlContainer, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { ShopDelivery } from 'src/app/lib/interfaces';
+import { Observable } from 'rxjs';
+import { Shop, ShopDelivery } from 'src/app/lib/interfaces';
+import { ShopService } from 'src/app/lib/services';
 
 
 @Component({
@@ -11,14 +13,14 @@ import { ShopDelivery } from 'src/app/lib/interfaces';
 })
 export class OrderFormComponent implements OnInit {
   customerFrm: FormGroup;
-  @Input() shopDelivery: ShopDelivery;
-  @Input() mapUrl: string;
-  @Input() deliveryloc: {paid: ShopDelivery[]};
+  shop$: Observable<Shop>;
+  @Input() lp: string;
   todayDate:Date = new Date();
   isSlideChecked: boolean = false;
   constructor(
     private formBuilder: FormBuilder,
-    private controlContainer: ControlContainer
+    private controlContainer: ControlContainer,
+    private shopService: ShopService
     ) { }
 
   get f() {
@@ -33,10 +35,12 @@ export class OrderFormComponent implements OnInit {
     }
   }
   ngOnInit(): void {
+
     this.customerFrm = <FormGroup>this.controlContainer.control;
+    this.f.selectedLocation.setValue(null);
+    this.shop$ = this.shopService.aShop;
 
 
-    this.f.selectedLocation.setValue(this.shopDelivery)
   }
 
 

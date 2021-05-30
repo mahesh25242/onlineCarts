@@ -1,14 +1,22 @@
 <form [formGroup]="customerFrm">
   <div class="selectDelevery" >
-    <h3>Delivered to:  <mat-error *ngIf="!customerFrm.controls.selectedLocation.value">
-      Please choose a pick up from shop or home delivery
-    </mat-error></h3>
+    <h3>Delivered to:</h3>
 
     <mat-tab-group mat-align-tabs="start" *ngIf="(shop$ | async) as shop" dynamicHeight >
       <mat-tab label="Pickup From Shop">
         <ng-template matTabContent>
 
-          <mat-accordion>
+          <app-order-form
+          lp="free"
+          [formGroup]="customerFrm"
+          ></app-order-form>
+
+          <!-- <app-order-form
+          [shopDelivery]="shop_delivery" [mapUrl]="mapUrl"
+          *ngIf="shop_delivery.isOpened"
+          [formGroup]="customerFrm"></app-order-form> -->
+
+          <!-- <mat-accordion>
             <mat-expansion-panel   *ngFor="let shop_delivery of shop?.shop_delivery_filtered.free; first as isFirst"
             [expanded]="isFirst || shop_delivery.isOpened"
             (opened)="shop_delivery.isOpened = true"
@@ -31,7 +39,7 @@
                 *ngIf="shop_delivery.isOpened"
                 [formGroup]="customerFrm"></app-order-form>
             </mat-expansion-panel>
-          </mat-accordion>
+          </mat-accordion> -->
         </ng-template>
       </mat-tab>
       <mat-tab label="Home Delivery">
@@ -49,8 +57,8 @@
           </ng-container>
 
 
-          <app-order-form  [mapUrl]="mapUrl"
-          [deliveryloc]="shop?.shop_delivery_filtered.paid"
+          <app-order-form
+          lp="paid"
           [formGroup]="customerFrm"></app-order-form>
         </ng-template>
       </mat-tab>

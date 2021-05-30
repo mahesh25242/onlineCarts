@@ -21,7 +21,7 @@ export class ShopService {
         const delivery = res?.shop_delivery;
         if(delivery){
           res.shop_delivery_filtered = delivery.reduce(function (r, a) {
-            let idx = (a.charge) ? 'paid': 'free';
+            let idx = (a.need_cust_loc) ? 'paid': 'free';
             r[idx] = r[idx] || [];
             r[idx].push(a);
             return r;

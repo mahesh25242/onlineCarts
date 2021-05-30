@@ -28,6 +28,17 @@
           </td>
         </ng-container>
 
+        <ng-container matColumnDef="phone">
+          <th mat-header-cell *matHeaderCellDef> Phone </th>
+          <td mat-cell *matCellDef="let element" data-label="Phone">
+            <a [href]="'https://web.whatsapp.com/send?phone='+element.shop_customer.phone" target="_blank" fxHide.lt-md="true" matTooltip="Click here to go to whatsapp">
+              {{element.shop_customer.phone}}
+            </a>
+            <a [href]="'https://api.whatsapp.com/send?phone='+element.shop_customer.phone" target="_blank" fxHide.gt-xs="true"
+            matTooltip="Click here to go to whatsapp">{{element.shop_customer.phone}}</a>
+          </td>
+        </ng-container>
+
         <!-- total Column -->
         <ng-container matColumnDef="total">
           <th mat-header-cell *matHeaderCellDef> Total </th>

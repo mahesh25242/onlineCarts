@@ -45,6 +45,8 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatBadgeModule} from '@angular/material/badge';
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import {MatChipsModule} from '@angular/material/chips';
+
 
 Notiflix.Confirm.Init({ borderRadius:"5px",titleColor:"#204486",okButtonBackground:"#204486",cancelButtonBackground:"#e2e2e2",cancelButtonColor:"#393939", });
 Notiflix.Notify.Init({ width:"390px", success: {background:"#d4edda",textColor:"#155724",}, failure: {background:"#f8d7da",textColor:"#721c24",}, warning: {background:"#fff3cd",textColor:"#856404",}, info: {background:"#cce5ff",textColor:"#004085",}, });
@@ -100,7 +102,8 @@ Notiflix.Block.Init({ svgColor:"#204486", });
     MatTabsModule,
     MatExpansionModule,
     MatBadgeModule,
-    DragDropModule
+    DragDropModule,
+    MatChipsModule
   ],
   exports:[
     NgSelectModule,
@@ -146,7 +149,8 @@ Notiflix.Block.Init({ svgColor:"#204486", });
     MatTabsModule,
     MatExpansionModule,
     MatBadgeModule,
-    DragDropModule
+    DragDropModule,
+    MatChipsModule
   ],
   providers:[
     DatePipe,

@@ -18,7 +18,7 @@ export class OrdersComponent implements OnInit {
   pageEvent: PageEvent
 
   orders$: Observable<ShopOrderWithPagination>;
-  displayedColumns = ["no", "name", "total", "delivery_location", "delivery_date" ,'created_at', "status"]
+  displayedColumns = ["no", "name", "phone", "total", "delivery_location", "delivery_date" ,'created_at', "status"]
   constructor(private cartService: CartService,
     public dialog: MatDialog,
     private generalService: GeneralService) { }
