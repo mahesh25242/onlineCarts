@@ -59,6 +59,12 @@ export class CartService {
     }
   }
 
+  removeCart(){
+    localStorage.removeItem(`${this.shopKey}-cart`);
+    this.isUpdated$.next(true);
+  }
+
+
   cart(): Observable<Cart[]>{
     return  this.isUpdated.pipe(map(res=>{
       const cart:Cart[] = this.getCart();
