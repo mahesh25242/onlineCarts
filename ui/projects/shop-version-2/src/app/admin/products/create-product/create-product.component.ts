@@ -50,6 +50,7 @@ export class CreateProductComponent implements OnInit, OnDestroy {
       id: 2
     }
   ];
+
   categories$: Observable<ShopProductCategory[]>;
 
   saveProdSubScr: Subscription;
