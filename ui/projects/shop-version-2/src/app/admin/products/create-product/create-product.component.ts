@@ -36,6 +36,7 @@ export class CreateProductComponent implements OnInit, OnDestroy {
       id: 0
     }
   ];
+  //varients
   varientTypes = [
     {
       name:'Any',
@@ -50,7 +51,6 @@ export class CreateProductComponent implements OnInit, OnDestroy {
       id: 2
     }
   ];
-
   categories$: Observable<ShopProductCategory[]>;
 
   saveProdSubScr: Subscription;
