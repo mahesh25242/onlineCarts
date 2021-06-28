@@ -121,14 +121,14 @@ class ShopsController extends Controller
                 ]
             );
 
-            //generate the registered site
-            $this->generateSite(
-                $request->merge(
-                    [
-                        "shop_key"=> $shop->shop_key
-                    ]
-                )
-            );
+            // //generate the registered site
+            // $this->generateSite(
+            //     $request->merge(
+            //         [
+            //             "shop_key"=> $shop->shop_key
+            //         ]
+            //     )
+            // );
 
             $toEMail = $email;
             if(env('APP_ENV') == 'local'){
@@ -244,6 +244,18 @@ class ShopsController extends Controller
         }
     }
 
+    public function banners(Request $request){
+        $shopKey = $request->header('shopKey');
+
+        $shopKey = ($shopKey) ? $shopKey : $request->input("shop_key");
+
+        if($shopKey){
+            return response(["banners" => 1]);
+        }else{
+            return response(['message' => 'No data found!', 'status' => false]);
+        }
+    }
+
     public function updateDetails(Request $request){
         $validator = Validator::make($request->all(), [
             'name' => ['required'],
@@ -338,13 +350,13 @@ class ShopsController extends Controller
             $shop->save();
         }
 
-        $this->generateSite(
-            $request->merge(
-                [
-                    "shop_key"=> $shop->shop_key
-                ]
-            )
-        );
+        // $this->generateSite(
+        //     $request->merge(
+        //         [
+        //             "shop_key"=> $shop->shop_key
+        //         ]
+        //     )
+        // );
 
         return response(['message' => 'successfully saved',  'status' => true]);
     }
@@ -377,6 +389,7 @@ class ShopsController extends Controller
     }
 
     public function generateSite(Request $request){
+        return '';
         $files = Storage::allFiles("shopSite");
         $shopKey = $request->input("shop_key", '3d9f5a8eec71764c7c2df5a56496c8a1320dd921');
         $shop =  \App\Models\Shop::where("shop_key", $shopKey)->get()->first();

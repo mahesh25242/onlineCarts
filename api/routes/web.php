@@ -38,6 +38,7 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
     /* Billing apps */
     $router->group(['prefix' => 'shop', 'middleware' =>  'AppMiddleware'], function () use ($router) {
         $router->get('/','ShopsController@shopDetails');
+        $router->get('/banner','ShopsController@banners');
         $router->get('/adminHomeStat','ShopsController@adminHomeStat');
         $router->post('createOrder','ShopOrderController@createOrder');
         $router->post('showOrderDetail','ShopOrderController@showOrderDetail');

@@ -58,25 +58,25 @@ class ThemesController extends Controller
 
 
 
-        $res = $http->request('POST', url("v1/shop/generateSite"), [
-            'form_params' => [
-                "shop_key"=> $request->header("shopkey")
-            ],
-            'headers' => [
-                'Authorization' => $request->header("Authorization"),
-                'Accept'     => 'application/json',
-                'shopkey' => $request->header("shopkey"),
-            ]
-        ]);
+        // $res = $http->request('POST', url("v1/shop/generateSite"), [
+        //     'form_params' => [
+        //         "shop_key"=> $request->header("shopkey")
+        //     ],
+        //     'headers' => [
+        //         'Authorization' => $request->header("Authorization"),
+        //         'Accept'     => 'application/json',
+        //         'shopkey' => $request->header("shopkey"),
+        //     ]
+        // ]);
 
-        //$res = $http->send($res);
+        // //$res = $http->send($res);
 
-        $statusCode = $res->getStatusCode(); // 200
-        if($statusCode == 200){
-            return $res->getBody();
-        }else{
-            return response(["success" => false, "message"=> "unexpected error"], 401);
-        }
+        // $statusCode = $res->getStatusCode(); // 200
+        // if($statusCode == 200){
+        //     return $res->getBody();
+        // }else{
+        //     return response(["success" => false, "message"=> "unexpected error"], 401);
+        // }
 
         return response(['message' => 'success', 'status' => true]);
     }
