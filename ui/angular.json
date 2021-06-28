@@ -185,6 +185,7 @@
                   "with": "projects/shop-version-2/src/environments/environment.prod.ts"
                 }
               ],
+              "index": "projects/shop-version-2/src/index.php",
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
