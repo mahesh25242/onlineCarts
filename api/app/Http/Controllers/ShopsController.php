@@ -121,14 +121,6 @@ class ShopsController extends Controller
                 ]
             );
 
-            // //generate the registered site
-            // $this->generateSite(
-            //     $request->merge(
-            //         [
-            //             "shop_key"=> $shop->shop_key
-            //         ]
-            //     )
-            // );
 
             $toEMail = $email;
             if(env('APP_ENV') == 'local'){
@@ -205,14 +197,6 @@ class ShopsController extends Controller
                     File::deleteDirectory($fromPath);
                 }
             }
-            if(env('APP_ENV') != 'local'){
-                if($shop->shop_key){
-                    $toPath = dirname(base_path()).rtrim($shop->base_path, '/');
-                    if(rtrim($shop->base_path, '/') && file_exists($toPath ))
-                        File::deleteDirectory($toPath);
-                }
-
-            }
             $shop =  $shop->forceDelete();
         }else if($request->input("restore", null)){
             $shop =  \App\Models\Shop::where('id', $id)->restore();
@@ -274,6 +258,76 @@ class ShopsController extends Controller
         }
 
 
+    }
+
+    public function webmanifest($shopKey=''){
+        if($shopKey){
+            $shop = \App\Models\Shop::with(["country", "state", "city", "shopDelivery", "shopTheme.theme"])
+            ->where("shop_key", $shopKey)->get()->first();
+
+            $json["name"] = $shop->name;
+            $json["short_name"] = $shop->short_name;
+            $json["theme_color"] = $shop->shopTheme->theme->theme_color;
+            $json["background_color"] = $shop->shopTheme->theme->background_color;
+            $json["display"] = "standalone";
+            $json["scope"] = "./";
+            $json["start_url"] = "./";
+            $json["icons"] = array(
+                array(
+                    "src" => "assets/icons/icon-72x72.png",
+                    "sizes" => "72x72",
+                    "type" => "image/png",
+                    "purpose" => "maskable any",
+                ),
+                array(
+                    "src" => "assets/icons/icon-96x96.png",
+                    "sizes" => "96x96",
+                    "type" => "image/png",
+                    "purpose" => "maskable any",
+                ),
+                array(
+                    "src" => "assets/icons/icon-128x128.png",
+                    "sizes" => "128x128",
+                    "type" => "image/png",
+                    "purpose" => "maskable any",
+                ),
+                array(
+                    "src" => "assets/icons/icon-144x144.png",
+                    "sizes" => "144x144",
+                    "type" => "image/png",
+                    "purpose" => "maskable any",
+                ),
+                array(
+                    "src" => "assets/icons/icon-152x152.png",
+                    "sizes" => "152x152",
+                    "type" => "image/png",
+                    "purpose" => "maskable any",
+                ),
+                array(
+                    "src" => "assets/icons/icon-192x192.png",
+                    "sizes" => "192x192",
+                    "type" => "image/png",
+                    "purpose" => "maskable any",
+                ),
+                array(
+                    "src" => "assets/icons/icon-384x384.png",
+                    "sizes" => "384x384",
+                    "type" => "image/png",
+                    "purpose" => "maskable any",
+                ),
+                array(
+                    "src" => "assets/icons/icon-512x512.png",
+                    "sizes" => "512x512",
+                    "type" => "image/png",
+                    "purpose" => "maskable any",
+                )
+            );
+
+
+            return response($json);
+        }else{
+            return response(['message' => 'No data found!', 'status' => false]);
+        }
     }
 
     public function updateDetails(Request $request){
