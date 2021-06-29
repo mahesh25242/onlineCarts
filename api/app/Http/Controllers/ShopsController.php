@@ -250,10 +250,30 @@ class ShopsController extends Controller
         $shopKey = ($shopKey) ? $shopKey : $request->input("shop_key");
 
         if($shopKey){
-            return response(["banners" => 1]);
+            if(Storage::disk('public')->exists("shop/{$shopKey}/home-banner.json")){
+                return response(Storage::disk('public')->get("shop/{$shopKey}/home-banner.json"));
+            }else{
+                return response(['message' => 'no banner found', 'status' => false], 404);
+            }
         }else{
             return response(['message' => 'No data found!', 'status' => false]);
         }
+    }
+
+    public function byShopName($name=''){
+        if($name){
+            $shop =  \App\Models\Shop::where("base_path", "/{$name}/")->get()->first();
+
+            if($shop){
+                return response($shop);
+            }else{
+                return response(['message' => 'No data found!', 'status' => false], 422);
+            }
+        }else{
+            return response(['message' => 'No data found!', 'status' => false], 422);
+        }
+
+
     }
 
     public function updateDetails(Request $request){

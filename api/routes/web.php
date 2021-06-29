@@ -34,11 +34,13 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
     $router->post('register','ShopsController@register');
     $router->post('socialLogin','UsersController@socialLogin');
     $router->post('demoSignIn','UsersController@demoSignIn');
+    $router->get('/shopName/{name}','ShopsController@byShopName');
 
     /* Billing apps */
     $router->group(['prefix' => 'shop', 'middleware' =>  'AppMiddleware'], function () use ($router) {
         $router->get('/','ShopsController@shopDetails');
         $router->get('/banner','ShopsController@banners');
+
         $router->get('/adminHomeStat','ShopsController@adminHomeStat');
         $router->post('createOrder','ShopOrderController@createOrder');
         $router->post('showOrderDetail','ShopOrderController@showOrderDetail');
