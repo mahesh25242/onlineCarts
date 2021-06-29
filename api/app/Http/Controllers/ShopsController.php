@@ -250,8 +250,8 @@ class ShopsController extends Controller
         $shopKey = ($shopKey) ? $shopKey : $request->input("shop_key");
 
         if($shopKey){
-            if(Storage::disk('public')->exists("shop/{$shopKey}/home-banner.json")){
-                return response(Storage::disk('public')->get("shop/{$shopKey}/home-banner.json"));
+            if(Storage::disk('public')->exists("shop/{$shopKey}/general/home-banner.json")){
+                return response(Storage::disk('public')->get("shop/{$shopKey}/general/home-banner.json"));
             }else{
                 return response(['message' => 'no banner found', 'status' => false], 404);
             }
