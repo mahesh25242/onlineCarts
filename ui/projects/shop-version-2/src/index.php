@@ -10,7 +10,7 @@
   <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon-180x180.png">
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&amp;display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link rel="manifest" href="<?php echo ($data["baseUrl"] ?? '');?>manifest.webmanifest">
+  <link rel="manifest" href="<?php echo ($data["shopKey"] ?? '');?>.webmanifest">
   <meta name="theme-color" content="<?php echo ($data["themeColor"] ?? '');?>">
   <meta name="shop-key" content="<?php echo ($data["shopKey"] ?? '');?>">
   <meta name="shop-name" content="<?php echo ($data["siteName"] ?? '');?>">
