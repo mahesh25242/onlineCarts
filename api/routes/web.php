@@ -39,7 +39,11 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
     /* Billing apps */
     $router->group(['prefix' => 'shop', 'middleware' =>  'AppMiddleware'], function () use ($router) {
         $router->get('/','ShopsController@shopDetails');
-        $router->get('/banner','ShopsController@banners');
+        $router->group(['prefix' => 'banner'], function () use ($router) {
+            $router->get('/','ShopBannerController@banners');
+            $router->post('/save','ShopBannerController@save');
+        });
+
         $router->get('/manifest/{shopKey}','ShopsController@webmanifest');
 
         $router->get('/adminHomeStat','ShopsController@adminHomeStat');

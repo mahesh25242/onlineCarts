@@ -1,169 +1,220 @@
 <div class="header-inner"></div>
 <div class="container">
+
+
+
   <div id="recaptcha-container"></div>
   <ng-container *ngIf="(shop$ | async) as shop">
     <h1>{{shop.name}} Details</h1>
-    <mat-card>
-      <h2>Status: {{shop.status_text}}</h2>
-      <mat-form-field appearance="fill" *ngIf="thems$ | async as thems">
-        <mat-label>Choose Theme</mat-label>
-        <mat-select (selectionChange)="chooseTheme()" [(ngModel)]="theme_id">
-          <mat-option *ngFor="let theme of thems" [value]="theme.id">
-            {{theme.name}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <div *ngIf="!shop.is_mobile_verified">
-        Your mobile is not verified so cant get any order to your mobile
-        <a href="javascript:{}" (click)="verifyMobile(shop)">Click here to verify</a>
-      </div>
-    </mat-card>
-    <br/>
-    <form [formGroup]="shopDetailsFrm"  (ngSubmit)="updateShop()">
-      <mat-card>
-        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
 
-          <mat-form-field fxFlex="33%" fxFlex.xs="100%" class="full-width-text" appearance="standard">
-            <mat-label>Name</mat-label>
-            <input matInput formControlName="name" placeholder="Ex. Kentucky Fried Chicken" required maxlength="200">
-            <mat-hint align="end" *ngIf="f.name?.value?.length">{{f.name?.value?.length}} / 200</mat-hint>
-            <mat-error *ngIf="f.name.errors && f.name.errors.error">
-              {{ f.name.errors.error }}
-            </mat-error>
-          </mat-form-field>
 
-          <mat-form-field fxFlex="33%" fxFlex.xs="100%" class="full-width-text" appearance="standard">
-            <mat-label>Sort Name</mat-label>
-            <input matInput formControlName="short_name" placeholder="Ex. KFC" required maxlength="200">
-            <mat-hint align="end" *ngIf="f.short_name?.value?.length">{{f.short_name?.value?.length}} / 200</mat-hint>
-            <mat-error *ngIf="f.short_name.errors && f.short_name.errors.error">
-              {{ f.short_name.errors.error }}
-            </mat-error>
-          </mat-form-field>
+    <mat-accordion class="example-headers-align" multi>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Theme
+            <mat-icon>dark_mode</mat-icon>
+          </mat-panel-title>
+          <mat-panel-description>
+              Status: {{shop.status_text}}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
 
-          <mat-form-field fxFlex="33%" fxFlex.xs="100%" class="full-width-text" appearance="standard">
-            <mat-label>Email</mat-label>
-            <input matInput formControlName="email" placeholder="Ex. kfc@gmail.com" maxlength="200">
-            <mat-hint align="end" *ngIf="f.email?.value?.length">{{f.email?.value?.length}} / 200</mat-hint>
-            <mat-error *ngIf="f.email.errors && f.email.errors.error">
-              {{ f.email.errors.error }}
-            </mat-error>
-          </mat-form-field>
+        <mat-form-field appearance="fill" *ngIf="thems$ | async as thems">
+          <mat-label>Choose Theme</mat-label>
+          <mat-select (selectionChange)="chooseTheme()" [(ngModel)]="theme_id">
+            <mat-option *ngFor="let theme of thems" [value]="theme.id">
+              {{theme.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
 
+        <div *ngIf="!shop.is_mobile_verified">
+          Your mobile is not verified so cant get any order to your mobile
+          <a href="javascript:{}" (click)="verifyMobile(shop)">Click here to verify</a>
         </div>
 
-
-        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
-          <div fxFlex="33%" fxFlex.xs="100%">
-            <ng-select [items]="(countries$ | async)"
-            [ngClass]="{'is-invalid': ( f.country_id.errors && f.country_id.errors.error)}"
-            bindLabel="name"
-            id="country_id"
-            placeholder="Select Country"
-            formControlName="country_id">
-            </ng-select>
-            <mat-error *ngIf="f.country_id.errors && f.country_id.errors.error">
-              {{ f.country_id.errors.error }}
-            </mat-error>
-          </div>
-
-          <div fxFlex="33%" fxFlex.xs="100%">
-            <ng-select [items]="(states$ | async)"
-            [ngClass]="{'is-invalid': ( f.state_id.errors && f.state_id.errors.error)}"
-            bindLabel="name"
-            id="state_id"
-            placeholder="Select State"
-            formControlName="state_id">
-            </ng-select>
-          </div>
-
-          <div fxFlex="33%" fxFlex.xs="100%">
-            <ng-select [items]="(cities$ | async)"
-            [ngClass]="{'is-invalid': ( f.city_id.errors && f.city_id.errors.error)}"
-            bindLabel="name"
-            id="city_id"
-            placeholder="Select City"
-            formControlName="city_id">
-            </ng-select>
-          </div>
-        </div>
-
-        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
-          <mat-form-field fxFlex="33%" fxFlex.xs="100%" class="full-width-text" appearance="standard">
-            <mat-label>Phone {{ (f.country_id.value?.phonecode) ? '+'+f.country_id.value?.phonecode: '' }}</mat-label>
-            <input matInput type="tel" formControlName="phone" placeholder="Ex. 1234567890" required
-            maxlength="10">
-            <mat-hint align="end" *ngIf="f.pin?.value?.length">{{f.phone?.value?.length}} / 10</mat-hint>
-            <mat-error *ngIf="f.phone.errors && f.phone.errors.error">
-              {{ f.phone.errors.error }}
-            </mat-error>
-          </mat-form-field>
-
-          <mat-form-field fxFlex="33%" fxFlex.xs="100%" class="full-width-text" appearance="standard">
-            <mat-label>Address</mat-label>
-            <input matInput formControlName="address" placeholder="Ex. Kochi" required maxlength="200">
-            <mat-hint align="end" *ngIf="f.address?.value?.length">{{f.address?.value?.length}} / 200</mat-hint>
-            <mat-error *ngIf="f.address.errors && f.address.errors.error">
-              {{ f.address.errors.error }}
-            </mat-error>
-          </mat-form-field>
-
-          <mat-form-field fxFlex="33%" fxFlex.xs="100%" class="full-width-text" appearance="standard">
-            <mat-label>Pin</mat-label>
-            <input matInput formControlName="pin" placeholder="Ex. 566456" required maxlength="6">
-            <mat-hint align="end" *ngIf="f.pin?.value?.length">{{f.pin?.value?.length}} / 6</mat-hint>
-            <mat-error *ngIf="f.pin.errors && f.pin.errors.error">
-              {{ f.pin.errors.error }}
-            </mat-error>
-          </mat-form-field>
-        </div>
-
-        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start">
-          <mat-form-field fxFlex="50%"  class="full-width-text" appearance="standard">
-            <mat-label>Map Url</mat-label>
-            <input matInput formControlName="map" placeholder="Ex. http://googlemap.com" maxlength="200">
-            <mat-hint align="end" *ngIf="f.map?.value?.length">{{f.map?.value?.length}} / 200</mat-hint>
-            <mat-error *ngIf="f.map.errors && f.map.errors.error">
-              {{ f.map.errors.error }}
-            </mat-error>
-          </mat-form-field>
-          <div fxFlex="50%">
-            <img mat-card-image [src]="f.logo.value" alt="" *ngIf="f.logo.value" />
-            <button (click)="handleImageSelection()" type="button" mat-stroked-button color="primary">
-              <span>Choose Image</span>
-            </button>
-          </div>
-
-        </div>
-        <!-- <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start">
-          <mat-form-field fxFlex="33%" fxFlex.xs="100%" class="full-width-text" appearance="standard">
-            <mat-label>Theme Color</mat-label>
-            <input matInput formControlName="theme_color" type="color">
-            <mat-error *ngIf="f.theme_color.errors && f.theme_color.errors.error">
-              {{ f.theme_color.errors.error }}
-            </mat-error>
-          </mat-form-field>
-
-          <mat-form-field fxFlex="33%" fxFlex.xs="100%" class="full-width-text" appearance="standard">
-            <mat-label>Background Color</mat-label>
-            <input matInput formControlName="bg_color" type="color">
-            <mat-error *ngIf="f.bg_color.errors && f.bg_color.errors.error">
-              {{ f.bg_color.errors.error }}
-            </mat-error>
-          </mat-form-field>
-
-        </div> -->
+      </mat-expansion-panel>
 
 
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Edit Account
+          </mat-panel-title>
+          <mat-panel-description>
+            Edit Account
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <form [formGroup]="shopDetailsFrm"  (ngSubmit)="updateShop()">
+          <mat-card>
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
+
+              <mat-form-field fxFlex="33%" fxFlex.xs="100%" class="full-width-text" appearance="standard">
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="name" placeholder="Ex. Kentucky Fried Chicken" required maxlength="200">
+                <mat-hint align="end" *ngIf="f.name?.value?.length">{{f.name?.value?.length}} / 200</mat-hint>
+                <mat-error *ngIf="f.name.errors && f.name.errors.error">
+                  {{ f.name.errors.error }}
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field fxFlex="33%" fxFlex.xs="100%" class="full-width-text" appearance="standard">
+                <mat-label>Sort Name</mat-label>
+                <input matInput formControlName="short_name" placeholder="Ex. KFC" required maxlength="200">
+                <mat-hint align="end" *ngIf="f.short_name?.value?.length">{{f.short_name?.value?.length}} / 200</mat-hint>
+                <mat-error *ngIf="f.short_name.errors && f.short_name.errors.error">
+                  {{ f.short_name.errors.error }}
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field fxFlex="33%" fxFlex.xs="100%" class="full-width-text" appearance="standard">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email" placeholder="Ex. kfc@gmail.com" maxlength="200">
+                <mat-hint align="end" *ngIf="f.email?.value?.length">{{f.email?.value?.length}} / 200</mat-hint>
+                <mat-error *ngIf="f.email.errors && f.email.errors.error">
+                  {{ f.email.errors.error }}
+                </mat-error>
+              </mat-form-field>
+
+            </div>
+
+
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
+              <div fxFlex="33%" fxFlex.xs="100%">
+                <ng-select [items]="(countries$ | async)"
+                [ngClass]="{'is-invalid': ( f.country_id.errors && f.country_id.errors.error)}"
+                bindLabel="name"
+                id="country_id"
+                placeholder="Select Country"
+                formControlName="country_id">
+                </ng-select>
+                <mat-error *ngIf="f.country_id.errors && f.country_id.errors.error">
+                  {{ f.country_id.errors.error }}
+                </mat-error>
+              </div>
+
+              <div fxFlex="33%" fxFlex.xs="100%">
+                <ng-select [items]="(states$ | async)"
+                [ngClass]="{'is-invalid': ( f.state_id.errors && f.state_id.errors.error)}"
+                bindLabel="name"
+                id="state_id"
+                placeholder="Select State"
+                formControlName="state_id">
+                </ng-select>
+              </div>
+
+              <div fxFlex="33%" fxFlex.xs="100%">
+                <ng-select [items]="(cities$ | async)"
+                [ngClass]="{'is-invalid': ( f.city_id.errors && f.city_id.errors.error)}"
+                bindLabel="name"
+                id="city_id"
+                placeholder="Select City"
+                formControlName="city_id">
+                </ng-select>
+              </div>
+            </div>
+
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
+              <mat-form-field fxFlex="33%" fxFlex.xs="100%" class="full-width-text" appearance="standard">
+                <mat-label>Phone {{ (f.country_id.value?.phonecode) ? '+'+f.country_id.value?.phonecode: '' }}</mat-label>
+                <input matInput type="tel" formControlName="phone" placeholder="Ex. 1234567890" required
+                maxlength="10">
+                <mat-hint align="end" *ngIf="f.pin?.value?.length">{{f.phone?.value?.length}} / 10</mat-hint>
+                <mat-error *ngIf="f.phone.errors && f.phone.errors.error">
+                  {{ f.phone.errors.error }}
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field fxFlex="33%" fxFlex.xs="100%" class="full-width-text" appearance="standard">
+                <mat-label>Address</mat-label>
+                <input matInput formControlName="address" placeholder="Ex. Kochi" required maxlength="200">
+                <mat-hint align="end" *ngIf="f.address?.value?.length">{{f.address?.value?.length}} / 200</mat-hint>
+                <mat-error *ngIf="f.address.errors && f.address.errors.error">
+                  {{ f.address.errors.error }}
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field fxFlex="33%" fxFlex.xs="100%" class="full-width-text" appearance="standard">
+                <mat-label>Pin</mat-label>
+                <input matInput formControlName="pin" placeholder="Ex. 566456" required maxlength="6">
+                <mat-hint align="end" *ngIf="f.pin?.value?.length">{{f.pin?.value?.length}} / 6</mat-hint>
+                <mat-error *ngIf="f.pin.errors && f.pin.errors.error">
+                  {{ f.pin.errors.error }}
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start">
+              <mat-form-field fxFlex="50%"  class="full-width-text" appearance="standard">
+                <mat-label>Map Url</mat-label>
+                <input matInput formControlName="map" placeholder="Ex. http://googlemap.com" maxlength="200">
+                <mat-hint align="end" *ngIf="f.map?.value?.length">{{f.map?.value?.length}} / 200</mat-hint>
+                <mat-error *ngIf="f.map.errors && f.map.errors.error">
+                  {{ f.map.errors.error }}
+                </mat-error>
+              </mat-form-field>
+              <div fxFlex="50%">
+                <img mat-card-image [src]="f.logo.value" alt="" *ngIf="f.logo.value" />
+                <button (click)="handleImageSelection()" type="button" mat-stroked-button color="primary">
+                  <span>Choose Image</span>
+                </button>
+              </div>
+
+            </div>
+            <!-- <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start">
+              <mat-form-field fxFlex="33%" fxFlex.xs="100%" class="full-width-text" appearance="standard">
+                <mat-label>Theme Color</mat-label>
+                <input matInput formControlName="theme_color" type="color">
+                <mat-error *ngIf="f.theme_color.errors && f.theme_color.errors.error">
+                  {{ f.theme_color.errors.error }}
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field fxFlex="33%" fxFlex.xs="100%" class="full-width-text" appearance="standard">
+                <mat-label>Background Color</mat-label>
+                <input matInput formControlName="bg_color" type="color">
+                <mat-error *ngIf="f.bg_color.errors && f.bg_color.errors.error">
+                  {{ f.bg_color.errors.error }}
+                </mat-error>
+              </mat-form-field>
+
+            </div> -->
 
 
 
 
 
 
-      </mat-card>
-      <br/>
-      <button mat-raised-button class="float-right" color="primary" type="submit">Save</button>
-    </form>
+
+
+          </mat-card>
+          <br/>
+          <button mat-raised-button class="float-right" color="primary" type="submit">Save</button>
+        </form>
+      </mat-expansion-panel>
+
+
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Banner
+          </mat-panel-title>
+          <mat-panel-description>
+            Change home page banner
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div>You can add maximum {{shop.max_banner}} banners (size: 1920 X 478 px)</div>
+        <app-manage-banners [shop]="shop"></app-manage-banners>
+
+
+
+      </mat-expansion-panel>
+    </mat-accordion>
+
+
   </ng-container>
 </div>

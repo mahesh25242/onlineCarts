@@ -43,7 +43,7 @@ class Shop extends Model implements AuthenticatableContract, AuthorizableContrac
         'is_mobile_verified' => 'integer',
     ];
 
-    protected $appends = array('status_text','is_generated');
+    protected $appends = array('status_text','is_generated',"max_banner");
 
     public static function boot() {
         parent::boot();
@@ -88,6 +88,11 @@ class Shop extends Model implements AuthenticatableContract, AuthorizableContrac
     public function getIsGeneratedAttribute()
     {
         return Storage::disk('public')->exists("shop/{$this->shop_key}/www");
+    }
+
+    public function getMaxBannerAttribute()
+    {
+        return 2;
     }
 
 

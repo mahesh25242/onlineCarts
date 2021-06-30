@@ -23,9 +23,10 @@ import { OrdersResolver } from './orders/orders-resolver';
 import { OrderDetailsComponent } from './orders/order-details/order-details.component';
 import { OrderSearchComponent } from './orders/order-search/order-search.component';
 import { SearchProductComponent } from './products/search-product/search-product.component';
+import { ManageBannersComponent } from './components/manage-banners/manage-banners.component';
 
 @NgModule({
-  declarations: [  AdminComponent, SignInComponent, HomeComponent, CategoriesComponent, ProductsComponent, ListProductsComponent, EditProfileComponent, CreateCategoryComponent, CreateProductComponent, ShopDeliveryComponent, CreateShopDeliveryComponent, ShopDetailsComponent, OrdersComponent, OrderDetailsComponent, OrderSearchComponent, SearchProductComponent],
+  declarations: [  AdminComponent, SignInComponent, HomeComponent, CategoriesComponent, ProductsComponent, ListProductsComponent, EditProfileComponent, CreateCategoryComponent, CreateProductComponent, ShopDeliveryComponent, CreateShopDeliveryComponent, ShopDetailsComponent, OrdersComponent, OrderDetailsComponent, OrderSearchComponent, SearchProductComponent, ManageBannersComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,

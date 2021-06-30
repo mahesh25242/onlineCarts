@@ -35,6 +35,10 @@ export class GeneralService {
     return this.http.get<[{image: string}]>(`/shop/banner`);
   }
 
+  saveBanner(postData: any = null){
+    return this.http.post("/shop/banner/save", postData);
+  }
+
 
 
 }

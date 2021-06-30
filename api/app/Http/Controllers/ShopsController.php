@@ -228,21 +228,7 @@ class ShopsController extends Controller
         }
     }
 
-    public function banners(Request $request){
-        $shopKey = $request->header('shopKey');
 
-        $shopKey = ($shopKey) ? $shopKey : $request->input("shop_key");
-
-        if($shopKey){
-            if(Storage::disk('public')->exists("shop/{$shopKey}/general/home-banner.json")){
-                return response(Storage::disk('public')->get("shop/{$shopKey}/general/home-banner.json"));
-            }else{
-                return response(['message' => 'no banner found', 'status' => false], 404);
-            }
-        }else{
-            return response(['message' => 'No data found!', 'status' => false]);
-        }
-    }
 
     public function byShopName($name=''){
         if($name){

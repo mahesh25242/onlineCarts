@@ -42,7 +42,8 @@ export interface Shop {
   logo?: string,
   icons?: any,
   shop_theme?: ShopTheme,
-  is_mobile_verified?: number
+  is_mobile_verified?: number,
+  max_banner?: number
 }
 
 
