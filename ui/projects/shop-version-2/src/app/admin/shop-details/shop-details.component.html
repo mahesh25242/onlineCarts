@@ -12,7 +12,7 @@
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title>
-            Theme
+            Theme & Branding
             <mat-icon>dark_mode</mat-icon>
           </mat-panel-title>
           <mat-panel-description>
@@ -20,14 +20,11 @@
           </mat-panel-description>
         </mat-expansion-panel-header>
 
-        <mat-form-field appearance="fill" *ngIf="thems$ | async as thems">
-          <mat-label>Choose Theme</mat-label>
-          <mat-select (selectionChange)="chooseTheme()" [(ngModel)]="theme_id">
-            <mat-option *ngFor="let theme of thems" [value]="theme.id">
-              {{theme.name}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+        <app-theme-and-branding [shop]="shop"></app-theme-and-branding>
+
+
+
+
 
         <div *ngIf="!shop.is_mobile_verified">
           Your mobile is not verified so cant get any order to your mobile

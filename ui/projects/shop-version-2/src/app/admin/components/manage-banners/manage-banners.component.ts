@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgxImageCompressService } from 'ngx-image-compress';
-import { from, Observable } from 'rxjs';
-import { map, mergeMap } from 'rxjs/operators';
+import { from, Observable, of, throwError } from 'rxjs';
+import { catchError, map, mergeMap, tap } from 'rxjs/operators';
 import { Shop } from 'src/app/lib/interfaces';
 import { GeneralService } from '../../../lib/services';
 
@@ -58,6 +58,12 @@ export class ManageBannersComponent implements OnInit {
         imgs = [...imgs, {image:  '', url:  (res[i-1] && res[i-1].image) ? res[i-1].image : ''}];
       }
       return imgs;
+    }), catchError(err =>{
+      let imgs: any[] = [];
+      for (let i=1; i<= this.shop.max_banner ; i++){
+        imgs = [...imgs, {image:  '', url:   ''}];
+      }
+      return of(imgs);
     }))
 
 

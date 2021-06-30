@@ -205,7 +205,9 @@
                   "maximumWarning": "6kb",
                   "maximumError": "10kb"
                 }
-              ]
+              ],
+              "serviceWorker": true,
+              "ngswConfigPath": "projects/shop-version-2/ngsw-config.json"
             }
           }
         },
@@ -238,6 +240,7 @@
               "projects/shop-version-2/src/assets",
               "projects/shop-version-2/src/firebase-messaging-sw.js",
               "projects/shop-version-2/src/copy-file.php",
+              "projects/shop-version-2/src/manifest.webmanifest",
               "projects/shop-version-2/src/manifest.webmanifest"
             ],
             "styles": [

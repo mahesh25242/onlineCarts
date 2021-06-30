@@ -21,8 +21,8 @@ export class ShopDetailsComponent implements OnInit, OnDestroy {
   countries$: Observable<Country[]>;
   states$: Observable<State[]>;
   cities$: Observable<City[]>;
-  thems$: Observable<Theme[]>;
-  theme_id: number;
+
+
   isDemoSite:boolean = false;
 
   countrySubscription: Subscription;
@@ -39,19 +39,7 @@ export class ShopDetailsComponent implements OnInit, OnDestroy {
     private imageCompress: NgxImageCompressService,
     public afAuth: AngularFireAuth) { }
 
-    chooseTheme(){
-      Notiflix.Block.Merge({svgSize:'20px',});
-      Notiflix.Block.Dots(`mat-form-field`);
-      this.saveThemeSubscription =  this.themeService.saveTheme(this.theme_id).pipe(mergeMap(res=>{
-        return this.shopService.shopDetail();
-      })).subscribe(res=>{
-        Notiflix.Notify.Success(`Successfully saved the theme `);
-        Notiflix.Block.Remove(`mat-form-field`);
-      }, err=>{
-        Notiflix.Notify.Failure(`Sorry unexpected error occur `);
-        Notiflix.Block.Remove(`mat-form-field`);
-      })
-    }
+
 
     handleImageSelection(stat:FormGroup) {
 
@@ -176,7 +164,7 @@ export class ShopDetailsComponent implements OnInit, OnDestroy {
       backUrl: null
     });
 
-    this.thems$ = this.themeService.themes();
+
     this.isDemoSite = (environment.shopKey == environment.demoShopKey);
 
 
@@ -185,7 +173,7 @@ export class ShopDetailsComponent implements OnInit, OnDestroy {
 
 
 
-      this.theme_id = res.shop_theme.theme_id;
+
 
       this.shopDetailsFrm.patchValue({
         name: res?.name,

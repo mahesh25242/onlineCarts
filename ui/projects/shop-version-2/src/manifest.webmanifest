@@ -1,6 +1,6 @@
 {
-  "name": "Shop Version 2",
-  "short_name": "Shop Version 2",
+  "name": "shop-version-2",
+  "short_name": "shop-version-2",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",
