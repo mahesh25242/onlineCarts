@@ -67,6 +67,7 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
 
             $router->group(['prefix' => 'shop'], function () use ($router) {
                 $router->post('/store','ShopsController@updateDetails');
+                $router->post('/changelogoFav','ShopsController@setFaviconOrLogo');
                 $router->post('/orders','ShopOrderController@orders');
                 $router->post('/orders/changeStatus','ShopOrderController@changeStatus');
                 $router->post('/generateSite','ShopsController@generateSite');

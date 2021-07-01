@@ -6,7 +6,7 @@
   <base href="<?php echo ($data["basePath"] ?? '');?>">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/x-icon" href="<?php echo ($data["baseUrl"] ?? '');?>assets/shop/<?php echo ($data["shopKey"] ?? '');?>/general/favicon.ico">
   <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon-180x180.png">
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&amp;display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -14,6 +14,10 @@
   <meta name="theme-color" content="<?php echo ($data["themeColor"] ?? '');?>">
   <meta name="shop-key" content="<?php echo ($data["shopKey"] ?? '');?>">
   <meta name="shop-name" content="<?php echo ($data["siteName"] ?? '');?>">
+
+  <!-- add to homescreen for ios -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 </head>
 <body class="mat-typography">
 

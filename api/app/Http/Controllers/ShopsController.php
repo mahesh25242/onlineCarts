@@ -188,6 +188,63 @@ class ShopsController extends Controller
         return response(['data' => $shop, 'message' => 'Account created successfully!', 'status' => true]);
     }
 
+    public function setFaviconOrLogo(Request $request){
+
+        $shopKey = $request->header('shopKey');
+
+        $shopKey = ($shopKey) ? $shopKey : $request->input("shop_key");
+        $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
+
+        if(!$shop){
+            return response(['message' => 'No shop found!', 'status' => false], 404);
+        }
+        if ($request->hasFile('favicon')) {
+            $destinationPath = "assets/shop/{$shop->shop_key}/general";
+            $request->file('favicon')->move($destinationPath, "favicon.ico");
+            $shop->favicon = 'favicon.ico';
+            $shop->save();
+        }
+
+        if ($request->hasFile('logo')) {
+            $logoName = sprintf("%s.%s",time(), $request->file('logo')->extension());
+            $destinationPath = "assets/shop/{$shop->shop_key}/general";
+            $request->file('logo')->move($destinationPath, $logoName);
+
+            $png = Image::make($destinationPath.'/'.$logoName)->encode('png');
+            $png->save($destinationPath.'/logo.png');
+
+
+            $png = Image::make($destinationPath.'/logo.png')->resize(72, 72);
+            $png->save($destinationPath.'/icon-72x72.png');
+
+            $png = Image::make($destinationPath.'/logo.png')->resize(96, 96);
+            $png->save($destinationPath.'/icon-96x96.png');
+
+            $png = Image::make($destinationPath.'/logo.png')->resize(128, 128);
+            $png->save($destinationPath.'/icon-128x128.png');
+
+            $png = Image::make($destinationPath.'/logo.png')->resize(144, 144);
+            $png->save($destinationPath.'/icon-144x144.png');
+
+            $png = Image::make($destinationPath.'/logo.png')->resize(152, 152);
+            $png->save($destinationPath.'/icon-152x152.png');
+
+            $png = Image::make($destinationPath.'/logo.png')->resize(192, 192);
+            $png->save($destinationPath.'/icon-192x192.png');
+
+            $png = Image::make($destinationPath.'/logo.png')->resize(384, 384);
+            $png->save($destinationPath.'/icon-384x384.png');
+
+            $png = Image::make($destinationPath.'/logo.png')->resize(512, 512);
+            $png->save($destinationPath.'/icon-512x512.png');
+
+
+            Storage::disk('public')->delete(str_replace("assets/", "", $destinationPath).'/'.$logoName);
+            $shop->logo = 'logo.png';
+            $shop->save();
+        }
+        return response(['message' => 'successfully chnaged!', 'status' => true]);
+    }
     public function delete(Request $request, $id=0){
         if($request->input("force", null)){
             $shop =  \App\Models\Shop::where("id", $id)->withTrashed()->get()->first();
@@ -260,31 +317,31 @@ class ShopsController extends Controller
             $json["start_url"] = "./";
             $json["icons"] = array(
                 array(
-                    "src" => "assets/icons/icon-72x72.png",
+                    "src" => url("assets/shop/{$shopKey}/general/icon-72x72.png"),
                     "sizes" => "72x72",
                     "type" => "image/png",
                     "purpose" => "maskable any",
                 ),
                 array(
-                    "src" => "assets/icons/icon-96x96.png",
+                    "src" => url("assets/shop/{$shopKey}/general/icon-96x96.png"),
                     "sizes" => "96x96",
                     "type" => "image/png",
                     "purpose" => "maskable any",
                 ),
                 array(
-                    "src" => "assets/icons/icon-128x128.png",
+                    "src" => url("assets/shop/{$shopKey}/general/icon-128x128.png"),
                     "sizes" => "128x128",
                     "type" => "image/png",
                     "purpose" => "maskable any",
                 ),
                 array(
-                    "src" => "assets/icons/icon-144x144.png",
+                    "src" => url("assets/shop/{$shopKey}/general/icon-144x144.png"),
                     "sizes" => "144x144",
                     "type" => "image/png",
                     "purpose" => "maskable any",
                 ),
                 array(
-                    "src" => "assets/icons/icon-152x152.png",
+                    "src" => url("assets/shop/{$shopKey}/general/icon-152x152.png"),
                     "sizes" => "152x152",
                     "type" => "image/png",
                     "purpose" => "maskable any",
@@ -296,13 +353,13 @@ class ShopsController extends Controller
                     "purpose" => "maskable any",
                 ),
                 array(
-                    "src" => "assets/icons/icon-384x384.png",
+                    "src" => url("assets/shop/{$shopKey}/general/icon-384x384.png"),
                     "sizes" => "384x384",
                     "type" => "image/png",
                     "purpose" => "maskable any",
                 ),
                 array(
-                    "src" => "assets/icons/icon-512x512.png",
+                    "src" => url("assets/shop/{$shopKey}/general/icon-512x512.png"),
                     "sizes" => "512x512",
                     "type" => "image/png",
                     "purpose" => "maskable any",

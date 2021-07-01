@@ -11,15 +11,15 @@
   </div>
 
   <div fxFlex="33%" fxFlex.xs="100%">
-    <!-- <img mat-card-image [src]="f.logo.value" alt="" *ngIf="f.logo.value" /> -->
-    <button (click)="handleImageSelection()" type="button" mat-stroked-button color="primary">
+    <img mat-card-image [src]="logo" alt="" *ngIf="logo" />
+    <button (click)="handleImageSelection('logo')" type="button" mat-stroked-button color="primary">
       <span>Choose Logo</span>
     </button>
   </div>
 
   <div fxFlex="33%" fxFlex.xs="100%">
-    <!-- <img mat-card-image [src]="f.logo.value" alt="" *ngIf="f.logo.value" /> -->
-    <button (click)="handleImageSelection()" type="button" mat-stroked-button color="primary">
+    <img mat-card-image [src]="favicon" alt="" *ngIf="favicon" />
+    <button (click)="handleImageSelection('favicon')" type="button" mat-stroked-button color="primary">
       <span>Choose Favicon</span>
     </button>
   </div>

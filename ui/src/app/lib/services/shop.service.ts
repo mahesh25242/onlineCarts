@@ -59,6 +59,10 @@ export class ShopService {
     return this.http.post<any>("/shop/store", postData);
   }
 
+  changeLogoFavicon(postData: any = null){
+    return this.http.post<any>("/shop/changelogoFav", postData);
+  }
+
   deleteShop(shopId:number = 0, postData: any = null){
     return this.http.post<any>(`/admin/shops/delete/${shopId}`, postData);
   }
