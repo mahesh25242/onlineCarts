@@ -675,6 +675,11 @@ class ShopsController extends Controller
         $authUser = $auth->getUser($uid);
 
         if( $authUser){
+            $shop_url = null;
+            $referer = $request->header('referer');
+            if($referer){
+                $shop_url= "{$referer}$base_path";
+            }
             $request->merge(
                 [
                     "isRegister"=> true,
@@ -683,6 +688,7 @@ class ShopsController extends Controller
                     "displayName" =>  $authUser->displayName,
                     "status" => 1,
                     "base_path" => $base_path,
+                    "shop_url" => $shop_url,
                     "city_id" => ($request->input("city_id" , null)) ? json_encode($request->input("city_id" , null)) : null,
                     "country_id" => ($request->input("country_id" , null)) ? json_encode($request->input("country_id" , null)) : null,
                     "shop_category_id" => ($request->input("shop_category_id" , null)) ? json_encode($request->input("shop_category_id" , null)) : null,
@@ -730,5 +736,13 @@ class ShopsController extends Controller
             }
         }
         return response(['message' => 'Validation errors', 'errors' =>  ["name" => 'invalida id token'], 'status' => false], 422);
+    }
+
+    public function allShops(){
+        $shops = \App\Models\Shop::
+        where("is_default", '!=', 1)->
+        take(20)->get();
+
+        return response($shops);
     }
 }

@@ -35,6 +35,8 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
     $router->post('socialLogin','UsersController@socialLogin');
     $router->post('demoSignIn','UsersController@demoSignIn');
     $router->get('/shopName/{name}','ShopsController@byShopName');
+    $router->get('/allShops','ShopsController@allShops');
+
 
     /* Billing apps */
     $router->group(['prefix' => 'shop', 'middleware' =>  'AppMiddleware'], function () use ($router) {

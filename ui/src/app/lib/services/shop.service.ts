@@ -108,4 +108,8 @@ export class ShopService {
   validatedPhone(idToken: string= null){
     return this.http.post<any>("/shop/mobile_verified", {idToken})
   }
+
+  allShops(){
+    return this.http.get<any>("/allShops")
+  }
 }

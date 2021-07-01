@@ -25,7 +25,7 @@ import { FeaturesComponent } from './home/features/features.component';
 import { StepsToStartComponent } from './header/banner/steps-to-start/steps-to-start.component';
 import { TermsAndConditionComponent } from './terms-and-condition/terms-and-condition.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
-
+import { OurClientsComponent } from './home/our-clients/our-clients.component';
 
 
 
@@ -46,7 +46,8 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
     FeaturesComponent,
     StepsToStartComponent,
     TermsAndConditionComponent,
-    PrivacyPolicyComponent
+    PrivacyPolicyComponent,
+    OurClientsComponent
   ],
   imports: [
     BrowserModule,
