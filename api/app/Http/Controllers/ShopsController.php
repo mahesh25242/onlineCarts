@@ -676,9 +676,9 @@ class ShopsController extends Controller
 
         if( $authUser){
             $shop_url = null;
-            $referer = $request->header('referer');
-            if($referer){
-                $shop_url= "{$referer}$base_path";
+            $origin = $request->header('origin');
+            if($origin){
+                $shop_url= "{$origin}$base_path";
             }
             $request->merge(
                 [
