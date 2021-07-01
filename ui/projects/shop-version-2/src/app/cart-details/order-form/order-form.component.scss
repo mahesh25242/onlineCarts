@@ -1,6 +1,12 @@
 .grid-form {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    &.gtxs{
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    &.xs{
+      grid-template-columns: 1fr;
+    }
     column-gap:30px;
     .d-none{
       display: none;
@@ -35,8 +41,7 @@ h4 {
 
     }
     .grid-form {
-        display: grid!important;
-        grid-template-columns: 1fr!important ;
+       width: 100%;
        }
     }
     @media only screen and (min-width: 768px) {
