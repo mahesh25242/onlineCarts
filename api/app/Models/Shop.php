@@ -170,4 +170,9 @@ class Shop extends Model implements AuthenticatableContract, AuthorizableContrac
         return $this->hasOne('App\Models\ShopTheme');
     }
 
+    public function shopDeliverySlot()
+    {
+        return $this->hasOne('App\Models\ShopDeliverySlot');
+    }
+
 }

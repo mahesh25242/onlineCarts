@@ -14,9 +14,9 @@ import { ProductsResolver } from './products/products-resolver';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { CreateCategoryComponent } from './categories/create-category/create-category.component';
 import { CreateProductComponent } from './products/create-product/create-product.component';
-import { ShopDeliveryComponent } from './shop-delivery/shop-delivery.component';
-import { ShopDeliveryResolver } from './shop-delivery/shop-delivery-resolver';
-import { CreateShopDeliveryComponent } from './shop-delivery/create-shop-delivery/create-shop-delivery.component';
+import { ShopDeliveryComponent } from './delivery/shop-delivery/shop-delivery.component';
+import { ShopDeliveryResolver } from './delivery/shop-delivery/shop-delivery-resolver';
+import { CreateShopDeliveryComponent } from './delivery/shop-delivery/create-shop-delivery/create-shop-delivery.component';
 import { ShopDetailsComponent } from './shop-details/shop-details.component';
 import { OrdersComponent } from './orders/orders.component';
 import { OrdersResolver } from './orders/orders-resolver';
@@ -26,8 +26,20 @@ import { SearchProductComponent } from './products/search-product/search-product
 import { ManageBannersComponent } from './components/manage-banners/manage-banners.component';
 import { ThemeAndBrandingComponent } from './components/theme-and-branding/theme-and-branding.component';
 
+import { ShopDeliveryPageComponent } from './delivery/shop-delivery-page.component';
+import { ShopDeliverySlotComponent } from './delivery/shop-delivery-slot/shop-delivery-slot.component';
+import { ShopDeliverySlotResolver } from './delivery/shop-delivery-slot/shop-delivery-slot-resolver';
+import { CreateShopDeliverySlotComponent } from './delivery/shop-delivery-slot/create-shop-delivery-slot/create-shop-delivery-slot.component';
+
 @NgModule({
-  declarations: [  AdminComponent, SignInComponent, HomeComponent, CategoriesComponent, ProductsComponent, ListProductsComponent, EditProfileComponent, CreateCategoryComponent, CreateProductComponent, ShopDeliveryComponent, CreateShopDeliveryComponent, ShopDetailsComponent, OrdersComponent, OrderDetailsComponent, OrderSearchComponent, SearchProductComponent, ManageBannersComponent, ThemeAndBrandingComponent],
+  declarations: [  AdminComponent, SignInComponent, HomeComponent, CategoriesComponent,
+    ProductsComponent, ListProductsComponent, EditProfileComponent, CreateCategoryComponent,
+    CreateProductComponent, ShopDeliveryComponent, CreateShopDeliveryComponent,
+    ShopDetailsComponent, OrdersComponent, OrderDetailsComponent, OrderSearchComponent,
+    SearchProductComponent, ManageBannersComponent, ThemeAndBrandingComponent,
+    ShopDeliveryPageComponent, ShopDeliverySlotComponent,
+    CreateShopDeliverySlotComponent
+  ],
   imports: [
     CommonModule,
     AdminRoutingModule,
@@ -37,7 +49,9 @@ import { ThemeAndBrandingComponent } from './components/theme-and-branding/theme
     CategoriesResolver,
     ProductsResolver,
     ShopDeliveryResolver,
-    OrdersResolver
+    OrdersResolver,
+    ShopDeliverySlotResolver
+
   ]
 })
 export class AdminModule { }

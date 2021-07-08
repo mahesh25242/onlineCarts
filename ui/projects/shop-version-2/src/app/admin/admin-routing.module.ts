@@ -8,14 +8,15 @@ import { ProductsComponent } from './products/products.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { CategoriesResolver } from './categories/categories-resolver';
 import { ProductsResolver } from './products/products-resolver';
-import { ShopDeliveryResolver } from './shop-delivery/shop-delivery-resolver';
-import { ShopDeliveryComponent } from './shop-delivery/shop-delivery.component';
+import { ShopDeliveryResolver } from './delivery/shop-delivery/shop-delivery-resolver';
+import { ShopDeliveryComponent } from './delivery/shop-delivery/shop-delivery.component';
 import { ShopDetailsComponent } from './shop-details/shop-details.component';
 import { OrdersComponent } from './orders/orders.component';
 import { OrdersResolver } from './orders/orders-resolver';
 import { AdminComponent } from './admin.component';
 import { CreateProductComponent } from './products/create-product/create-product.component';
 import { ListProductsComponent } from './products/list-product/list-products.component';
+import { ShopDeliveryPageComponent } from './delivery/shop-delivery-page.component';
 
 
 
@@ -65,7 +66,7 @@ const routes: Routes = [
 
       {
         path: 'deliveries',
-        component: ShopDeliveryComponent,
+        component: ShopDeliveryPageComponent,
         canActivate: [AdminAuthGuard],
         resolve:{
           deliveries: ShopDeliveryResolver

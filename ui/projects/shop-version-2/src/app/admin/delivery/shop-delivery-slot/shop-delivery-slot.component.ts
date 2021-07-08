@@ -5,15 +5,15 @@ import { GeneralService, ShopService } from 'src/app/lib/services';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import Notiflix from "notiflix";
 import { map, mergeMap } from 'rxjs/operators';
-import { CreateShopDeliveryComponent } from './create-shop-delivery/create-shop-delivery.component';
-import { environment } from '../../../environments/environment';
+import { CreateShopDeliverySlotComponent } from './create-shop-delivery-slot/create-shop-delivery-slot.component';
+import { environment } from '../../../../environments/environment';
 
 @Component({
-  selector: 'app-shop-delivery',
-  templateUrl: './shop-delivery.component.html',
-  styleUrls: ['./shop-delivery.component.scss']
+  selector: 'app-shop-delivery-slot',
+  templateUrl: './shop-delivery-slot.component.html',
+  styleUrls: ['./shop-delivery-slot.component.scss']
 })
-export class ShopDeliveryComponent implements OnInit {
+export class ShopDeliverySlotComponent implements OnInit {
   deliveries$: Observable<ShopDelivery[]>;
   displayedColumns: string[] = ['no', 'name', 'charge', 'need_cust_loc', 'min_amount', 'options'];
 
@@ -23,7 +23,7 @@ export class ShopDeliveryComponent implements OnInit {
 
     editDeliveryLoc(delivery: ShopDelivery = null){
 
-    let dialogRef = this.dialog.open(CreateShopDeliveryComponent, {
+    let dialogRef = this.dialog.open(ShopDeliverySlotComponent, {
       data: delivery,
     });
 

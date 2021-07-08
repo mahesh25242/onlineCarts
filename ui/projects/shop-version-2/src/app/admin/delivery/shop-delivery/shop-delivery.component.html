@@ -1,18 +1,14 @@
 <div class="header-inner"></div>
 <div class="container">
 
+
   <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
     <h1 fxFlex="80%" fxFlex.xs="100%">
       Add Delivery Location
     </h1>
-    <button fxFlex="20%" fxFlex.xs="100%"  mat-raised-button color="primary" type="button" (click)="editDeliveryLoc(null)" class="mb-30 float-right"><mat-icon class="add-icon-position">add</mat-icon>Add Delivery Location</button>
+    &nbsp;<button fxFlex="20%" fxFlex.xs="100%"  mat-raised-button color="primary" type="button" (click)="editDeliveryLoc(null)" class="mb-30 float-right"><mat-icon class="add-icon-position">add</mat-icon>Add Delivery Location</button>
   </div>
 
-
-  <h1>
-
-
-  </h1>
 
 <mat-card>
 <ng-container *ngIf="(deliveries$ | async) as deliveries">

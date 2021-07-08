@@ -1,9 +1,11 @@
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit } from '@angular/core';
 import { ControlContainer, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { map, mergeMap } from 'rxjs/operators';
 import { Shop, ShopDelivery } from 'src/app/lib/interfaces';
-import { ShopService } from 'src/app/lib/services';
+import { GeneralService, ShopService } from 'src/app/lib/services';
 
 
 @Component({
@@ -17,10 +19,14 @@ export class OrderFormComponent implements OnInit {
   @Input() lp: string;
   todayDate:Date = new Date();
   isSlideChecked: boolean = false;
+  breakPointObsr$: Observable<any>;
+
   constructor(
     private formBuilder: FormBuilder,
     private controlContainer: ControlContainer,
-    private shopService: ShopService
+    private shopService: ShopService,
+    private breakpointObserver: BreakpointObserver,
+    private generalService: GeneralService,
     ) { }
 
   get f() {
@@ -34,12 +40,51 @@ export class OrderFormComponent implements OnInit {
       this.f.delivery_date.setValue(null);
     }
   }
+
+  checkBreakPoint(){
+
+    return this.breakpointObserver.observe([
+      Breakpoints.Handset,
+      Breakpoints.Tablet
+    ]).pipe(mergeMap(brakPoints=>{
+
+      if (brakPoints.matches && navigator.geolocation) {
+        return this.generalService.getLocation().pipe(mergeMap(coords=>{
+          if(coords){
+            const loc = {
+              lat: coords?.coords?.latitude,
+              lon: coords?.coords?.longitude
+            }
+
+            return this.generalService.reverseLatLngAddress(loc).pipe(map(mAddress=>{
+
+              if(this.f.pin && !this.f.pin.value && mAddress?.address?.postcode){
+                this.f.pin.setValue(mAddress?.address?.postcode)
+              }
+
+              if(this.f.address && !this.f.address.value && mAddress?.display_name){
+                this.f.address.setValue(mAddress?.display_name)
+              }
+              return brakPoints
+            }));
+          }else{
+            return of(brakPoints);
+          }
+
+        }))
+      }else{
+        return of(brakPoints)
+      }
+
+    }));
+  }
+
   ngOnInit(): void {
 
     this.customerFrm = <FormGroup>this.controlContainer.control;
     this.f.selectedLocation.setValue(null);
     this.shop$ = this.shopService.aShop;
-
+    this.breakPointObsr$ = this.checkBreakPoint();
 
   }
 

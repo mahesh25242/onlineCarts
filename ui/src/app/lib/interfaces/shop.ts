@@ -5,6 +5,7 @@ import { ShopCategory } from './shop-category';
 import { State } from "./state";
 import { UserRole } from "./user-role";
 import { ShopDelivery } from './shop-delivery';
+import { ShopDeliverySlot } from "./shop-delivery-slot";
 
 export interface Shop {
   id?: number,
@@ -43,7 +44,8 @@ export interface Shop {
   icons?: any,
   shop_theme?: ShopTheme,
   is_mobile_verified?: number,
-  max_banner?: number
+  max_banner?: number,
+  shop_delivery_slot?: ShopDeliverySlot
 }
 
 

@@ -1,15 +1,15 @@
 <div class="header-inner"></div>
-<div class="container">
+<div class="container" *ngIf="breakPointObsr$ | async as bp">
   <ng-container *ngIf="(cartDetails$ | async) as cartDetails">
 
     <div fxLayout="row" fxLayoutAlign="space-between">
         <mat-card fxFlex="100%">
-          <app-delivery-loaction #deliveryLocationDom></app-delivery-loaction>
+          <app-delivery-loaction #deliveryLocationDom ></app-delivery-loaction>
         </mat-card>
     </div>
 
   <div *ngIf="!cartDetails?.carts || !cartDetails?.carts.length">Your cart is empty</div>
-  <form [formGroup]="customerFrm" (ngSubmit)="sendToShop(deliveryLocationDom)">
+  <form [formGroup]="customerFrm" (ngSubmit)="sendToShop(deliveryLocationDom, bp)">
     <ng-container *ngIf="cartDetails?.carts && cartDetails?.carts.length">
       <div >
         <h1 mat-dialog-title>

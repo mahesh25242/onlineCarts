@@ -1,7 +1,7 @@
 
 
 
-<div fxLayout.gt-xs="row" fxLayout.xs="column" fxLayoutAlign="space-between">
+<div fxLayout.gt-xs="row" fxLayout.xs="column" fxLayoutAlign="space-between" *ngIf="breakPointObsr$ | async as bp">
   <div [fxFlex.gt-xs]="(f.selectedLocation.value?.map_url) ? '80%' : '100%'" fxLayout.xs="100%">
     <div class="grid-form"  [ngClass.xs]="'xs'"
     [ngClass.gt-xs]="'gtxs'" [formGroup]="customerFrm"  *ngIf="shop$| async as shop">
@@ -95,7 +95,15 @@
         </mat-error>
       </mat-form-field>
 
-      <mat-form-field class="full-width-text" appearance="standard">
+
+      <mat-form-field appearance="fill" *ngIf="shop?.shop_delivery_slot">
+        <mat-label>Delivery Slot</mat-label>
+        <mat-select *ngFor="let sds of shop?.shop_delivery_slot">
+          <mat-option [value]="sds.name">{{sds.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- <mat-form-field class="full-width-text" appearance="standard">
         <mat-slide-toggle
         formControlName="is_delivery_date"
           name="Delivery Date" (change)="triggerPicker(picker)">
@@ -117,7 +125,7 @@
           Delivery Date & Time is required.
         </mat-error>
 
-      </mat-form-field>
+      </mat-form-field> -->
 
 
       <!-- <button (click)="chekValidation()" mat-flat-button color="primary" class="float-right">Save</button> -->

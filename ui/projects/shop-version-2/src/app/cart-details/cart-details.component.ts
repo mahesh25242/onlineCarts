@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, OnChanges, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { empty, Observable,of,pipe, Subscription, throwError } from 'rxjs';
 import { mergeMap, tap, map } from 'rxjs/operators';
 import { Cart, CartDetail, Shop, ShopDelivery, ShopOrder } from 'src/app/lib/interfaces';
@@ -27,6 +27,8 @@ import { MatAccordion } from '@angular/material/expansion';
 export class CartDetailsComponent implements OnInit, OnDestroy {
   customerFrm: FormGroup;
 
+
+
   cart$: Observable<Cart[]>;
   total:number = 0;
   grandTotal:number = 0;
@@ -39,6 +41,8 @@ export class CartDetailsComponent implements OnInit, OnDestroy {
   cartDetails$: Observable<CartDetail>;
 
   breakPointSubScr: Subscription;
+
+  breakPointObsr$: Observable<any>;
 
   cartSubScr: Subscription;
   sentToShop: Subscription;
@@ -62,7 +66,8 @@ export class CartDetailsComponent implements OnInit, OnDestroy {
     this.cartSubScr = this.cartService.updateCart(itm, action).subscribe();
   }
 
-  sendToShop(deliveryLocationDom: any){
+  sendToShop(deliveryLocationDom: any, bp:any = null){
+
 
     // if(!this.f.selectedLocation.value?.id){
     //   //this.matSnackBar.open('Please choose a delivery location.', 'close');
@@ -110,13 +115,10 @@ export class CartDetailsComponent implements OnInit, OnDestroy {
 
         return this.messagingService.getToken().pipe(mergeMap(tkn=>{
           postData.token = (tkn) ? tkn : '';
-          return this.cartService.createOrder(postData).pipe(mergeMap((orderRes : ShopOrder)=>{
+          return this.cartService.createOrder(postData).pipe(map((orderRes : ShopOrder)=>{
             if(!orderRes) throwError('no response from server');
-            return this.breakpointObserver.observe([
-              Breakpoints.Handset,
-              Breakpoints.Tablet
-            ]).pipe(map(bp =>{
-              let txt = `%0a‎ Order from *${postData.name}*`;
+
+            let txt = `%0a‎ Order from *${postData.name}*`;
 
               txt += `%0a‎ Order: *${encodeURIComponent(`#${orderRes.id}`)}* ( ${cartDetails.carts.length} ${ (cartDetails.carts.length > 1) ? 'items' : 'item' } )`;
               if(postData.phone){
@@ -185,7 +187,7 @@ export class CartDetailsComponent implements OnInit, OnDestroy {
                 }
               }
               return ret;
-            }))
+
           }))
         }))
       }));
@@ -235,6 +237,7 @@ export class CartDetailsComponent implements OnInit, OnDestroy {
   }
 
   changeLocation(loc: ShopDelivery){
+
     if(!loc) return;
     if(loc.min_amount && this.grandTotal < loc.min_amount){
       this.matSnackBar.open(`Sorry you cant choose ${loc.name} as your delivery. Because it has miinum order amount is ${loc.min_amount}`, 'close');
@@ -322,6 +325,45 @@ export class CartDetailsComponent implements OnInit, OnDestroy {
       data: cart
     });
   }
+
+  checkBreakPoint(){
+
+    return this.breakpointObserver.observe([
+      Breakpoints.Handset,
+      Breakpoints.Tablet
+    ]).pipe(mergeMap(brakPoints=>{
+
+      if (brakPoints.matches && navigator.geolocation) {
+        return this.generalService.getLocation().pipe(mergeMap(coords=>{
+          if(coords){
+            this.loc = {
+              lat: coords?.coords?.latitude,
+              lon: coords?.coords?.longitude
+            }
+            this.mapUrl = `${environment.gMapUrl}/maps?z=12&t=m&q=loc:${coords?.coords?.latitude}+${coords?.coords?.longitude}`;
+            return this.generalService.reverseLatLngAddress(this.loc).pipe(map(mAddress=>{
+
+              if(this.f.pin && !this.f.pin.value && mAddress?.address?.postcode){
+                this.f.pin.setValue(mAddress?.address?.postcode)
+              }
+
+              if(this.f.address && !this.f.address.value && mAddress?.display_name){
+                this.f.address.setValue(mAddress?.display_name)
+              }
+              return brakPoints
+            }));
+          }else{
+            this.mapUrl = null;
+            return of(brakPoints);
+          }
+
+        }))
+      }else{
+        return of(brakPoints)
+      }
+
+    }));
+  }
   ngOnInit(): void {
     this.cartService.hideCartComponent$.next(true);
 
@@ -333,6 +375,10 @@ export class CartDetailsComponent implements OnInit, OnDestroy {
     });
     this.shop$ = this.shopService.aShop;
     this.cartDetails$ = this.cartService.cartDetails.pipe(tap(res=>{
+
+
+
+
       if(!res.carts || !res.carts.length){
         this.matSnackBar.open('Your cart is empty.', 'close');
         this.router.navigate(['/']);
@@ -344,7 +390,7 @@ export class CartDetailsComponent implements OnInit, OnDestroy {
     this.customerFrm = this.formBuilder.group({
       terms: [true, []]
     });
-
+    this.breakPointObsr$ = this.checkBreakPoint();
 
 
   }
@@ -364,4 +410,6 @@ export class CartDetailsComponent implements OnInit, OnDestroy {
     }
 
   }
+
+
 }

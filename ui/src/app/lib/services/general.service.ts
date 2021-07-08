@@ -25,7 +25,11 @@ export class GeneralService {
   }
 
   reverseLatLngAddress(pos: {lon: number, lat: number}= null){
-    return this.http.get(`${environment.openstreetmap}/reverse?format=json&lon=${pos.lon}&lat=${pos.lat}`);
+    return this.http.get<any>(`${environment.openstreetmap}/reverse?format=json&lon=${pos.lon}&lat=${pos.lat}`);
+  }
+
+  searchAddress(pos: {lon: number, lat: number}= null){
+    return this.http.get<any>(`${environment.openstreetmap}/search?format=json&lon=${pos.lon}&lat=${pos.lat}`);
   }
 
   getLocation(): Observable<any> {
