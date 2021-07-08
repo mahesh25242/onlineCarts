@@ -4,7 +4,7 @@ import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import Notiflix from "notiflix";
 import { Subscription } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
-import { ShopDelivery } from 'src/app/lib/interfaces';
+import { ShopDelivery, ShopDeliverySlot } from 'src/app/lib/interfaces';
 import { ShopService } from 'src/app/lib/services';
 
 @Component({
@@ -15,7 +15,7 @@ import { ShopService } from 'src/app/lib/services';
 export class CreateShopDeliverySlotComponent implements OnInit, OnDestroy {
   createDeliveryFrm: FormGroup;
   saveCatSubScr: Subscription;
-  constructor(@Inject(MAT_DIALOG_DATA) public data: ShopDelivery,
+  constructor(@Inject(MAT_DIALOG_DATA) public data: ShopDeliverySlot,
   private formBuilder: FormBuilder,
     private shopService: ShopService,
     public dialogRef: MatDialogRef<CreateShopDeliverySlotComponent>) { }
@@ -27,15 +27,10 @@ export class CreateShopDeliverySlotComponent implements OnInit, OnDestroy {
     const postData = {
       id: this.f.id.value,
       name: this.f.name.value,
-      description: this.f.description.value,
-      charge: this.f.charge.value,
       sortorder: this.f.sortorder.value,
-      min_amount: this.f.min_amount.value,
-      need_cust_loc: this.f.need_cust_loc.value,
-      address: this.f.address.value,
-      map_url: this.f.map_url.value,
+      is_default: this.f.is_default.value,
     }
-    this.saveCatSubScr = this.shopService.saveShopDelivery(postData).pipe(mergeMap(res=>{
+    this.saveCatSubScr = this.shopService.saveShopDeliverySlot(postData).pipe(mergeMap(res=>{
       return this.shopService.shopDeliveries();
     })).subscribe(res=>{
       Notiflix.Loading.Remove();
@@ -60,25 +55,15 @@ export class CreateShopDeliverySlotComponent implements OnInit, OnDestroy {
     this.createDeliveryFrm= this.formBuilder.group({
       id: [null, []],
       name: [null, []],
-      description: [null, []],
-      charge: [null, []],
       sortorder: [1, []],
-      min_amount: [0, []],
-      need_cust_loc: [1, []],
-      address: [null, []],
-      map_url: [null, []],
+      is_default: [false, []],
     });
 
     this.createDeliveryFrm.patchValue({
       id: this.data?.id,
       name: this.data?.name,
-      description: this.data?.description,
       sortorder: (this.data?.sortorder) ? this.data?.sortorder : 1,
-      min_amount: (this.data?.min_amount) ? this.data?.min_amount : 0,
-      charge: (this.data?.charge) ? this.data?.charge : 0,
-      need_cust_loc: (this.data?.need_cust_loc) ? this.data?.need_cust_loc : 0,
-      address: (this.data?.address) ? this.data?.address : '',
-      map_url: (this.data?.map_url) ? this.data?.map_url : '',
+      is_default: (this.data?.is_default) ? this.data?.is_default : 0,
     });
 
   }

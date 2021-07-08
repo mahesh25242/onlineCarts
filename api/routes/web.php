@@ -75,9 +75,13 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
                 $router->post('/generateSite','ShopsController@generateSite');
                 $router->post('/mobile_verified','ShopsController@mobileVerified');
                 $router->group(['prefix' => 'deliveries'], function () use ($router) {
-                    $router->post('/','ShopDeliveryController@deliveries');
+                    $router->post('/slotToo','ShopDeliveryController@deliveries');
                     $router->post('delete','ShopDeliveryController@delete');
                     $router->post('store','ShopDeliveryController@store');
+                    $router->group(['prefix' => 'slot'], function () use ($router) {
+                        $router->post('delete','ShopDeliverySlotController@delete');
+                        $router->post('store','ShopDeliverySlotController@store');
+                    });
                 });
                 $router->group(['prefix' => 'themes'], function () use ($router) {
                     $router->get('/','ThemesController@index');

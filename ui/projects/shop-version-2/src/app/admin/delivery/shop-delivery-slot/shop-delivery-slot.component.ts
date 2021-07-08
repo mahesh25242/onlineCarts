@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ShopDelivery } from 'src/app/lib/interfaces';
+import { ShopDelivery, ShopDeliverySlot } from 'src/app/lib/interfaces';
 import { GeneralService, ShopService } from 'src/app/lib/services';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import Notiflix from "notiflix";
@@ -14,8 +14,8 @@ import { environment } from '../../../../environments/environment';
   styleUrls: ['./shop-delivery-slot.component.scss']
 })
 export class ShopDeliverySlotComponent implements OnInit {
-  deliveries$: Observable<ShopDelivery[]>;
-  displayedColumns: string[] = ['no', 'name', 'charge', 'need_cust_loc', 'min_amount', 'options'];
+  deliverySlot$: Observable<ShopDeliverySlot[]>;
+  displayedColumns: string[] = ['no', 'name', 'is_default',  'options'];
 
   constructor(private shopService: ShopService,
     public dialog: MatDialog,
@@ -23,7 +23,7 @@ export class ShopDeliverySlotComponent implements OnInit {
 
     editDeliveryLoc(delivery: ShopDelivery = null){
 
-    let dialogRef = this.dialog.open(ShopDeliverySlotComponent, {
+    let dialogRef = this.dialog.open(CreateShopDeliverySlotComponent, {
       data: delivery,
     });
 
@@ -52,12 +52,12 @@ export class ShopDeliverySlotComponent implements OnInit {
   ngOnInit(): void {
     this.generalService.bc$.next({
       siteName: environment.siteName,
-      title: 'Shop Deliveries',
+      title: 'Shop Delivery Slots',
       url:'',
       backUrl: null
     });
 
-    this.deliveries$ = this.shopService.deliveries;
+    this.deliverySlot$ = this.shopService.deliveriesSlot.pipe(map(res=> res?.slots));
   }
 
 }

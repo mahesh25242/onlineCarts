@@ -21,8 +21,16 @@ class ShopDeliveryController extends Controller
             $shopId = ($shop) ? $shop->id : 0;
         }
 
-        $deliveries = \App\Models\ShopDelivery::where("shop_id", $shopId)->orderBy("sortorder", "ASC")->get();
-        return response($deliveries);
+
+        $deliveries = \App\Models\ShopDelivery::where("shop_id", $shopId)
+        ->orderBy("sortorder", "ASC")->get();
+        $slots = \App\Models\ShopDeliverySlot::where("shop_id", $shopId)
+        ->orderBy("sortorder", "ASC")->get();
+
+        return response([
+            "deliveries" => $deliveries,
+            "slots" => $slots,
+        ]);
     }
 
     public function store(Request $request){

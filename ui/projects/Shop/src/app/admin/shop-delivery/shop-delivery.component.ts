@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ShopDelivery } from 'src/app/lib/interfaces';
+import { ShopDelivery, ShopDeliverySlot } from 'src/app/lib/interfaces';
 import { GeneralService, ShopService } from 'src/app/lib/services';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import Notiflix from "notiflix";
@@ -14,7 +14,7 @@ import { environment } from '../../../environments/environment';
   styleUrls: ['./shop-delivery.component.scss']
 })
 export class ShopDeliveryComponent implements OnInit {
-  deliveries$: Observable<ShopDelivery[]>;
+  deliveries$: Observable<{deliveries?: ShopDelivery[], slots?: ShopDeliverySlot[] }>;
   displayedColumns: string[] = ['no', 'name', 'charge', 'need_cust_loc', 'options'];
 
   constructor(private shopService: ShopService,
@@ -57,7 +57,7 @@ export class ShopDeliveryComponent implements OnInit {
       backUrl: null
     });
 
-    this.deliveries$ = this.shopService.deliveries;
+    this.deliveries$ = this.shopService.deliveriesSlot;
   }
 
 }

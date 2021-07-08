@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { delay, map, share, tap } from 'rxjs/operators';
-import { Shop, ShopDelivery } from '../interfaces';
+import { Shop, ShopDelivery, ShopDeliverySlot } from '../interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ import { Shop, ShopDelivery } from '../interfaces';
 export class ShopService {
   private shops$: BehaviorSubject<Shop[]> = new BehaviorSubject<Shop[]>(null);
   private shop$: BehaviorSubject<Shop> = new BehaviorSubject<Shop>(null);
-  private deliveries$: BehaviorSubject<ShopDelivery[]> = new BehaviorSubject<ShopDelivery[]>(null);
+  private deliveriesSlot$: BehaviorSubject<{deliveries?: ShopDelivery[], slots?: ShopDeliverySlot[] }> = new BehaviorSubject<{deliveries?: ShopDelivery[], slots?: ShopDeliverySlot[] }>(null);
   constructor(private http: HttpClient) { }
 
   get shops(){
@@ -30,8 +30,8 @@ export class ShopService {
           return res;
     }));
   }
-  get deliveries(){
-    return this.deliveries$.asObservable();
+  get deliveriesSlot(){
+    return this.deliveriesSlot$.asObservable();
   }
   getAllShops(postData: any = null){
     return this.http.post<Shop[]>("/admin/shops", postData).pipe(map(res=>{
@@ -84,9 +84,9 @@ export class ShopService {
     }));
   }
 
-  shopDeliveries(postData: any= null): Observable<ShopDelivery[]>{
-    return this.http.post<ShopDelivery[]>(`/shop/deliveries`, postData).pipe(map(res=>{
-      this.deliveries$.next(res);
+  shopDeliveries(postData: any= null): Observable<{deliveries?: ShopDelivery[], slots?: ShopDeliverySlot[] }>{
+    return this.http.post<{deliveries?: ShopDelivery[], slots?: ShopDeliverySlot[] }>(`/shop/deliveries/slotToo`, postData).pipe(map(res=>{
+      this.deliveriesSlot$.next(res);
       return res;
     }));
   }
@@ -98,6 +98,11 @@ export class ShopService {
   saveShopDelivery(postData: any = null){
     return this.http.post<any>("/shop/deliveries/store", postData);
   }
+
+  saveShopDeliverySlot(postData: any = null){
+    return this.http.post<any>("/shop/deliveries/slot/store", postData);
+  }
+
 
   shopDetail(){
     return this.http.get<Shop>(`/shop`).pipe(share(), tap(res=>{

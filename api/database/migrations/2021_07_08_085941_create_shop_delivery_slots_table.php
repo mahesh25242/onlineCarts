@@ -18,6 +18,7 @@ class CreateShopDeliverySlotsTable extends Migration
             $table->bigInteger('shop_id')->default(0);
             $table->string('name')->nullable()->index();
             $table->boolean('is_default')->default(0);
+            $table->integer('sortorder')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

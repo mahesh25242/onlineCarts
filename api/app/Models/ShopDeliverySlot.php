@@ -21,13 +21,14 @@ class ShopDeliverySlot extends Model implements AuthenticatableContract, Authori
      * @var array
      */
     protected $fillable = [
-        'shop_id', 'name',  'is_default'
+        'shop_id', 'name',  'is_default', 'sortorder'
     ];
 
 
     protected $casts = [
         'is_default' => 'boolean',
         'shop_id' => 'integer',
+        'sortorder' => 'integer',
     ];
 
 

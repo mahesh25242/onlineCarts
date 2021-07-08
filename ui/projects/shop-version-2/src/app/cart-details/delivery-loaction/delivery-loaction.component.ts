@@ -36,7 +36,8 @@ export class DeliveryLocationComponent implements OnInit, OnDestroy {
       pin: [null, []],
       delivery_date: [null, []],
       is_delivery_date:[ false, []],
-      selectedLocation: [null, []]
+      selectedLocation: [null, []],
+      delivery_slot: [null, []],
     });
 
     this.customerFrm.valueChanges.subscribe(res=>{

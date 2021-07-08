@@ -57,7 +57,7 @@ export class ShopDeliveryComponent implements OnInit {
       backUrl: null
     });
 
-    this.deliveries$ = this.shopService.deliveries;
+    this.deliveries$ = this.shopService.deliveriesSlot.pipe(map(res=> res?.deliveries));
   }
 
 }

@@ -15,7 +15,6 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { CreateCategoryComponent } from './categories/create-category/create-category.component';
 import { CreateProductComponent } from './products/create-product/create-product.component';
 import { ShopDeliveryComponent } from './delivery/shop-delivery/shop-delivery.component';
-import { ShopDeliveryResolver } from './delivery/shop-delivery/shop-delivery-resolver';
 import { CreateShopDeliveryComponent } from './delivery/shop-delivery/create-shop-delivery/create-shop-delivery.component';
 import { ShopDetailsComponent } from './shop-details/shop-details.component';
 import { OrdersComponent } from './orders/orders.component';
@@ -28,7 +27,7 @@ import { ThemeAndBrandingComponent } from './components/theme-and-branding/theme
 
 import { ShopDeliveryPageComponent } from './delivery/shop-delivery-page.component';
 import { ShopDeliverySlotComponent } from './delivery/shop-delivery-slot/shop-delivery-slot.component';
-import { ShopDeliverySlotResolver } from './delivery/shop-delivery-slot/shop-delivery-slot-resolver';
+import { ShopDeliveryAndSlotResolver } from './delivery/shop-delivery-and-slot-resolver';
 import { CreateShopDeliverySlotComponent } from './delivery/shop-delivery-slot/create-shop-delivery-slot/create-shop-delivery-slot.component';
 
 @NgModule({
@@ -48,9 +47,8 @@ import { CreateShopDeliverySlotComponent } from './delivery/shop-delivery-slot/c
   providers:[
     CategoriesResolver,
     ProductsResolver,
-    ShopDeliveryResolver,
+    ShopDeliveryAndSlotResolver,
     OrdersResolver,
-    ShopDeliverySlotResolver
 
   ]
 })

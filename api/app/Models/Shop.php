@@ -172,7 +172,7 @@ class Shop extends Model implements AuthenticatableContract, AuthorizableContrac
 
     public function shopDeliverySlot()
     {
-        return $this->hasOne('App\Models\ShopDeliverySlot');
+        return $this->hasMany('App\Models\ShopDeliverySlot');
     }
 
 }
