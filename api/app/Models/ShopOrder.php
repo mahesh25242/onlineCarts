@@ -23,7 +23,7 @@ class ShopOrder extends Model implements AuthenticatableContract, AuthorizableCo
     protected $fillable = [
          'shop_id', 'shop_customer_id', 'total', 'delivery_chage', 'address',
          'pin', 'note', 'loc', 'status', 'shop_delivery_id',
-         'delivery_at', 'web_push_token', 'sec_key'
+         'delivery_at', 'web_push_token', 'sec_key', 'delivery_slot'
     ];
 
     protected $casts = [

@@ -81,10 +81,11 @@ class ShopOrderController extends Controller
                     "shop_id" => $shop->id,
                 ]
             );
+
             if($shopCustomer->id){
                 $delivery_date = null;
                 if($request->input("delivery_date", null))
-                    $delivery_date = \Carbon\Carbon::parse($request->input("delivery_date"))->format('Y-m-d H:i:s');
+                    $delivery_date = \Carbon\Carbon::createFromFormat("d/m/Y",$request->input("delivery_date"))->format('Y-m-d H:i:s');
 
 
                 $shopOrder = new \App\Models\ShopOrder;
@@ -97,6 +98,7 @@ class ShopOrderController extends Controller
                 $shopOrder->pin =  $request->input("pin", '');
                 $shopOrder->note =  $request->input("note", '');
                 $shopOrder->loc =  $request->input("loc", null);
+                $shopOrder->delivery_slot =  $request->input("delivery_slot", null);
                 $shopOrder->loc = json_encode($shopOrder->loc);
                 if($isApps){
                     $shopOrder->status = 5;

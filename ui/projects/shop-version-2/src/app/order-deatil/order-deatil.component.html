@@ -15,7 +15,7 @@
       CEmail:&nbsp;&nbsp;{{ this.order.shop_customer.email}}
     </mat-list-item>
     <mat-list-item role="listitem" *ngIf="this.order.delivery_at">
-      Delivery At:&nbsp;&nbsp;{{ this.order.delivery_at | date: 'medium'}}
+      Delivery At:&nbsp;&nbsp;{{ this.order.delivery_at | date: 'mediumDate'}} @ {{ this.order.delivery_slot}}
     </mat-list-item>
 
     <ng-container *ngIf="this.order.shop_delivery.need_cust_loc">

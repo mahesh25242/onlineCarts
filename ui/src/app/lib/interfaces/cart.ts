@@ -20,6 +20,7 @@ export interface CartDetail {
     phone?: string,
     pin?: string,
     selectedLocation?: ShopDelivery,
+    delivery_slot?: string
   },
   total?: number,
   grandTotal?: number,

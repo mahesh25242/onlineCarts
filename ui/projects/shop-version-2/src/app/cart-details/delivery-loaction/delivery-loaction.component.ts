@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Inject, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Cart, Shop } from 'src/app/lib/interfaces';
+import { Cart, Shop, ShopDeliverySlot } from 'src/app/lib/interfaces';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { Observable, Subscription } from 'rxjs';
 import { CartService, ShopService } from 'src/app/lib/services';
@@ -25,7 +25,7 @@ export class DeliveryLocationComponent implements OnInit, OnDestroy {
   get f(){ return this.customerFrm.controls}
 
   ngOnInit(): void {
-    this.shop$ = this.shopService.aShop;
+
 
     this.customerFrm = this.formBuilder.group({
       name: [null, []],
@@ -39,11 +39,22 @@ export class DeliveryLocationComponent implements OnInit, OnDestroy {
       selectedLocation: [null, []],
       delivery_slot: [null, []],
     });
+    this.shop$ = this.shopService.aShop.pipe(tap(res=>{
+      if(res?.shop_delivery_slot){
+        const shopDeliverySlot = find(res?.shop_delivery_slot, (dslot) => ( dslot.is_default));
+
+        this.customerFrm.patchValue({
+          delivery_slot: shopDeliverySlot.name
+        });
+      }
+    }));
 
     this.customerFrm.valueChanges.subscribe(res=>{
       let cartDetails= this.cartService.cartDetails$.getValue();
       cartDetails = {...cartDetails, ...{detail: res}}
       this.cartService.cartDetails$.next(cartDetails);
+
+
       if(this.f.selectedLocation.value &&  cartDetails.grandTotal < this.f.selectedLocation.value.min_amount){
         this.customerFrm.controls.selectedLocation.setErrors({error: `${this.f.selectedLocation.value.name} has atleast ${this.f.selectedLocation.value.min_amount} amount order`});
       }

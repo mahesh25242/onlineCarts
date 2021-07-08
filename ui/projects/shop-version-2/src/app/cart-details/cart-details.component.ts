@@ -80,6 +80,7 @@ export class CartDetailsComponent implements OnInit, OnDestroy {
     // }
     Notiflix.Loading.Arrows();
     this.sentToShop = this.cartDetails$.pipe(mergeMap(cartDetails=>{
+
       if(!cartDetails?.carts || !cartDetails?.carts.length) {
         Notiflix.Notify.Failure('empty cart.');
         return throwError('no cart exists')
@@ -96,6 +97,10 @@ export class CartDetailsComponent implements OnInit, OnDestroy {
           return throwError('mobile not active')
         }
 
+        let  delivery_date = null;
+        if(cartDetails?.detail?.delivery_date){
+          delivery_date = this.datepipe.transform(cartDetails?.detail?.delivery_date, 'dd/MM/yyyy');
+        }
 
 
         const postData = {
@@ -109,7 +114,8 @@ export class CartDetailsComponent implements OnInit, OnDestroy {
           selectedLocation: cartDetails?.detail?.selectedLocation,
           grad_total: cartDetails?.grandTotal,
           loc :this.loc,
-          delivery_date: cartDetails?.detail?.delivery_date,
+          delivery_date: delivery_date,
+          delivery_slot: cartDetails?.detail?.delivery_slot,
           token: null
         }
 
@@ -136,14 +142,9 @@ export class CartDetailsComponent implements OnInit, OnDestroy {
               });
               //txt += `%0a‎ ${ cart.length }  ${ (cart.length > 1) ? 'items' : 'item' } `;
 
-              if(postData.delivery_date){
-                let deliveryDate = this.datepipe.transform(this.f.delivery_date.value, 'dd/MM/yyyy');
-                let minute;
-                if(this.f.hour.value){
-                  minute = (this.f.minute.value) ? ("0" + this.f.minute.value).slice(-2) : '00';
-                }
-                deliveryDate = `${deliveryDate} ${ (this.f.hour.value) ? `${("0" + this.f.hour.value).slice(-2) }:` :'' }${ (minute) ? `${minute}` : '' }${(this.f.hour.value) ? this.f.ampm.value : ''}`
-                txt += `%0a‎ Delivered On: ${encodeURIComponent(deliveryDate)}  `;
+              if(postData.delivery_date && postData.delivery_slot){
+                const delivery_date = this.datepipe.transform(cartDetails?.detail?.delivery_date, 'mediumDate');
+                txt += `%0a‎ Delivered On: ${encodeURIComponent(delivery_date)} @ ${postData.delivery_slot}  `;
               }
 
               if(postData.note){
@@ -172,7 +173,7 @@ export class CartDetailsComponent implements OnInit, OnDestroy {
               if(locUrl)
                 txt += `%0a‎ Location: ${locUrl} %0a`;
 
-              txt += `%0a‎ Grand Total: ₹ *${this.grandTotal}* %0a`;
+              txt += `%0a‎ Grand Total: ₹ *${cartDetails.grandTotal}* %0a`;
               txt += `%0a‎ ============== %0a`;
               txt += `%0a‎ *Order confirmation through reply/call* %0a`;
 
@@ -194,7 +195,6 @@ export class CartDetailsComponent implements OnInit, OnDestroy {
 
     })).subscribe(res=>{
       this.cartService.removeCart();
-
       window.location.href = res.url;
       Notiflix.Loading.Remove();
     }, error=>{
