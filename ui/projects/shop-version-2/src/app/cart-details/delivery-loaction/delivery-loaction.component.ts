@@ -44,7 +44,7 @@ export class DeliveryLocationComponent implements OnInit, OnDestroy {
         const shopDeliverySlot = find(res?.shop_delivery_slot, (dslot) => ( dslot.is_default));
 
         this.customerFrm.patchValue({
-          delivery_slot: shopDeliverySlot.name
+          delivery_slot: shopDeliverySlot?.name
         });
       }
     }));
