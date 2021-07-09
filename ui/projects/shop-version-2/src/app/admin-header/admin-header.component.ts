@@ -22,7 +22,7 @@ export class AdminHeaderComponent implements OnInit, OnDestroy {
   loggedUser$: Observable<User>;
   @Output() public sidenavToggle = new EventEmitter();
 
-
+  shop$ : Observable<Shop>;
 
   layOutXSmall$:Observable<BreakpointState>;
   loggedSubScrioption: Subscription;
@@ -57,7 +57,7 @@ export class AdminHeaderComponent implements OnInit, OnDestroy {
     // }));
 
     this.loggedUser$ = this.userService.getloggedUser;
-
+    this.shop$ = this.shopService.aShop;
 
     //this.loggedSubScrioption = this.userService.authUser().subscribe();
 

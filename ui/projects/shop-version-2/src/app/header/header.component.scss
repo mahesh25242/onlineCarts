@@ -4,6 +4,7 @@
 .search-block{
   position: absolute;
   top: 0px;
+  width: 76%;
 }
 mat-toolbar{
   position: fixed;
@@ -24,3 +25,9 @@ a:hover, a:active{
   }
   }
 
+.logo{
+  background-repeat: no-repeat;
+  padding: 8px 0 8px 55px;
+  background-size: 50px;
+  background-position: 0px 3px;
+}

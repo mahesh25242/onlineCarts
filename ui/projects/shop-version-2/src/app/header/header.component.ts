@@ -2,8 +2,8 @@ import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/cor
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
-import { Observable } from 'rxjs';
-import { BC } from 'src/app/lib/interfaces';
+import { Observable, Subscription } from 'rxjs';
+import { BC, Shop } from 'src/app/lib/interfaces';
 import {  ShopService } from 'src/app/lib/services';
 import { mergeMap, map, delay } from 'rxjs/operators';
 import { GeneralService as LocalGeneralService } from '../lib/services/index';
@@ -22,8 +22,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   isSearch: boolean = false;
 
   isDemoSite: boolean = false;
-
-
+  shop$: Observable<Shop>;
 
   constructor(
     private breakpointObserver: BreakpointObserver,
@@ -41,15 +40,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.isDemoSite = (environment.shopKey == environment.demoShopKey);
 
-
-
-
-
-    // this.bc$ = this.generalService.bc.pipe(mergeMap(res=>{
-    //   return this.shopService.shopDetail().pipe(map(()=>res))
-    // }));
+    this.shop$ = this.shopService.aShop;
 
     this.bc$ = this.generalService.bc;
+
+
   }
 
   onToggleSidenav = () => {
@@ -58,7 +53,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
 
   ngOnDestroy(){
-
 
   }
 }

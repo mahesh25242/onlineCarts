@@ -16,17 +16,17 @@ a:hover, a:active{
 }
 .flex-right { margin-left: auto;}
 
-.navmenu {  
+.navmenu {
   display: flex;
   a {
     margin-left: 20px;
-    font-weight: 100;    
+    font-weight: 100;
     font-size: 13px
-   
+
   }
   a.active {
     position: relative;
-   
+
     &:after {
       content: "";
     width: 100%;
@@ -61,4 +61,11 @@ a:hover, a:active{
   mat-toolbar{
       border-radius: 0px;
   }
+}
+
+.logo{
+  background-repeat: no-repeat;
+  padding: 8px 0 8px 55px;
+  background-size: 50px;
+  background-position: 0px 3px;
 }
