@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { BehaviorSubject, Observable } from 'rxjs';
 import {Title} from "@angular/platform-browser";
-import { tap } from 'rxjs/operators';
+import { delay, tap } from 'rxjs/operators';
 import { BC } from '../interfaces';
 
 @Injectable({
@@ -16,7 +16,7 @@ export class GeneralService {
     private titleService:Title) { }
 
   get bc(){
-    return this.bc$.asObservable().pipe(tap(res=>{
+    return this.bc$.asObservable().pipe(delay(1000), tap(res=>{
       this.titleService.setTitle(`${(res?.siteName) ? res?.siteName : ''} ${ (res?.siteName && res?.title) ? ':': '' } ${(res?.title) ? res?.title : ''}`);
     }));
   }

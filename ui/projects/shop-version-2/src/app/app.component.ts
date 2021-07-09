@@ -27,6 +27,7 @@ export class AppComponent implements OnInit, OnDestroy{
   receiveMessageSubScr: Subscription;
   isAdmin$: Observable<boolean>;
   shop: Shop;
+  shop$: Observable<Shop>;
 
   shopUnsbScr: Subscription;
   constructor(public router: Router,
@@ -69,6 +70,7 @@ export class AppComponent implements OnInit, OnDestroy{
   }
   ngOnInit(): void {
 
+    this.shop$ = this.shopService.shopDetail()
 
     this.shopUnsbScr = this.shopService.aShop.subscribe(res=>{
       this.shop = res;

@@ -1,13 +1,16 @@
 <mat-toolbar color="primary">
   <ng-container *ngIf="(bc$ | async) as bc">
-    <div *ngIf="bc?.backUrl && !isSearch" fxHide.gt-xs="true">
+    <!-- <div *ngIf="bc?.backUrl && !isSearch" fxHide.gt-xs="true">
       <button mat-icon-button [routerLink]="bc?.backUrl">
           <mat-icon>arrow_back_ios</mat-icon>
       </button>
-    </div>
+    </div> -->
   </ng-container>
 
-  <a routerLink="/" matRipple *ngIf="!isSearch">{{title}}</a>
+  <div *ngIf="!isSearch">
+    <a routerLink="/" matRipple >{{title}}</a>
+  </div>
+
   <div fxHide.gt-xs="true" *ngIf="isSearch" class="search-block">
     <app-search [isHead]="true"></app-search>
   </div>

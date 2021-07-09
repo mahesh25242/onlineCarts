@@ -49,9 +49,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     //   return this.shopService.shopDetail().pipe(map(()=>res))
     // }));
 
-    this.bc$ = this.shopService.shopDetail().pipe(delay(1000),mergeMap(res=>{
-      return this.generalService.bc
-    }));
+    this.bc$ = this.generalService.bc;
   }
 
   onToggleSidenav = () => {
