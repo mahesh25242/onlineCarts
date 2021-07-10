@@ -87,8 +87,10 @@
       </ng-container>
 
       <mat-form-field class="full-width-text" appearance="standard">
-        <mat-label>Order Note</mat-label>
-        <textarea matInput formControlName="note" placeholder="Any additional note" maxlength="200"></textarea>
+        <mat-label>
+          {{ lp == 'free' ? 'Order Note / Table Number' : 'Order Note'}}
+          </mat-label>
+        <textarea matInput formControlName="note" [placeholder]="lp == 'free' ? 'Any additional note / Table number' : 'Order Note'" maxlength="200"></textarea>
         <mat-hint align="end" *ngIf="f.note?.value?.length">{{f.note?.value?.length}} / 200</mat-hint>
         <mat-error *ngIf="f.note.errors && f.note.errors.error">
           {{f.note.errors.error}}
