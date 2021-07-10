@@ -5,11 +5,12 @@ import { environment } from '../../environments/environment';
 import { Observable, Subscription } from 'rxjs';
 import { BC, Shop, User } from 'src/app/lib/interfaces';
 import {  UserService, ShopService } from 'src/app/lib/services';
-import { mergeMap, map } from 'rxjs/operators';
+import { mergeMap, map, tap } from 'rxjs/operators';
 import { GeneralService as LocalGeneralService } from '../lib/services/index';
 import { GeneralService } from 'src/app/lib/services';
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 import { AngularFireAuth } from '@angular/fire/auth';
+
 
 @Component({
   selector: 'app-admin-header',

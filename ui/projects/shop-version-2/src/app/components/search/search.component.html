@@ -3,6 +3,9 @@
   <mat-form-field class="searchBox" [appearance]="(isHead) ? 'legacy': 'outline' ">
     <mat-label>Search Keyword</mat-label>
     <input matInput type="text" formControlName="q" placeholder="Ex. Black Forest">
+    <!-- <button mat-icon-button matSuffix (click)="voice()" *ngIf="(micAccess$ | async)">
+      <mat-icon>mic</mat-icon>
+    </button> -->
     <button mat-icon-button matSuffix (click)="search()" >
       <mat-icon>search</mat-icon>
     </button>

@@ -80,11 +80,11 @@ class Shop extends Model implements AuthenticatableContract, AuthorizableContrac
 
     }
     public function getLogoAttribute($logo){
-        return ($logo) ? url("/assets/shop/{$this->shop_key}/general/{$logo}") : '';
+        return ($logo) ? url("/assets/shop/{$this->shop_key}/general/{$logo}?rand={$this->updated_at->timestamp}") : '';
     }
 
     public function getFaviconAttribute($favicon){
-        return ($favicon) ?  url("/assets/shop/{$this->shop_key}/general/{$favicon}"): '';
+        return ($favicon) ?  url("/assets/shop/{$this->shop_key}/general/{$favicon}?rand={$this->updated_at->timestamp}"): '';
     }
 
     public function getStatusTextAttribute()

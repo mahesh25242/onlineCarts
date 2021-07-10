@@ -62,7 +62,9 @@ export class ThemeAndBrandingComponent implements OnInit {
           .then(res => res.blob())).pipe(mergeMap(res=>{
             const formData = new FormData();
             res && formData.append(type, res);
-            return this.shopService.changeLogoFavicon(formData)
+            return this.shopService.changeLogoFavicon(formData).pipe(mergeMap(res=>{
+              return this.shopService.shopDetail();
+            }))
           })).subscribe(res=>{
 
           }, err=>{

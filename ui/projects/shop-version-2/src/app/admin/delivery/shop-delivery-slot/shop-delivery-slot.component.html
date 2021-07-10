@@ -26,14 +26,14 @@
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef> Name </th>
         <td mat-cell *matCellDef="let element" data-label="Name">
-          <a href="javascript:{}" (click)="editDeliveryLoc(element)" matTooltip="Click here to view or edit this delivery">{{element.name}}</a>
+          <a href="javascript:{}" (click)="editDeliveryLoc(element)" matTooltip="Click here to view or edit this delivery slot">{{element.name}}</a>
         </td>
       </ng-container>
 
       <!-- total Column -->
       <ng-container matColumnDef="is_default">
         <th mat-header-cell *matHeaderCellDef> Is Default </th>
-        <td mat-cell *matCellDef="let element" data-label="Id Default">
+        <td mat-cell *matCellDef="let element" data-label="IS Default">
           {{ (element.is_default) ? 'Yes' : 'No' }}
         </td>
       </ng-container>

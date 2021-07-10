@@ -29,7 +29,7 @@ export class CartService {
       let grandTotal: number = 0;
 
 
-      res.carts.map(itm=>{
+      res?.carts.map(itm=>{
         total +=itm.price;
       });
 
@@ -39,8 +39,10 @@ export class CartService {
         grandTotal = total;
       }
 
-      res.grandTotal = grandTotal;
-      res.total = total;
+      if(res){
+        res.grandTotal = grandTotal;
+        res.total = total;
+      }
 
       return res;
     }));
