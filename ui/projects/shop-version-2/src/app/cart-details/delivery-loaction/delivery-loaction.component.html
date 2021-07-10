@@ -10,36 +10,6 @@
           lp="free"
           [formGroup]="customerFrm"
           ></app-order-form>
-
-          <!-- <app-order-form
-          [shopDelivery]="shop_delivery" [mapUrl]="mapUrl"
-          *ngIf="shop_delivery.isOpened"
-          [formGroup]="customerFrm"></app-order-form> -->
-
-          <!-- <mat-accordion>
-            <mat-expansion-panel   *ngFor="let shop_delivery of shop?.shop_delivery_filtered.free; first as isFirst"
-            [expanded]="isFirst || shop_delivery.isOpened"
-            (opened)="shop_delivery.isOpened = true"
-              (closed)="shop_delivery.isOpened = false"
-              color="warn"
-               >
-              <mat-expansion-panel-header>
-                <mat-panel-title [ngClass]="{'accent-color': customerFrm.controls.selectedLocation.value?.id == shop_delivery.id}">
-                  {{shop_delivery.name}}
-                </mat-panel-title>
-                <mat-panel-description>
-                  <span *ngIf="shop_delivery.charge" class="charge">
-                    Delivery Charge @ ₹ {{ shop_delivery.charge}}
-                  </span>
-                </mat-panel-description>
-              </mat-expansion-panel-header>
-                <p [innerHTML]="shop_delivery.description"></p>
-                <app-order-form
-                [shopDelivery]="shop_delivery" [mapUrl]="mapUrl"
-                *ngIf="shop_delivery.isOpened"
-                [formGroup]="customerFrm"></app-order-form>
-            </mat-expansion-panel>
-          </mat-accordion> -->
         </ng-template>
       </mat-tab>
       <mat-tab label="Home Delivery">

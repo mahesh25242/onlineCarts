@@ -1,6 +1,6 @@
 import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, OnChanges, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { empty, Observable,of,pipe, Subscription, throwError } from 'rxjs';
-import { mergeMap, tap, map } from 'rxjs/operators';
+import { mergeMap, tap, map, catchError } from 'rxjs/operators';
 import { Cart, CartDetail, Shop, ShopDelivery, ShopOrder } from 'src/app/lib/interfaces';
 import { CartService, GeneralService, ShopService } from 'src/app/lib/services';
 import { environment } from '../../environments/environment';
@@ -236,78 +236,6 @@ export class CartDetailsComponent implements OnInit, OnDestroy {
     });
   }
 
-  changeLocation(loc: ShopDelivery){
-
-    if(!loc) return;
-    if(loc.min_amount && this.grandTotal < loc.min_amount){
-      this.matSnackBar.open(`Sorry you cant choose ${loc.name} as your delivery. Because it has miinum order amount is ${loc.min_amount}`, 'close');
-      return;
-    }
-    this.selectedLocation = loc;
-    if(this.selectedLocation?.charge){
-      this.grandTotal = this.total + this.selectedLocation?.charge;
-    }else{
-      this.grandTotal = this.total;
-    }
-
-
-    if(this.breakPointSubScr) this.breakPointSubScr.unsubscribe();
-
-      this.breakPointSubScr = this.breakpointObserver.observe([
-        Breakpoints.Handset
-      ]).pipe(mergeMap(brakPoints=>{
-        if (brakPoints.matches && navigator.geolocation && loc.need_cust_loc) {
-          return this.generalService.getLocation().pipe(mergeMap(coords=>{
-            if(coords){
-              this.loc = {
-                lat: coords?.coords?.latitude,
-                lon: coords?.coords?.longitude
-              }
-              this.mapUrl = `${environment.gMapUrl}/maps?z=12&t=m&q=loc:${coords?.coords?.latitude}+${coords?.coords?.longitude}`;
-              return this.generalService.reverseLatLngAddress(this.loc);
-            }else{
-              this.mapUrl = null;
-              return empty();
-            }
-
-          }))
-        }else{
-          return empty()
-        }
-
-      })).subscribe((res: any)=> {
-
-        if(res){
-          if(!this.f.pin.value && res?.address?.postcode){
-            this.f.pin.setValue(res?.address?.postcode)
-          }
-
-          if(!this.f.address.value && res?.display_name){
-            this.f.address.setValue(res?.display_name)
-          }
-
-        }
-      }, err=>{
-        switch(err?.code){
-              case 1:
-                this.matSnackBar.open('Location Permission denied.', 'close');
-              break;
-              case 2:
-                this.matSnackBar.open('Sorry your position is unavailable.', 'close');
-              break;
-              case 3:
-                this.matSnackBar.open('Sorry your position request was timeout. Please try again.', 'close');
-              break;
-              default:
-                this.matSnackBar.open('Sorry unexpected error occur.', 'close');
-              break;
-            }
-      })
-
-
-
-  }
-
 
 
 
@@ -357,6 +285,22 @@ export class CartDetailsComponent implements OnInit, OnDestroy {
             return of(brakPoints);
           }
 
+        }), catchError(err =>{
+          switch(err?.code){
+            case 1:
+              this.matSnackBar.open('Location Permission denied.', 'close');
+            break;
+            case 2:
+              this.matSnackBar.open('Sorry your position is unavailable.', 'close');
+            break;
+            case 3:
+              this.matSnackBar.open('Sorry your position request was timeout. Please try again.', 'close');
+            break;
+            default:
+              this.matSnackBar.open('Sorry unexpected error occur.', 'close');
+            break;
+          }
+          return of(brakPoints);
         }))
       }else{
         return of(brakPoints)

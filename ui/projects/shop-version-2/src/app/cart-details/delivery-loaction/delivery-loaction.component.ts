@@ -34,8 +34,8 @@ export class DeliveryLocationComponent implements OnInit, OnDestroy {
       phone: [null, []],
       address: [null, []],
       pin: [null, []],
-      delivery_date: [null, []],
-      is_delivery_date:[ false, []],
+      delivery_date: [new Date(), []],
+      is_delivery_date:[ true, []],
       selectedLocation: [null, []],
       delivery_slot: [null, []],
     });

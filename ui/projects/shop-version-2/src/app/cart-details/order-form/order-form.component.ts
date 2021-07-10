@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit } from '@a
 import { ControlContainer, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { Observable, of } from 'rxjs';
-import { map, mergeMap } from 'rxjs/operators';
+import { catchError, map, mergeMap } from 'rxjs/operators';
 import { Shop, ShopDelivery } from 'src/app/lib/interfaces';
 import { GeneralService, ShopService } from 'src/app/lib/services';
 
@@ -76,6 +76,9 @@ export class OrderFormComponent implements OnInit {
         return of(brakPoints)
       }
 
+    }),  catchError(err =>{
+
+      return of(true);
     }));
   }
 

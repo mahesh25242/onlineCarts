@@ -17,26 +17,26 @@ export class SearchComponent implements OnInit, OnDestroy {
   @Input() isHead: boolean;
 
   destroy$ = new Subject();
-  recognized$ = this.senseService.getType(RecognizedTextAction);
+  //recognized$ = this.senseService.getType(RecognizedTextAction);
 
-	micAccess$ = this.senseService.hasMicrofonAccess$;
+	//micAccess$ = this.senseService.hasMicrofonAccess$;
 
   constructor(private formBuilder : FormBuilder,
     private shopProductCategoryService: ShopProductCategoryService,
     private shopProductService: ShopProductService,
     private router: Router,
-    private senseService: SenseService
+    //private senseService: SenseService
     ) {
 
-    this.recognized$
-    .pipe(
-      debounceTime(200),
-      tap((msg) => {
-        // msg = `you said ${msg}`;
-        this.senseService.speak(msg);
-      }, takeUntil(this.destroy$))
-    )
-    .subscribe();
+    // this.recognized$
+    // .pipe(
+    //   debounceTime(200),
+    //   tap((msg) => {
+    //     // msg = `you said ${msg}`;
+    //     this.senseService.speak(msg);
+    //   }, takeUntil(this.destroy$))
+    // )
+    // .subscribe();
      }
 
   get f(){ return this.searchFrm.controls; }
@@ -49,7 +49,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   voice(){
-    this.senseService.activate();
+    //this.senseService.activate();
 
   }
   ngOnInit(): void {
