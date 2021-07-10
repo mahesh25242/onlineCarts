@@ -2,13 +2,13 @@
 <div class="container" *ngIf="breakPointObsr$ | async as bp">
   <ng-container *ngIf="(cartDetails$ | async) as cartDetails">
 
-    <div fxLayout="row" fxLayoutAlign="space-between">
+    <div fxLayout="row" fxLayoutAlign="space-between" *ngIf="cartDetails?.carts && cartDetails?.carts.length">
         <mat-card fxFlex="100%">
           <app-delivery-loaction #deliveryLocationDom ></app-delivery-loaction>
         </mat-card>
     </div>
 
-  <div *ngIf="!cartDetails?.carts || !cartDetails?.carts.length">Your cart is empty</div>
+  <div *ngIf="!cartDetails?.carts || !cartDetails?.carts.length" class="warning warn-color">Your cart is empty</div>
   <form [formGroup]="customerFrm" (ngSubmit)="sendToShop(deliveryLocationDom, bp)">
     <ng-container *ngIf="cartDetails?.carts && cartDetails?.carts.length">
       <div >

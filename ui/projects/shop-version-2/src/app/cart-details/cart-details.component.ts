@@ -1,6 +1,6 @@
 import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, OnChanges, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { empty, Observable,of,pipe, Subscription, throwError } from 'rxjs';
-import { mergeMap, tap, map, catchError } from 'rxjs/operators';
+import { mergeMap, tap, map, catchError, delay } from 'rxjs/operators';
 import { Cart, CartDetail, Shop, ShopDelivery, ShopOrder } from 'src/app/lib/interfaces';
 import { CartService, GeneralService, ShopService } from 'src/app/lib/services';
 import { environment } from '../../environments/environment';
@@ -318,16 +318,9 @@ export class CartDetailsComponent implements OnInit, OnDestroy {
       backUrl: '/'
     });
     this.shop$ = this.shopService.aShop;
-    this.cartDetails$ = this.cartService.cartDetails.pipe(tap(res=>{
 
+    this.cartDetails$ = this.cartService.cartDetails.pipe(delay(200));
 
-
-
-      if(!res?.carts || !res?.carts.length){
-        this.matSnackBar.open('Your cart is empty.', 'close');
-        this.router.navigate(['/']);
-      }
-    }));
 
 
 
