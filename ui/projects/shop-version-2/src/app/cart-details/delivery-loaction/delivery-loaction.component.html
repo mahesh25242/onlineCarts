@@ -27,7 +27,7 @@
     <ng-container *ngIf="f.selectedLocation.value">
 
       <div fxLayout="row" fxLayoutAlign="space-between">
-        <p>
+        <p *ngIf="f.selectedLocation.value?.charge">
           {{ (f.selectedLocation.value?.need_cust_loc) ? 'Delivery': 'Packing' }} Cost: {{ f.selectedLocation.value?.charge }}</p>
         <p *ngIf="f.selectedLocation.value?.min_amount">Minimum Order Amount: {{ f.selectedLocation.value?.min_amount }}</p>
       </div>
