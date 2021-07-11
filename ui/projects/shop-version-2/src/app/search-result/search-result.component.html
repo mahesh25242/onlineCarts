@@ -1,5 +1,49 @@
 <div class="container" *ngIf="(products$ | async)">
   <app-search fxHide.xs="true"></app-search>
-  <app-product [isSearch]="true"></app-product>
+  <mat-drawer-container >
+    <mat-drawer #drawer mode="over" position="end">
+      <div *ngIf="varients && varients.length">
+        <h3>Varients</h3>
+        <mat-chip-list aria-label="Fish selection">
+          <mat-chip *ngFor="let variant of varients">{{variant}}</mat-chip>
+          <!-- <mat-chip>Two fish</mat-chip>
+          <mat-chip color="primary" selected>Primary fish</mat-chip>
+          <mat-chip color="accent" selected>Accent fish</mat-chip> -->
+        </mat-chip-list>
+      </div>
+      <br/>
+      <div *ngIf="type && type.length">
+        <h3>Type</h3>
+        <mat-chip-list aria-label="Fish selection">
+          <mat-chip *ngFor="let tp of type">{{tp}}</mat-chip>
+        </mat-chip-list>
+      </div>
+
+    </mat-drawer>
+    <mat-sidenav-content cdkscrollable class="my-sidenav-content">
+      <div class="example-sidenav-content">
+        <div fxLayout.xs="row" fxLayoutAlign="space-between">
+          <div fxFlex="83%">
+            <h1>Search Result</h1>
+          </div>
+          <div fxFlex="17%">
+            <button type="button" mat-button (click)="drawer.toggle()" >
+              <mat-icon>filter_list</mat-icon>
+              Filter
+            </button>
+          </div>
+        </div>
+
+
+
+        <app-product [isSearch]="true"></app-product>
+
+      </div>
+    </mat-sidenav-content>
+
+
+  </mat-drawer-container>
+
+
 </div>
 
