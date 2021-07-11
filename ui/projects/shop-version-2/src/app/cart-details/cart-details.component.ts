@@ -66,9 +66,9 @@ export class CartDetailsComponent implements OnInit, OnDestroy {
     this.cartSubScr = this.cartService.updateCart(itm, action).subscribe();
   }
 
-  sendToShop(deliveryLocationDom: any, bp:any = null){
+  sendToShop(bp:any = null){
 
-
+    this.generalService.orderFormError$.next(null);
     // if(!this.f.selectedLocation.value?.id){
     //   //this.matSnackBar.open('Please choose a delivery location.', 'close');
     //   el.scrollIntoView({behavior:"smooth"});
@@ -203,16 +203,17 @@ export class CartDetailsComponent implements OnInit, OnDestroy {
       let showMsg:boolean = false;
       if(error.status == 422){
 
-        for(let result in deliveryLocationDom?.customerFrm.controls){
-          if(error.error.errors[result]){
-            deliveryLocationDom?.customerFrm.controls[result].markAsTouched();
-            deliveryLocationDom?.customerFrm.controls[result].setErrors({ error: error.error.errors[result] });
-            showMsg = true;
-          }else{
-            deliveryLocationDom?.customerFrm.controls[result].setErrors(null);
+        this.generalService.orderFormError$.next(error.error.errors);
+        // for(let result in deliveryLocationDom?.customerFrm.controls){
+        //   if(error.error.errors[result]){
+        //     deliveryLocationDom?.customerFrm.controls[result].markAsTouched();
+        //     deliveryLocationDom?.customerFrm.controls[result].setErrors({ error: error.error.errors[result] });
+        //     showMsg = true;
+        //   }else{
+        //     deliveryLocationDom?.customerFrm.controls[result].setErrors(null);
 
-          }
-        }
+        //   }
+        // }
         showMsg && Notiflix.Notify.Failure('Please check delivery from at top.');
 
 

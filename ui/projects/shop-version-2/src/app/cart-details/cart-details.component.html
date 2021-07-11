@@ -4,12 +4,12 @@
 
     <div fxLayout="row" fxLayoutAlign="space-between" *ngIf="cartDetails?.carts && cartDetails?.carts.length">
         <mat-card fxFlex="100%">
-          <app-delivery-loaction #deliveryLocationDom ></app-delivery-loaction>
+          <app-delivery-loaction></app-delivery-loaction>
         </mat-card>
     </div>
 
   <div *ngIf="!cartDetails?.carts || !cartDetails?.carts.length" class="warning warn-color">Your cart is empty</div>
-  <form [formGroup]="customerFrm" (ngSubmit)="sendToShop(deliveryLocationDom, bp)">
+  <form [formGroup]="customerFrm" (ngSubmit)="sendToShop(bp)">
     <ng-container *ngIf="cartDetails?.carts && cartDetails?.carts.length">
       <div >
         <h1 mat-dialog-title>
@@ -51,11 +51,11 @@
                 </div>
                 <div [ngClass.xs]="'text-center'">
                   Quantity:
-                  <button mat-icon-button color="primary" (click)="updateCart(item, '-')">
+                  <button type="button" mat-icon-button color="primary" (click)="updateCart(item, '-')">
                     <mat-icon>remove_circle_outline</mat-icon>
                   </button>
                   {{item.qty}}
-                  <button mat-icon-button color="primary" (click)="updateCart(item, '+')">
+                  <button type="button" mat-icon-button color="primary" (click)="updateCart(item, '+')">
                     <mat-icon>add_circle_outline</mat-icon>
                   </button>
                 </div>

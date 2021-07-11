@@ -12,6 +12,7 @@ import { BC } from '../interfaces';
 export class GeneralService {
   bc$: BehaviorSubject<BC> = new BehaviorSubject<BC>(null);
   showbanner$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  orderFormError$: BehaviorSubject<any> = new BehaviorSubject<any>(false);
   constructor(private http: HttpClient,
     private titleService:Title) { }
 

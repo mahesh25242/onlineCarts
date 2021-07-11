@@ -86,7 +86,24 @@ export class OrderFormComponent implements OnInit {
 
     this.customerFrm = <FormGroup>this.controlContainer.control;
     this.f.selectedLocation.setValue(null);
-    this.shop$ = this.shopService.aShop;
+    this.shop$ = this.shopService.aShop.pipe(mergeMap(res=>{
+      return this.generalService.orderFormError$.asObservable().pipe(map(ferr => {
+        if(ferr){
+          for(let result in this.customerFrm.controls){
+            if(ferr[result]){
+              this.customerFrm.controls[result].markAsTouched();
+              this.customerFrm.controls[result].setErrors({ error: ferr[result] });
+            }else{
+              this.customerFrm.controls[result].setErrors(null);
+
+            }
+          }
+        }else{
+
+        }
+        return res;
+      }))
+    }));
     this.breakPointObsr$ = this.checkBreakPoint();
 
   }
