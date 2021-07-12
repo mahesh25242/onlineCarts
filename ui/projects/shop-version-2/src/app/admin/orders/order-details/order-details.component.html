@@ -15,7 +15,7 @@
           CEmail:&nbsp;&nbsp;{{ data.shop_customer.email}}
         </mat-list-item>
         <mat-list-item role="listitem" *ngIf="data.delivery_at">
-          Delivery At:&nbsp;&nbsp;{{ data.delivery_at | date: 'medium'}}
+          Delivery At:&nbsp;&nbsp;{{ data.delivery_at | date: 'mediumDate'}} - {{ data.delivery_slot }}
         </mat-list-item>
 
         <ng-container *ngIf="data.shop_delivery.need_cust_loc">
