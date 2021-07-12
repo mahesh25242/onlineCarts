@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { ShopDelivery } from 'src/app/lib/interfaces';
 import { ShopService } from 'src/app/lib/services';
 
@@ -13,7 +14,7 @@ export class DeliveryLocationsComponent implements OnInit {
   constructor(private shopService: ShopService) { }
 
   ngOnInit(): void {
-    this.deliveries$ = this.shopService.deliveries;
+    this.deliveries$ = this.shopService.deliveriesSlot.pipe(map(res=> res?.deliveries));
   }
 
 }
