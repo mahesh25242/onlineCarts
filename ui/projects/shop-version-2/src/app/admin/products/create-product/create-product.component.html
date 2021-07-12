@@ -1,13 +1,17 @@
 <div class="header-inner"></div>
 <div class="container">
+  <form [formGroup]="createProductFrm" (ngSubmit)="saveProduct()">
   <h1 >
     {{ (product?.id) ? 'Edit '+product.name : 'Create New Product' }}
-  </h1>
-  <form [formGroup]="createProductFrm" (ngSubmit)="saveProduct()">
+
     <div mat-dialog-actions align="end">
       <a routerLink="/admin/products/0" mat-raised-button  color="primary" >Cancel</a>
       &nbsp;&nbsp;<button type="submit" mat-raised-button  color="primary">Save changes</button>
     </div>
+
+  </h1>
+
+
     <br/>
     <mat-card class="p-20">
 
