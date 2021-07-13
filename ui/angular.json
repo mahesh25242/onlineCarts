@@ -173,9 +173,12 @@
             "styles": [
 
               "projects/shop-version-2/src/styles.scss",
-              "./node_modules/animate.css/animate.min.css"
+              "./node_modules/animate.css/animate.min.css",
+              "./node_modules/cookieconsent/build/cookieconsent.min.css"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/cookieconsent/build/cookieconsent.min.js"
+            ]
           },
           "configurations": {
             "production": {

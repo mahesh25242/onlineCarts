@@ -4,6 +4,9 @@ import { Injectable, NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
 
+import {NgcCookieConsentModule, NgcCookieConsentConfig} from 'ngx-cookieconsent';
+
+
 import { httpInterceptorProviders } from './lib/interceptor'
 
 import { SharedModuleModule } from './lib/shared-module/shared-module.module';
@@ -60,6 +63,23 @@ export class MyHammerConfig extends HammerGestureConfig {
   };
 }
 
+const cookieConfig:NgcCookieConsentConfig = {
+  cookie: {
+    domain: 'localhost' // or 'your.domain.com' // it is mandatory to set a domain, for cookies to work properly (see https://goo.gl/S2Hy2A)
+  },
+  palette: {
+    popup: {
+      background: '#000'
+    },
+    button: {
+      background: '#f1d600'
+    }
+  },
+  theme: 'edgeless',
+  type: 'opt-out'
+};
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -103,6 +123,7 @@ export class MyHammerConfig extends HammerGestureConfig {
     MatCarouselModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     AngularFireModule.initializeApp(environment.firebaseConfig),
+    NgcCookieConsentModule.forRoot(cookieConfig)
   ],
   providers: [
     httpInterceptorProviders,

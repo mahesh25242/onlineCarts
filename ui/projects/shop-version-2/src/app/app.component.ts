@@ -9,12 +9,14 @@ import {
   Router
 } from '@angular/router';
 import { SwUpdate } from '@angular/service-worker';
+import { NgcCookieConsentService, NgcInitializeEvent, NgcNoCookieLawEvent, NgcStatusChangeEvent } from 'ngx-cookieconsent';
 import Notiflix from 'notiflix';
 import { empty, Observable, of, Subscription } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 import { Shop } from 'src/app/lib/interfaces';
 import { ShopService } from 'src/app/lib/services';
 import { GeneralService, MessagingService } from './lib/services';
+
 
 @Component({
   selector: 'app-root',
@@ -29,13 +31,22 @@ export class AppComponent implements OnInit, OnDestroy{
   shop: Shop;
   shop$: Observable<Shop>;
 
+  private popupOpenSubscription: Subscription;
+  private popupCloseSubscription: Subscription;
+  private initializeSubscription: Subscription;
+  private statusChangeSubscription: Subscription;
+  private revokeChoiceSubscription: Subscription;
+  private noCookieLawSubscription: Subscription;
+
+
   shopUnsbScr: Subscription;
   constructor(public router: Router,
     private generalService: GeneralService,
     private swUpdate: SwUpdate,
     private messagingService: MessagingService,
     private matSnackBar: MatSnackBar,
-    private shopService: ShopService) {
+    private shopService: ShopService,
+    private ccService: NgcCookieConsentService) {
 
       swUpdate.available.subscribe(event => {
         console.log('current version is', event.current);
@@ -96,6 +107,38 @@ export class AppComponent implements OnInit, OnDestroy{
       if(msg)
         this.matSnackBar.open(`${msg.notification?.title} - ${msg.notification?.body}`, 'close');
     })
+
+    this.popupOpenSubscription = this.ccService.popupOpen$.subscribe(
+      () => {
+        // you can use this.ccService.getConfig() to do stuff...
+      });
+
+    this.popupCloseSubscription = this.ccService.popupClose$.subscribe(
+      () => {
+        // you can use this.ccService.getConfig() to do stuff...
+      });
+
+    this.initializeSubscription = this.ccService.initialize$.subscribe(
+      (event: NgcInitializeEvent) => {
+        // you can use this.ccService.getConfig() to do stuff...
+      });
+
+    this.statusChangeSubscription = this.ccService.statusChange$.subscribe(
+      (event: NgcStatusChangeEvent) => {
+        // you can use this.ccService.getConfig() to do stuff...
+      });
+
+    this.revokeChoiceSubscription = this.ccService.revokeChoice$.subscribe(
+      () => {
+        // you can use this.ccService.getConfig() to do stuff...
+      });
+
+      this.noCookieLawSubscription = this.ccService.noCookieLaw$.subscribe(
+      (event: NgcNoCookieLawEvent) => {
+        // you can use this.ccService.getConfig() to do stuff...
+      });
+
+
   }
 
   updateApp(){
@@ -108,5 +151,13 @@ export class AppComponent implements OnInit, OnDestroy{
     this.showPushNoti && this.showPushNoti.unsubscribe();
     this.receiveMessageSubScr && this.receiveMessageSubScr.unsubscribe();
     this.shopUnsbScr && this.shopUnsbScr.unsubscribe();
+
+    this.popupOpenSubscription.unsubscribe();
+    this.popupCloseSubscription.unsubscribe();
+    this.initializeSubscription.unsubscribe();
+    this.statusChangeSubscription.unsubscribe();
+    this.revokeChoiceSubscription.unsubscribe();
+    this.noCookieLawSubscription.unsubscribe();
+
    }
 }
