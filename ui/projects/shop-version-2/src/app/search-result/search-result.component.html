@@ -2,10 +2,13 @@
   <app-search fxHide.xs="true"></app-search>
   <mat-drawer-container >
     <mat-drawer #drawer mode="over" position="end">
+      <ngx-slider *ngIf="options.ceil" [(value)]="value" [(highValue)]="highValue" [options]="options"></ngx-slider>
+
       <div *ngIf="varients && varients.length">
         <h3>Varients</h3>
-        <mat-chip-list aria-label="Fish selection">
-          <mat-chip *ngFor="let variant of varients">{{variant}}</mat-chip>
+        <mat-chip-list aria-label="Fish selection" [multiple]="true" >
+          <mat-chip *ngFor="let variant of varients"
+            [selected]="(selectedItems?.varients.includes(variant))" (click)="searchSelect(variant, 'varients')">{{variant}}</mat-chip>
           <!-- <mat-chip>Two fish</mat-chip>
           <mat-chip color="primary" selected>Primary fish</mat-chip>
           <mat-chip color="accent" selected>Accent fish</mat-chip> -->
@@ -14,8 +17,8 @@
       <br/>
       <div *ngIf="type && type.length">
         <h3>Type</h3>
-        <mat-chip-list aria-label="Fish selection">
-          <mat-chip *ngFor="let tp of type">{{tp}}</mat-chip>
+        <mat-chip-list aria-label="Fish selection" [multiple]="true">
+          <mat-chip *ngFor="let tp of type"  [selected]="(selectedItems?.types.includes(tp))" (click)="searchSelect(tp, 'types')">{{tp}}</mat-chip>
         </mat-chip-list>
       </div>
 
@@ -27,7 +30,7 @@
             <h1>Search Result</h1>
           </div>
           <div fxFlex="17%">
-            <button type="button" mat-button (click)="drawer.toggle()" >
+            <button type="button" mat-button (click)="toggle(drawer)" >
               <mat-icon>filter_list</mat-icon>
               Filter
             </button>

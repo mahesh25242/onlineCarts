@@ -51,6 +51,12 @@ table {
     color: mat-color($warn) !important;
   }
 
+  .ngx-slider {
+    .ngx-slider-pointer{
+      background-color: mat-color($primary) !important;
+    }
+
+  }
   .product-name-color{
     color:  #821807;
   }

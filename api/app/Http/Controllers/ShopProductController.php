@@ -15,6 +15,30 @@ class ShopProductController extends Controller
         return $this->products($request);
     }
 
+    public function showProductsFilters(Request $request){
+        $shopKey = $request->header('shopKey');
+        if($shopKey){
+            $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
+            $shopId = ($shop) ? $shop->id : 0;
+        }else{
+            $shopKey = $request->input('shop_key');
+            $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
+            $shopId = ($shop) ? $shop->id : 0;
+        }
+        $maxPrice = \App\Models\ShopProductVariant::whereHas("shopProduct", function($q) use($shopId){
+            $q->where("shop_id", $shopId)->where("status", 1);
+        })->max("price");
+
+
+        $minPrice = \App\Models\ShopProductVariant::whereHas("shopProduct", function($q) use($shopId){
+            $q->where("shop_id", $shopId)->where("status", 1);
+        })->min("price");
+
+        return response([
+            "max_price" => $maxPrice,
+            "min_price" => $minPrice,
+        ]);
+    }
     public function products(Request $request){
 
         $perPage = $request->input("pageSize", 20);
