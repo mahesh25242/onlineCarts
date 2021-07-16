@@ -1,7 +1,7 @@
 <div class="container" *ngIf="(products$ | async)">
   <app-search fxHide.xs="true"></app-search>
   <mat-drawer-container >
-    <mat-drawer #drawer mode="over" position="end">
+    <mat-drawer #drawer mode="over" position="end" (closedStart)="closedStart()">
       <ngx-slider *ngIf="options.ceil" [(value)]="value" [(highValue)]="highValue"
       [options]="options" (userChange)="changePrice()"></ngx-slider>
 

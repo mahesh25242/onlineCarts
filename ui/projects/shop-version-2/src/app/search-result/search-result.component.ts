@@ -8,6 +8,7 @@ import { environment } from '../../environments/environment';
 import Notiflix from "notiflix";
 import { pick, uniq } from 'lodash';
 import { LabelType, Options } from '@angular-slider/ngx-slider';
+import { MatDrawer } from '@angular/material/sidenav';
 
 
 @Component({
@@ -17,6 +18,8 @@ import { LabelType, Options } from '@angular-slider/ngx-slider';
 })
 export class SearchResultComponent implements OnInit {
   private fitered$: BehaviorSubject<string[]> = new BehaviorSubject<string[]>(null);
+  private triggerFilter$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
+
   products$: Observable<ShopProductWithPagination>;
   varients: string[] = [];
   type: string[] = [];
@@ -49,6 +52,9 @@ export class SearchResultComponent implements OnInit {
     get fitered(){
       return this.fitered$.asObservable();
     }
+    get triggerFilter(){
+      return this.triggerFilter$.asObservable();
+    }
 
     changePrice(){
       let filtered = this.fitered$.getValue() ?? [];
@@ -78,7 +84,7 @@ export class SearchResultComponent implements OnInit {
       }
     }
 
-    toggle(drawer){
+    toggle(drawer: MatDrawer){
       if(!this.shopProductService.filters){
         this.shopProductService.showProductsFilters().subscribe(res=>{
           this.options.ceil = res?.max_price
@@ -96,30 +102,37 @@ export class SearchResultComponent implements OnInit {
         this.highValue = this.options.floor;
 
       }*/
+
       drawer.toggle();
+    }
+
+    closedStart(){
+      this.triggerFilter$.next(true);
     }
   ngOnInit(): void {
 
-    this.products$ = this.route.params.pipe(mergeMap(res=>{
-      Notiflix.Loading.Arrows();
-      const postData = {
-        q: res?.q,
-        pageSize : environment.productListPerPage
-      }
-      return this.shopProductService.showProducts(1, postData);
-    }), tap(res=> {
-      res?.data.map(pdt =>{
-        pdt.shop_product_variant.map(spv=>{
-          this.varients.push(spv?.name.toLowerCase());
-          this.type.push(spv?.type?.name.toLowerCase());
+    this.products$ = this.triggerFilter.pipe(mergeMap(ft=>{
+      return this.route.params.pipe(mergeMap(res=>{
+        Notiflix.Loading.Arrows();
+        const postData = {
+          q: res?.q,
+          pageSize : environment.productListPerPage
+        }
+        return this.shopProductService.showProducts(1, postData);
+      }), tap(res=> {
+        res?.data.map(pdt =>{
+          pdt.shop_product_variant.map(spv=>{
+            this.varients.push(spv?.name.toLowerCase());
+            this.type.push(spv?.type?.name.toLowerCase());
+          })
         })
-      })
-      this.varients = uniq(this.varients);
-      this.type = uniq(this.type);
+        this.varients = uniq(this.varients);
+        this.type = uniq(this.type);
 
 
-      Notiflix.Loading.Remove();
-    }));
+        Notiflix.Loading.Remove();
+      }));
+    }))
   }
 
 }
