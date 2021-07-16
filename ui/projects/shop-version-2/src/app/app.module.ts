@@ -77,6 +77,7 @@ const cookieConfig:NgcCookieConsentConfig = {
     }
   },
   theme: 'edgeless',
+  position:'bottom-left',
   type: 'opt-out'
 };
 

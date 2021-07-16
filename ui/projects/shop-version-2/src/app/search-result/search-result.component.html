@@ -2,7 +2,8 @@
   <app-search fxHide.xs="true"></app-search>
   <mat-drawer-container >
     <mat-drawer #drawer mode="over" position="end">
-      <ngx-slider *ngIf="options.ceil" [(value)]="value" [(highValue)]="highValue" [options]="options"></ngx-slider>
+      <ngx-slider *ngIf="options.ceil" [(value)]="value" [(highValue)]="highValue"
+      [options]="options" (userChange)="changePrice()"></ngx-slider>
 
       <div *ngIf="varients && varients.length">
         <h3>Varients</h3>
@@ -30,8 +31,8 @@
             <h1>Search Result</h1>
           </div>
           <div fxFlex="17%">
-            <button type="button" mat-button (click)="toggle(drawer)" >
-              <mat-icon>filter_list</mat-icon>
+            <button  type="button" mat-button (click)="toggle(drawer)" >
+              <mat-icon [matBadge]="(fitered | async)?.length" MatBadgeSize="small"  matBadgePosition="below before"  matBadgeColor="warn">filter_list</mat-icon>
               Filter
             </button>
           </div>
