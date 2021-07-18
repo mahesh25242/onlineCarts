@@ -65,7 +65,7 @@
         <!-- Symbol Column -->
         <ng-container matColumnDef="shop_delivery">
           <th mat-header-cell *matHeaderCellDef> Delivery </th>
-          <td mat-cell *matCellDef="let element" data-label="Delivery"> {{element.shop_delivery.name}} </td>
+          <td mat-cell *matCellDef="let element" data-label="Delivery"> {{element.shop_delivery?.name}} </td>
         </ng-container>
       <!-- Order Date -->
         <ng-container matColumnDef="created_at">

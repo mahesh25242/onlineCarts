@@ -63,10 +63,11 @@ export class MyHammerConfig extends HammerGestureConfig {
     swipe: { direction: Hammer.DIRECTION_ALL },
   };
 }
+const baseHref = document.getElementsByTagName('base')
 
 const cookieConfig:NgcCookieConsentConfig = {
   cookie: {
-    domain: window.location.host // or 'your.domain.com' // it is mandatory to set a domain, for cookies to work properly (see https://goo.gl/S2Hy2A)
+    domain: "onlinecarts.in", //(baseHref.length > 0 ) ?  `${window.location.host}${baseHref[0].getAttribute("href")}` : window.location.host // or 'your.domain.com' // it is mandatory to set a domain, for cookies to work properly (see https://goo.gl/S2Hy2A)
   },
   palette: {
     popup: {
