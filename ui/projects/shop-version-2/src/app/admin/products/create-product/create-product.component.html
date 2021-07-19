@@ -16,7 +16,7 @@
     <mat-card class="p-20">
 
       <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start">
-        <div fxFlex="33%" fxFlex.xs="100%">
+        <div fxFlex="50%" fxFlex.xs="100%">
           <div fxLayout="row" fxLayoutAlign="start">
             <div fxFlex="70%">
               <ng-select [items]="(categories$ | async)"
@@ -36,7 +36,7 @@
           </div>
         </div>
 
-        <mat-form-field fxFlex="33%" fxFlex.xs="100%" class="full-width-text" appearance="standard">
+        <mat-form-field fxFlex="50%" fxFlex.xs="100%" class="full-width-text" appearance="standard">
           <mat-label>Name</mat-label>
           <input matInput formControlName="name" placeholder="Ex. Black Forest" required maxlength="200">
           <mat-hint align="end" *ngIf="f.name?.value?.length">{{f.name?.value?.length}} / 200</mat-hint>
@@ -44,15 +44,34 @@
             {{f.name.errors.error}}
           </mat-error>
         </mat-form-field>
-
-        <mat-form-field fxFlex="33%" fxFlex.xs="100%" class="full-width-text" appearance="standard">
+      </div>
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start">
+        <div fxFlex="100%" class="full-width-text" >
           <mat-label>Description /  Ingredients</mat-label>
-          <textarea matInput formControlName="description" placeholder="Description /  Ingredients" maxlength="4000"></textarea>
+          <editor
+          apiKey="x6z21omm1quelvjutmjqfg2utiub423ils8uf47wnnknt5vy"
+            [init]="{
+
+              menubar: false,
+              plugins: [
+                'advlist autolink lists link image charmap print preview anchor',
+                'searchreplace visualblocks code fullscreen',
+                'insertdatetime media table paste code help wordcount'
+              ],
+              toolbar:
+                'undo redo | formatselect | bold italic |  link  preview  fullscreen | \
+                alignleft aligncenter alignright alignjustify | insertdatetime  table | \
+                bullist numlist outdent indent | removeformat | help'
+            }"
+            formControlName="description"
+          ></editor>
+
+          <!-- <textarea matInput formControlName="description" placeholder="Description /  Ingredients" maxlength="4000"></textarea> -->
           <mat-hint align="end" *ngIf="f.description?.value?.length">{{f.description?.value?.length}} / 4000</mat-hint>
           <mat-error *ngIf="f.description.errors && f.description.errors.error">
             {{f.description.errors.error}}
           </mat-error>
-        </mat-form-field>
+        </div>
 
       </div>
 

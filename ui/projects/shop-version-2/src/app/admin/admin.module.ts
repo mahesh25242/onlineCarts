@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { EditorModule } from '@tinymce/tinymce-angular';
+
+
 import { SharedModuleModule } from '../lib/shared-module/shared-module.module';
 
 import {  AdminRoutingModule } from './admin-routing.module';
@@ -43,6 +46,7 @@ import { CreateShopDeliverySlotComponent } from './delivery/shop-delivery-slot/c
     CommonModule,
     AdminRoutingModule,
     SharedModuleModule,
+    EditorModule
   ],
   providers:[
     CategoriesResolver,

@@ -76,9 +76,7 @@
             <h5>Choosen Varient {{product.name}} - {{product.shop_product_selected_variant.name}}</h5>
             <p>{{product.shop_product_selected_variant?.description}}</p>
 
-            <p *ngIf="product.description">
-              {{ product.description}}
-            </p>
+            <p *ngIf="product.description" [innerHTML]="product.description"></p>
 
 
           </div>
