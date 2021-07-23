@@ -27,7 +27,7 @@ class Shop extends Model implements AuthenticatableContract, AuthorizableContrac
         'shop_key', 'shop_url', 'status', 'shop_category_id',
         'created_by', 'updated_by', 'deleted_by', 'base_path', 'favicon',
         'theme_color', 'bg_color', 'short_name', 'icons', 'logo', 'is_default',
-        'is_mobile_verified'
+        'is_mobile_verified', "business_hours"
     ];
 
     protected $casts = [

@@ -1,4 +1,16 @@
 <div class="header-inner"></div>
 <div class="container">
-  <p>contact-us works!</p>
+  <h1>Get In Touch</h1>
+  <div *ngIf="shop$ | async as shop">
+    <h3>{{shop?.name}}</h3>
+
+    EMail: {{shop?.email}}
+    Mobile: {{shop?.phone}}
+
+    <address>{{shop?.address}}</address>
+    {{shop?.country?.name}}, {{shop?.state?.name}}, {{shop?.city?.name}} - {{shop?.city?.pin}}
+
+    <h4>Business Hours</h4>
+    <div [innerHTML]="shop?.business_hours"></div>
+  </div>
 </div>

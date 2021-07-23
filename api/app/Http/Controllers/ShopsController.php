@@ -404,6 +404,7 @@ class ShopsController extends Controller
             "state_id" => $state_id["id"] ?? null,
             "city_id" => $city_id["id"] ?? null,
             "map" => $request->input("map", ''),
+            "business_hours" => $request->input("business_hours", ''),
         ];
         $shopKey = $request->header('shopKey');
         $shopKey = ($shopKey) ? $shopKey : $request->input("shop_key",'');

@@ -153,7 +153,13 @@
                 </mat-error>
               </mat-form-field>
 
-
+              <mat-form-field fxFlex="50%" fxFlex.xs="100%" class="full-width-text" appearance="standard">
+                <mat-label>Business Hours</mat-label>
+                <textarea matInput formControlName="business_hours" placeholder="Business Hours / Opening hours"></textarea>
+                <mat-error *ngIf="f.business_hours.errors && f.business_hours.errors.error">
+                  {{ f.business_hours.errors.error }}
+                </mat-error>
+              </mat-form-field>
             </div>
             <!-- <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start">
               <mat-form-field fxFlex="33%" fxFlex.xs="100%" class="full-width-text" appearance="standard">

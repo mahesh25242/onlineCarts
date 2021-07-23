@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { GeneralService } from 'src/app/lib/services';
+import { Observable } from 'rxjs';
+import { Shop } from 'src/app/lib/interfaces';
+import { GeneralService, ShopService } from 'src/app/lib/services';
 import { environment } from '../../environments/environment';
 
 @Component({
@@ -8,8 +10,9 @@ import { environment } from '../../environments/environment';
   styleUrls: ['./contact-us.component.scss']
 })
 export class ContactUsComponent implements OnInit {
-
-  constructor(private generalService: GeneralService) { }
+  shop$: Observable<Shop>;
+  constructor(private generalService: GeneralService,
+    private shopService: ShopService) { }
 
   ngOnInit(): void {
     this.generalService.bc$.next({
@@ -18,6 +21,8 @@ export class ContactUsComponent implements OnInit {
       url:'',
       backUrl: null
     });
+
+    this.shop$ = this.shopService.aShop
   }
 
 }

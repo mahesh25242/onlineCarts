@@ -118,6 +118,7 @@ export class ShopDetailsComponent implements OnInit, OnDestroy {
       theme_color: this.f.theme_color.value,
       bg_color: this.f.bg_color.value,
       map: this.f.map.value,
+      business_hours: this.f.business_hours.value,
     }
 
     const formData = new FormData();
@@ -135,9 +136,10 @@ export class ShopDetailsComponent implements OnInit, OnDestroy {
     formData.append(`bg_color`, postData.bg_color);
     formData.append(`bg_color`, postData.bg_color);
     formData.append(`map`, postData.map);
+    postData.business_hours && formData.append(`business_hours`, postData.business_hours);
     this.f.up_logo.value && formData.append(`logo`, this.f.up_logo.value);
 
-    console.log(this.f.up_logo)
+
     this.shopService.saveShopDetail(formData).pipe(mergeMap(res=>{
       return this.shopService.shopDetail();
     })).subscribe(res=>{
@@ -190,6 +192,7 @@ export class ShopDetailsComponent implements OnInit, OnDestroy {
         bg_color: res?.bg_color,
         map: res?.map,
         logo: `./${res?.logo}`,
+        business_hours: res?.business_hours,
       });
     }));
 
@@ -209,6 +212,7 @@ export class ShopDetailsComponent implements OnInit, OnDestroy {
       map: [null, []] ,
       up_logo: [null, []] ,
       logo: [null, []] ,
+      business_hours: [null, []] ,
     });
 
 

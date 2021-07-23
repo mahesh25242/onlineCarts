@@ -45,7 +45,8 @@ export interface Shop {
   shop_theme?: ShopTheme,
   is_mobile_verified?: number,
   max_banner?: number,
-  shop_delivery_slot?: ShopDeliverySlot[]
+  shop_delivery_slot?: ShopDeliverySlot[],
+  business_hours?: string
 }
 
 
