@@ -1,0 +1,12 @@
+<ng-container *ngIf="pages$ | async as pages">
+  <mat-expansion-panel *ngFor="let page of pages">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{page.name}}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+      <mat-card>
+        <app-manage-cms-page [page]="page" (reload)="ngOnInit()"></app-manage-cms-page>
+      </mat-card>
+  </mat-expansion-panel>
+</ng-container>

@@ -4,6 +4,7 @@ import { from, Observable, of, throwError } from 'rxjs';
 import { catchError, map, mergeMap, tap } from 'rxjs/operators';
 import { Shop } from 'src/app/lib/interfaces';
 import { GeneralService } from '../../../lib/services';
+import Notiflix from "notiflix";
 
 @Component({
   selector: 'app-manage-banners',
@@ -17,6 +18,9 @@ export class ManageBannersComponent implements OnInit {
     private generalService: GeneralService,) { }
 
   handleImageSelection(img: any, idx: number){
+    Notiflix.Block.Merge({svgSize:'20px',});
+    Notiflix.Block.Dots(`.upload-banner-btn-${idx}`);
+
     this.imageCompress.uploadFile().then(({image, orientation}) => {
       //this.imgResultBeforeCompress = image;
 //      console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
@@ -38,8 +42,11 @@ export class ManageBannersComponent implements OnInit {
             res && formData.append(`idx`, `${idx}`);
             return this.generalService.saveBanner(formData)
           })).subscribe(res=>{
-
+            Notiflix.Notify.Success(`Successfully uploaded `);
+            Notiflix.Block.Remove(`.upload-banner-btn-${idx}`);
           }, err=>{
+            Notiflix.Notify.Failure(`Sorry unexpected error occur `);
+            Notiflix.Block.Remove(`.upload-banner-btn-${idx}`);
             console.log(err)
           })
 

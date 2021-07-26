@@ -48,14 +48,18 @@ class Shop extends Model implements AuthenticatableContract, AuthorizableContrac
     public static function boot() {
         parent::boot();
 
+
         static::created(function($shop) { // before delete() method call this
             $ShopTheme = new \App\Models\ShopTheme;
             $theme = \App\Models\Theme::where("is_default", 1)->get()->first();
             $ShopTheme->shop_id = $shop->id;
             $ShopTheme->theme_id = $theme->id;
             $ShopTheme->save();
+
             return true;
         });
+
+
 
         static::deleting(function($shop) {
             // Delete registry_detail
@@ -173,6 +177,11 @@ class Shop extends Model implements AuthenticatableContract, AuthorizableContrac
     public function shopDeliverySlot()
     {
         return $this->hasMany('App\Models\ShopDeliverySlot');
+    }
+
+    public function cms()
+    {
+        return $this->hasMany('App\Models\Cms');
     }
 
 }

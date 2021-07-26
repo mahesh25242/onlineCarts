@@ -1,0 +1,43 @@
+<form [formGroup]="cmsForm" (submit)="savePage()" >
+  <button class="save-cms-btn" type="submit" mat-raised-button class="float-right" color="primary">
+    Save
+  </button>
+  <br/>
+  <div fxLayout="column"  fxLayoutAlign="start">
+    <mat-form-field fxFlex="100%" class="full-width-text" appearance="standard">
+      <mat-label>Name</mat-label>
+      <input type="text" matInput formControlName="name" placeholder="Name" />
+      <mat-error *ngIf="f.name.errors && f.name.errors.error">
+        {{ f.name.errors.error }}
+      </mat-error>
+    </mat-form-field>
+
+    <div fxFlex="100%" class="full-width-text">
+      <mat-label>Content</mat-label>
+      <editor matInput
+      apiKey="x6z21omm1quelvjutmjqfg2utiub423ils8uf47wnnknt5vy"
+        [init]="{
+
+          menubar: false,
+          plugins: [
+            'advlist autolink lists link image charmap print preview anchor',
+            'searchreplace visualblocks code fullscreen',
+            'insertdatetime media table paste code help wordcount'
+          ],
+          toolbar:
+            'undo redo | formatselect | bold italic |  link  preview  fullscreen | \
+            alignleft aligncenter alignright alignjustify | insertdatetime  table | \
+            bullist numlist outdent indent | removeformat | help'
+        }"
+        formControlName="content"
+      ></editor>
+
+      <mat-error *ngIf="f.content.errors && f.content.errors.error">
+        {{ f.content.errors.error }}
+      </mat-error>
+    </div>
+  </div>
+
+
+</form>
+

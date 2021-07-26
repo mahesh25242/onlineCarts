@@ -2,8 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { mergeMap, tap } from 'rxjs/operators';
-import { City, Country, Shop, State, Theme } from 'src/app/lib/interfaces';
-import { CityService, CountryService, GeneralService, ShopService, StateService, ThemeService } from 'src/app/lib/services';
+import { City, Country, Shop, State } from 'src/app/lib/interfaces';
+import { CityService, CountryService, GeneralService, ShopService, StateService } from 'src/app/lib/services';
 import Notiflix from "notiflix";
 import { environment } from '../../../environments/environment';
 import {NgxImageCompressService} from 'ngx-image-compress';
@@ -21,6 +21,7 @@ export class ShopDetailsComponent implements OnInit, OnDestroy {
   countries$: Observable<Country[]>;
   states$: Observable<State[]>;
   cities$: Observable<City[]>;
+  pages$: Observable<any>;
 
 
   isDemoSite:boolean = false;
@@ -35,7 +36,6 @@ export class ShopDetailsComponent implements OnInit, OnDestroy {
     private stateService: StateService,
     private cityService: CityService,
     private generalService: GeneralService,
-    private themeService: ThemeService,
     private imageCompress: NgxImageCompressService,
     public afAuth: AngularFireAuth) { }
 
@@ -173,10 +173,6 @@ export class ShopDetailsComponent implements OnInit, OnDestroy {
     this.shop$ = this.shopService.aShop.pipe(tap(res=>{
       const phone = (res?.phone) ? res?.phone.slice(2): '';
 
-
-
-
-
       this.shopDetailsFrm.patchValue({
         name: res?.name,
         short_name: res?.short_name,
@@ -227,6 +223,8 @@ export class ShopDetailsComponent implements OnInit, OnDestroy {
       if(res)
         this.cities$ = this.cityService.cities(res.id);
     });
+
+
 
   }
 

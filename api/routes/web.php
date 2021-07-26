@@ -104,6 +104,10 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
 
                 });
 
+                $router->group(['prefix' => 'cms'], function () use ($router) {
+                    $router->get('/','CMSController@pages');
+                    $router->post('/store','CMSController@store');
+                });
             });
         });
 
