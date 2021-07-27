@@ -15,7 +15,8 @@
     <br/>
     <mat-card class="p-20">
 
-      <mat-tab-group>
+      <mat-tab-group [selectedIndex]="selectedTab.value"
+      (selectedIndexChange)="selectedTab.setValue($event)">
         <mat-tab label="Product Details">
           <ng-template matTabContent>
             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start">

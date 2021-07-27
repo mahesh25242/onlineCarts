@@ -22,6 +22,7 @@ import {NgxImageCompressService} from 'ngx-image-compress';
 })
 export class CreateProductComponent implements OnInit, OnDestroy {
 
+  selectedTab = new FormControl(0);
 
 
   product: ShopProduct;
@@ -111,12 +112,14 @@ export class CreateProductComponent implements OnInit, OnDestroy {
     }, error=>{
 
       Notiflix.Loading.Remove();
+      let isShiftTab = false;
       if(error.status == 422){
         for(let result in this.createProductFrm.controls){
           if(result == 'varients'){
             for(let varient in (this.createProductFrm.controls['varients'] as FormArray).controls){
               for(let variantFrm in ((this.createProductFrm.controls['varients'] as FormArray).controls[varient] as FormGroup).controls){
                 if(error.error.errors[`variants.${varient}.${variantFrm}`]){
+                  isShiftTab = true;
                   ((this.createProductFrm.controls['varients'] as FormArray).controls[varient] as FormGroup).controls[variantFrm].setErrors({ error: error.error.errors[`variants.${varient}.${variantFrm}`] });
                 }else{
                   ((this.createProductFrm.controls['varients'] as FormArray).controls[varient] as FormGroup).controls[variantFrm].setErrors(null);
@@ -128,12 +131,18 @@ export class CreateProductComponent implements OnInit, OnDestroy {
 
           }
 
+
           if(error.error.errors[result]){
+            isShiftTab = false;
             this.createProductFrm.controls[result].setErrors({ error: error.error.errors[result] });
           }else{
             this.createProductFrm.controls[result].setErrors(null);
           }
         }
+        if(isShiftTab && this.createProductFrm.controls.name.valid){
+          this.selectedTab.setValue(1);
+        }
+
       }
     });
 
