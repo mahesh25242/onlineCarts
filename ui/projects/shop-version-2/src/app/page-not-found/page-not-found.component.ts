@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { GeneralService } from 'src/app/lib/services';
+import { ActivatedRoute } from '@angular/router';
+import { find } from 'lodash';
+import { Observable } from 'rxjs';
+import { first, map, mergeMap } from 'rxjs/operators';
+import { GeneralService, CmsService } from 'src/app/lib/services';
 import { environment } from '../../environments/environment';
 
 @Component({
@@ -9,7 +13,10 @@ import { environment } from '../../environments/environment';
 })
 export class PageNotFoundComponent implements OnInit {
 
-  constructor(private generalService: GeneralService) { }
+  page$: Observable<any>;
+  constructor(private generalService: GeneralService,
+    private cmsService: CmsService,
+    private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.generalService.bc$.next({
@@ -18,6 +25,20 @@ export class PageNotFoundComponent implements OnInit {
       url:'',
       backUrl: '/'
     });
+
+
+    this.page$ =   this.route.url.pipe(mergeMap(url =>{
+      let path = null;
+      if(url[0] && url[0]?.path){
+        path = url[0].path;
+      }
+
+      return this.cmsService.getPages.pipe(map(res=>{
+        return find(res, { url: path})
+      }));
+    }))
+
+
   }
 
 }

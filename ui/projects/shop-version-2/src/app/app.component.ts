@@ -12,9 +12,9 @@ import { SwUpdate } from '@angular/service-worker';
 import { NgcCookieConsentService, NgcInitializeEvent, NgcNoCookieLawEvent, NgcStatusChangeEvent } from 'ngx-cookieconsent';
 import Notiflix from 'notiflix';
 import { empty, Observable, of, Subscription } from 'rxjs';
-import { mergeMap } from 'rxjs/operators';
+import { map, mergeMap } from 'rxjs/operators';
 import { Shop } from 'src/app/lib/interfaces';
-import { ShopService } from 'src/app/lib/services';
+import { ShopService, CmsService } from 'src/app/lib/services';
 import { GeneralService, MessagingService } from './lib/services';
 
 
@@ -46,7 +46,8 @@ export class AppComponent implements OnInit, OnDestroy{
     private messagingService: MessagingService,
     private matSnackBar: MatSnackBar,
     private shopService: ShopService,
-    private ccService: NgcCookieConsentService) {
+    private ccService: NgcCookieConsentService,
+    private cmsService: CmsService) {
 
       swUpdate.available.subscribe(event => {
         console.log('current version is', event.current);
@@ -83,7 +84,9 @@ export class AppComponent implements OnInit, OnDestroy{
 
     this.shop$ = this.shopService.shopDetail()
 
-    this.shopUnsbScr = this.shopService.aShop.subscribe(res=>{
+    this.shopUnsbScr = this.shopService.aShop.pipe(mergeMap(res=>{
+      return this.cmsService.pages().pipe(map(pgs => res));
+    })).subscribe(res=>{
       this.shop = res;
     });
 

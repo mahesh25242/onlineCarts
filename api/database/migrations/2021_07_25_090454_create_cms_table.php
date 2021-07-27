@@ -17,7 +17,7 @@ class CreateCmsTable extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->string('url')->nullable();
-            $table->string('content')->nullable();
+            $table->text('content')->nullable();
             $table->string('shop_id')->nullable();
             $table->boolean('status')->default(1);
             $table->timestamps();

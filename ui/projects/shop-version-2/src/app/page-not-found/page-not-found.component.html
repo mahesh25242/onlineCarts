@@ -1,1 +1,12 @@
-<p>page-not-found works!</p>
+<div class="header-inner"></div>
+<div class="container">
+  <div *ngIf="page$ | async as page else nofoundErr ">
+    <h1 [innerHTML]="page.name"></h1>
+    <div [innerHTML]="page.content"></div>
+  </div>
+
+  <ng-template #nofoundErr>
+    <h1>404</h1>
+    Oh, The page you requested is not found!
+  </ng-template>
+</div>

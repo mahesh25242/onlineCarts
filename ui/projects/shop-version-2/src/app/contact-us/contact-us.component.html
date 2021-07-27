@@ -4,8 +4,8 @@
   <div *ngIf="shop$ | async as shop">
     <h3>{{shop?.name}}</h3>
 
-    EMail: {{shop?.email}}
-    Mobile: {{shop?.phone}}
+    <p>EMail: {{shop?.email}}</p>
+    <p>Mobile: {{shop?.phone}}</p>
 
     <address>{{shop?.address}}</address>
     {{shop?.country?.name}}, {{shop?.state?.name}}, {{shop?.city?.name}} - {{shop?.city?.pin}}

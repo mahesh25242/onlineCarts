@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { Observable, Subscription } from 'rxjs';
 import { BC, Shop } from 'src/app/lib/interfaces';
-import {  ShopService } from 'src/app/lib/services';
+import {  ShopService, CmsService } from 'src/app/lib/services';
 import { mergeMap, map, delay } from 'rxjs/operators';
 import { GeneralService as LocalGeneralService } from '../lib/services/index';
 import { GeneralService } from 'src/app/lib/services';
@@ -21,6 +21,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   @Output() public sidenavToggle = new EventEmitter();
   isSearch: boolean = false;
 
+  pages$: Observable<any>= null;
   isDemoSite: boolean = false;
   shop$: Observable<Shop>;
 
@@ -29,6 +30,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private shopService: ShopService,
     public generalService: GeneralService,
     public localGeneralService: LocalGeneralService,
+    private cmsService: CmsService
     ) {
 
     }
@@ -42,6 +44,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     this.shop$ = this.shopService.aShop;
 
+    this.pages$ = this.cmsService.getPages;
     this.bc$ = this.generalService.bc;
 
 
