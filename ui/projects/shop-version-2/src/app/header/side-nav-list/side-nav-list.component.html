@@ -3,7 +3,9 @@
       <mat-icon>home</mat-icon> <span class="nav-caption" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</span>
   </a>
   <ng-container *ngIf="pages$ | async as pages">
-    <mat-icon>assignment_ind</mat-icon> <a matRipple *ngFor="let page of pages" [routerLink]="[page.url]" routerLinkActive="active">{{page.name}}</a>
+     <a matRipple *ngFor="let page of pages" [routerLink]="[page.url]" routerLinkActive="active">
+      <mat-icon>assignment_ind</mat-icon><span class="nav-caption" [innerHTML]="page.name"></span>
+      </a>
     </ng-container>
   <a mat-list-item routerLink="/contact-us" (click)="onSidenavClose()" routerLinkActive="active">
       <mat-icon>account_balance</mat-icon><span class="nav-caption">Contact Us</span>
