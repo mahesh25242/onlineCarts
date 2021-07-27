@@ -4,8 +4,23 @@
   <div *ngIf="shop$ | async as shop">
     <h3>{{shop?.name}}</h3>
 
-    <p>EMail: {{shop?.email}}</p>
-    <p>Mobile: {{shop?.phone}}</p>
+    <p>
+
+      <a [href]="'mailto:'+shop?.email+'?subject='+shop?.name+' Enquiry'"  color="primary" aria-label="Whatsapp message" fxShow fxHide.gt-xs="true">
+        {{shop?.email}}
+      </a>
+
+    </p>
+    <p>
+      Mobile: {{shop?.phone}}
+      <a [href]="'https://api.whatsapp.com/send?phone='+shop?.phone" mat-mini-fab color="primary" aria-label="Whatsapp message" fxShow fxHide.gt-xs="true">
+        <mat-icon>question_answer</mat-icon>
+      </a>
+      &nbsp;
+      <a  [href]="'tel://'+shop?.phone"  mat-mini-fab color="primary" aria-label="Call" fxShow fxHide.gt-xs="true">
+        <mat-icon>phone</mat-icon>
+      </a>
+    </p>
 
     <address>{{shop?.address}}</address>
     {{shop?.country?.name}}, {{shop?.state?.name}}, {{shop?.city?.name}} - {{shop?.city?.pin}}

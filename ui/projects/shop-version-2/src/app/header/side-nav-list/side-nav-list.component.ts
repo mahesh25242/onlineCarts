@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
 import { User } from 'src/app/lib/interfaces';
-import { ShopService, UserService } from 'src/app/lib/services';
+import { CmsService, ShopService, UserService } from 'src/app/lib/services';
 import { environment } from '../../../environments/environment';
 
 @Component({
@@ -17,10 +17,12 @@ export class SideNavListComponent implements OnInit, OnDestroy {
   loggedUser$: Observable<User>;
   signOutSubscription: Subscription;
   isDemoSite: boolean = false;
+  pages$: Observable<any>= null;
 
   constructor(private userService: UserService,
     private router: Router,
-    private shopService: ShopService) { }
+    private shopService: ShopService,
+    private cmsService: CmsService) { }
 
   signOut(){
     this.signOutSubscription = this.userService.setUserLogin({action:'SignOut'}).pipe(mergeMap(sRes=>{
@@ -37,6 +39,8 @@ export class SideNavListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loggedUser$ = this.userService.getloggedUser;
+    this.pages$ = this.cmsService.getPages;
+
     this.isDemoSite = (environment.shopKey == environment.demoShopKey);
   }
 

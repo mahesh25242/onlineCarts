@@ -46,6 +46,10 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
             $router->post('/save','ShopBannerController@save');
         });
 
+        $router->group(['prefix' => 'cms'], function () use ($router) {
+            $router->get('/','CMSController@pages');
+        });
+
         $router->get('/manifest/{shopKey}','ShopsController@webmanifest');
 
         $router->get('/adminHomeStat','ShopsController@adminHomeStat');
@@ -58,6 +62,7 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
             $router->post('showProductDetails','ShopProductController@showProductDetails');
         });
     });
+
 
     $router->group(['middleware' => 'auth'], function () use ($router) {
 
@@ -105,7 +110,6 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
                 });
 
                 $router->group(['prefix' => 'cms'], function () use ($router) {
-                    $router->get('/','CMSController@pages');
                     $router->post('/store','CMSController@store');
                 });
             });
