@@ -358,12 +358,19 @@ class ShopProductController extends Controller
         $shopProduct->status = !$shopProduct->status;
         $shopProduct->save();
         return response(['message' => 'successfully changed status!', 'status' => true]);
-     }
+    }
 
     public function showProductDetails(Request $request){
         $shpProduct =  \App\Models\ShopProduct::with(["shopProductCategory", "shopProductPrimaryVariant.shopProductImage",
         "shopProductVariant.shopProductImage"])->where("status", 1)
         ->where('url', $request->input("url"))->get()->first();
+        return response($shpProduct);
+    }
+
+    public function showProduct(Request $request, $id=0){
+        $shpProduct =  \App\Models\ShopProduct::with(["shopProductCategory", "shopProductPrimaryVariant.shopProductImage",
+        "shopProductVariant.shopProductImage", "shopProductTag"])
+        ->find($id);
         return response($shpProduct);
     }
 

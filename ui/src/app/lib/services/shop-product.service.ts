@@ -48,6 +48,10 @@ export class ShopProductService {
     return this.http.post<ShopProduct>("/shop/product/showProductDetails", postData);
   }
 
+  showProduct(id: any = null): Observable<ShopProduct>{
+    return this.http.get<ShopProduct>(`/shop/product/showProduct/${id}`);
+  }
+
   showOrderDetail(postData: any = null): Observable<ShopOrder>{
     return this.http.post<ShopOrder>("/shop/showOrderDetail", postData);
   }

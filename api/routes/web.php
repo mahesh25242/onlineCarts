@@ -60,6 +60,7 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
             $router->post('showProducts','ShopProductController@showProducts');
             $router->get('showProductsFilters','ShopProductController@showProductsFilters');
             $router->post('showProductDetails','ShopProductController@showProductDetails');
+            $router->get('showProduct/{id}','ShopProductController@showProduct');
             $router->group(['prefix' => 'tags'], function () use ($router) {
                 $router->get('/','ShopProductTagController@index');
                 $router->post('/save','ShopProductTagController@store');

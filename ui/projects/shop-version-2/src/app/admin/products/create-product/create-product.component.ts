@@ -13,6 +13,7 @@ import { find } from 'lodash';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { CreateCategoryComponent } from '../../categories/create-category/create-category.component';
 import {NgxImageCompressService} from 'ngx-image-compress';
+import { ProductTag } from '../../modules/tag/interfaces';
 
 
 @Component({
@@ -25,7 +26,7 @@ export class CreateProductComponent implements OnInit, OnDestroy {
   selectedTab = new FormControl(0);
 
 
-  product: ShopProduct;
+  product: ShopProduct & { shop_product_tag?: ProductTag[]};
   createProductFrm: FormGroup;
   statuses = [
     {
@@ -251,7 +252,7 @@ export class CreateProductComponent implements OnInit, OnDestroy {
       status: [1, []],
       sortorder: [1, []],
       shop_product_category_id: [null, []],
-      shop_product_tags:this.formBuilder.array([]),
+      shop_product_tags: [null, []],
       varients:this.formBuilder.array([]),
     });
 
@@ -259,19 +260,7 @@ export class CreateProductComponent implements OnInit, OnDestroy {
 
 
 
-    this.productSubScr = this.route.params.pipe(mergeMap(res=>{
-      const id = parseInt(res.id, 10);
-      if(id){
-        return this.shopProductService.products.pipe(map(products =>{
-          const product = find(products.data, (res) => res.id==id);
-          return product;
-        }));
-      }else{
-        return of(null);
-      }
-
-    })).subscribe(product=> {
-      this.product = product;
+    this.product = this.route.snapshot.data?.product;
     this.generalService.bc$.next({
       siteName: environment.siteName,
       title: `${(this.product?.id) ? `Edit ${this.product.name}` : `Create new product`}`,
@@ -303,8 +292,11 @@ export class CreateProductComponent implements OnInit, OnDestroy {
         this.varients.controls = [];
         this.varients.push(this.formBuilder.group(this.varientFormBuild()));
       }
-    });
 
+
+      if(this.product.shop_product_tag && this.product.shop_product_tag.length){
+        this.createProductFrm.controls.shop_product_tags.setValue(this.product.shop_product_tag);
+      }
 
 
 

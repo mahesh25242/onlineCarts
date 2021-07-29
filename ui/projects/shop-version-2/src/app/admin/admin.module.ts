@@ -18,6 +18,7 @@ import { ProductsResolver } from './products/products-resolver';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { CreateCategoryComponent } from './categories/create-category/create-category.component';
 import { CreateProductComponent } from './products/create-product/create-product.component';
+import { CreateProductResolver } from './products/create-product/create-product-resolver';
 import { ShopDeliveryComponent } from './delivery/shop-delivery/shop-delivery.component';
 import { CreateShopDeliveryComponent } from './delivery/shop-delivery/create-shop-delivery/create-shop-delivery.component';
 import { ShopDetailsComponent } from './shop-details/shop-details.component';
@@ -57,6 +58,7 @@ import { ManageCmsPageComponent } from './components/manage-cms/manage-cms-page/
     ProductsResolver,
     ShopDeliveryAndSlotResolver,
     OrdersResolver,
+    CreateProductResolver
 
   ]
 })

@@ -5,11 +5,11 @@ import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
 import {MatChipInputEvent} from '@angular/material/chips';
 import { MatDialog } from '@angular/material/dialog';
 import {combineLatest, forkJoin, interval, merge, Observable} from 'rxjs';
-import {combineAll, map, mergeMap, startWith, take, tap} from 'rxjs/operators';
+import {combineAll, map, mergeMap, pluck, startWith, take, tap} from 'rxjs/operators';
 import { CreateProductTagComponent } from '../create-product-tag/create-product-tag.component';
 import { ProductTagService } from '../services';
 import { ProductTag } from '../interfaces';
-import { filter, startsWith } from 'lodash';
+import { filter, map as loadshMap } from 'lodash';
 
 @Component({
   selector: 'app-product-tag-selection',
@@ -17,14 +17,13 @@ import { filter, startsWith } from 'lodash';
   styleUrls: ['./product-tag-selection.component.scss']
 })
 export class ProductTagSelectionComponent implements OnInit  {
-  @Input() shop_product_tags: FormArray;
+  @Input() shop_product_tags: FormControl;
   tagsApi$: Observable<ProductTag[]>;
   tags$: Observable<ProductTag[]>;
   selectable = true;
   removable = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
   fruitCtrl = new FormControl();
-  filteredFruits: Observable<string[]>;
   fruits: string[] = [];
 
 
@@ -40,12 +39,16 @@ export class ProductTagSelectionComponent implements OnInit  {
 
     if (index >= 0) {
       this.fruits.splice(index, 1);
-      this.shop_product_tags.removeAt(index);
+      let shop_product_tags = this.shop_product_tags.value;
+      shop_product_tags.splice(index, 1);
+      this.shop_product_tags.setValue(shop_product_tags);
     }
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
-    this.shop_product_tags.push(new FormControl(event.option.value));
+    let shop_product_tags = this.shop_product_tags.value ?? [];
+    shop_product_tags.push(event.option.value);
+    this.shop_product_tags.setValue(shop_product_tags);
     this.fruits.push(event.option.viewValue);
     this.fruitInput.nativeElement.value = '';
     this.fruitCtrl.setValue(null);
@@ -61,7 +64,10 @@ export class ProductTagSelectionComponent implements OnInit  {
     dialogRef.afterClosed().subscribe(result => {
       if(result?.name){
         this.fruits.push(result?.name);
-        this.shop_product_tags.push(new FormControl(result));
+        let shop_product_tags = this.shop_product_tags.value ?? [];
+        shop_product_tags.push(result);
+
+        this.shop_product_tags.setValue(shop_product_tags);
       }
 
     });
@@ -69,6 +75,9 @@ export class ProductTagSelectionComponent implements OnInit  {
   }
   ngOnInit(){
 
+
+
+    this.fruits = loadshMap(this.shop_product_tags.value, 'name');
 
     this.tagsApi$ = this.productTagService.tags();
 

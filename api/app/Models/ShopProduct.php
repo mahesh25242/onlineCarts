@@ -96,4 +96,17 @@ class ShopProduct extends Model implements AuthenticatableContract, Authorizable
         return $this->hasMany('App\Models\ShopProductTagMap');
     }
 
+    public function shopProductTag()
+    {
+        return $this->hasManyThrough(
+            'App\Models\ShopProductTag',
+            'App\Models\ShopProductTagMap',
+            'shop_product_id', // Foreign key on users table...
+            'id', // Foreign key on posts table...
+            'id', // Local key on countries table...
+            'shop_product_tag_id' // Local key on users table...
+        );
+    }
+
+
 }

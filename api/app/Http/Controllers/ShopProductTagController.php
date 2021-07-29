@@ -39,7 +39,13 @@ class ShopProductTagController extends Controller
         }
         $input["shop_category_id"] = $shop->shop_category_id;
 
-        $shopCategory = \App\Models\ShopProductTag::create($input);
+        $shopCategory = \App\Models\ShopProductTag::updateOrCreate(
+            [
+                "shop_category_id" => $shop->shop_category_id,
+                "name" => $request->input("name", null)
+            ]
+        );
+
         return response(['data' => $shopCategory, 'message' => 'Successfully created tag!', 'status' => true]);
     }
 
