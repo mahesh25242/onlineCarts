@@ -80,6 +80,7 @@
             </div>
 
             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start">
+              <app-product-tag-selection fxFlex="33%" fxFlex.xs="100%" [shop_product_tags]="f.shop_product_tags"></app-product-tag-selection>
               <mat-form-field fxFlex="33%" fxFlex.xs="100%" appearance="standard">
                 <mat-label>Status</mat-label>
                 <mat-select formControlName="status" required>

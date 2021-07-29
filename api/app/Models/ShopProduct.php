@@ -91,5 +91,9 @@ class ShopProduct extends Model implements AuthenticatableContract, Authorizable
         return $this->belongsTo('App\Models\ShopProductCategory');
     }
 
+    public function shopProductTagMap()
+    {
+        return $this->hasMany('App\Models\ShopProductTagMap');
+    }
 
 }

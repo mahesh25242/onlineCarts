@@ -94,12 +94,15 @@ export class CreateProductComponent implements OnInit, OnDestroy {
     });
 
 
+
     formData.append('id', `${this.f.id.value}`);
     formData.append('name', this.f.name.value);
     formData.append('description', this.f.description.value);
     formData.append('status', (this.f.status.value) ? '1' : '0');
     formData.append('sortorder', (this.f.sortorder.value) ? this.f.sortorder.value : 0);
     formData.append('shop_product_category_id', JSON.stringify(this.f.shop_product_category_id.value));
+    if(this.f.shop_product_tags.value)
+      formData.append('shop_product_tags', JSON.stringify(this.f.shop_product_tags.value));
 
 
 
@@ -248,6 +251,7 @@ export class CreateProductComponent implements OnInit, OnDestroy {
       status: [1, []],
       sortorder: [1, []],
       shop_product_category_id: [null, []],
+      shop_product_tags:this.formBuilder.array([]),
       varients:this.formBuilder.array([]),
     });
 

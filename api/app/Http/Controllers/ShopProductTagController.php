@@ -1,0 +1,47 @@
+<?php
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Validator;
+
+class ShopProductTagController extends Controller
+{
+
+
+    public function index(){
+        $shopProductTag = \App\Models\ShopProductTag::all();
+        return response($shopProductTag);
+    }
+
+
+    public function store(Request $request){
+        $validationField = [
+            'name' => ['required'],
+        ];
+
+
+
+        $validator = Validator::make($request->all(), $validationField);
+
+        if($validator->fails()){
+            return response(['message' => 'Validation errors', 'errors' =>  $validator->errors(), 'status' => false], 422);
+        }
+        $input = $request->all();
+        $shopKey = $request->header('shopKey');
+        if($shopKey){
+            $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
+            $shopId = ($shop) ? $shop->id : 0;
+        }else{
+            $shopKey = $request->input("shop_key", '');
+            $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
+            $shopId = ($shop) ? $shop->id : 0;
+        }
+        $input["shop_category_id"] = $shop->shop_category_id;
+
+        $shopCategory = \App\Models\ShopProductTag::create($input);
+        return response(['data' => $shopCategory, 'message' => 'Successfully created tag!', 'status' => true]);
+    }
+
+
+}

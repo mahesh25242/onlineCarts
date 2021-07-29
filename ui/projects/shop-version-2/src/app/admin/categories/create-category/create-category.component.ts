@@ -65,12 +65,10 @@ export class CreateCategoryComponent implements OnInit, OnDestroy {
       this.onCreation.emit(res.data);
       return this.shopProductCategoryService.listCategories();
     })).subscribe(res=>{
-      Notiflix.Loading.Remove();
       Notiflix.Notify.Success(`Successfully saved category `);
 
       this.dialogRef.close();
     }, error=>{
-      Notiflix.Loading.Remove();
       if(error.status == 422){
         for(let result in this.createCatFrm.controls){
           if(error.error.errors[result]){
@@ -80,6 +78,8 @@ export class CreateCategoryComponent implements OnInit, OnDestroy {
           }
         }
       }
+    }).add(() =>{
+      Notiflix.Loading.Remove();
     });
 
   }

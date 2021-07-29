@@ -1,0 +1,28 @@
+
+<h1 mat-dialog-title>
+  Create Product Tag
+</h1>
+<form [formGroup]="createTagFrm" (ngSubmit)="save()">
+  <div mat-dialog-content>
+    <div>
+      <mat-form-field class="full-width-text" appearance="standard">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" placeholder="Ex. Cake" required maxlength="200">
+        <mat-hint align="end" *ngIf="f.name?.value?.length">{{f.name?.value?.length}} / 200</mat-hint>
+        <mat-error *ngIf="f.name.errors && f.name.errors.error">
+          {{f.name.errors.error}}
+        </mat-error>
+      </mat-form-field>
+
+
+
+
+    </div>
+
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-stroked-button type="button" (click)="dialogRef.close()">Close</button>
+    <button mat-raised-button color="primary" type="submit">Save changes</button>
+  </div>
+</form>
+

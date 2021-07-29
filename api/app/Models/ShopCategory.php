@@ -60,6 +60,15 @@ class ShopCategory extends Model implements AuthenticatableContract, Authorizabl
         return $this->hasMany('App\Models\Shop');
     }
 
+    public function shopProductTag()
+    {
+        return $this->hasMany('App\Models\ShopProductTag');
+    }
+
+    public function shopProductVariantTag()
+    {
+        return $this->hasMany('App\Models\ShopProductVariantTag');
+    }
 
 
 }

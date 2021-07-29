@@ -137,6 +137,28 @@ class ShopProductController extends Controller
             $shopProduct = \App\Models\ShopProduct::create($productIns);
         }
 
+
+
+        if( $request->input("shop_product_tags", null) && $request->input("shop_product_tags", null)!= 'null'){
+            $shop_product_tags = $request->input("shop_product_tags", null);
+            if($shop_product_tags){
+                $shop_product_tags = json_decode($shop_product_tags, true);
+                foreach( $shop_product_tags as $tags){
+                    $shopProductTagMap = \App\Models\ShopProductTagMap::updateOrCreate(
+                        [
+                            'shop_product_id' => $shopProduct->id,
+                            'shop_product_tag_id' => $tags["id"]
+                        ],
+                        [
+                            'shop_product_id' => $shopProduct->id,
+                            'shop_product_tag_id' => $tags["id"]
+                        ]
+                    );
+
+                }
+            }
+        }
+
         $variants = $request->input("variants", null);
         if($shopProduct && $variants && is_array($variants) && !empty($variants)){
             $insVariantId = [];

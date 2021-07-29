@@ -73,4 +73,9 @@ class ShopProductVariant extends Model implements AuthenticatableContract, Autho
         return $this->hasMany('App\Models\ShopOrderItem');
     }
 
+    public function shopProductVariantTagMap()
+    {
+        return $this->hasMany('App\Models\ShopProductVariantTagMap');
+    }
+
 }

@@ -4,6 +4,7 @@ import { EditorModule } from '@tinymce/tinymce-angular';
 
 
 import { SharedModuleModule } from '../lib/shared-module/shared-module.module';
+import { TagModule } from './modules';
 
 import {  AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin.component';
@@ -48,7 +49,8 @@ import { ManageCmsPageComponent } from './components/manage-cms/manage-cms-page/
     CommonModule,
     AdminRoutingModule,
     SharedModuleModule,
-    EditorModule
+    EditorModule,
+    TagModule
   ],
   providers:[
     CategoriesResolver,

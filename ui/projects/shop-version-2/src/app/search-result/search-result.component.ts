@@ -116,7 +116,8 @@ export class SearchResultComponent implements OnInit {
         Notiflix.Loading.Arrows();
         const postData = {
           q: res?.q,
-          pageSize : environment.productListPerPage
+          pageSize : environment.productListPerPage,
+          selectedItems: this.selectedItems
         }
         return this.shopProductService.showProducts(1, postData);
       }), tap(res=> {
