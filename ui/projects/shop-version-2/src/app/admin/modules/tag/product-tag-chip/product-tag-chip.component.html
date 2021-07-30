@@ -1,0 +1,11 @@
+<mat-list  *ngIf="product?.shop_product_tag">
+  <div mat-subheader>Key Features</div>
+  <div fxLayout="row wrap"
+  fxLayoutAlign="space-between">
+    <div [fxFlex.gt-sm]="(100/4)" [fxFlex.lt-sm]="(100/2)"
+    *ngFor="let spt of product?.shop_product_tag" fxLayoutAlign="0px 0px">
+      <mat-icon color="primary">label_important</mat-icon>
+        <span>{{spt.name}}</span>
+    </div>
+  </div>
+</mat-list>

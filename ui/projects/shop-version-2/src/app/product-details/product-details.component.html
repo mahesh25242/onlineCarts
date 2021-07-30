@@ -3,7 +3,7 @@
   <div class="container">
     <mat-cart>
       <mat-card-header>
-        <mat-card-header-text><h1 class="product-name-color">{{ product.name }}</h1></mat-card-header-text>
+        <mat-card-header-text><h1 class="product-name-color">{{ product.name }} [ {{ product?.shop_product_category?.name }} ]</h1></mat-card-header-text>
       </mat-card-header>
       <mat-card-subtitle><h5 class="product-name-color">{{ product.shop_product_selected_variant?.name }}</h5></mat-card-subtitle>
       <form [formGroup]="addToCartFrm" (ngSubmit)="addToCart()">
@@ -74,6 +74,7 @@
             </div>
 
             <h5>Choosen Varient {{product.name}} - {{product.shop_product_selected_variant.name}}</h5>
+            <app-product-tag-chip [product]="product"></app-product-tag-chip>
             <p>{{product.shop_product_selected_variant?.description}}</p>
 
             <p *ngIf="product.description" [innerHTML]="product.description"></p>

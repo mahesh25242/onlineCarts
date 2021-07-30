@@ -11,7 +11,7 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { httpInterceptorProviders } from './lib/interceptor'
 
 import { SharedModuleModule } from './lib/shared-module/shared-module.module';
-
+import { TagModule } from './admin/modules';
 import * as Hammer from 'hammerjs';
 
 import {MatToolbarModule} from '@angular/material/toolbar';
@@ -125,7 +125,8 @@ const cookieConfig:NgcCookieConsentConfig = {
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     AngularFireModule.initializeApp(environment.firebaseConfig),
     NgcCookieConsentModule.forRoot(cookieConfig),
-    NgxSliderModule
+    NgxSliderModule,
+    TagModule
   ],
   providers: [
     httpInterceptorProviders,
