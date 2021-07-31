@@ -10,7 +10,7 @@ mat-card{
   background-size: cover;
   background-position: center;
   cursor: pointer;
-  min-height: 130px;
+  min-height: 140px;
 }
 strike{
   color: #adacac;
@@ -32,3 +32,26 @@ button.active{
 }
 
 
+.multiple-varient{
+  position: absolute;
+  top: 19px;
+  right: 1.4em;
+  list-style: none;
+  margin-left: 25%;
+  z-index: 2;
+  li{
+    width: 15px;
+    height: 15px;
+    margin: 4px;
+    border: 1px solid #000000;
+    display: inline-block;
+    a{
+      display: block;
+      width: 100%;
+      height: 100%;
+      &.active{
+        background-color: #000000;
+      }
+    }
+  }
+}

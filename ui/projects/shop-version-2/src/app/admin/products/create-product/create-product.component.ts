@@ -179,6 +179,7 @@ export class CreateProductComponent implements OnInit, OnDestroy {
   //        console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
 
 
+
           stat.get('currImage').setValue(result)
           fetch(result)
           .then(res => res.blob())

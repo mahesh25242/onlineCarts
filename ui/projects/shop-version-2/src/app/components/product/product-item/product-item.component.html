@@ -1,4 +1,10 @@
-<mat-card *ngIf="product$ | async as product" class="animate__animated ">
+<mat-card     (swipeleft)="onSwipeLeft($event)"
+(swiperight)="onSwipeRight($event)" *ngIf="product$ | async as product" class="animate__animated ">
+  <ul *ngIf="product.shop_product_variant.length > 1" class="multiple-varient">
+    <li *ngFor="let shop_product_variant of product.shop_product_variant">
+      <a href="javascript:{}" (click)="changeVarient(shop_product_variant)" [ngClass]="{'active': shop_product_variant.id == product.shop_product_primary_variant.id}"></a>
+    </li>
+  </ul>
   <div class="mat-card-headerimage" matRipple [matRippleCentered]="true"
   [ngStyle]="{'background-image': (product.shop_product_primary_variant?.shop_product_image?.image) ? 'url(' +  product.shop_product_primary_variant.shop_product_image.image_path + ')' : 'url(/assets/no-image.jpg)'}"
   [routerLink]="'/'+product.shop_product_category?.url+'/'+product.url">
@@ -11,7 +17,8 @@
   <mat-card-header>
 
     <mat-card-title class="product-name-color" matRipple [matRippleCentered]="true" [routerLink]="'/'+product.shop_product_category?.url+'/'+product.url"> {{ product.name }}</mat-card-title>
-    <mat-card-subtitle>{{ product.shop_product_primary_variant?.name}} <span *ngIf="product.shop_product_variant.length > 1">
+    <mat-card-subtitle>{{ product.shop_product_primary_variant?.name}}
+      <span *ngIf="product.shop_product_variant.length > 1">
       | {{ product.shop_product_variant.length }} Varients </span> </mat-card-subtitle>
   </mat-card-header>
 
