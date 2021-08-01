@@ -52,8 +52,13 @@ class ShopProductController extends Controller
             $shopId = ($shop) ? $shop->id : 0;
         }
 
-        $products = \App\Models\ShopProduct::with(["shopProductCategory", "shopProductPrimaryVariant.shopProductImage",
-        "shopProductVariant.shopProductImage"])->where("shop_id", $shopId);
+        $products = \App\Models\ShopProduct::with([
+            "shopProductCategory",
+            "shopProductPrimaryVariant.shopProductImage",
+            "shopProductPrimaryVariant.shopProductVariantTag",
+            "shopProductVariant.shopProductImage",
+            "shopProductVariant.shopProductVariantTag",
+        ])->where("shop_id", $shopId);
 
         if($request->input("status", 0)){
             $products =  $products->where("status", $request->input("status", 0));
@@ -163,6 +168,12 @@ class ShopProductController extends Controller
         if($shopProduct && $variants && is_array($variants) && !empty($variants)){
             $insVariantId = [];
             foreach($variants as $ind=>$variant){
+                $shop_product_varient_tags = (isset($variant["shop_product_varient_tags"]) ? $variant["shop_product_varient_tags"] : null);
+                if($shop_product_varient_tags){
+                    $shop_product_varient_tags = json_decode($shop_product_varient_tags, true);
+                }
+
+
                 $shopProductVariant = \App\Models\ShopProductVariant::updateOrCreate(
                     [
                      "shop_product_id" =>  $shopProduct->id,
@@ -186,6 +197,20 @@ class ShopProductController extends Controller
 
                 $productImg = null;
 
+                if($shop_product_varient_tags && is_array($shop_product_varient_tags )){
+                    foreach($shop_product_varient_tags  as $shop_product_varient_tag ){
+                        \App\Models\ShopProductVariantTagMap::updateOrCreate(
+                            [
+                                "shop_product_variant_id" => $shopProductVariant->id,
+                                "shop_product_variant_tag_id" => $shop_product_varient_tag["id"],
+                            ],
+                            [
+                                "shop_product_variant_id" => $shopProductVariant->id,
+                                "shop_product_variant_tag_id" => $shop_product_varient_tag["id"],
+                            ]
+                        );
+                    }
+                }
                 if ($request->hasFile("variants.{$ind}.image")) {
                     $uniqid = Str::random(9);
                     $productImg = sprintf("%s.%s",time().$uniqid, $request->file("variants.{$ind}.image")->extension());
@@ -361,8 +386,13 @@ class ShopProductController extends Controller
     }
 
     public function showProductDetails(Request $request){
-        $shpProduct =  \App\Models\ShopProduct::with(["shopProductCategory", "shopProductPrimaryVariant.shopProductImage",
-        "shopProductVariant.shopProductImage", "shopProductTag"])->where("status", 1)
+        $shpProduct =  \App\Models\ShopProduct::with([
+            "shopProductCategory",
+            "shopProductPrimaryVariant.shopProductImage",
+            "shopProductPrimaryVariant.shopProductVariantTag",
+            "shopProductVariant.shopProductImage",
+            "shopProductVariant.shopProductVariantTag",
+            "shopProductTag"])->where("status", 1)
         ->where('url', $request->input("url"))->get()->first();
         return response($shpProduct);
     }

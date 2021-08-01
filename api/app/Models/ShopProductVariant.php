@@ -78,4 +78,16 @@ class ShopProductVariant extends Model implements AuthenticatableContract, Autho
         return $this->hasMany('App\Models\ShopProductVariantTagMap');
     }
 
+    public function shopProductVariantTag()
+    {
+        return $this->hasManyThrough(
+            'App\Models\ShopProductVariantTag',
+            'App\Models\ShopProductVariantTagMap',
+            'shop_product_variant_id', // Foreign key on users table...
+            'id', // Foreign key on posts table...
+            'id', // Local key on countries table...
+            'shop_product_variant_tag_id' // Local key on users table...
+        );
+    }
+
 }

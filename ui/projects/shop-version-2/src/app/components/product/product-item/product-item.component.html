@@ -1,6 +1,6 @@
 <mat-card     (swipeleft)="onSwipeLeft($event)"
 (swiperight)="onSwipeRight($event)" *ngIf="product$ | async as product" class="animate__animated ">
-  <ul *ngIf="product.shop_product_variant.length > 1" class="multiple-varient">
+  <ul  *ngIf="product.shop_product_variant.length > 1" class="multiple-varient">
     <li *ngFor="let shop_product_variant of product.shop_product_variant">
       <a href="javascript:{}" (click)="changeVarient(shop_product_variant)" [ngClass]="{'active': shop_product_variant.id == product.shop_product_primary_variant.id}"></a>
     </li>

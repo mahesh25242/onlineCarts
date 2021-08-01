@@ -64,6 +64,10 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
             $router->group(['prefix' => 'tags'], function () use ($router) {
                 $router->get('/','ShopProductTagController@index');
                 $router->post('/save','ShopProductTagController@store');
+                $router->group(['prefix' => 'varient'], function () use ($router) {
+                    $router->get('/','ShopProductVarientTagController@index');
+                    $router->post('/save','ShopProductVarientTagController@store');
+                });
             });
         });
     });

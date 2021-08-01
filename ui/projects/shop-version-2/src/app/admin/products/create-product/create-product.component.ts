@@ -80,6 +80,7 @@ export class CreateProductComponent implements OnInit, OnDestroy {
     const formData = new FormData();
 
     this.varients.controls.map((res: FormGroup, i) =>{
+
       formData.append(`variants[${i}][id]`, `${(res.controls.id.value) ? res.controls.id.value : 0}`);
       formData.append(`variants[${i}][status]`, `${(res.controls.status.value) ? res.controls.status.value : ''}`);
       formData.append(`variants[${i}][name]`, `${(res.controls.name.value) ? res.controls.name.value : ''}`);
@@ -91,9 +92,11 @@ export class CreateProductComponent implements OnInit, OnDestroy {
       formData.append(`variants[${i}][price]`, `${(res.controls.price.value) ? res.controls.price.value : 0}`);
       formData.append(`variants[${i}][sortorder]`, `${(res.controls.sortorder.value) ? res.controls.sortorder.value : 0}`);
       formData.append(`variants[${i}][image]`, res.controls.image.value);
+      if(res.controls.shop_product_varient_tags.value && res.controls.shop_product_varient_tags.value.length){
+        formData.append(`variants[${i}][shop_product_varient_tags]`, `${(res.controls.shop_product_varient_tags.value) ?  JSON.stringify(res.controls.shop_product_varient_tags.value): ''}`);
+      }
 
     });
-
 
 
     formData.append('id', `${this.f.id.value}`);
@@ -234,7 +237,8 @@ export class CreateProductComponent implements OnInit, OnDestroy {
         price: new FormControl((vrnt?.price ? vrnt?.price : 0)),
         sortorder: new FormControl((vrnt?.sortorder ? vrnt?.sortorder : 0)),
         image: new FormControl(null),
-        currImage: new FormControl(img)
+        currImage: new FormControl(img),
+        shop_product_varient_tags:new FormControl(vrnt?.shop_product_varient_tags)
       }
   }
 
