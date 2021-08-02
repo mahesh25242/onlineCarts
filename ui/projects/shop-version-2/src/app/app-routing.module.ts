@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 import { CartDetailsComponent } from './cart-details/cart-details.component';
 import { ProductResolver } from './components/product/product-resolver';
 import { ProductComponent } from './components/product/product.component';
@@ -70,7 +70,12 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {scrollPositionRestoration: 'enabled'})],
+  imports: [RouterModule.forRoot(routes, {
+    scrollPositionRestoration: 'top',
+    preloadingStrategy: PreloadAllModules,
+    relativeLinkResolution: 'legacy',
+  //  enableTracing: true
+  })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
