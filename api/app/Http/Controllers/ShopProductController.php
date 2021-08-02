@@ -398,8 +398,12 @@ class ShopProductController extends Controller
     }
 
     public function showProduct(Request $request, $id=0){
-        $shpProduct =  \App\Models\ShopProduct::with(["shopProductCategory", "shopProductPrimaryVariant.shopProductImage",
-        "shopProductVariant.shopProductImage", "shopProductTag"])
+        $shpProduct =  \App\Models\ShopProduct::with(["shopProductCategory",
+        "shopProductPrimaryVariant.shopProductImage",
+        "shopProductPrimaryVariant.shopProductVariantTag",
+        "shopProductVariant.shopProductImage",
+        "shopProductVariant.shopProductVariantTag",
+        "shopProductTag"])
         ->find($id);
         return response($shpProduct);
     }

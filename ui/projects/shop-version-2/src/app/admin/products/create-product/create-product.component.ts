@@ -225,6 +225,7 @@ export class CreateProductComponent implements OnInit, OnDestroy {
   }
 
   varientFormBuild(vrnt=null, img=null){
+
       return {
         id: new FormControl((vrnt?.id ? vrnt?.id : 0)),
         status: new FormControl((vrnt?.status ? vrnt?.status : 1)),
@@ -238,7 +239,7 @@ export class CreateProductComponent implements OnInit, OnDestroy {
         sortorder: new FormControl((vrnt?.sortorder ? vrnt?.sortorder : 0)),
         image: new FormControl(null),
         currImage: new FormControl(img),
-        shop_product_varient_tags:new FormControl(vrnt?.shop_product_varient_tags)
+        shop_product_varient_tags:new FormControl(vrnt?.shop_product_variant_tag)
       }
   }
 
