@@ -23,9 +23,9 @@
             <div fxFlex="10%" fxFlex.xs="100%">
               <a [routerLink]="'/'+item.product.shop_product_category?.url+'/'+item.product.url">
                 <div class="product-img" [ngStyle]="{'background-image': 'url(' + ((item.product?.shop_product_selected_variant?.shop_product_image?.image) ?  item.product.shop_product_selected_variant.shop_product_image.image_path : 'assets/no-image.jpg') + ')'}">
-                  <div *ngIf="item.product?.shop_product_selected_variant?.type.id"
+                  <!-- <div *ngIf="item.product?.shop_product_selected_variant?.type.id"
                   [matTooltip]="(item.product?.shop_product_selected_variant?.type.id == 1) ? 'Veg' : ( (item.product?.shop_product_selected_variant?.type.id == 2) ? 'Non-Veg':'' )"
-                [ngClass]="{'veg': item.product?.shop_product_selected_variant?.type.id == 1, 'nonveg': item.product?.shop_product_selected_variant?.type.id == 2}"></div>
+                [ngClass]="{'veg': item.product?.shop_product_selected_variant?.type.id == 1, 'nonveg': item.product?.shop_product_selected_variant?.type.id == 2}"></div> -->
                 <div fxShow fxHide.gt-xs="true" class="inner-img"></div>
                 </div>
               </a>
@@ -49,6 +49,11 @@
                 <div>
                   <small class="block pl-1" *ngIf="item.message"> {{item.message}}</small>
                 </div>
+
+                <mat-chip-list aria-label="varient tag" *ngIf="item.product.shop_product_selected_variant?.shop_product_variant_tag && item.product.shop_product_selected_variant?.shop_product_variant_tag.length">
+                  <mat-chip color="accent" selected class="animate__animated animate__flipInX" *ngFor="let shop_product_variant_tag of item.product.shop_product_selected_variant?.shop_product_variant_tag">{{shop_product_variant_tag.name}}</mat-chip>
+                </mat-chip-list>
+
                 <div [ngClass.xs]="'text-center'">
                   Quantity:
                   <button type="button" mat-icon-button color="primary" (click)="updateCart(item, '-')">

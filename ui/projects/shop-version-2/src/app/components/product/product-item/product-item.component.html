@@ -8,9 +8,9 @@
   <div class="mat-card-headerimage" matRipple [matRippleCentered]="true"
   [ngStyle]="{'background-image': (product.shop_product_primary_variant?.shop_product_image?.image) ? 'url(' +  product.shop_product_primary_variant.shop_product_image.image_path + ')' : 'url(/assets/no-image.jpg)'}"
   [routerLink]="'/'+product.shop_product_category?.url+'/'+product.url">
-  <div *ngIf="product.shop_product_primary_variant?.type.id"
+  <!-- <div *ngIf="product.shop_product_primary_variant?.type.id"
   [matTooltip]="(product?.shop_product_selected_variant?.type.id == 1) ? 'Veg' : ( (product?.shop_product_selected_variant?.type.id == 2) ? 'Non-Veg':'' )"
-   [ngClass]="{'veg': product.shop_product_primary_variant?.type.id == 1, 'nonveg': product.shop_product_primary_variant?.type.id == 2}"></div>
+   [ngClass]="{'veg': product.shop_product_primary_variant?.type.id == 1, 'nonveg': product.shop_product_primary_variant?.type.id == 2}"></div> -->
     <!-- <img mat-card-image *ngIf="product.shop_product_primary_variant?.shop_product_image?.image" [src]="environment.siteAddress+'/assets/shop/'+environment.shopKey+'/products/'+ product.shop_product_primary_variant.shop_product_image.image" [alt]="product.shop_product_primary_variant.name"> -->
   </div>
 
@@ -21,6 +21,10 @@
       <span *ngIf="product.shop_product_variant.length > 1">
       | {{ product.shop_product_variant.length }} Varients </span> </mat-card-subtitle>
   </mat-card-header>
+
+  <mat-chip-list aria-label="varient tag" *ngIf="product.shop_product_primary_variant?.shop_product_variant_tag && product.shop_product_primary_variant?.shop_product_variant_tag.length">
+    <mat-chip color="accent" selected class="animate__animated animate__flipInX" *ngFor="let shop_product_variant_tag of product.shop_product_primary_variant?.shop_product_variant_tag">{{shop_product_variant_tag.name}}</mat-chip>
+  </mat-chip-list>
 
   <!--<mat-card-content>
     <p [innerHTML]="product.description"></p>
