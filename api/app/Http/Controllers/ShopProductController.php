@@ -143,7 +143,7 @@ class ShopProductController extends Controller
         }
 
 
-
+        $spt = [];
         if( $request->input("shop_product_tags", null) && $request->input("shop_product_tags", null)!= 'null'){
             $shop_product_tags = $request->input("shop_product_tags", null);
             if($shop_product_tags){
@@ -159,10 +159,13 @@ class ShopProductController extends Controller
                             'shop_product_tag_id' => $tags["id"]
                         ]
                     );
-
                 }
+                $spt[] = $shopProduct->id;
             }
         }
+
+        \App\Models\ShopProductTagMap::whereNotIn("id", $spt)
+                ->where("shop_product_id",  $shopProduct->id)->delete();
 
         $variants = $request->input("variants", null);
         if($shopProduct && $variants && is_array($variants) && !empty($variants)){
@@ -197,9 +200,10 @@ class ShopProductController extends Controller
 
                 $productImg = null;
 
+                $spvt = [];
                 if($shop_product_varient_tags && is_array($shop_product_varient_tags )){
                     foreach($shop_product_varient_tags  as $shop_product_varient_tag ){
-                        \App\Models\ShopProductVariantTagMap::updateOrCreate(
+                        $shopProductVariantTagMap = \App\Models\ShopProductVariantTagMap::updateOrCreate(
                             [
                                 "shop_product_variant_id" => $shopProductVariant->id,
                                 "shop_product_variant_tag_id" => $shop_product_varient_tag["id"],
@@ -209,8 +213,15 @@ class ShopProductController extends Controller
                                 "shop_product_variant_tag_id" => $shop_product_varient_tag["id"],
                             ]
                         );
+                        $spvt[] = $shopProductVariantTagMap->id;
                     }
                 }
+
+
+                \App\Models\ShopProductVariantTagMap::whereNotIn("id", $spvt)
+                ->where("shop_product_variant_id",  $shopProductVariant->id)->delete();
+
+
                 if ($request->hasFile("variants.{$ind}.image")) {
                     $uniqid = Str::random(9);
                     $productImg = sprintf("%s.%s",time().$uniqid, $request->file("variants.{$ind}.image")->extension());
