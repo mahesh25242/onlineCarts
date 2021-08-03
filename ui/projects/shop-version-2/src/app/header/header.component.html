@@ -1,6 +1,7 @@
 <mat-toolbar color="primary">
   <ng-container *ngIf="(bc$ | async) as bc">
-    <div *ngIf="bc?.backUrl && !isSearch" fxHide.gt-xs="true">
+    <div *ngIf="bc?.backUrl && !isSearch" fxHide.gt-xs="true"
+     class="animate__animated animate__slideInLeft">
       <button mat-icon-button [routerLink]="bc?.backUrl">
           <mat-icon>arrow_back_ios</mat-icon>
       </button>
