@@ -5,7 +5,16 @@
       <ngx-slider *ngIf="options.ceil" [(value)]="value" [(highValue)]="highValue"
       [options]="options" (userChange)="changePrice()"></ngx-slider>
 
-      <div *ngIf="varients && varients.length">
+
+      <div class="w-90" *ngIf="categories$ | async as categories">
+        <mat-selection-list #shoes>
+          <mat-list-option *ngFor="let cat of categories">
+            {{cat.name}}
+          </mat-list-option>
+        </mat-selection-list>
+
+      </div>
+      <div *ngIf="varients && varients.length" class="w-90">
         <h3>Varients</h3>
         <mat-chip-list aria-label="Fish selection" [multiple]="true" >
           <mat-chip *ngFor="let variant of varients"
@@ -16,7 +25,7 @@
         </mat-chip-list>
       </div>
       <br/>
-      <div *ngIf="type && type.length">
+      <div *ngIf="type && type.length" class="w-90">
         <h3>Type</h3>
         <mat-chip-list aria-label="Fish selection" [multiple]="true">
           <mat-chip *ngFor="let tp of type"  [selected]="(selectedItems?.types.includes(tp))" (click)="searchSelect(tp, 'types')">{{tp}}</mat-chip>

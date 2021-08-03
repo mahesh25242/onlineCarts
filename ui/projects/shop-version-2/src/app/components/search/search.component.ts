@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { debounceTime, takeUntil, tap } from 'rxjs/operators';
 import { ShopProductCategoryService, ShopProductService } from 'src/app/lib/services';
@@ -25,6 +25,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     private shopProductCategoryService: ShopProductCategoryService,
     private shopProductService: ShopProductService,
     private router: Router,
+    private route: ActivatedRoute
     //private senseService: SenseService
     ) {
 
@@ -57,6 +58,9 @@ export class SearchComponent implements OnInit, OnDestroy {
       q: [null, []]
     });
 
+    this.route.params.pipe(takeUntil(this.destroy$)).subscribe(res=>{
+      this.f.q.setValue(res?.q);
+    })
 
 
   }

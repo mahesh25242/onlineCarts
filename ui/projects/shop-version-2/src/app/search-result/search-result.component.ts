@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { mergeMap, tap } from 'rxjs/operators';
-import { ShopProduct, ShopProductWithPagination } from 'src/app/lib/interfaces';
-import { ShopProductService } from 'src/app/lib/services';
+import { ShopProduct, ShopProductCategory, ShopProductWithPagination } from 'src/app/lib/interfaces';
+import { ShopProductCategoryService, ShopProductService } from 'src/app/lib/services';
 import { environment } from '../../environments/environment';
 import Notiflix from "notiflix";
 import { pick, uniq } from 'lodash';
@@ -18,9 +18,9 @@ import { MatDrawer } from '@angular/material/sidenav';
 })
 export class SearchResultComponent implements OnInit {
   private fitered$: BehaviorSubject<string[]> = new BehaviorSubject<string[]>(null);
-  private triggerFilter$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
 
   products$: Observable<ShopProductWithPagination>;
+  categories$: Observable<ShopProductCategory[]>;
   varients: string[] = [];
   type: string[] = [];
   selectedItems: {varients?: string[], types?: string[]} = {varients : [], types: []};
@@ -38,22 +38,20 @@ export class SearchResultComponent implements OnInit {
         case LabelType.High:
           return "₹" + value;
         default:
-          return "$" + value;
+          return "₹" + value;
       }
     }
   };
 
 
   constructor(private shopProductService: ShopProductService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private shopProductCategoryService: ShopProductCategoryService) { }
 
 
 
     get fitered(){
       return this.fitered$.asObservable();
-    }
-    get triggerFilter(){
-      return this.triggerFilter$.asObservable();
     }
 
     changePrice(){
@@ -107,12 +105,11 @@ export class SearchResultComponent implements OnInit {
     }
 
     closedStart(){
-      this.triggerFilter$.next(true);
+      this.ngOnInit();
     }
   ngOnInit(): void {
 
-    this.products$ = this.triggerFilter.pipe(mergeMap(ft=>{
-      return this.route.params.pipe(mergeMap(res=>{
+    this.products$ = this.route.params.pipe(mergeMap(res=>{
         Notiflix.Loading.Arrows();
         const postData = {
           q: res?.q,
@@ -133,7 +130,9 @@ export class SearchResultComponent implements OnInit {
 
         Notiflix.Loading.Remove();
       }));
-    }))
+
+      this.categories$ = this.shopProductCategoryService.categories;
+
   }
 
 }
