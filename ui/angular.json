@@ -155,7 +155,8 @@
               "lodash",
               "hammerjs",
               "@firebase/functions",
-              "@firebase/auth"
+              "@firebase/auth",
+              "@firebase/util"
             ],
             "outputPath": "dist/shop-version-2",
             "index": "projects/shop-version-2/src/index.html",

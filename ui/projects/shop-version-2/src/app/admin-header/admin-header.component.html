@@ -7,7 +7,7 @@
     </div>
   </ng-container>
   <div *ngIf="(shop$ | async) as shop">
-    <a class="logo" [style.background-image]="'url(' + shop.logo + ')'" routerLink="/admin">{{shop.name}}</a>
+    <a class="logo main-menu-text-color" [style.background-image]="'url(' + shop.logo + ')'" routerLink="/admin">{{shop.name}}</a>
   </div>
   <div class="flex-right" *ngIf="layOutXSmall.matches">
       <button mat-icon-button (click)="onToggleSidenav()">
@@ -20,14 +20,14 @@
 
 
     <ng-container *ngIf="(loggedUser$ | async) as loggedUser">
-        <a routerLink="/admin/categories" routerLinkActive="active">Categories</a>
-        <a routerLink="/admin/products/0"  routerLinkActive="active">Products</a>
-        <a routerLink="/admin/deliveries"  routerLinkActive="active">Delivery</a>
-        <a routerLink="/admin/details"  routerLinkActive="active">Shop Info</a>
-        <a routerLink="/admin/orders" routerLinkActive="active">Orders</a>
-        <a routerLink="/">Back To Site</a>
+        <a class="main-menu-text-color" routerLink="/admin/categories" routerLinkActive="active">Categories</a>
+        <a class="main-menu-text-color" routerLink="/admin/products/0"  routerLinkActive="active">Products</a>
+        <a class="main-menu-text-color" routerLink="/admin/deliveries"  routerLinkActive="active">Delivery</a>
+        <a class="main-menu-text-color" routerLink="/admin/details"  routerLinkActive="active">Shop Info</a>
+        <a class="main-menu-text-color" routerLink="/admin/orders" routerLinkActive="active">Orders</a>
+        <a class="main-menu-text-color" routerLink="/">Back To Site</a>
         <div class="ml-15">
-          <button mat-button [matMenuTriggerFor]="menu">{{loggedUser.fname}} <mat-icon class="profile-icon">person</mat-icon> </button>
+          <button mat-button [matMenuTriggerFor]="menu" class="main-menu-text-color">{{loggedUser.fname}} <mat-icon class="profile-icon">person</mat-icon> </button>
           <mat-menu #menu="matMenu">
             <button mat-menu-item routerLink="/admin/edit-profile"><mat-icon>perm_identity</mat-icon>Edit Profile</button>
             <button mat-menu-item (click)="signOut()"><mat-icon>power_settings_new</mat-icon>Sign Out</button>

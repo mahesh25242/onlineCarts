@@ -9,7 +9,7 @@
   </ng-container>
 
   <div *ngIf="!isSearch && (shop$ | async) as shop">
-    <a class="logo" routerLink="/" matRipple [style.background-image]="'url(' + shop.logo + ')'">{{shop.name}}</a>
+    <a class="logo main-menu-text-color" routerLink="/" matRipple [style.background-image]="'url(' + shop.logo + ')'">{{shop.name}}</a>
   </div>
 
   <div fxHide.gt-xs="true" *ngIf="isSearch" class="search-block">
@@ -31,12 +31,12 @@
 
 
   <div class="flex-right navmenu" fxHide.xs="true">
-    <a routerLink="/" matRipple routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+    <a routerLink="/" class="main-menu-text-color" matRipple routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
     <ng-container *ngIf="pages$ | async as pages">
-      <a matRipple *ngFor="let page of pages" [routerLink]="[page.url]" routerLinkActive="active">{{page.name}}</a>
+      <a matRipple class="main-menu-text-color" *ngFor="let page of pages" [routerLink]="[page.url]" routerLinkActive="active">{{page.name}}</a>
     </ng-container>
-    <a matRipple routerLink="/contact-us" routerLinkActive="active">Contact Us</a>
-    <a matRipple routerLink="/admin" routerLinkActive="active" *ngIf="isDemoSite">Admin</a>
+    <a matRipple class="main-menu-text-color" routerLink="/contact-us" routerLinkActive="active">Contact Us</a>
+    <a matRipple class="main-menu-text-color" routerLink="/admin" routerLinkActive="active" *ngIf="isDemoSite">Admin</a>
   </div>
 
 

@@ -3,9 +3,9 @@
   <div class="container">
     <mat-cart>
       <mat-card-header>
-        <mat-card-header-text><h1 class="product-name-color">{{ product.name }} [ {{ product?.shop_product_category?.name }} ]</h1></mat-card-header-text>
+        <mat-card-header-text><h1 class="primary-text-color">{{ product.name }} [ {{ product?.shop_product_category?.name }} ]</h1></mat-card-header-text>
       </mat-card-header>
-      <mat-card-subtitle><h5 class="product-name-color">{{ product.shop_product_selected_variant?.name }}</h5></mat-card-subtitle>
+      <mat-card-subtitle><h5 class="primary-text-color">{{ product.shop_product_selected_variant?.name }}</h5></mat-card-subtitle>
       <form [formGroup]="addToCartFrm" (ngSubmit)="addToCart()">
 
         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
@@ -29,7 +29,7 @@
 
           </div>
           <div fxFlex="65%" fxFlex.xs="100%" [ngClass.gt-xs]="'description'">
-            <h3 fxHide.lt-sm="true" class="product-name-color">About {{product.name}} </h3>
+            <h3 fxHide.lt-sm="true" class="primary-text-color">About {{product.name}} </h3>
             <div fxLayout="row" fxLayoutAlign="space-between">
 
               <mat-form-field fxFlex="40%"  appearance="standard" *ngIf="(product.shop_product_variant.length > 1)">

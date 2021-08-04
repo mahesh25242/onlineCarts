@@ -11,7 +11,7 @@ class ThemesController extends Controller
 
 
     public function index(){
-        $themes = \App\Models\Theme::all();
+        $themes = \App\Models\Theme::orderBy("name", "ASC")->get();
         return response($themes);
     }
 
