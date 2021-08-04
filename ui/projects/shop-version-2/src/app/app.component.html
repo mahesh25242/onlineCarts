@@ -1,5 +1,5 @@
   <ng-container *ngIf="shop$ | async">
-    <mat-sidenav-container [hasBackdrop]="true" fullscreen [ngClass]="shop?.shop_theme?.theme?.class">
+    <mat-sidenav-container [hasBackdrop]="true" fullscreen>
       <mat-sidenav #sidenav role="navigation" [mode]="'push'">
         <app-side-nav-list (sidenavClose)="sidenav.close()" *ngIf="!(isAdmin$ | async)"></app-side-nav-list>
         <app-admin-side-nav-list (sidenavClose)="sidenav.close()" *ngIf="(isAdmin$ | async)"></app-admin-side-nav-list>

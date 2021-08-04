@@ -12,7 +12,7 @@ import { SwUpdate } from '@angular/service-worker';
 import { NgcCookieConsentService, NgcInitializeEvent, NgcNoCookieLawEvent, NgcStatusChangeEvent } from 'ngx-cookieconsent';
 import Notiflix from 'notiflix';
 import { empty, Observable, of, Subscription } from 'rxjs';
-import { map, mergeMap } from 'rxjs/operators';
+import { map, mergeMap, tap } from 'rxjs/operators';
 import { Shop } from 'src/app/lib/interfaces';
 import { ShopService, CmsService } from 'src/app/lib/services';
 import { GeneralService, MessagingService } from './lib/services';
@@ -82,7 +82,9 @@ export class AppComponent implements OnInit, OnDestroy{
   }
   ngOnInit(): void {
 
-    this.shop$ = this.shopService.shopDetail()
+    this.shop$ = this.shopService.shopDetail().pipe(tap(res=>{
+      document.body.className += ` ${res?.shop_theme?.theme?.class}`;
+    }))
 
     this.shopUnsbScr = this.shopService.aShop.pipe(mergeMap(res=>{
       return this.cmsService.pages().pipe(map(pgs => res));
