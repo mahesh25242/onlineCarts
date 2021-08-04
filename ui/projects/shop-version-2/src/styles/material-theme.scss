@@ -278,7 +278,7 @@ $theme: mat-light-theme($primary, $accent, $warn);
 body{
   color: $dark-primary-text;
   a{
-    color: $light-primary-text;
+    color: $dark-primary-text;
     &.bold{
       font-weight: bold;
     }
