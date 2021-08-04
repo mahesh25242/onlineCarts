@@ -3,7 +3,7 @@ import { from, Observable, Subscription } from 'rxjs';
 import { Shop, Theme } from 'src/app/lib/interfaces';
 import { ShopService, ThemeService } from 'src/app/lib/services';
 import Notiflix from "notiflix";
-import { mergeMap } from 'rxjs/operators';
+import { mergeMap, tap } from 'rxjs/operators';
 import { NgxImageCompressService } from 'ngx-image-compress';
 
 @Component({
@@ -28,7 +28,9 @@ export class ThemeAndBrandingComponent implements OnInit {
     Notiflix.Block.Merge({svgSize:'20px',});
     Notiflix.Block.Dots(`mat-form-field`);
     this.saveThemeSubscription =  this.themeService.saveTheme(this.theme_id).pipe(mergeMap(res=>{
-      return this.shopService.shopDetail();
+      return this.shopService.shopDetail().pipe(tap(res=>{
+        document.body.className = `mat-typography ${res?.shop_theme?.theme?.class}`;
+      }));
     })).subscribe(res=>{
       Notiflix.Notify.Success(`Successfully saved the theme `);
       Notiflix.Block.Remove(`mat-form-field`);
