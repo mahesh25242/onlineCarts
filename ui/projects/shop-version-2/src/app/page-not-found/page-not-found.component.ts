@@ -23,7 +23,7 @@ export class PageNotFoundComponent implements OnInit {
       siteName: environment.siteName,
       title: 'Home',
       url:'',
-      backUrl: '/'
+      backUrl: null
     });
 
 
