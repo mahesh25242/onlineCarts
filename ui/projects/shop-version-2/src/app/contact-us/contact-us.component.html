@@ -22,9 +22,22 @@
       </a>
     </p>
 
-    <address>{{shop?.address}}</address>
+    <a target="_blank" [href]="(shop?.map_url) ? shop?.map_url : 'https://www.google.com/maps/place/'+shop?.address ">
+      <mat-icon>place</mat-icon> <address>{{ shop?.address }}</address>
+    </a>
+
+
     {{shop?.country?.name}}, {{shop?.state?.name}}, {{shop?.city?.name}} - {{shop?.city?.pin}}
 
+    <div *ngIf="shop?.branches">
+      <div *ngFor="let branch of shop?.branches">
+        <h3>{{ branch.name }}</h3>
+        <a target="_blank" *ngIf="branch.address" [href]="(branch?.map_url) ? branch?.map_url : 'https://www.google.com/maps/place/'+branch.address ">
+          <mat-icon>place</mat-icon> <address>{{ branch.address }}</address>
+        </a>
+
+      </div>
+    </div>
     <h4>Business Hours</h4>
     <div [innerHTML]="shop?.business_hours"></div>
   </div>

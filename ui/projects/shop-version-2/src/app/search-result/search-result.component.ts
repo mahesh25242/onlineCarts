@@ -88,7 +88,7 @@ export class SearchResultComponent implements OnInit {
           this.options.ceil = res?.max_price
           this.options.floor = res?.min_price
 
-
+          alert('as')
           this.value = this.options.ceil;
           this.highValue = this.options.floor;
         });

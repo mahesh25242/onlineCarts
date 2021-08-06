@@ -16,6 +16,13 @@ $theme: mat-light-theme($primary, $accent, $warn);
   color:  $light-primary-text
 }
 
+.ngx-slider {
+  .ngx-slider-pointer{
+    background-color: mat-color($primary) !important;
+  }
+}
+
+
 .shop-default-light-theme {
   $primary: mat-palette($mat-blue-grey);
   $accent: mat-palette($mat-amber, A400, A100, A700);
@@ -29,6 +36,11 @@ $theme: mat-light-theme($primary, $accent, $warn);
     color:  mat-color($primary)
   }
 
+  .ngx-slider {
+    .ngx-slider-pointer{
+      background-color: mat-color($primary) !important;
+    }
+  }
 
 }
 
@@ -43,6 +55,12 @@ $theme: mat-light-theme($primary, $accent, $warn);
   .primary-text-color{
     color:  mat-color($primary)
   }
+
+  .ngx-slider {
+    .ngx-slider-pointer{
+      background-color: mat-color($primary) !important;
+    }
+  }
 }
 
 .shop-default-purple-light-theme {
@@ -54,6 +72,12 @@ $theme: mat-light-theme($primary, $accent, $warn);
 
   .primary-text-color{
     color:  mat-color($primary)
+  }
+
+  .ngx-slider {
+    .ngx-slider-pointer{
+      background-color: mat-color($primary) !important;
+    }
   }
 }
 
@@ -67,6 +91,12 @@ $theme: mat-light-theme($primary, $accent, $warn);
   .primary-text-color{
     color:  mat-color($primary)
   }
+
+  .ngx-slider {
+    .ngx-slider-pointer{
+      background-color: mat-color($primary) !important;
+    }
+  }
 }
 .shop-default-indigo-light-theme {
   $primary: mat-palette($mat-indigo);
@@ -77,6 +107,12 @@ $theme: mat-light-theme($primary, $accent, $warn);
 
   .primary-text-color{
     color:  mat-color($primary)
+  }
+
+  .ngx-slider {
+    .ngx-slider-pointer{
+      background-color: mat-color($primary) !important;
+    }
   }
 }
 
@@ -91,6 +127,12 @@ $theme: mat-light-theme($primary, $accent, $warn);
   .primary-text-color{
     color:  mat-color($primary)
   }
+
+  .ngx-slider {
+    .ngx-slider-pointer{
+      background-color: mat-color($primary) !important;
+    }
+  }
 }
 
 
@@ -103,6 +145,12 @@ $theme: mat-light-theme($primary, $accent, $warn);
 
   .primary-text-color{
     color:  mat-color($primary)
+  }
+
+  .ngx-slider {
+    .ngx-slider-pointer{
+      background-color: mat-color($primary) !important;
+    }
   }
 }
 
@@ -120,6 +168,12 @@ $theme: mat-light-theme($primary, $accent, $warn);
   .main-menu-text-color{
     color:  $dark-primary-text
   }
+
+  .ngx-slider {
+    .ngx-slider-pointer{
+      background-color: mat-color($primary) !important;
+    }
+  }
 }
 
 .shop-default-teal-light-theme {
@@ -131,6 +185,12 @@ $theme: mat-light-theme($primary, $accent, $warn);
 
   .primary-text-color{
     color:  mat-color($primary)
+  }
+
+  .ngx-slider {
+    .ngx-slider-pointer{
+      background-color: mat-color($primary) !important;
+    }
   }
 }
 
@@ -146,6 +206,12 @@ $theme: mat-light-theme($primary, $accent, $warn);
   .primary-text-color{
     color:  mat-color($primary)
   }
+
+  .ngx-slider {
+    .ngx-slider-pointer{
+      background-color: mat-color($primary) !important;
+    }
+  }
 }
 
 .shop-default-light-green-light-theme {
@@ -158,6 +224,12 @@ $theme: mat-light-theme($primary, $accent, $warn);
 
   .primary-text-color{
     color:  mat-color($primary)
+  }
+
+  .ngx-slider {
+    .ngx-slider-pointer{
+      background-color: mat-color($primary) !important;
+    }
   }
 }
 
@@ -176,6 +248,12 @@ $theme: mat-light-theme($primary, $accent, $warn);
   .main-menu-text-color{
     color:  $dark-primary-text
   }
+
+  .ngx-slider {
+    .ngx-slider-pointer{
+      background-color: mat-color($primary) !important;
+    }
+  }
 }
 
 .shop-default-yellow-theme {
@@ -191,6 +269,12 @@ $theme: mat-light-theme($primary, $accent, $warn);
 
   .main-menu-text-color{
     color:  $dark-primary-text
+  }
+
+  .ngx-slider {
+    .ngx-slider-pointer{
+      background-color: mat-color($primary) !important;
+    }
   }
 }
 
@@ -209,6 +293,12 @@ $theme: mat-light-theme($primary, $accent, $warn);
     color:  $dark-primary-text
   }
 
+  .ngx-slider {
+    .ngx-slider-pointer{
+      background-color: mat-color($primary) !important;
+    }
+  }
+
 }
 
 .shop-default-orange-theme {
@@ -220,6 +310,12 @@ $theme: mat-light-theme($primary, $accent, $warn);
 
   .primary-text-color{
     color:  mat-color($primary)
+  }
+
+  .ngx-slider {
+    .ngx-slider-pointer{
+      background-color: mat-color($primary) !important;
+    }
   }
 }
 
@@ -233,6 +329,12 @@ $theme: mat-light-theme($primary, $accent, $warn);
   .primary-text-color{
     color:  mat-color($primary)
   }
+
+  .ngx-slider {
+    .ngx-slider-pointer{
+      background-color: mat-color($primary) !important;
+    }
+  }
 }
 
 .shop-default-brown-theme {
@@ -244,6 +346,12 @@ $theme: mat-light-theme($primary, $accent, $warn);
 
   .primary-text-color{
     color:  mat-color($primary)
+  }
+
+  .ngx-slider {
+    .ngx-slider-pointer{
+      background-color: mat-color($primary) !important;
+    }
   }
 }
 
@@ -257,6 +365,12 @@ $theme: mat-light-theme($primary, $accent, $warn);
   .primary-text-color{
     color:  mat-color(mat-palette($mat-grey, 800, A100, A700))
   }
+
+  .ngx-slider {
+    .ngx-slider-pointer{
+      background-color: mat-color($primary) !important;
+    }
+  }
 }
 
 .shop-default-blue-gray-theme {
@@ -268,6 +382,12 @@ $theme: mat-light-theme($primary, $accent, $warn);
 
   .primary-text-color{
     color:  mat-color($primary)
+  }
+
+  .ngx-slider {
+    .ngx-slider-pointer{
+      background-color: mat-color($primary) !important;
+    }
   }
 }
 

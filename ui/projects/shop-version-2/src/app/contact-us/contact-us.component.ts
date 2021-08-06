@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Shop } from 'src/app/lib/interfaces';
+import { map, tap } from 'rxjs/operators';
+import { Shop, ShopDelivery } from 'src/app/lib/interfaces';
 import { GeneralService, ShopService } from 'src/app/lib/services';
 import { environment } from '../../environments/environment';
 
@@ -10,7 +11,8 @@ import { environment } from '../../environments/environment';
   styleUrls: ['./contact-us.component.scss']
 })
 export class ContactUsComponent implements OnInit {
-  shop$: Observable<Shop>;
+  shop$: Observable<Shop & {branches?: ShopDelivery[]}>;
+
   constructor(private generalService: GeneralService,
     private shopService: ShopService) { }
 
@@ -22,7 +24,14 @@ export class ContactUsComponent implements OnInit {
       backUrl: null
     });
 
-    this.shop$ = this.shopService.aShop
+    this.shop$ = this.shopService.aShop.pipe(map(res=>{
+
+
+      const shop_delivery =  res?.shop_delivery.filter(sd=> sd.need_cust_loc == 0)
+      res = {...res, ...{branches: shop_delivery}}
+      return res;
+
+    }))
   }
 
 }
