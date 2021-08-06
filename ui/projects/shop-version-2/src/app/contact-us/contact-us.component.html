@@ -1,44 +1,74 @@
 <div class="header-inner"></div>
 <div class="container">
-  <h1>Get In Touch</h1>
-  <div *ngIf="shop$ | async as shop">
-    <h3>{{shop?.name}}</h3>
+  <br/>
+  <mat-card *ngIf="shop$ | async as shop">
+    <mat-card-header>
+      <mat-card-title>Get In Touch</mat-card-title>
+      <mat-card-subtitle>Contact {{ shop?.name }}</mat-card-subtitle>
+    </mat-card-header>
 
-    <p>
+    <mat-card-content >
+      <mat-list role="list">
+        <mat-list-item role="listitem" *ngIf="shop?.email">
+          <a [href]="'mailto:'+shop?.email+'?subject='+shop?.name+' Enquiry'"  color="primary" aria-label="Whatsapp message" >
+            {{shop?.email}}
+          </a>
+        </mat-list-item>
 
-      <a [href]="'mailto:'+shop?.email+'?subject='+shop?.name+' Enquiry'"  color="primary" aria-label="Whatsapp message" fxShow fxHide.gt-xs="true">
-        {{shop?.email}}
-      </a>
-
-    </p>
-    <p>
-      Mobile: {{shop?.phone}}
-      <a [href]="'https://api.whatsapp.com/send?phone='+shop?.phone" mat-mini-fab color="primary" aria-label="Whatsapp message" fxShow fxHide.gt-xs="true">
-        <mat-icon>question_answer</mat-icon>
-      </a>
-      &nbsp;
-      <a  [href]="'tel://'+shop?.phone"  mat-mini-fab color="primary" aria-label="Call" fxShow fxHide.gt-xs="true">
-        <mat-icon>phone</mat-icon>
-      </a>
-    </p>
-
-    <a target="_blank" [href]="(shop?.map_url) ? shop?.map_url : 'https://www.google.com/maps/place/'+shop?.address ">
-      <mat-icon>place</mat-icon> <address>{{ shop?.address }}</address>
-    </a>
+        <mat-list-item role="listitem" *ngIf="shop?.phone">
+          <a href="" mat-list-icon>
+            <mat-icon >question_answer</mat-icon>
+          </a>
+          <div mat-line>{{ shop?.phone}} </div>
+          <div mat-line>
+            <a [href]="'https://api.whatsapp.com/send?phone='+shop?.phone" mat-mini-fab color="primary" aria-label="Whatsapp message" fxShow fxHide.gt-xs="true">
+              <mat-icon>question_answer</mat-icon>
+            </a>
+          </div>
 
 
-    {{shop?.country?.name}}, {{shop?.state?.name}}, {{shop?.city?.name}} - {{shop?.city?.pin}}
+          &nbsp;
+          <a  [href]="'tel://'+shop?.phone"  mat-mini-fab color="primary" aria-label="Call" fxShow fxHide.gt-xs="true">
+            <mat-icon>phone</mat-icon>
+          </a>
 
-    <div *ngIf="shop?.branches">
-      <div *ngFor="let branch of shop?.branches">
-        <h3>{{ branch.name }}</h3>
-        <a target="_blank" *ngIf="branch.address" [href]="(branch?.map_url) ? branch?.map_url : 'https://www.google.com/maps/place/'+branch.address ">
-          <mat-icon>place</mat-icon> <address>{{ branch.address }}</address>
+        </mat-list-item>
+      </mat-list>
+      <p>
+
+
+
+      </p>
+      <p>
+        Mobile: {{shop?.phone}}
+        <a [href]="'https://api.whatsapp.com/send?phone='+shop?.phone" mat-mini-fab color="primary" aria-label="Whatsapp message" fxShow fxHide.gt-xs="true">
+          <mat-icon>question_answer</mat-icon>
         </a>
+        &nbsp;
+        <a  [href]="'tel://'+shop?.phone"  mat-mini-fab color="primary" aria-label="Call" fxShow fxHide.gt-xs="true">
+          <mat-icon>phone</mat-icon>
+        </a>
+      </p>
 
+      <a target="_blank" [href]="(shop?.map_url) ? shop?.map_url : 'https://www.google.com/maps/place/'+shop?.address ">
+        <mat-icon>place</mat-icon> <address>{{ shop?.address }}</address>
+      </a>
+
+
+      {{shop?.country?.name}}, {{shop?.state?.name}}, {{shop?.city?.name}} - {{shop?.city?.pin}}
+
+      <div *ngIf="shop?.branches">
+        <div *ngFor="let branch of shop?.branches">
+          <h3>{{ branch.name }}</h3>
+          <a target="_blank" *ngIf="branch.address" [href]="(branch?.map_url) ? branch?.map_url : 'https://www.google.com/maps/place/'+branch.address ">
+            <mat-icon>place</mat-icon> <address>{{ branch.address }}</address>
+          </a>
+
+        </div>
       </div>
-    </div>
-    <h4>Business Hours</h4>
-    <div [innerHTML]="shop?.business_hours"></div>
-  </div>
+      <h4>Business Hours</h4>
+      <div [innerHTML]="shop?.business_hours"></div>
+    </mat-card-content>
+  </mat-card>
+
 </div>
