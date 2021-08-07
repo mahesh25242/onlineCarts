@@ -21,7 +21,10 @@
             </div>
             <div [fxFlex]="(100/3)">
               <h1><mat-icon>call</mat-icon></h1>
-              {{ (shop?.isDemoSite) ? '1234567890': shop?.phone }}
+              <a href="javascript:{}"  (click)="openBottomSheet()">
+                {{ shop?.phone }}
+              </a>
+
               <a [href]="'https://api.whatsapp.com/send?phone='+shop?.phone" mat-mini-fab
               color="primary" aria-label="Whatsapp message" fxShow fxHide.gt-xs="true" *ngIf="!shop?.isDemoSite">
                 <mat-icon>question_answer</mat-icon>

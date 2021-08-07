@@ -26,6 +26,7 @@ import { AdminSideNavListComponent } from './admin-header/admin-side-nav-list/ad
 import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
+import { MobileContactComponent } from './contact-us/mobile-contact/mobile-contact.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { CategoriesComponent } from './components/categories/categories.component';
 import { ProductComponent } from './components/product/product.component';
@@ -108,7 +109,8 @@ const cookieConfig:NgcCookieConsentConfig = {
     ProductItemComponent,
     LayoutComponent,
     CarouselComponent,
-    DeliveryLocationComponent
+    DeliveryLocationComponent,
+    MobileContactComponent
   ],
   imports: [
     BrowserModule,

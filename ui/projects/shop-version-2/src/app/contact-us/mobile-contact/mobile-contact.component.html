@@ -1,0 +1,9 @@
+<mat-nav-list *ngIf="shop$ | async as shop">
+  <a [href]="'tel://'+shop?.phone" mat-list-item (click)="openLink($event)">
+    <span mat-line><mat-icon>call</mat-icon> Call to </span>
+  </a>
+
+  <a [href]="shop?.whatsappUrl" mat-list-item (click)="openLink($event)" target="_blank">
+    <span mat-line><fa-icon [icon]="faWhatsapp"></fa-icon> Whats app</span>
+  </a>
+</mat-nav-list>

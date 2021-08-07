@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { Shop, ShopDelivery } from 'src/app/lib/interfaces';
 import { GeneralService, ShopService } from 'src/app/lib/services';
 import { environment } from '../../environments/environment';
+import { MobileContactComponent } from './mobile-contact/mobile-contact.component';
 
 @Component({
   selector: 'app-contact-us',
@@ -14,8 +16,13 @@ export class ContactUsComponent implements OnInit {
   shop$: Observable<Shop & {branches?: ShopDelivery[], isDemoSite?: boolean}>;
 
   constructor(private generalService: GeneralService,
-    private shopService: ShopService) { }
+    private shopService: ShopService,
+    private _bottomSheet: MatBottomSheet) { }
 
+    openBottomSheet(){
+      this._bottomSheet.open(MobileContactComponent);
+
+    }
   ngOnInit(): void {
     this.generalService.bc$.next({
       siteName: environment.siteName,
