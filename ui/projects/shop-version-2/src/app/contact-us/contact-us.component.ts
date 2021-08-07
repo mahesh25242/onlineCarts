@@ -11,7 +11,7 @@ import { environment } from '../../environments/environment';
   styleUrls: ['./contact-us.component.scss']
 })
 export class ContactUsComponent implements OnInit {
-  shop$: Observable<Shop & {branches?: ShopDelivery[]}>;
+  shop$: Observable<Shop & {branches?: ShopDelivery[], isDemoSite?: boolean}>;
 
   constructor(private generalService: GeneralService,
     private shopService: ShopService) { }
@@ -26,9 +26,9 @@ export class ContactUsComponent implements OnInit {
 
     this.shop$ = this.shopService.aShop.pipe(map(res=>{
 
-
+      const isDemoSite = (environment.shopKey == environment.demoShopKey);
       const shop_delivery =  res?.shop_delivery.filter(sd=> sd.need_cust_loc == 0)
-      res = {...res, ...{branches: shop_delivery}}
+      res = {...res, ...{branches: shop_delivery, isDemoSite: isDemoSite}}
       return res;
 
     }))
