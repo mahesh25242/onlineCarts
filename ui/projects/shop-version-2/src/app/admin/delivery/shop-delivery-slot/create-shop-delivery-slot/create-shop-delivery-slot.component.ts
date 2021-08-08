@@ -4,7 +4,7 @@ import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import Notiflix from "notiflix";
 import { Subscription } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
-import { ShopDelivery, ShopDeliverySlot } from 'src/app/lib/interfaces';
+import { ShopDeliverySlot } from 'src/app/lib/interfaces';
 import { ShopService } from 'src/app/lib/services';
 
 @Component({

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ShopDelivery } from 'src/app/lib/interfaces';
 import { GeneralService, ShopService } from 'src/app/lib/services';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MatDialog} from '@angular/material/dialog';
 import Notiflix from "notiflix";
 import { map, mergeMap } from 'rxjs/operators';
 import { CreateShopDeliveryComponent } from './create-shop-delivery/create-shop-delivery.component';

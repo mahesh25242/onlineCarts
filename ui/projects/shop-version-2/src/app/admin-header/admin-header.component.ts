@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
-import * as _ from 'lodash';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { Observable, Subscription } from 'rxjs';

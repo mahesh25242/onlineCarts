@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { Observable } from 'rxjs';
-import { map, mergeMap, tap } from 'rxjs/operators';
-import { Shop, ShopDelivery } from 'src/app/lib/interfaces';
+import { map, mergeMap } from 'rxjs/operators';
+import { Shop } from 'src/app/lib/interfaces';
 import { GeneralService, ShopService } from 'src/app/lib/services';
 import { environment } from '../../../environments/environment';
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';

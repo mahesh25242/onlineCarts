@@ -1,16 +1,13 @@
-import { Component, ElementRef, Inject, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { empty, from, Observable, of, Subscription } from 'rxjs';
-import { map, mergeMap } from 'rxjs/operators';
+import { Observable, Subscription } from 'rxjs';
 import { ShopProductService, ShopProductCategoryService, GeneralService } from 'src/app/lib/services';
 import Notiflix from "notiflix";
 import { ShopProduct, ShopProductCategory } from 'src/app/lib/interfaces';
 
 import { environment } from '../../../../environments/environment';
-import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
-import { find } from 'lodash';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MatDialog} from '@angular/material/dialog';
 import { CreateCategoryComponent } from '../../categories/create-category/create-category.component';
 import {NgxImageCompressService} from 'ngx-image-compress';
 import { ProductTag } from '../../modules/tag/interfaces';

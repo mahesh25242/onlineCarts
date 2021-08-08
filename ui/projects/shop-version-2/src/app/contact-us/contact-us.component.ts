@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Shop, ShopDelivery } from 'src/app/lib/interfaces';
 import { GeneralService, ShopService } from 'src/app/lib/services';
 import { environment } from '../../environments/environment';

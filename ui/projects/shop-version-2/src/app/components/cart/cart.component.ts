@@ -1,8 +1,7 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map, mergeMap, tap } from 'rxjs/operators';
-import { Cart, ShopProduct } from 'src/app/lib/interfaces';
+import { tap } from 'rxjs/operators';
+import { Cart } from 'src/app/lib/interfaces';
 import { CartService } from 'src/app/lib/services';
 import { environment } from '../../../environments/environment';
 

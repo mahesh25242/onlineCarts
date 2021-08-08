@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ShopProductCategory } from 'src/app/lib/interfaces';
 import { GeneralService, ShopProductCategoryService } from 'src/app/lib/services';
 import Notiflix from "notiflix";
 import { map, mergeMap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MatDialog} from '@angular/material/dialog';
 import { CreateCategoryComponent } from './create-category/create-category.component';
 
 
@@ -29,8 +29,8 @@ export class CategoriesComponent implements OnInit {
   editCategory(cat: ShopProductCategory = null){
 
     let dialogRef = this.dialog.open(CreateCategoryComponent, {
-      data: cat,     
-     
+      data: cat,
+
     });
 
 

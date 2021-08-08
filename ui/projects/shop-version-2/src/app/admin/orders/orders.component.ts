@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ShopOrder, ShopOrderWithPagination } from 'src/app/lib/interfaces';
 import { CartService, GeneralService } from 'src/app/lib/services';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MatDialog} from '@angular/material/dialog';
 import { OrderDetailsComponent } from './order-details/order-details.component';
 import { environment } from '../../../environments/environment';
 import { PageEvent } from '@angular/material/paginator';

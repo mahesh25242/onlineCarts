@@ -1,14 +1,13 @@
-import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, Component, DoCheck, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { ShopProduct, Cart, ShopProductWithPagination } from 'src/app/lib/interfaces';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
+import { ShopProduct, ShopProductWithPagination } from 'src/app/lib/interfaces';
 import { ShopProductService, CartService, GeneralService, ShopProductCategoryService } from 'src/app/lib/services';
 import { environment } from '../../../environments/environment';
 import Notiflix from "notiflix";
 import { ActivatedRoute } from '@angular/router';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { AddToCartComponent } from '../add-to-cart/add-to-cart.component';
+import {MatDialog} from '@angular/material/dialog';
 import { first } from 'lodash';
-import { map, mergeMap, tap } from 'rxjs/operators';
+import { map, mergeMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-product',

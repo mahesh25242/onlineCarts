@@ -1,7 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { MatCarousel, MatCarouselComponent } from '@ngmodule/material-carousel';
-import { Observable } from 'rxjs';
 
 
 

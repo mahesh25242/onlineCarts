@@ -1,9 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { NgxImageCompressService } from 'ngx-image-compress';
-import { from, Observable, of, throwError } from 'rxjs';
-import { catchError, map, mergeMap, tap } from 'rxjs/operators';
-import { Shop } from 'src/app/lib/interfaces';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { CmsService } from 'src/app/lib/services';
 
 @Component({

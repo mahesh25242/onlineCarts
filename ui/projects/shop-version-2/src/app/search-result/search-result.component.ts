@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { mergeMap, tap } from 'rxjs/operators';
-import { ShopProduct, ShopProductCategory, ShopProductWithPagination } from 'src/app/lib/interfaces';
+import { ShopProductCategory, ShopProductWithPagination } from 'src/app/lib/interfaces';
 import { ShopProductCategoryService, ShopProductService } from 'src/app/lib/services';
 import { environment } from '../../environments/environment';
 import Notiflix from "notiflix";
-import { pick, uniq } from 'lodash';
+import { uniq } from 'lodash';
 import { LabelType, Options } from '@angular-slider/ngx-slider';
 import { MatDrawer } from '@angular/material/sidenav';
 

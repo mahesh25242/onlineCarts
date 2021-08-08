@@ -3,7 +3,6 @@ import { Observable } from 'rxjs';
 import { ShopProductCategory } from 'src/app/lib/interfaces';
 import { ShopProductCategoryService, ShopProductService } from 'src/app/lib/services';
 import { environment } from '../../../environments/environment';
-import * as _ from 'lodash';
 import { ActivatedRoute } from '@angular/router';
 
 

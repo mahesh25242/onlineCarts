@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { ShopProduct, Cart } from 'src/app/lib/interfaces';
 import { ShopProductService, CartService, GeneralService, ShopProductCategoryService }  from 'src/app/lib/services';
 import { find } from 'lodash';

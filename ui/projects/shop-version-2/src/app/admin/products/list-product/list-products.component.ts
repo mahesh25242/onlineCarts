@@ -4,7 +4,7 @@ import { ShopProduct, ShopProductWithPagination } from 'src/app/lib/interfaces';
 import { GeneralService, ShopProductService } from 'src/app/lib/services';
 import Notiflix from "notiflix";
 import { map, mergeMap } from 'rxjs/operators';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MatDialog} from '@angular/material/dialog';
 import { environment } from '../../../../environments/environment';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';

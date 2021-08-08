@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { find } from 'lodash';
 import { Observable } from 'rxjs';
-import { first, map, mergeMap } from 'rxjs/operators';
+import { map, mergeMap } from 'rxjs/operators';
 import { GeneralService, CmsService } from 'src/app/lib/services';
 import { environment } from '../../environments/environment';
 

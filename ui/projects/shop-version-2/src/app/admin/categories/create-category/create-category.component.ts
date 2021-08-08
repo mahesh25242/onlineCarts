@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 import { ShopProductCategoryService } from 'src/app/lib/services/shop-product-category.service';
 import Notiflix from "notiflix";

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
-import { map, mergeMap } from 'rxjs/operators';
+import { mergeMap } from 'rxjs/operators';
 import { User } from 'src/app/lib/interfaces';
 import { CmsService, ShopService, UserService } from 'src/app/lib/services';
 import { environment } from '../../../environments/environment';

@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgxImageCompressService } from 'ngx-image-compress';
-import { from, Observable, of, throwError } from 'rxjs';
-import { catchError, map, mergeMap, tap } from 'rxjs/operators';
+import { from, Observable, of } from 'rxjs';
+import { catchError, map, mergeMap } from 'rxjs/operators';
 import { Shop } from 'src/app/lib/interfaces';
 import { GeneralService } from '../../../lib/services';
 import Notiflix from "notiflix";
