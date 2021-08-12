@@ -22,6 +22,10 @@ $theme: mat-light-theme($primary, $accent, $warn);
   }
 }
 
+.primary-bg{
+  background-color: mat-color($primary) !important;
+}
+
 
 .shop-default-light-theme {
   $primary: mat-palette($mat-blue-grey);
@@ -40,6 +44,10 @@ $theme: mat-light-theme($primary, $accent, $warn);
     .ngx-slider-pointer{
       background-color: mat-color($primary) !important;
     }
+  }
+
+  .primary-bg{
+    background-color: mat-color($primary) !important;
   }
 
 }
@@ -61,6 +69,10 @@ $theme: mat-light-theme($primary, $accent, $warn);
       background-color: mat-color($primary) !important;
     }
   }
+
+  .primary-bg{
+    background-color: mat-color($primary) !important;
+  }
 }
 
 .shop-default-purple-light-theme {
@@ -78,6 +90,10 @@ $theme: mat-light-theme($primary, $accent, $warn);
     .ngx-slider-pointer{
       background-color: mat-color($primary) !important;
     }
+  }
+
+  .primary-bg{
+    background-color: mat-color($primary) !important;
   }
 }
 
@@ -97,6 +113,10 @@ $theme: mat-light-theme($primary, $accent, $warn);
       background-color: mat-color($primary) !important;
     }
   }
+
+  .primary-bg{
+    background-color: mat-color($primary) !important;
+  }
 }
 .shop-default-indigo-light-theme {
   $primary: mat-palette($mat-indigo);
@@ -113,6 +133,10 @@ $theme: mat-light-theme($primary, $accent, $warn);
     .ngx-slider-pointer{
       background-color: mat-color($primary) !important;
     }
+  }
+
+  .primary-bg{
+    background-color: mat-color($primary) !important;
   }
 }
 
@@ -133,6 +157,10 @@ $theme: mat-light-theme($primary, $accent, $warn);
       background-color: mat-color($primary) !important;
     }
   }
+
+  .primary-bg{
+    background-color: mat-color($primary) !important;
+  }
 }
 
 
@@ -151,6 +179,10 @@ $theme: mat-light-theme($primary, $accent, $warn);
     .ngx-slider-pointer{
       background-color: mat-color($primary) !important;
     }
+  }
+
+  .primary-bg{
+    background-color: mat-color($primary) !important;
   }
 }
 
@@ -174,6 +206,10 @@ $theme: mat-light-theme($primary, $accent, $warn);
       background-color: mat-color($primary) !important;
     }
   }
+
+  .primary-bg{
+    background-color: mat-color($primary) !important;
+  }
 }
 
 .shop-default-teal-light-theme {
@@ -191,6 +227,10 @@ $theme: mat-light-theme($primary, $accent, $warn);
     .ngx-slider-pointer{
       background-color: mat-color($primary) !important;
     }
+  }
+
+  .primary-bg{
+    background-color: mat-color($primary) !important;
   }
 }
 
@@ -212,6 +252,10 @@ $theme: mat-light-theme($primary, $accent, $warn);
       background-color: mat-color($primary) !important;
     }
   }
+
+  .primary-bg{
+    background-color: mat-color($primary) !important;
+  }
 }
 
 .shop-default-light-green-light-theme {
@@ -230,6 +274,10 @@ $theme: mat-light-theme($primary, $accent, $warn);
     .ngx-slider-pointer{
       background-color: mat-color($primary) !important;
     }
+  }
+
+  .primary-bg{
+    background-color: mat-color($primary) !important;
   }
 }
 
@@ -254,6 +302,10 @@ $theme: mat-light-theme($primary, $accent, $warn);
       background-color: mat-color($primary) !important;
     }
   }
+
+  .primary-bg{
+    background-color: mat-color($primary) !important;
+  }
 }
 
 .shop-default-yellow-theme {
@@ -275,6 +327,10 @@ $theme: mat-light-theme($primary, $accent, $warn);
     .ngx-slider-pointer{
       background-color: mat-color($primary) !important;
     }
+  }
+
+  .primary-bg{
+    background-color: mat-color($primary) !important;
   }
 }
 
@@ -299,6 +355,9 @@ $theme: mat-light-theme($primary, $accent, $warn);
     }
   }
 
+  .primary-bg{
+    background-color: mat-color($primary) !important;
+  }
 }
 
 .shop-default-orange-theme {
@@ -316,6 +375,10 @@ $theme: mat-light-theme($primary, $accent, $warn);
     .ngx-slider-pointer{
       background-color: mat-color($primary) !important;
     }
+  }
+
+  .primary-bg{
+    background-color: mat-color($primary) !important;
   }
 }
 
@@ -335,6 +398,10 @@ $theme: mat-light-theme($primary, $accent, $warn);
       background-color: mat-color($primary) !important;
     }
   }
+
+  .primary-bg{
+    background-color: mat-color($primary) !important;
+  }
 }
 
 .shop-default-brown-theme {
@@ -352,6 +419,10 @@ $theme: mat-light-theme($primary, $accent, $warn);
     .ngx-slider-pointer{
       background-color: mat-color($primary) !important;
     }
+  }
+
+  .primary-bg{
+    background-color: mat-color($primary) !important;
   }
 }
 
@@ -371,6 +442,10 @@ $theme: mat-light-theme($primary, $accent, $warn);
       background-color: mat-color($primary) !important;
     }
   }
+
+  .primary-bg{
+    background-color: mat-color($primary) !important;
+  }
 }
 
 .shop-default-blue-gray-theme {
@@ -388,6 +463,10 @@ $theme: mat-light-theme($primary, $accent, $warn);
     .ngx-slider-pointer{
       background-color: mat-color($primary) !important;
     }
+  }
+
+  .primary-bg{
+    background-color: mat-color($primary) !important;
   }
 }
 

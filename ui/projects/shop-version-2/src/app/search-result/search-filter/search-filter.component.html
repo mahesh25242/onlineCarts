@@ -1,0 +1,41 @@
+
+<h2 mat-dialog-title>Filters</h2>
+<mat-dialog-content class="mat-typography">
+
+  <div *ngIf="filters$ | async">
+    <ngx-slider *ngIf="options.ceil" [(value)]="value" [(highValue)]="highValue"
+    [options]="options" (userChange)="changePrice()"></ngx-slider>
+  </div>
+
+
+  <div class="w-90" *ngIf="categories$ | async as categories">
+    <mat-selection-list #shoes>
+      <mat-list-option *ngFor="let cat of categories">
+        {{cat.name}}
+      </mat-list-option>
+    </mat-selection-list>
+
+  </div>
+
+  <div *ngIf="varients && varients.length" class="w-90">
+    <h3>Varients</h3>
+    <mat-chip-list aria-label="Fish selection" [multiple]="true" >
+      <mat-chip *ngFor="let variant of varients"
+        [selected]="(selectedItems?.varients.includes(variant))" (click)="searchSelect(variant, 'varients')">{{variant}}</mat-chip>
+    </mat-chip-list>
+  </div>
+  <br/>
+  <div *ngIf="type && type.length" class="w-90">
+    <h3>Type</h3>
+    <mat-chip-list aria-label="Fish selection" [multiple]="true">
+      <mat-chip *ngFor="let tp of type"  [selected]="(selectedItems?.types.includes(tp))" (click)="searchSelect(tp, 'types')">{{tp}}</mat-chip>
+    </mat-chip-list>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button>
+</mat-dialog-actions>
+
+
+

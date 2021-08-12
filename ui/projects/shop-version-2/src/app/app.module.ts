@@ -40,6 +40,7 @@ import { ProductDetailsResolver } from './product-details/product-details-resolv
 import { EditMessageComponent } from './cart-details/edit-message/edit-message.component';
 import { SearchComponent } from './components/search/search.component';
 import { SearchResultComponent } from './search-result/search-result.component';
+import { SearchFilterComponent } from './search-result/search-filter/search-filter.component';
 import { MatCarouselModule } from '@ngmodule/material-carousel';
 import { OrderFormComponent } from './cart-details/order-form/order-form.component';
 import { OrderTermsComponent } from './cart-details/order-terms/order-terms.component';
@@ -110,7 +111,8 @@ const cookieConfig:NgcCookieConsentConfig = {
     LayoutComponent,
     CarouselComponent,
     DeliveryLocationComponent,
-    MobileContactComponent
+    MobileContactComponent,
+    SearchFilterComponent
   ],
   imports: [
     BrowserModule,

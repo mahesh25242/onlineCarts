@@ -1,9 +1,9 @@
 <mat-card     (swipeleft)="onSwipeLeft($event)"
 (swiperight)="onSwipeRight($event)" *ngIf="product$ | async as product" class="animate__animated ">
-  <ul  *ngIf="product.shop_product_variant.length > 1" class="multiple-varient ngx-slider">
+  <ul  *ngIf="product.shop_product_variant.length > 1" class="multiple-varient ">
     <li *ngFor="let shop_product_variant of product.shop_product_variant">
       <a href="javascript:{}" (click)="changeVarient(shop_product_variant)"
-       [ngClass]="{'ngx-slider-pointer': shop_product_variant.id == product.shop_product_primary_variant.id}"></a>
+       [ngClass]="{'primary-bg': shop_product_variant.id == product.shop_product_primary_variant.id}"></a>
     </li>
   </ul>
   <div class="mat-card-headerimage" matRipple [matRippleCentered]="true"

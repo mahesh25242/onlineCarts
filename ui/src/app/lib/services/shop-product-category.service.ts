@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ɵBrowserGetTestability } from '@angular/platform-browser';
-import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
-import { catchError, map, share, shareReplay, tap } from 'rxjs/operators';
+import { BehaviorSubject, iif, Observable, of, throwError } from 'rxjs';
+import { catchError, map, mergeMap, share, shareReplay, tap } from 'rxjs/operators';
 import { ShopCategory, ShopProductCategory } from '../interfaces';
 
 @Injectable({
@@ -16,7 +16,13 @@ export class ShopProductCategoryService {
   constructor(private http: HttpClient) { }
 
   get categories(){
-    return this.categories$.asObservable();
+    return this.categories$.asObservable().pipe(mergeMap(res=>{
+      if(res){
+        return of(res);
+      }else{
+        return this.showCategories();
+      }
+    }));
   }
 
   get hideTopCat(){

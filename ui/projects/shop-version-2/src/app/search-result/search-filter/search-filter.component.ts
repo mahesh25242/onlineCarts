@@ -1,26 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { mergeMap, tap } from 'rxjs/operators';
 import { ShopProductCategory, ShopProductWithPagination } from 'src/app/lib/interfaces';
 import { ShopProductCategoryService, ShopProductService } from 'src/app/lib/services';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 import Notiflix from "notiflix";
 import { uniq } from 'lodash';
 import { LabelType, Options } from '@angular-slider/ngx-slider';
 import { MatDrawer } from '@angular/material/sidenav';
-import { MatDialog } from '@angular/material/dialog';
-import { SearchFilterComponent } from './search-filter/search-filter.component';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 
 @Component({
-  selector: 'app-search-result',
-  templateUrl: './search-result.component.html',
-  styleUrls: ['./search-result.component.scss']
+  selector: 'app-search-filter',
+  templateUrl: './search-filter.component.html',
+  styleUrls: ['./search-filter.component.scss']
 })
-export class SearchResultComponent implements OnInit {
+export class SearchFilterComponent implements OnInit {
   private fitered$: BehaviorSubject<string[]> = new BehaviorSubject<string[]>(null);
 
+  filters$: Observable<any>;
   products$: Observable<ShopProductWithPagination>;
   categories$: Observable<ShopProductCategory[]>;
   varients: string[] = [];
@@ -49,24 +49,12 @@ export class SearchResultComponent implements OnInit {
   constructor(private shopProductService: ShopProductService,
     private route: ActivatedRoute,
     private shopProductCategoryService: ShopProductCategoryService,
-    public dialog: MatDialog) { }
+    @Inject(MAT_DIALOG_DATA) public data: any) { }
 
 
 
     get fitered(){
       return this.fitered$.asObservable();
-    }
-
-    openFilter(){
-      const dialogRef = this.dialog.open(SearchFilterComponent, {
-        width: '250px',
-        data: {varients: this.varients, type: this.type}
-      });
-
-      dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed');
-      });
-
     }
 
     changePrice(){
@@ -98,7 +86,6 @@ export class SearchResultComponent implements OnInit {
     }
 
     toggle(drawer: MatDrawer){
-      alert(1)
       if(!this.shopProductService.filters){
         this.shopProductService.showProductsFilters().subscribe(res=>{
           this.options.ceil = res?.max_price
@@ -124,31 +111,18 @@ export class SearchResultComponent implements OnInit {
       this.ngOnInit();
     }
   ngOnInit(): void {
+    this.varients = this.data?.varients;
+    this.type = this.data?.type;
+    this.categories$ = this.shopProductCategoryService.categories;
 
-    this.products$ = this.route.params.pipe(mergeMap(res=>{
-        Notiflix.Loading.Arrows();
-        const postData = {
-          q: res?.q,
-          pageSize : environment.productListPerPage,
-          selectedItems: this.selectedItems
-        }
-        return this.shopProductService.showProducts(1, postData);
-      }), tap(res=> {
-        res?.data.map(pdt =>{
-          pdt.shop_product_variant.map(spv=>{
-            this.varients.push(spv?.name.toLowerCase());
-            this.type.push(spv?.type?.name.toLowerCase());
-          })
-        })
-        this.varients = uniq(this.varients);
-        this.type = uniq(this.type);
+    this.filters$ = this.shopProductService.showProductsFilters().pipe(tap(res=>{
+      this.options.ceil = res?.max_price
+      this.options.floor = res?.min_price
 
 
-        Notiflix.Loading.Remove();
-      }));
-
-      this.categories$ = this.shopProductCategoryService.categories;
-
+      this.value = this.options.ceil;
+      this.highValue = this.options.floor;
+    }));
   }
 
 }
