@@ -44,12 +44,13 @@ export class SearchResultComponent implements OnInit {
 
     openFilter(){
       const dialogRef = this.dialog.open(SearchFilterComponent, {
-        width: '250px',
+        width: '400px',
         data: {varients: this.varients, type: this.type, selectedItems: this.selectedItems}
       });
 
       dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed',result);
+        if(result)
+          this.ngOnInit();
       });
 
     }
@@ -71,9 +72,7 @@ export class SearchResultComponent implements OnInit {
     }
 
 
-    closedStart(){
-      this.ngOnInit();
-    }
+
   ngOnInit(): void {
 
     this.products$ = this.route.params.pipe(mergeMap(res=>{
