@@ -3,14 +3,14 @@
 <mat-dialog-content class="mat-typography">
 
   <div *ngIf="filters$ | async">
-    <ngx-slider *ngIf="options.ceil" [(value)]="value" [(highValue)]="highValue"
+    <ngx-slider *ngIf="options.ceil" [(value)]="selectedItems.priceFrom" [(highValue)]="selectedItems.priceTo"
     [options]="options" (userChange)="changePrice()"></ngx-slider>
   </div>
 
 
   <div class="w-90" *ngIf="categories$ | async as categories">
-    <mat-selection-list #shoes>
-      <mat-list-option *ngFor="let cat of categories">
+    <mat-selection-list #productCats [(ngModel)]="selectedItems.categories" >
+      <mat-list-option *ngFor="let cat of categories"  [value]="cat.id">
         {{cat.name}}
       </mat-list-option>
     </mat-selection-list>
@@ -34,7 +34,7 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="selectedItems" cdkFocusInitial>Search</button>
 </mat-dialog-actions>
 
 

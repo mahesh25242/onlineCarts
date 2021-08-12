@@ -25,25 +25,10 @@ export class SearchResultComponent implements OnInit {
   categories$: Observable<ShopProductCategory[]>;
   varients: string[] = [];
   type: string[] = [];
-  selectedItems: {varients?: string[], types?: string[]} = {varients : [], types: []};
+  selectedItems: {varients?: string[], types?: string[], categories?: number[],
+    priceFrom?: number, priceTo?: number} = {varients : [], types: [], categories: [], priceFrom: 0, priceTo: 0};
 
 
-  value: number = 0;
-  highValue: number = 0;
-  options: Options = {
-    floor: 0,
-    ceil: 0,
-    translate: (value: number, label: LabelType): string => {
-      switch (label) {
-        case LabelType.Low:
-          return "₹" + value;
-        case LabelType.High:
-          return "₹" + value;
-        default:
-          return "₹" + value;
-      }
-    }
-  };
 
 
   constructor(private shopProductService: ShopProductService,
@@ -60,27 +45,15 @@ export class SearchResultComponent implements OnInit {
     openFilter(){
       const dialogRef = this.dialog.open(SearchFilterComponent, {
         width: '250px',
-        data: {varients: this.varients, type: this.type}
+        data: {varients: this.varients, type: this.type, selectedItems: this.selectedItems}
       });
 
       dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed');
+        console.log('The dialog was closed',result);
       });
 
     }
 
-    changePrice(){
-      let filtered = this.fitered$.getValue() ?? [];
-      if(filtered.includes("price") &&
-      (this.value == this.options.floor && this.highValue == this.options.ceil) ){
-        filtered.splice(filtered.indexOf("price"), 1);
-        filtered = (filtered.length) ? filtered : null;
-        this.fitered$.next(filtered);
-      }else if(!filtered.includes("price")){
-        filtered.push("price");
-        this.fitered$.next(filtered);
-      }
-    }
     searchSelect(data: string = null, idx: string = null){
       if(this.selectedItems[idx].includes(data)){
         this.selectedItems[idx].splice(this.selectedItems[idx].indexOf(data), 1);
@@ -97,28 +70,6 @@ export class SearchResultComponent implements OnInit {
       }
     }
 
-    toggle(drawer: MatDrawer){
-      alert(1)
-      if(!this.shopProductService.filters){
-        this.shopProductService.showProductsFilters().subscribe(res=>{
-          this.options.ceil = res?.max_price
-          this.options.floor = res?.min_price
-
-
-          this.value = this.options.ceil;
-          this.highValue = this.options.floor;
-        });
-      }/*else{
-        this.options.ceil = this.shopProductService?.filters?.max_price
-        this.options.floor =  this.shopProductService?.filters?.min_price
-
-        this.value = this.options.ceil;
-        this.highValue = this.options.floor;
-
-      }*/
-
-      drawer.toggle();
-    }
 
     closedStart(){
       this.ngOnInit();

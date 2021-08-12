@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { mergeMap, tap } from 'rxjs/operators';
@@ -9,7 +9,7 @@ import Notiflix from "notiflix";
 import { uniq } from 'lodash';
 import { LabelType, Options } from '@angular-slider/ngx-slider';
 import { MatDrawer } from '@angular/material/sidenav';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 
 @Component({
@@ -20,16 +20,19 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class SearchFilterComponent implements OnInit {
   private fitered$: BehaviorSubject<string[]> = new BehaviorSubject<string[]>(null);
 
+  @ViewChild('productCats') productCats: any;
+
+
   filters$: Observable<any>;
   products$: Observable<ShopProductWithPagination>;
   categories$: Observable<ShopProductCategory[]>;
   varients: string[] = [];
   type: string[] = [];
-  selectedItems: {varients?: string[], types?: string[]} = {varients : [], types: []};
+  selectedItems: {varients?: string[], types?: string[], categories?: number[],
+    priceFrom?: number, priceTo?: number} = {varients : [], types: [], categories: [], priceFrom: 0, priceTo: 0};
 
 
-  value: number = 0;
-  highValue: number = 0;
+
   options: Options = {
     floor: 0,
     ceil: 0,
@@ -49,7 +52,8 @@ export class SearchFilterComponent implements OnInit {
   constructor(private shopProductService: ShopProductService,
     private route: ActivatedRoute,
     private shopProductCategoryService: ShopProductCategoryService,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    public dialogRef: MatDialogRef<SearchFilterComponent>) { }
 
 
 
@@ -58,9 +62,11 @@ export class SearchFilterComponent implements OnInit {
     }
 
     changePrice(){
+
+      console.log(this.selectedItems)
       let filtered = this.fitered$.getValue() ?? [];
       if(filtered.includes("price") &&
-      (this.value == this.options.floor && this.highValue == this.options.ceil) ){
+      (this.selectedItems.priceFrom == this.options.floor && this.selectedItems.priceTo == this.options.ceil) ){
         filtered.splice(filtered.indexOf("price"), 1);
         filtered = (filtered.length) ? filtered : null;
         this.fitered$.next(filtered);
@@ -69,6 +75,7 @@ export class SearchFilterComponent implements OnInit {
         this.fitered$.next(filtered);
       }
     }
+
     searchSelect(data: string = null, idx: string = null){
       if(this.selectedItems[idx].includes(data)){
         this.selectedItems[idx].splice(this.selectedItems[idx].indexOf(data), 1);
@@ -85,34 +92,12 @@ export class SearchFilterComponent implements OnInit {
       }
     }
 
-    toggle(drawer: MatDrawer){
-      if(!this.shopProductService.filters){
-        this.shopProductService.showProductsFilters().subscribe(res=>{
-          this.options.ceil = res?.max_price
-          this.options.floor = res?.min_price
 
 
-          this.value = this.options.ceil;
-          this.highValue = this.options.floor;
-        });
-      }/*else{
-        this.options.ceil = this.shopProductService?.filters?.max_price
-        this.options.floor =  this.shopProductService?.filters?.min_price
-
-        this.value = this.options.ceil;
-        this.highValue = this.options.floor;
-
-      }*/
-
-      drawer.toggle();
-    }
-
-    closedStart(){
-      this.ngOnInit();
-    }
   ngOnInit(): void {
     this.varients = this.data?.varients;
     this.type = this.data?.type;
+    this.selectedItems = this.data?.selectedItems;
     this.categories$ = this.shopProductCategoryService.categories;
 
     this.filters$ = this.shopProductService.showProductsFilters().pipe(tap(res=>{
@@ -120,8 +105,8 @@ export class SearchFilterComponent implements OnInit {
       this.options.floor = res?.min_price
 
 
-      this.value = this.options.ceil;
-      this.highValue = this.options.floor;
+      this.selectedItems.priceFrom = this.selectedItems.priceFrom ?? this.options.ceil;
+      this.selectedItems.priceTo = this.selectedItems.priceTo ?? this.options.floor;
     }));
   }
 
