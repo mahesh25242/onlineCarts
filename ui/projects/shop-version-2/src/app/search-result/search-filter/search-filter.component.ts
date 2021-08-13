@@ -27,9 +27,10 @@ export class SearchFilterComponent implements OnInit {
   products$: Observable<ShopProductWithPagination>;
   categories$: Observable<ShopProductCategory[]>;
   varients: string[] = [];
-  type: string[] = [];
-  selectedItems: {varients?: string[], types?: string[], categories?: number[],
-    priceFrom?: number, priceTo?: number} = {varients : [], types: [], categories: [], priceFrom: 0, priceTo: 0};
+
+  selectedItems: {varients?: string[],  categories?: number[],
+    priceFrom?: number, priceTo?: number, productTags?: number[], productVarientTags?: number[]} = {varients : [],  categories: [],
+      priceFrom: 0, priceTo: 0, productTags: [], productVarientTags: []};
 
 
 
@@ -96,7 +97,7 @@ export class SearchFilterComponent implements OnInit {
 
   ngOnInit(): void {
     this.varients = this.data?.varients;
-    this.type = this.data?.type;
+
     this.selectedItems = this.data?.selectedItems;
     this.categories$ = this.shopProductCategoryService.categories;
 

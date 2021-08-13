@@ -24,9 +24,9 @@ export class SearchResultComponent implements OnInit {
   products$: Observable<ShopProductWithPagination>;
   categories$: Observable<ShopProductCategory[]>;
   varients: string[] = [];
-  type: string[] = [];
-  selectedItems: {varients?: string[], types?: string[], categories?: number[],
-    priceFrom?: number, priceTo?: number} = {varients : [], types: [], categories: [], priceFrom: 0, priceTo: 0};
+
+  selectedItems: {varients?: string[],  categories?: number[],
+    priceFrom?: number, priceTo?: number} = {varients : [],  categories: [], priceFrom: 0, priceTo: 0};
 
 
 
@@ -45,7 +45,7 @@ export class SearchResultComponent implements OnInit {
     openFilter(){
       const dialogRef = this.dialog.open(SearchFilterComponent, {
         width: '400px',
-        data: {varients: this.varients, type: this.type, selectedItems: this.selectedItems}
+        data: {varients: this.varients,  selectedItems: this.selectedItems}
       });
 
       dialogRef.afterClosed().subscribe(result => {
@@ -87,11 +87,9 @@ export class SearchResultComponent implements OnInit {
         res?.data.map(pdt =>{
           pdt.shop_product_variant.map(spv=>{
             this.varients.push(spv?.name.toLowerCase());
-            this.type.push(spv?.type?.name.toLowerCase());
           })
         })
         this.varients = uniq(this.varients);
-        this.type = uniq(this.type);
 
 
         Notiflix.Loading.Remove();

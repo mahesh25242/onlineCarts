@@ -34,9 +34,14 @@ class ShopProductController extends Controller
             $q->where("shop_id", $shopId)->where("status", 1);
         })->min("price");
 
+
+        $shopProductTags = ($shop->shopCategory) ? $shop->shopCategory->shopProductTag : null;
+        $shopProductVarientTags = ($shop->shopCategory) ? $shop->shopCategory->shopProductVariantTag : null;
         return response([
             "max_price" => $maxPrice,
             "min_price" => $minPrice,
+            "shop_product_tags" => $shopProductTags,
+            "shop_product_varient_tags" => $shopProductVarientTags,
         ]);
     }
     public function products(Request $request){
@@ -66,6 +71,38 @@ class ShopProductController extends Controller
 
         if($request->input("shop_product_category_id", 0)){
             $products = $products->where("shop_product_category_id", $request->input("shop_product_category_id", 0));
+        }
+        if($request->input("selectedItems", null)){
+            if($request->input("selectedItems.categories", null)){
+                $products = $products->whereIn("shop_product_category_id", $request->input("selectedItems.categories", []));
+            }
+
+            if($request->input("selectedItems.priceFrom", null) && $request->input("selectedItems.priceTo", null)){
+                $products = $products->whereHas("shopProductVariant", function($q) use($request){
+                    $q->whereBetween("price", [ $request->input("selectedItems.priceFrom", null) , $request->input("selectedItems.priceTo", null) ]);
+                });
+            }
+
+            if($request->input("selectedItems.varients", null)){
+                $products = $products->whereHas("shopProductVariant", function($q) use($request){
+                    $q->whereIn("name", $request->input("selectedItems.varients", null));
+                });
+            }
+
+            if($request->input("selectedItems.productTags", null)){
+                $products = $products->whereHas("shopProductTag", function($q) use($request){
+                    $q->whereIn("shop_product_tag_maps.id", $request->input("selectedItems.productTags", null));
+                });
+            }
+
+            if($request->input("selectedItems.productVarientTags", null)){
+                $products = $products->whereHas("shopProductVariant", function($q) use($request){
+                    $q->whereHas("shopProductVariantTag", function($q) use($request){
+                        $q->whereIn("shop_product_variant_tags.id", $request->input("selectedItems.productVarientTags", null));
+                    });
+                });
+            }
+
         }
         if($request->input("cat_url", null)){
             $products = $products->whereHas("shopProductCategory", function($q) use($request){

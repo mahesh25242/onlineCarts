@@ -25,12 +25,25 @@
     </mat-chip-list>
   </div>
   <br/>
-  <div *ngIf="type && type.length" class="w-90">
-    <h3>Type</h3>
-    <mat-chip-list aria-label="Fish selection" [multiple]="true">
-      <mat-chip *ngFor="let tp of type"  [selected]="(selectedItems?.types.includes(tp))" (click)="searchSelect(tp, 'types')">{{tp}}</mat-chip>
-    </mat-chip-list>
+  <div *ngIf="filters$ | async as filters" class="w-90">
+    <h3>Products Tags</h3>
+    <mat-selection-list #shopProductTag [(ngModel)]="selectedItems.productTags" >
+      <mat-list-option *ngFor="let shop_product_tag of filters.shop_product_tags"  [value]="shop_product_tag.id">
+        {{shop_product_tag.name}}
+      </mat-list-option>
+    </mat-selection-list>
   </div>
+  <br/>
+
+  <div *ngIf="filters$ | async as filters" class="w-90">
+    <h3>Varients Tags</h3>
+    <mat-selection-list #shopProductTag [(ngModel)]="selectedItems.productVarientTags" >
+      <mat-list-option *ngFor="let shop_product_varient_tag of filters.shop_product_varient_tags"  [value]="shop_product_varient_tag.id">
+        {{shop_product_varient_tag.name}}
+      </mat-list-option>
+    </mat-selection-list>
+  </div>
+
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>

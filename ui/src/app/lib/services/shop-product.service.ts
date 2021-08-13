@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { map, share, tap } from 'rxjs/operators';
 import { ShopOrder, ShopProduct, ShopProductWithPagination } from '../interfaces';
 
 @Injectable({
@@ -57,7 +57,7 @@ export class ShopProductService {
   }
 
   showProductsFilters(){
-    return this.http.get<any>(`/shop/product/showProductsFilters`).pipe(tap(res=>{
+    return this.http.get<any>(`/shop/product/showProductsFilters`).pipe(share(), tap(res=>{
       this.filters = res;
     }));
   }
