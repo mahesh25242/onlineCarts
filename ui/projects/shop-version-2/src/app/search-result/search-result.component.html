@@ -1,6 +1,9 @@
 <ng-container  *ngIf="(products$ | async)">
-  <button mat-raised-button color="primary" (click)="openFilter()" fxHide.gt-xs="true">Filter</button>
-  <div class="container">
+  <div  fxHide.gt-xs="true" class="search-filter">
+    <button mat-raised-button color="primary" class="xs-filter-bt" (click)="openFilter()" >Filter</button>
+  </div>
+  <div class="sp-h-10" fxHide.gt-xs="true"></div>
+  <div class="container asasas">
     <app-search fxHide.xs="true"></app-search>
     <button mat-raised-button color="primary" (click)="openFilter()" fxHide.xs="true">Filter</button>
     <app-product [isSearch]="true"></app-product>

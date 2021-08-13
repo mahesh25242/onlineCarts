@@ -11,3 +11,20 @@ mat-drawer {
 .w-90{
   width: 90%;
 }
+
+.search-filter{
+  position: fixed;
+  z-index: 5;
+  left: 0px;
+  top: 4em;
+  width: 100%;
+
+  button{
+    border-radius: 0px;
+    width: 50%;
+  }
+}
+.sp-h-10{
+  height: 32px;
+}
+
