@@ -1,11 +1,16 @@
-<ng-container  *ngIf="(products$ | async)">
+<ng-container  *ngIf="(products$ | async) else loading">
   <div  fxHide.gt-xs="true" class="search-filter">
     <button mat-raised-button color="primary" class="xs-filter-bt" (click)="openFilter()" >Filter</button>
   </div>
   <div class="sp-h-10" fxHide.gt-xs="true"></div>
-  <div class="container asasas">
+  <div class="container">
     <app-search fxHide.xs="true"></app-search>
     <button mat-raised-button color="primary" (click)="openFilter()" fxHide.xs="true">Filter</button>
     <app-product [isSearch]="true"></app-product>
   </div>
 </ng-container>
+<ng-template #loading>
+  <div class="container">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>
