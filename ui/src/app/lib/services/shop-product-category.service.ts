@@ -53,12 +53,17 @@ export class ShopProductCategoryService {
     return this.http.post<any>("/shop/products/categories/changeStatus", postData);
   }
 
-  showCategories(){
-    return this.http.get<ShopProductCategory[]>("/shop/product/showCategories").pipe(tap(res=>{
-      this.categories$.next(res);
-    }),
-    catchError(err=>{
-      return of(null);
-    }));
+  showCategories(): Observable<any>{
+    if(this.categories$.getValue()){
+      return this.categories$.asObservable();
+    }else{
+      return this.http.get<ShopProductCategory[]>("/shop/product/showCategories").pipe(tap(res=>{
+        this.categories$.next(res);
+      }),
+      catchError(err=>{
+        return of(null);
+      }));
+    }
+
   }
 }
