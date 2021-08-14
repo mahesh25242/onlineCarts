@@ -39,7 +39,7 @@ export class ProductResolver implements Resolve<any> {
         }else{
           return of(true);
         }
-      }));
+      }), take(1));
 
     }
 
