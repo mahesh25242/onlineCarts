@@ -12,6 +12,7 @@ import {PlatformLocation } from '@angular/common';
 export class GeneralService {
   shopDisabled$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
   isAdmin$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
+  banners$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   private httpClient: HttpClient;
 
   constructor(private http: HttpClient,
@@ -32,7 +33,14 @@ export class GeneralService {
   }
 
   getAllBanners(): Observable<[{image: string}]>{
-    return this.http.get<[{image: string}]>(`/shop/banner`);
+    if(this.banners$.getValue()){
+      return this.banners$.asObservable();
+    }else{
+      return this.http.get<[{image: string}]>(`/shop/banner`).pipe(tap(res=>{
+        this.banners$.next(res);
+      }));
+    }
+
   }
 
   saveBanner(postData: any = null){
