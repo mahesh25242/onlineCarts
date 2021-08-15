@@ -8,7 +8,7 @@ import {  RouterModule } from '@angular/router';
 import { NgxCaptchaModule } from 'ngx-captcha';
 import Notiflix from "notiflix";
 // import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { DatePipe } from '@angular/common'
+import { DatePipe, CurrencyPipe } from '@angular/common';
 import { ScrollTrackerDirective } from './scroll-tracker.directive';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
@@ -162,6 +162,7 @@ Notiflix.Block.Init({ svgColor:"#204486", });
   ],
   providers:[
     DatePipe,
+    CurrencyPipe,
     {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500}},
     NgxImageCompressService
   ]

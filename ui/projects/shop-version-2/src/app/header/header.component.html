@@ -6,13 +6,21 @@
           <mat-icon>arrow_back_ios</mat-icon>
       </button>
     </div>
+
+
+    <div *ngIf="!isSearch && (shop$ | async) as shop">
+      <a class="shop-head main-menu-text-color" routerLink="/" matRipple >
+        <div class="logo" [style.background-image]="'url(' + shop.logo + ')'"></div>
+        <div  [ngClass.xs]="{'small-head': (bc?.backUrl && !isSearch)}">
+          {{shop.name | uppercase }}
+          <marquee fxHide.gt-xs="true" *ngIf="bc?.backUrl && !isSearch"  direction="left" scrolldelay="130" behavior="loop">
+            {{ bc.title }}
+          </marquee>
+        </div>
+      </a>
+    </div>
   </ng-container>
-
-  <div *ngIf="!isSearch && (shop$ | async) as shop">
-    <a class="logo main-menu-text-color" routerLink="/" matRipple [style.background-image]="'url(' + shop.logo + ')'">{{shop.name}}</a>
-  </div>
-
-  <div fxHide.gt-xs="true" *ngIf="isSearch" class="search-block">
+  <div fxHide.gt-xs="true" *ngIf="isSearch" class="search-block animate__animated animate__fadeIn animate__faster">
     <app-search [isHead]="true"></app-search>
   </div>
 

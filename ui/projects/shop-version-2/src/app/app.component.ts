@@ -82,6 +82,7 @@ export class AppComponent implements OnInit, OnDestroy{
   }
   ngOnInit(): void {
 
+
     this.shop$ = this.shopService.shopDetail().pipe(tap(res=>{
       document.body.className += ` ${res?.shop_theme?.theme?.class}`;
     }))

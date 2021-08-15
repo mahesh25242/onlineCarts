@@ -13,6 +13,7 @@ import { httpInterceptorProviders } from './lib/interceptor'
 import { SharedModuleModule } from './lib/shared-module/shared-module.module';
 import { TagModule } from './admin/modules';
 import * as Hammer from 'hammerjs';
+import { LOCALE_ID} from '@angular/core';
 
 import {MatToolbarModule} from '@angular/material/toolbar';
 
@@ -56,7 +57,10 @@ import { LayoutComponent } from './layout/layout.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
 import { DeliveryLocationComponent } from './cart-details/delivery-loaction/delivery-loaction.component';
 
+import { registerLocaleData } from '@angular/common';
 
+import localeIn from '@angular/common/locales/en-IN';
+registerLocaleData(localeIn);
 
 @Injectable()
 export class MyHammerConfig extends HammerGestureConfig {
@@ -141,7 +145,11 @@ const cookieConfig:NgcCookieConsentConfig = {
       provide: HAMMER_GESTURE_CONFIG,
       useClass: MyHammerConfig,
     },
-    MessagingService
+    MessagingService,
+    {
+      provide: LOCALE_ID,
+      useValue: 'en-IN' // 'de' for Germany, 'fr' for France ...
+     }
   ],
   bootstrap: [AppComponent]
 })

@@ -36,7 +36,7 @@
                 <mat-label>Choose Varient</mat-label>
                 <mat-select formControlName="shop_product_variant_id" required (selectionChange)="chooseVarient()">
                   <mat-option *ngFor="let shop_product_variant of product.shop_product_variant" [value]="shop_product_variant.id">
-                    {{shop_product_variant.name}} - ₹ {{shop_product_variant.price}}
+                    {{shop_product_variant.name}} - {{shop_product_variant.price | currency:'INR'}}
                   </mat-option>
                 </mat-select>
                 <mat-error *ngIf="f.shop_product_variant_id.errors && f.shop_product_variant_id.errors.error">
@@ -48,8 +48,8 @@
               fxLayoutAlign="center center" [ngClass.lt-sm]="'price-lt-sm'"
               class="price" fxFlex="40%"   *ngIf="product.shop_product_selected_variant?.price">
                 <div [ngClass]="{'margin-top-14': product.shop_product_variant.length <= 1}">
-                  <del *ngIf="product.shop_product_selected_variant?.actual_price">₹ {{ product.shop_product_selected_variant?.actual_price }}</del>
-                  &nbsp;&nbsp;<span class="weight-bold animate__animated animate__flipInX"> ₹ {{ product.shop_product_selected_variant?.price }} </span>
+                  <del *ngIf="product.shop_product_selected_variant?.actual_price">{{ product.shop_product_selected_variant?.actual_price | currency:'INR' }}</del>
+                  &nbsp;&nbsp;<span class="weight-bold animate__animated animate__flipInX"> {{ product.shop_product_selected_variant?.price | currency:'INR'}} </span>
                 </div>
               </div>
             </div>

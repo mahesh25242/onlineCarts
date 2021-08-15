@@ -24,10 +24,27 @@ a {
   }
   }
 
-.logo{
-  background-repeat: no-repeat;
-  padding: 8px 0 8px 55px;
-  background-size: 50px;
-  background-position: 0px 3px;
-  text-transform: uppercase;
-}
+  .shop-head{
+    height: 100%;
+    display: block;
+    div{
+      float: left;
+      height: 33px;
+      &.small-head{
+        line-height: 18px;
+        marquee{
+          display: block;
+          font-size: 15px;
+          max-width: 117px;
+        }
+      }
+      &.logo{
+        background-repeat: no-repeat;
+        min-width: 51px;
+
+        background-size: 50px;
+        border-radius: 4px;
+        }
+    }
+  }
+

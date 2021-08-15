@@ -10,6 +10,7 @@ import { uniq } from 'lodash';
 import { LabelType, Options } from '@angular-slider/ngx-slider';
 import { MatDrawer } from '@angular/material/sidenav';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { CurrencyPipe } from '@angular/common';
 
 
 @Component({
@@ -38,14 +39,7 @@ export class SearchFilterComponent implements OnInit {
     floor: 0,
     ceil: 0,
     translate: (value: number, label: LabelType): string => {
-      switch (label) {
-        case LabelType.Low:
-          return "₹" + value;
-        case LabelType.High:
-          return "₹" + value;
-        default:
-          return "₹" + value;
-      }
+      return this.currencyPipe.transform(value, 'INR');
     }
   };
 
@@ -54,7 +48,8 @@ export class SearchFilterComponent implements OnInit {
     private route: ActivatedRoute,
     private shopProductCategoryService: ShopProductCategoryService,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef<SearchFilterComponent>) { }
+    public dialogRef: MatDialogRef<SearchFilterComponent>,
+    private currencyPipe: CurrencyPipe) { }
 
 
 

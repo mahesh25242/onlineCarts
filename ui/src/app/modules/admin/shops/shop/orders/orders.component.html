@@ -38,7 +38,7 @@
           <a href="javascript:{}" (click)="details(order)">{{order.shop_customer.name}}</a>
         </td>
         <td>
-          ₹ {{ order.total }}
+          {{ order.total | currency:'INR' }}
         </td>
         <td>
           {{ order.shop_delivery.name }}

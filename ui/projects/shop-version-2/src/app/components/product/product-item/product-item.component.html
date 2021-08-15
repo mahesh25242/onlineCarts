@@ -34,11 +34,11 @@
 
     <div fxLayout="row" fxLayoutAlign="space-between">
       <div fxFlex="30%" class="price" fxLayoutAlign="center center">
-        ₹ {{ product.shop_product_primary_variant?.price}}
+        {{ product.shop_product_primary_variant?.price | currency:'INR'}}
       </div>
       <div fxFlex="30%" fxLayoutAlign="center center">
         <strike *ngIf="product.shop_product_primary_variant?.actual_price">
-          ₹ {{ product.shop_product_primary_variant?.actual_price}}
+          {{ product.shop_product_primary_variant?.actual_price | currency:'INR'}}
         </strike>
       </div>
       <div fxFlex="30%" fxLayoutAlign="center end">

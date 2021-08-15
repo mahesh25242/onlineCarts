@@ -42,7 +42,7 @@
                     {{ item.qty}} {{ (item.qty > 1) ? 'packets': 'packet' }}
                   </small>
                   <b class="block pl-1">
-                    ₹  {{item.product.shop_product_selected_variant.price}} X {{item.qty}} =  ₹ {{item.price}}</b>
+                    {{item.product.shop_product_selected_variant.price | currency:'INR' }} X {{item.qty}} =  {{item.price | currency:'INR'}}</b>
                 </div>
 
 
@@ -87,7 +87,7 @@
         <div class="order-total">
           <mat-card>
             <div [ngClass.lt-md]="'text-center'" [ngClass.gt-sm]="'text-right'">
-              <h1>Total: ₹ {{ cartDetails.grandTotal }}</h1>
+              <h1>Total: {{ cartDetails.grandTotal | currency:'INR' }}</h1>
               <small>( Inclusive of all taxes )</small>
               <mat-error *ngIf="!cartDetails?.detail?.selectedLocation">
                 Please choose a pick up from shop or home delivery

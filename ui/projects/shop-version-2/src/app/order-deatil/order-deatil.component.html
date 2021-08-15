@@ -32,10 +32,10 @@
 
     <mat-list-item role="listitem">
       Delivery:&nbsp;&nbsp;{{ this.order.shop_delivery.name}}
-      {{ (this.order.delivery_chage) ? ' @ ₹ '+this.order.delivery_chage: '' }}
+      {{ (this.order.delivery_chage) ? ' @ '+(this.order.delivery_chage | currency:'INR'): '' }}
     </mat-list-item>
     <mat-list-item role="listitem">
-    <h2>Total:&nbsp;&nbsp;₹ {{ this.order.total}}</h2>
+    <h2>Total:&nbsp;&nbsp;{{ this.order.total | currency:'INR'}}</h2>
     </mat-list-item>
 
     <mat-list-item role="listitem" *ngIf="this.order.note">
@@ -86,7 +86,7 @@
         <ng-container matColumnDef="price">
           <th mat-header-cell *matHeaderCellDef> Price </th>
           <td mat-cell *matCellDef="let element" data-label="Price">
-            ₹ {{element.price}}
+            {{element.price | currency:'INR' }}
           </td>
         </ng-container>
 

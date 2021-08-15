@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { EditMessageComponent } from './edit-message/edit-message.component';
 import Notiflix from "notiflix";
-import { DatePipe } from '@angular/common'
+import { CurrencyPipe, DatePipe } from '@angular/common'
 import { OrderFormComponent } from './order-form/order-form.component';
 import { OrderTermsComponent } from './order-terms/order-terms.component';
 import { MessagingService } from '../lib/services';
@@ -55,6 +55,7 @@ export class CartDetailsComponent implements OnInit, OnDestroy {
     private router: Router,
     public dialog: MatDialog,
     public datepipe: DatePipe,
+    private currencyPipe: CurrencyPipe,
     private messagingService: MessagingService) {
     cartService.shopKey = environment.shopKey;
   }
@@ -137,7 +138,7 @@ export class CartDetailsComponent implements OnInit, OnDestroy {
                 }
                 txt += `%0a‎ Varient Name: ${encodeURIComponent(itm.product.shop_product_selected_variant.name)} `;
                 txt += `%0a‎ Quantity: ${encodeURIComponent(itm.qty)} `;
-                txt += `%0a‎ Price: ₹ *${encodeURIComponent(itm.price)}* `;
+                txt += `%0a‎ Price:  *${encodeURIComponent(this.currencyPipe.transform(itm.price, 'INR'))}* `;
                 txt += `%0a‎ ============== `;
               });
               //txt += `%0a‎ ${ cart.length }  ${ (cart.length > 1) ? 'items' : 'item' } `;
@@ -159,7 +160,7 @@ export class CartDetailsComponent implements OnInit, OnDestroy {
                 txt += `%0a‎ Pin: ${encodeURIComponent(postData.pin)} `;
               }
               if(postData.selectedLocation.charge){
-                txt += `%0a‎ Delivery Charge: ₹ ${encodeURIComponent(postData.selectedLocation.charge)} %0a `;
+                txt += `%0a‎ Delivery Charge: ${encodeURIComponent(this.currencyPipe.transform(postData.selectedLocation.charge, 'INR'))} %0a `;
               }
 
               if(orderRes.sec_key){
@@ -173,7 +174,7 @@ export class CartDetailsComponent implements OnInit, OnDestroy {
               if(locUrl)
                 txt += `%0a‎ Location: ${locUrl} %0a`;
 
-              txt += `%0a‎ Grand Total: ₹ *${cartDetails.grandTotal}* %0a`;
+              txt += `%0a‎ Grand Total: *${this.currencyPipe.transform(cartDetails.grandTotal, 'INR')}* %0a`;
               txt += `%0a‎ ============== %0a`;
               txt += `%0a‎ *Order confirmation through reply/call* %0a`;
 
