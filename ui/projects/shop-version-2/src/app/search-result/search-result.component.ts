@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, Observable, timer } from 'rxjs';
 import { debounce, mergeMap, tap } from 'rxjs/operators';
 import { ShopProductCategory, ShopProductWithPagination } from 'src/app/lib/interfaces';
-import { ShopProductCategoryService, ShopProductService } from 'src/app/lib/services';
+import { GeneralService, ShopProductCategoryService, ShopProductService } from 'src/app/lib/services';
 import { environment } from '../../environments/environment';
 import Notiflix from "notiflix";
 import { uniq } from 'lodash';
@@ -26,7 +26,7 @@ export class SearchResultComponent implements OnInit {
   varients: string[] = [];
 
   selectedItems: {varients?: string[],  categories?: number[],
-    priceFrom?: number, priceTo?: number} = {varients : [],  categories: [], priceFrom: 0, priceTo: 0};
+    priceFrom?: number, priceTo?: number, sort?: { name?: string, type?: string }} = {varients : [],  categories: [], priceFrom: 0, priceTo: 0, sort: {name:'name', type: 'asc'}};
 
 
 
@@ -34,7 +34,8 @@ export class SearchResultComponent implements OnInit {
   constructor(private shopProductService: ShopProductService,
     private route: ActivatedRoute,
     private shopProductCategoryService: ShopProductCategoryService,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog,
+    private generalService: GeneralService,) { }
 
 
 
@@ -82,6 +83,15 @@ export class SearchResultComponent implements OnInit {
           pageSize : environment.productListPerPage,
           selectedItems: this.selectedItems
         }
+
+        this.generalService.bc$.next({
+          siteName: environment.siteName,
+          title: `${res?.q}`,
+          url:'',
+          backUrl: `/`,
+          other: res
+        });
+
         return this.shopProductService.showProducts(1, postData);
       }), tap(res=> {
         res?.data.map(pdt =>{

@@ -21,7 +21,7 @@
     </div>
   </ng-container>
   <div fxHide.gt-xs="true" *ngIf="isSearch" class="search-block animate__animated animate__fadeIn animate__faster">
-    <app-search [isHead]="true"></app-search>
+    <app-search [isHead]="true" (closeSearch)="isSearch = !isSearch"></app-search>
   </div>
 
   <div class="spacer"></div>

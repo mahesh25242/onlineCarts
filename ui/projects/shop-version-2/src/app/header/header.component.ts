@@ -5,7 +5,6 @@ import { BC, Shop } from 'src/app/lib/interfaces';
 import {  ShopService, CmsService } from 'src/app/lib/services';
 import { GeneralService as LocalGeneralService } from '../lib/services/index';
 import { GeneralService } from 'src/app/lib/services';
-import { BreakpointObserver } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-header',
@@ -23,7 +22,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   shop$: Observable<Shop>;
 
   constructor(
-    private breakpointObserver: BreakpointObserver,
     private shopService: ShopService,
     public generalService: GeneralService,
     public localGeneralService: LocalGeneralService,

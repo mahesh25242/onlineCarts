@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, pipe, Subscription } from 'rxjs';
 import { ShopProduct, ShopProductWithPagination } from 'src/app/lib/interfaces';
 import { ShopProductService, CartService, GeneralService, ShopProductCategoryService } from 'src/app/lib/services';
 import { environment } from '../../../environments/environment';
@@ -7,7 +7,7 @@ import Notiflix from "notiflix";
 import { ActivatedRoute } from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
 import { first } from 'lodash';
-import { map, mergeMap } from 'rxjs/operators';
+import { map, mergeMap, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-product',
@@ -70,7 +70,7 @@ export class ProductComponent implements OnInit, OnDestroy {
 
 
     this.shopProductService.allProduct = [];
-    this.products$ = this.shopProductService.products.pipe(map(res=>{
+    this.products$ = this.shopProductService.products.pipe(mergeMap(res=>{
       this.current_page = (res?.current_page && res?.next_page_url) ? res?.current_page : 0;
       const product:ShopProduct = first(res?.data);
       if(!this.isSearch){
@@ -84,15 +84,24 @@ export class ProductComponent implements OnInit, OnDestroy {
           this.shopProductService.allProduct.push(itm);
         });
       }
-
-      this.generalService.bc$.next({
-        siteName: environment.siteName,
-        title: `${product?.shop_product_category?.name}`,
-        url:'',
-        backUrl: ''
-      });
       this.allProduct = this.shopProductService.allProduct;
-      return (res?.data && res?.data.length) ? res: null;
+
+      return this.route.params.pipe(map(parms=>{
+        if(!parms?.q){
+          this.generalService.bc$.next({
+            siteName: environment.siteName,
+            title: `${product?.shop_product_category?.name}`,
+            url:'',
+            backUrl: ''
+          });
+        }
+
+        return (res?.data && res?.data.length) ? res: null;
+
+      }));
+
+
+
     }));
   }
 

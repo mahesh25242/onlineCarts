@@ -15,35 +15,7 @@ class ShopProductController extends Controller
         return $this->products($request);
     }
 
-    public function showProductsFilters(Request $request){
-        $shopKey = $request->header('shopKey');
-        if($shopKey){
-            $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
-            $shopId = ($shop) ? $shop->id : 0;
-        }else{
-            $shopKey = $request->input('shop_key');
-            $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
-            $shopId = ($shop) ? $shop->id : 0;
-        }
-        $maxPrice = \App\Models\ShopProductVariant::whereHas("shopProduct", function($q) use($shopId){
-            $q->where("shop_id", $shopId)->where("status", 1);
-        })->max("price");
 
-
-        $minPrice = \App\Models\ShopProductVariant::whereHas("shopProduct", function($q) use($shopId){
-            $q->where("shop_id", $shopId)->where("status", 1);
-        })->min("price");
-
-
-        $shopProductTags = ($shop->shopCategory) ? $shop->shopCategory->shopProductTag : null;
-        $shopProductVarientTags = ($shop->shopCategory) ? $shop->shopCategory->shopProductVariantTag : null;
-        return response([
-            "max_price" => $maxPrice,
-            "min_price" => $minPrice,
-            "shop_product_tags" => $shopProductTags,
-            "shop_product_varient_tags" => $shopProductVarientTags,
-        ]);
-    }
     public function products(Request $request){
 
         $perPage = $request->input("pageSize", 20);
@@ -122,6 +94,36 @@ class ShopProductController extends Controller
 
         }
         return response($products->orderBy("sortorder", 'ASC')->paginate($perPage ));
+    }
+
+    public function showProductsFilters(Request $request){
+        $shopKey = $request->header('shopKey');
+        if($shopKey){
+            $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
+            $shopId = ($shop) ? $shop->id : 0;
+        }else{
+            $shopKey = $request->input('shop_key');
+            $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
+            $shopId = ($shop) ? $shop->id : 0;
+        }
+        $maxPrice = \App\Models\ShopProductVariant::whereHas("shopProduct", function($q) use($shopId){
+            $q->where("shop_id", $shopId)->where("status", 1);
+        })->max("price");
+
+
+        $minPrice = \App\Models\ShopProductVariant::whereHas("shopProduct", function($q) use($shopId){
+            $q->where("shop_id", $shopId)->where("status", 1);
+        })->min("price");
+
+
+        $shopProductTags = ($shop->shopCategory) ? $shop->shopCategory->shopProductTag : null;
+        $shopProductVarientTags = ($shop->shopCategory) ? $shop->shopCategory->shopProductVariantTag : null;
+        return response([
+            "max_price" => $maxPrice,
+            "min_price" => $minPrice,
+            "shop_product_tags" => $shopProductTags,
+            "shop_product_varient_tags" => $shopProductVarientTags,
+        ]);
     }
 
     public function store(Request $request){

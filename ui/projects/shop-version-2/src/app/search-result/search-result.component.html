@@ -1,5 +1,12 @@
 <ng-container  *ngIf="(products$ | async) else loading">
   <div  fxHide.gt-xs="true" class="search-filter">
+    <button mat-raised-button color="primary" class="xs-filter-bt"  [matMenuTriggerFor]="menu" >Sort By</button>
+    <mat-menu #menu="matMenu" xPosition="after" (closed)="ngOnInit()">
+      <button mat-menu-item (click)="selectedItems.sort.name='name';selectedItems.sort.type='ASC';">Product Name</button>
+      <button mat-menu-item (click)="selectedItems.sort.name='price';selectedItems.sort.type='ASC';">Price Min to Max</button>
+      <button mat-menu-item (click)="selectedItems.sort.name='price';selectedItems.sort.type='DESC';">Price Max to Min</button>
+    </mat-menu>
+
     <button mat-raised-button color="primary" class="xs-filter-bt" (click)="openFilter()" >Filter</button>
   </div>
   <div class="sp-h-10" fxHide.gt-xs="true"></div>

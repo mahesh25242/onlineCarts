@@ -1,9 +1,9 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { debounceTime, takeUntil, tap } from 'rxjs/operators';
-import { ShopProductCategoryService, ShopProductService } from 'src/app/lib/services';
+import { GeneralService, ShopProductCategoryService, ShopProductService } from 'src/app/lib/services';
 import { RecognizedTextAction } from '../../lib/interface/voices';
 import { SenseService } from '../../lib/services';
 
@@ -15,7 +15,7 @@ import { SenseService } from '../../lib/services';
 export class SearchComponent implements OnInit, OnDestroy {
   searchFrm: FormGroup;
   @Input() isHead: boolean;
-
+  @Output() closeSearch = new EventEmitter();
   destroy$ = new Subject();
   //recognized$ = this.senseService.getType(RecognizedTextAction);
 
@@ -25,7 +25,8 @@ export class SearchComponent implements OnInit, OnDestroy {
     private shopProductCategoryService: ShopProductCategoryService,
     private shopProductService: ShopProductService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private generalService: GeneralService,
     //private senseService: SenseService
     ) {
 
@@ -45,6 +46,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   search(){
     if(this.f.q.value){
       this.shopProductService.allProduct = [];
+      this.closeSearch.emit(true);
       this.router.navigate([`/search/${this.f.q.value}`]);
     }
   }
@@ -54,12 +56,14 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   }
   ngOnInit(): void {
+
     this.searchFrm = this.formBuilder.group({
       q: [null, []]
     });
 
-    this.route.params.pipe(takeUntil(this.destroy$)).subscribe(res=>{
-      this.f.q.setValue(res?.q);
+
+    this.generalService.bc$.asObservable().pipe(takeUntil(this.destroy$)).subscribe(res=>{
+      this.f.q.setValue(res?.other?.q);
     })
 
 
