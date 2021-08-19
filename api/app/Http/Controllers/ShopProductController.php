@@ -38,12 +38,14 @@ class ShopProductController extends Controller
         ])->where("shop_id", $shopId);
 
         if($request->input("status", 0)){
-            $products =  $products->where("status", $request->input("status", 0));
+            $products =  $products->where("shop_products.status", $request->input("status", 0));
         }
 
         if($request->input("shop_product_category_id", 0)){
             $products = $products->where("shop_product_category_id", $request->input("shop_product_category_id", 0));
         }
+
+        $orderBy = ["shop_products.sortorder", "ASC"];
         if($request->input("selectedItems", null)){
             if($request->input("selectedItems.categories", null)){
                 $products = $products->whereIn("shop_product_category_id", $request->input("selectedItems.categories", []));
@@ -75,6 +77,25 @@ class ShopProductController extends Controller
                 });
             }
 
+            if($request->input("selectedItems.sort", null)){
+                $sortName =  $request->input("selectedItems.sort.name", null) ?? 'name' ;
+
+                switch($sortName){
+                    case 'name':
+                    case 'sortorder':
+                        $orderBy = [ ( $request->input("selectedItems.sort.name", null) ?? 'name') , ( $request->input("selectedItems.sort.type", null) ?? 'ASC') ];
+                    break;
+                    default:
+                        $sortField = ( $request->input("selectedItems.sort.name", null) ?? 'name');
+                        $sortField = ($sortField) ? "shop_product_variants.{$sortField}" : 'name';
+                        $orderBy = [ $sortField, ( $request->input("selectedItems.sort.type", null) ?? 'ASC') ];
+                        $products =  $products->join('shop_product_variants', 'shop_product_variants.shop_product_id', '=', 'shop_products.id');
+                    break;
+
+                }
+
+            }
+
         }
         if($request->input("cat_url", null)){
             $products = $products->whereHas("shopProductCategory", function($q) use($request){
@@ -87,13 +108,14 @@ class ShopProductController extends Controller
              //$products = $products->where("name", 'like', "%{$q}%");
              $products = $products->where(function($query)  use($q){
 
-                $query->where("name", 'like', "%{$q}%")->orwhereHas("shopProductCategory", function($qry) use($q){
+                $query->where("shop_products.name", 'like', "%{$q}%")->orwhereHas("shopProductCategory", function($qry) use($q){
                     $qry->where("name", 'like', "%{$q}%");
                 });
              });
-
         }
-        return response($products->orderBy("sortorder", 'ASC')->paginate($perPage ));
+
+        $products = $products->select("shop_products.*");
+        return response($products->orderBy($orderBy[0], $orderBy[1])->paginate($perPage ));
     }
 
     public function showProductsFilters(Request $request){
