@@ -26,7 +26,7 @@ export class SearchResultComponent implements OnInit {
   varients: string[] = [];
 
   selectedItems: {varients?: string[],  categories?: number[],
-    priceFrom?: number, priceTo?: number, sort?: { name?: string, type?: string }} = {varients : [],  categories: [], priceFrom: 0, priceTo: 0, sort: {name:'name', type: 'asc'}};
+    priceFrom?: number, priceTo?: number, sort?: { name?: string, type?: string }} = {varients : [],  categories: [], priceFrom: 0, priceTo: 0, sort: {name:'name', type: 'ASC'}};
 
 
 
