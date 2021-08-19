@@ -30,7 +30,7 @@
 
   <ng-container *ngIf="filters$ | async as filters">
     <br/>
-    <div class="w-90">
+    <div class="w-90" *ngIf="filters.shop_product_tags && filters.shop_product_tags.length">
       <h3>Products Tags</h3>
       <mat-selection-list #shopProductTag [(ngModel)]="selectedItems.productTags" >
         <mat-list-option *ngFor="let shop_product_tag of filters.shop_product_tags"  [value]="shop_product_tag.id">
@@ -39,7 +39,7 @@
       </mat-selection-list>
     </div>
     <br/>
-    <div *ngIf="filters$ | async as filters" class="w-90">
+    <div class="w-90" *ngIf="filters.shop_product_varient_tags && filters.shop_product_varient_tags.length">
       <h3>Varients Tags</h3>
       <mat-selection-list #shopProductTag [(ngModel)]="selectedItems.productVarientTags" >
         <mat-list-option *ngFor="let shop_product_varient_tag of filters.shop_product_varient_tags"  [value]="shop_product_varient_tag.id">
