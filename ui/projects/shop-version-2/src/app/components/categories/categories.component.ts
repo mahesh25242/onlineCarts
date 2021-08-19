@@ -19,12 +19,14 @@ export class CategoriesComponent implements OnInit, OnDestroy {
   selectedCategory$: Observable<ShopProductCategory>;
   hideTopCat$: Observable<boolean>;
   swipeSubScr: Subscription;
+  noSwipeCat:boolean = false;
   constructor(private shopProductCategoryService: ShopProductCategoryService,
     private shopProductService: ShopProductService,
     private route: ActivatedRoute,
     private router: Router,) { }
 
     onSwipeLeft(evt){
+      this.noSwipeCat = false;
       this.swipeSubScr && this.swipeSubScr.unsubscribe();
       this.swipeSubScr = this.selectedCategory$.pipe(take(1),mergeMap(res=>{
         return this.categories$.pipe(map(cats=>{
@@ -35,13 +37,16 @@ export class CategoriesComponent implements OnInit, OnDestroy {
           return (cats[currIdx+1]) ? cats[currIdx+1]: null;
         }))
       })).subscribe((res:any)=>{
-       if(res?.url)
+        if(res?.url)
          this.router.navigate([`/${res?.url}/varities`]);
+        else
+          this.noSwipeCat = true;
       })
 
     }
 
     onSwipeRight(evt){
+      this.noSwipeCat = false;
       this.swipeSubScr && this.swipeSubScr.unsubscribe();
       this.swipeSubScr =  this.selectedCategory$.pipe(take(1),mergeMap(res=>{
         return this.categories$.pipe(map(cats=>{
@@ -53,8 +58,10 @@ export class CategoriesComponent implements OnInit, OnDestroy {
           return (cats[currIdx-1]) ? cats[currIdx-1]: null;
         }))
       })).subscribe((res:any)=>{
-       if(res?.url)
+        if(res?.url)
          this.router.navigate([`/${res?.url}/varities`]);
+        else
+         this.noSwipeCat = true;
       })
     }
   ngOnInit(): void {
