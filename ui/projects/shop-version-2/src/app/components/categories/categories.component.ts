@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { empty, Observable, Subscription } from 'rxjs';
 import { ShopProductCategory } from 'src/app/lib/interfaces';
 import { ShopProductCategoryService, ShopProductService } from 'src/app/lib/services';
 import { environment } from '../../../environments/environment';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { map, mergeMap, take } from 'rxjs/operators';
+import { findIndex } from 'lodash';
 
 
 @Component({
@@ -11,20 +13,59 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './categories.component.html',
   styleUrls: ['./categories.component.scss']
 })
-export class CategoriesComponent implements OnInit {
+export class CategoriesComponent implements OnInit, OnDestroy {
   environment = environment;
   categories$: Observable<ShopProductCategory[]>;
   selectedCategory$: Observable<ShopProductCategory>;
   hideTopCat$: Observable<boolean>;
+  swipeSubScr: Subscription;
   constructor(private shopProductCategoryService: ShopProductCategoryService,
     private shopProductService: ShopProductService,
-    private route: ActivatedRoute,) { }
+    private route: ActivatedRoute,
+    private router: Router,) { }
 
+    onSwipeLeft(evt){
+      this.swipeSubScr && this.swipeSubScr.unsubscribe();
+      this.swipeSubScr = this.selectedCategory$.pipe(take(1),mergeMap(res=>{
+        return this.categories$.pipe(map(cats=>{
+          const currIdx = findIndex(cats, {id: res?.id});
+          if(cats[currIdx+1]){
+            this.shopProductCategoryService.selectedCategory$.next(cats[currIdx+1]) ;
+          }
+          return (cats[currIdx+1]) ? cats[currIdx+1]: null;
+        }))
+      })).subscribe((res:any)=>{
+       if(res?.url)
+         this.router.navigate([`/${res?.url}/varities`]);
+      })
+
+    }
+
+    onSwipeRight(evt){
+      this.swipeSubScr && this.swipeSubScr.unsubscribe();
+      this.swipeSubScr =  this.selectedCategory$.pipe(take(1),mergeMap(res=>{
+        return this.categories$.pipe(map(cats=>{
+          const currIdx = findIndex(cats, {id: res?.id});
+          if(cats[currIdx-1]){
+            this.shopProductCategoryService.selectedCategory$.next(cats[currIdx-1]) ;
+          }
+
+          return (cats[currIdx-1]) ? cats[currIdx-1]: null;
+        }))
+      })).subscribe((res:any)=>{
+       if(res?.url)
+         this.router.navigate([`/${res?.url}/varities`]);
+      })
+    }
   ngOnInit(): void {
 
     this.hideTopCat$ = this.shopProductCategoryService.hideTopCat;
     this.selectedCategory$ = this.shopProductCategoryService.selectedCategory;
     this.categories$ = this.shopProductCategoryService.categories;
+  }
+
+  ngOnDestroy(){
+    this.swipeSubScr && this.swipeSubScr.unsubscribe();
   }
 
 }

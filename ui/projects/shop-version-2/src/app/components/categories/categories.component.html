@@ -1,6 +1,8 @@
 <ng-container class="category-menu" *ngIf="!(hideTopCat$  | async)">
 <ng-container  *ngIf="(categories$  | async) as categories">
-  <div class="category-menu"  *ngIf="categories && categories.length > 1">
+  <div class="category-menu"  *ngIf="categories && categories.length > 1"
+    (swipeleft)="onSwipeLeft($event)"
+    (swiperight)="onSwipeRight($event)" >
 
     <nav mat-tab-nav-bar [backgroundColor]="background">
       <a mat-tab-link *ngFor="let category of categories"
