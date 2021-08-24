@@ -1,5 +1,5 @@
 import { BrowserModule, HammerModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
-import { Injectable, NgModule } from '@angular/core';
+import { Injectable, NgModule, isDevMode } from '@angular/core';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
@@ -7,6 +7,9 @@ import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
 import {NgcCookieConsentModule, NgcCookieConsentConfig} from 'ngx-cookieconsent';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
 
+import { AngularFireAnalyticsModule, ScreenTrackingService, UserTrackingService,
+  DEBUG_MODE as ANALYTICS_DEBUG_MODE, } from '@angular/fire/analytics';
+import { AngularFirePerformanceModule, PerformanceMonitoringService } from '@angular/fire/performance';
 
 import { httpInterceptorProviders } from './lib/interceptor'
 
@@ -132,12 +135,15 @@ const cookieConfig:NgcCookieConsentConfig = {
     MatCarouselModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAnalyticsModule,
     NgcCookieConsentModule.forRoot(cookieConfig),
     NgxSliderModule,
-    TagModule
+    TagModule,
+    AngularFirePerformanceModule
   ],
   providers: [
     httpInterceptorProviders,
+    ScreenTrackingService,
     ProductResolver,
     ProductDetailsResolver,
     OrderDeatilResolver,
@@ -149,7 +155,14 @@ const cookieConfig:NgcCookieConsentConfig = {
     {
       provide: LOCALE_ID,
       useValue: 'en-IN' // 'de' for Germany, 'fr' for France ...
-     }
+     },
+     UserTrackingService,
+    ScreenTrackingService,
+    PerformanceMonitoringService,
+    {
+      provide: ANALYTICS_DEBUG_MODE,
+      useFactory: () => isDevMode()
+    },
   ],
   bootstrap: [AppComponent]
 })

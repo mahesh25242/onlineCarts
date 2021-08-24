@@ -1,22 +1,20 @@
-import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, OnChanges, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import { empty, Observable,of,pipe, Subscription, throwError } from 'rxjs';
-import { mergeMap, tap, map, catchError, delay } from 'rxjs/operators';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { Observable,of,Subscription, throwError } from 'rxjs';
+import { mergeMap, map, catchError, delay } from 'rxjs/operators';
 import { Cart, CartDetail, Shop, ShopDelivery, ShopOrder } from 'src/app/lib/interfaces';
 import { CartService, GeneralService, ShopService } from 'src/app/lib/services';
 import { environment } from '../../environments/environment';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { find, first } from 'lodash'
+import { FormBuilder, FormGroup } from '@angular/forms';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Router } from '@angular/router';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MatDialog} from '@angular/material/dialog';
 import { EditMessageComponent } from './edit-message/edit-message.component';
 import Notiflix from "notiflix";
 import { CurrencyPipe, DatePipe } from '@angular/common'
-import { OrderFormComponent } from './order-form/order-form.component';
 import { OrderTermsComponent } from './order-terms/order-terms.component';
 import { MessagingService } from '../lib/services';
-import { MatAccordion } from '@angular/material/expansion';
+import { AngularFireAnalytics } from '@angular/fire/analytics';
 
 @Component({
   selector: 'app-cart-details',
@@ -56,7 +54,8 @@ export class CartDetailsComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     public datepipe: DatePipe,
     private currencyPipe: CurrencyPipe,
-    private messagingService: MessagingService) {
+    private messagingService: MessagingService,
+    private analytics: AngularFireAnalytics) {
     cartService.shopKey = environment.shopKey;
   }
 
@@ -196,6 +195,8 @@ export class CartDetailsComponent implements OnInit, OnDestroy {
 
     })).subscribe(res=>{
       this.cartService.removeCart();
+      this.analytics.logEvent('purchases', res);
+
       window.location.href = res.url;
       Notiflix.Loading.Remove();
     }, error=>{
