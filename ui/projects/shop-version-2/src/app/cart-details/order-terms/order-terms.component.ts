@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { find } from 'lodash';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { CmsService } from 'src/app/lib/services';
 
 @Component({
   selector: 'app-order-terms',
@@ -7,10 +10,15 @@ import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
   styleUrls: ['./order-terms.component.scss']
 })
 export class OrderTermsComponent implements OnInit {
-
-  constructor(public dialogRef: MatDialogRef<OrderTermsComponent>,) { }
+  page$: Observable<any>;
+  constructor(
+    private cmsService: CmsService) { }
 
   ngOnInit(): void {
+    this.page$ = this.cmsService.getPages.pipe(map(res=>{
+      return find(res, { url: 'terms'})
+    }))
+
   }
 
 }
