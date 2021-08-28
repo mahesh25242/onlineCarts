@@ -9,6 +9,8 @@ import { environment } from 'src/environments/environment';
 import { AngularFireAuth } from "@angular/fire/auth";
 import { mergeMap } from 'rxjs/operators';
 import { uniqueId } from 'lodash';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { RegisterTermsComponent } from '../../register-terms/register-terms.component';
 
 
 @Component({
@@ -33,7 +35,8 @@ export class RegistrationStepTwoComponent implements OnInit {
     private cityService: CityService,
     private shopService: ShopService,
     private reCaptchaV3Service: ReCaptchaV3Service,
-    public afAuth: AngularFireAuth) { }
+    public afAuth: AngularFireAuth,
+    private modalService: NgbModal) { }
 
     get f(){ return this.registerForm.controls; }
 
@@ -91,6 +94,16 @@ export class RegistrationStepTwoComponent implements OnInit {
     }
 
 
+    terms(){
+      this.modalService.open(RegisterTermsComponent, {ariaLabelledBy: 'modal-basic-title', size:'lg'}).result.then((result) => {
+        if(result === 'Accept'){
+          this.f.terms.setValue(true);
+        }
+      }, (reason) => {
+        //console.log(reason)
+      });
+
+    }
   ngOnInit(): void {
 
     this.registerForm = this.formBuilder.group({

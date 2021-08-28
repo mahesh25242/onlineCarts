@@ -7,9 +7,10 @@ import { RegisterComponent } from './register/register.component';
 import { RegistrationStepOneComponent } from './register/registration-step-one/registration-step-one.component';
 import { RegistrationStepTwoComponent } from './register/registration-step-two/registration-step-two.component';
 import { ShopAdminHomeComponent } from './shop-admin.component';
+import { RegisterTermsComponent } from './register-terms/register-terms.component';
 
 @NgModule({
-  declarations: [ShopAdminHomeComponent,  RegisterComponent, RegistrationStepOneComponent, RegistrationStepTwoComponent],
+  declarations: [ShopAdminHomeComponent,  RegisterComponent, RegistrationStepOneComponent, RegistrationStepTwoComponent, RegisterTermsComponent],
   imports: [
     CommonModule,
     SharedModuleModule,

@@ -110,6 +110,11 @@ export class ShopService {
     }));
   }
 
+  shopDetail1(){
+    return this.shopDetail();
+  }
+
+
   validatedPhone(idToken: string= null){
     return this.http.post<any>("/shop/mobile_verified", {idToken})
   }

@@ -16,6 +16,7 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 
 import { ModalComponent } from './components/modal/modal.component';
 import { ShopCategoriesComponent } from './components/shop-categories/shop-categories.component';
+import { TermsAndCondtionBlockComponent } from './components/terms-and-condtion-block/terms-and-condtion-block.component';
 
 Notiflix.Confirm.Init({ borderRadius:"5px",titleColor:"#204486",okButtonBackground:"#204486",cancelButtonBackground:"#e2e2e2",cancelButtonColor:"#393939", });
 Notiflix.Notify.Init({ width:"390px", success: {background:"#d4edda",textColor:"#155724",}, failure: {background:"#f8d7da",textColor:"#721c24",}, warning: {background:"#fff3cd",textColor:"#856404",}, info: {background:"#cce5ff",textColor:"#004085",}, });
@@ -27,7 +28,8 @@ Notiflix.Block.Init({ svgColor:"#204486", });
   declarations: [
     SafeHtmlPipe,
     ModalComponent,
-    ShopCategoriesComponent
+    ShopCategoriesComponent,
+    TermsAndCondtionBlockComponent
   ],
   imports: [
     CommonModule,
@@ -50,7 +52,8 @@ Notiflix.Block.Init({ svgColor:"#204486", });
     ReactiveFormsModule,
     NgxCaptchaModule,
     DragDropModule,
-    ShopCategoriesComponent
+    ShopCategoriesComponent,
+    TermsAndCondtionBlockComponent
   ]
 })
 export class SharedModuleModule { }

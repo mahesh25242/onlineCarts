@@ -1,5 +1,5 @@
 import { BrowserModule, HammerModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
-import { Injectable, NgModule, isDevMode } from '@angular/core';
+import { Injectable, NgModule, isDevMode, APP_INITIALIZER, FactoryProvider } from '@angular/core';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
@@ -60,9 +60,13 @@ import { LayoutComponent } from './layout/layout.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
 import { DeliveryLocationComponent } from './cart-details/delivery-loaction/delivery-loaction.component';
 
+import { ShopService } from 'src/app/lib/services/shop.service';
+
 import { registerLocaleData } from '@angular/common';
 
 import localeIn from '@angular/common/locales/en-IN';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 registerLocaleData(localeIn);
 
 @Injectable()
@@ -89,6 +93,21 @@ const cookieConfig:NgcCookieConsentConfig = {
   position:'bottom-left',
   type: 'opt-out'
 };
+
+function initializeAppFactory(shopService: ShopService) {
+
+  return () => shopService.shopDetail1().pipe(tap(res=>alert("as")))
+ }
+
+
+ const loadConfigProvider: FactoryProvider = {
+  provide: APP_INITIALIZER,
+  useFactory: initializeAppFactory,
+  deps: [ShopService],
+  multi: true
+};
+
+
 
 
 @NgModule({
@@ -142,6 +161,7 @@ const cookieConfig:NgcCookieConsentConfig = {
     AngularFirePerformanceModule
   ],
   providers: [
+    loadConfigProvider,
     httpInterceptorProviders,
     ScreenTrackingService,
     ProductResolver,
@@ -162,7 +182,7 @@ const cookieConfig:NgcCookieConsentConfig = {
     {
       provide: ANALYTICS_DEBUG_MODE,
       useFactory: () => isDevMode()
-    },
+    }
   ],
   bootstrap: [AppComponent]
 })
