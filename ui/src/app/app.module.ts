@@ -26,6 +26,7 @@ import { StepsToStartComponent } from './header/banner/steps-to-start/steps-to-s
 import { TermsAndConditionComponent } from './terms-and-condition/terms-and-condition.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { OurClientsComponent } from './home/our-clients/our-clients.component';
+import { RefundAndCancellationComponent } from './refund-and-cancellation/refund-and-cancellation.component';
 
 
 
@@ -47,7 +48,8 @@ import { OurClientsComponent } from './home/our-clients/our-clients.component';
     StepsToStartComponent,
     TermsAndConditionComponent,
     PrivacyPolicyComponent,
-    OurClientsComponent
+    OurClientsComponent,
+    RefundAndCancellationComponent
   ],
   imports: [
     BrowserModule,

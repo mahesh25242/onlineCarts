@@ -7,6 +7,7 @@ import { HowItWorksComponent } from './how-it-works/how-it-works.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { TermsAndConditionComponent } from './terms-and-condition/terms-and-condition.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { RefundAndCancellationComponent } from './refund-and-cancellation/refund-and-cancellation.component';
 
 const routes: Routes = [
   {
@@ -32,6 +33,10 @@ const routes: Routes = [
   {
     path: 'privacy-policy',
     component: PrivacyPolicyComponent
+  },
+  {
+    path: 'refund-policy',
+    component: RefundAndCancellationComponent
   },
   {
     path: 'admin',
