@@ -27,6 +27,7 @@ import { TermsAndConditionComponent } from './terms-and-condition/terms-and-cond
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { OurClientsComponent } from './home/our-clients/our-clients.component';
 import { RefundAndCancellationComponent } from './refund-and-cancellation/refund-and-cancellation.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 
 
@@ -59,7 +60,8 @@ import { RefundAndCancellationComponent } from './refund-and-cancellation/refund
     HttpClientModule,
     HttpClientXsrfModule.disable(),
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     httpInterceptorProviders
