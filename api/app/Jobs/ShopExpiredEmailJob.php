@@ -34,15 +34,15 @@ class ShopExpiredEmailJob extends Job
             $q->where('status', 1);
         });
 
-        $shopRenewal->chunk(100, function ($shop_renewal)  {
-            foreach ($users as $user) {
+        $shopRenewal->chunk(100, function ($shop_renewals)  {
+            foreach ($shop_renewals as $shop_renewal) {
                  $email = new ShopExpiredNotification($shop_renewal->shop);
                  $toEMail = $shop_renewal->shop->email;
                  if(env('APP_ENV') == 'local'){
                     $toEMail = env('DEVELOPER_MAIL');
                     Mail::to($toEMail)->send($email);
                  }else{
-                    Mail::to($user->email)->send($email);
+                    Mail::to($toEMail)->send($email);
                  }
                  $shop_renewal->shop->status = 0;
                  $shop_renewal->shop->save();

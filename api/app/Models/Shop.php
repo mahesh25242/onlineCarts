@@ -184,4 +184,9 @@ class Shop extends Model implements AuthenticatableContract, AuthorizableContrac
         return $this->hasMany('App\Models\Cms');
     }
 
+    public function helpTicket()
+    {
+        return $this->hasMany('App\Models\HelpTicket');
+    }
+
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCmsTable extends Migration
+class CreateHelpTicketTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,11 @@ class CreateCmsTable extends Migration
      */
     public function up()
     {
-        Schema::create('cms', function (Blueprint $table) {
+        Schema::create('help_ticket_types', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
-            $table->string('url')->nullable();
-            $table->text('content')->nullable();
-            $table->bigInteger('shop_id')->default(0);
             $table->boolean('status')->default(1);
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -32,6 +28,6 @@ class CreateCmsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cms');
+        Schema::dropIfExists('help_ticket_types');
     }
 }

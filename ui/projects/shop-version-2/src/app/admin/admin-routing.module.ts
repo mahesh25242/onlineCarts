@@ -17,6 +17,7 @@ import { CreateProductComponent } from './products/create-product/create-product
 import { ListProductsComponent } from './products/list-product/list-products.component';
 import { ShopDeliveryPageComponent } from './delivery/shop-delivery-page.component';
 import { CreateProductResolver } from './products/create-product/create-product-resolver';
+import { AccountComponent } from './account/account.component';
 
 
 
@@ -89,8 +90,8 @@ const routes: Routes = [
         }
       },
       {
-        path: 'edit-profile',
-        component: EditProfileComponent,
+        path: 'account',
+        component: AccountComponent,
         canActivate: [AdminAuthGuard],
       },
     ]

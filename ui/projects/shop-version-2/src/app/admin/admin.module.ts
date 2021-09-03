@@ -36,6 +36,8 @@ import { ShopDeliveryAndSlotResolver } from './delivery/shop-delivery-and-slot-r
 import { CreateShopDeliverySlotComponent } from './delivery/shop-delivery-slot/create-shop-delivery-slot/create-shop-delivery-slot.component';
 import { ManageCmsComponent } from './components/manage-cms/manage-cms.component';
 import { ManageCmsPageComponent } from './components/manage-cms/manage-cms-page/manage-cms-page.component';
+import { AccountComponent } from './account/account.component';
+import { HelpDeskComponent } from './components/help-desk/help-desk.component';
 
 @NgModule({
   declarations: [  AdminComponent, SignInComponent, HomeComponent, CategoriesComponent,
@@ -44,7 +46,7 @@ import { ManageCmsPageComponent } from './components/manage-cms/manage-cms-page/
     ShopDetailsComponent, OrdersComponent, OrderDetailsComponent, OrderSearchComponent,
     SearchProductComponent, ManageBannersComponent, ThemeAndBrandingComponent,
     ShopDeliveryPageComponent, ShopDeliverySlotComponent,
-    CreateShopDeliverySlotComponent, ManageCmsComponent, ManageCmsPageComponent
+    CreateShopDeliverySlotComponent, ManageCmsComponent, ManageCmsPageComponent, AccountComponent, HelpDeskComponent
   ],
   imports: [
     CommonModule,

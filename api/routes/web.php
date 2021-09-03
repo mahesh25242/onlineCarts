@@ -69,6 +69,8 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
                     $router->post('/save','ShopProductVarientTagController@store');
                 });
             });
+
+
         });
     });
 
@@ -120,6 +122,14 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
 
                 $router->group(['prefix' => 'cms'], function () use ($router) {
                     $router->post('/store','CMSController@store');
+                });
+
+                $router->group(['prefix' => 'tickets'], function () use ($router) {
+                    $router->get('/types','HelpTicketController@types');
+                    $router->group(['prefix' => 'ticket'], function () use ($router) {
+                        $router->get('/','HelpTicketController@tickets');
+                        $router->post('/saveTicket','HelpTicketController@saveTicket');
+                    });
                 });
             });
         });

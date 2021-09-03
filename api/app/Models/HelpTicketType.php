@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Laravel\Lumen\Auth\Authorizable;
 use Laravel\Passport\HasApiTokens;
 
-class Cms extends Model implements AuthenticatableContract, AuthorizableContract
+class HelpTicketType extends Model implements AuthenticatableContract, AuthorizableContract
 {
     use HasApiTokens, Authenticatable, Authorizable;
 
@@ -20,19 +20,18 @@ class Cms extends Model implements AuthenticatableContract, AuthorizableContract
      * @var array
      */
     protected $fillable = [
-        'name', 'url', 'content', 'shop_id', 'status'
+        'name', 'status'
     ];
 
 
     protected $casts = [
-        'shop_id' => 'integer',
-        'status' => 'integer',
+        'status' => 'integer'
     ];
 
-
-    public function shop()
+    public function helpTicket()
     {
-        return $this->belongsTo('App\Models\Shop');
+        return $this->hasMany('App\Models\HelpTicket');
     }
+
 
 }

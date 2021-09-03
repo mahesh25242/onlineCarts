@@ -23,15 +23,14 @@
         <a class="main-menu-text-color" routerLink="/admin/categories" routerLinkActive="active">Categories</a>
         <a class="main-menu-text-color" routerLink="/admin/products/0"  routerLinkActive="active">Products</a>
         <a class="main-menu-text-color" routerLink="/admin/deliveries"  routerLinkActive="active">Delivery</a>
-        <a class="main-menu-text-color" routerLink="/admin/details"  routerLinkActive="active">Shop Info</a>
         <a class="main-menu-text-color" routerLink="/admin/orders" routerLinkActive="active">Orders</a>
+        <a class="main-menu-text-color" routerLink="/admin/details"  routerLinkActive="active">Customise Shop</a>
+        <a class="main-menu-text-color" routerLink="/admin/account" routerLinkActive="active">Manage Account</a>
         <a class="main-menu-text-color" routerLink="/">Back To Site</a>
         <div class="ml-15">
-          <button mat-button [matMenuTriggerFor]="menu" class="main-menu-text-color">{{loggedUser.fname}} <mat-icon class="profile-icon">person</mat-icon> </button>
-          <mat-menu #menu="matMenu">
-            <button mat-menu-item routerLink="/admin/edit-profile"><mat-icon>perm_identity</mat-icon>Edit Profile</button>
-            <button mat-menu-item (click)="signOut()"><mat-icon>power_settings_new</mat-icon>Sign Out</button>
-          </mat-menu>
+          <button  (click)="signOut()"  mat-stroked-button class="main-menu-text-color" >{{loggedUser.fname}}
+            <mat-icon color="warn">power_settings_new</mat-icon>
+          </button>
         </div>
     </ng-container>
   </div>

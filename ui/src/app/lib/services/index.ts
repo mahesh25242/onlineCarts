@@ -11,3 +11,4 @@ export * from './shop-product.service';
 export * from './cart.service';
 export * from './theme.service';
 export * from './cms.service';
+export * from './help-ticket.service';
