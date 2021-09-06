@@ -8,35 +8,38 @@
 <br/>
 
 <div *ngIf="tickets$ | async as tickets">
-  <h3>Reported Tickets</h3>
+  <ng-container *ngIf="tickets && tickets.length">
+    <h3>Reported Tickets</h3>
 
-  <mat-accordion >
-    <mat-expansion-panel hideToggle *ngFor="let tkt of tickets">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-         #{{tkt.id}} - {{tkt.subject}}
-        </mat-panel-title>
-        <mat-panel-description *ngIf="tkt?.help_ticket_type?.name">
-          <span>{{tkt?.help_ticket_type?.name}}<mat-chip [selected]="true" >{{ tkt.status_text }}</mat-chip></span>
+    <mat-accordion >
+      <mat-expansion-panel hideToggle *ngFor="let tkt of tickets">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+           #{{tkt.id}} - {{tkt.subject}}
+          </mat-panel-title>
+          <mat-panel-description *ngIf="tkt?.help_ticket_type?.name">
+            <span>{{tkt?.help_ticket_type?.name}}<mat-chip [selected]="true" >{{ tkt.status_text }}</mat-chip></span>
 
-        </mat-panel-description>
-      </mat-expansion-panel-header>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
 
-      <button class="float-right" (click)="reply(tkt)" mat-raised-button color="primary">Reply</button>
-
-
-      <div class="reply-content">
-        {{ tkt.content}}
-        <br/>
-        <br/> @ {{tkt.created_at | date:'medium'}}
-      </div>
+        <button class="float-right" (click)="reply(tkt)" mat-raised-button color="primary">Reply</button>
 
 
-      <mod-ticket-replies [replies]='tkt.all_children_replies' *ngIf="tkt.all_children_replies && tkt.all_children_replies.length"></mod-ticket-replies>
+        <div class="reply-content">
+          {{ tkt.content}}
+          <br/>
+          <br/> @ {{tkt.created_at | date:'medium'}}
+        </div>
+
+
+        <mod-ticket-replies [replies]='tkt.all_children_replies' *ngIf="tkt.all_children_replies && tkt.all_children_replies.length"></mod-ticket-replies>
 
 
 
-    </mat-expansion-panel>
-  </mat-accordion>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </ng-container>
+
 
 </div>
