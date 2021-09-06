@@ -22,7 +22,7 @@ export class ManageTicketsComponent implements OnInit {
   reply(tkt: HelpTicket = null){
 
     const dialogRef = this.dialog.open(TicketReplyComponent, {
-      width: '250px',
+      // minWidth: '450px',
       data: {tkt: tkt}
     });
 
