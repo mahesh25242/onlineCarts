@@ -1,0 +1,20 @@
+<form [formGroup]="ticketFrm" (submit)="save()">
+  <h2 mat-dialog-title>Reply to {{data.tkt.subject}}</h2>
+  <mat-dialog-content class="mat-typography">
+
+    <mat-form-field fxFlex="100%"  class="col-item" appearance="standard">
+      <mat-label>Reply</mat-label>
+      <textarea matInput formControlName="reason" placeholder="Ex. mentioned your query"
+      maxlength="200"></textarea>
+
+      <mat-error *ngIf="f.reason.errors && f.reason.errors.error">
+        {{f.reason.errors.error}}
+      </mat-error>
+    </mat-form-field>
+
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-button mat-raised-button   color="primary" type="submit" cdkFocusInitial>Sent</button>
+  </mat-dialog-actions>
+</form>

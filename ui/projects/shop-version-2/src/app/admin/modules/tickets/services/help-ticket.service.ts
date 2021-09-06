@@ -1,8 +1,8 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { delay, map, share, tap } from 'rxjs/operators';
-import { HelpTicket, Shop, ShopDelivery, ShopDeliverySlot } from '../interfaces';
+import { BehaviorSubject } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { HelpTicket } from '../interfaces';
 
 @Injectable({
   providedIn: 'root'

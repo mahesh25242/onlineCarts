@@ -29,7 +29,9 @@ class HelpTicketController extends Controller
             return response(["message" => "Page not found", "status" =>0], 404);
 
 
-        $tickets = \App\Models\HelpTicket::with(["helpTicketType"])->where("shop_id", $shop->id)->latest()->get();
+        $tickets = \App\Models\HelpTicket::with(["helpTicketType", "allChildrenReplies"])
+        ->where("parent", 0)
+        ->where("shop_id", $shop->id)->latest()->get();
         return response($tickets);
     }
 
@@ -46,10 +48,18 @@ class HelpTicketController extends Controller
         if(!$shop)
             return response(["message" => "Page not found", "status" =>0], 404);
 
-        $validator = Validator::make($request->all(), [
-            'subject' => ['required', 'string'],
-            'reason' => ['required', 'string'],
-        ]);
+        if($request->input("id", null)){
+            $validator = Validator::make($request->all(), [
+                'reason' => ['required', 'string'],
+            ]);
+        }else{
+            $validator = Validator::make($request->all(), [
+                'subject' => ['required', 'string'],
+                'reason' => ['required', 'string'],
+                'type' => ['required'],
+            ]);
+        }
+
 
 
         if($validator->fails()){
@@ -57,11 +67,21 @@ class HelpTicketController extends Controller
         }
 
 
-
         $ticket = new \App\Models\HelpTicket;
-        $ticket->help_ticket_type_id = $request->input("type", null);
-        $ticket->shop_id = $shop->id;
-        $ticket->subject = $request->input("subject", null);
+
+        if($request->input("id", null)){
+            $replyTicket = \App\Models\HelpTicket::find($request->input("id", null));
+            $ticket->parent = $replyTicket->id;
+            $ticket->help_ticket_type_id = $replyTicket->help_ticket_type_id;
+            $ticket->shop_id = $replyTicket->shop_id;
+            $ticket->subject = $replyTicket->subject;
+        }else{
+
+            $ticket->help_ticket_type_id = $request->input("type", null);
+            $ticket->shop_id = $shop->id;
+            $ticket->subject = $request->input("subject", null);
+        }
+
         $ticket->content = $request->input("reason", null);
         $ticket->status = 0;
         $ticket->save();

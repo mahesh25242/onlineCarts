@@ -13,5 +13,6 @@ export interface HelpTicket {
   content?: string,
   attachment?: string,
   status_text?: string,
-  help_ticket_type?: HelpTicketType
+  help_ticket_type?: HelpTicketType,
+  all_children_replies?: HelpTicket[]
 }

@@ -4,7 +4,7 @@ import { EditorModule } from '@tinymce/tinymce-angular';
 
 
 import { SharedModuleModule } from '../lib/shared-module/shared-module.module';
-import { TagModule } from './modules';
+import { TagModule, TicketModule } from './modules';
 
 import {  AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin.component';
@@ -37,7 +37,7 @@ import { CreateShopDeliverySlotComponent } from './delivery/shop-delivery-slot/c
 import { ManageCmsComponent } from './components/manage-cms/manage-cms.component';
 import { ManageCmsPageComponent } from './components/manage-cms/manage-cms-page/manage-cms-page.component';
 import { AccountComponent } from './account/account.component';
-import { HelpDeskComponent } from './components/help-desk/help-desk.component';
+
 
 @NgModule({
   declarations: [  AdminComponent, SignInComponent, HomeComponent, CategoriesComponent,
@@ -46,14 +46,15 @@ import { HelpDeskComponent } from './components/help-desk/help-desk.component';
     ShopDetailsComponent, OrdersComponent, OrderDetailsComponent, OrderSearchComponent,
     SearchProductComponent, ManageBannersComponent, ThemeAndBrandingComponent,
     ShopDeliveryPageComponent, ShopDeliverySlotComponent,
-    CreateShopDeliverySlotComponent, ManageCmsComponent, ManageCmsPageComponent, AccountComponent, HelpDeskComponent
+    CreateShopDeliverySlotComponent, ManageCmsComponent, ManageCmsPageComponent, AccountComponent
   ],
   imports: [
     CommonModule,
     AdminRoutingModule,
     SharedModuleModule,
     EditorModule,
-    TagModule
+    TagModule,
+    TicketModule
   ],
   providers:[
     CategoriesResolver,

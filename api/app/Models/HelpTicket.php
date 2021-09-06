@@ -63,4 +63,14 @@ class HelpTicket extends Model implements AuthenticatableContract, AuthorizableC
         return $this->belongsTo('App\Models\Shop');
     }
 
+    public function replies()
+    {
+        return $this->hasMany('App\Models\HelpTicket', 'parent', 'id')->latest();
+    }
+
+    public function allChildrenReplies()
+    {
+        return $this->replies()->with('allChildrenReplies');
+    }
+
 }
