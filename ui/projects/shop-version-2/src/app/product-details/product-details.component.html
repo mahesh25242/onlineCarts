@@ -2,12 +2,8 @@
 
   <div class="container">
     <mat-cart>
-      <mat-card-header>
-        <mat-card-header-text>
-          <h1 class="primary-text-color">{{ product.name }} [ {{ product.shop_product_selected_variant?.name }} ]</h1>
-        </mat-card-header-text>
-      </mat-card-header>
-      <mat-card-subtitle *ngIf="product?.shop_product_category?.name"><h5 class="primary-text-color">{{ product?.shop_product_category?.name }}</h5></mat-card-subtitle>
+      <h1 class="primary-text-color product-head">{{ product.name }} [ {{ product.shop_product_selected_variant?.name }} ]</h1>
+      <small *ngIf="product?.shop_product_category?.name"><h5 class="primary-text-color">{{ product?.shop_product_category?.name }}</h5></small>
       <form [formGroup]="addToCartFrm" (ngSubmit)="addToCart()">
 
         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
