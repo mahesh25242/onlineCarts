@@ -13,5 +13,6 @@ export const environment = {
   gMapUrl: env.gMapUrl,
   openstreetmap: env.openstreetmap,
   productListPerPage: 200,
-  firebaseConfig : env.firebaseConfig
+  firebaseConfig : env.firebaseConfig,
+  socketConfig: env.socketConfig
 };

@@ -6,6 +6,7 @@ import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
 
 import {NgcCookieConsentModule, NgcCookieConsentConfig} from 'ngx-cookieconsent';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
+import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
 
 import { AngularFireAnalyticsModule, ScreenTrackingService, UserTrackingService,
   DEBUG_MODE as ANALYTICS_DEBUG_MODE, } from '@angular/fire/analytics';
@@ -158,6 +159,7 @@ function initializeAppFactory(shopService: ShopService) {
     NgcCookieConsentModule.forRoot(cookieConfig),
     NgxSliderModule,
     TagModule,
+    NgxQRCodeModule,
     AngularFirePerformanceModule
   ],
   providers: [

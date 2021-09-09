@@ -1,8 +1,10 @@
 mat-card-title {
   color: #821807;
 }
+
 .product-head{
-  margin: 0px
+  margin: 0px;
+  font-size: 15px;
 }
 .mat-card-headerimage {
   overflow: hidden;
@@ -39,7 +41,9 @@ mat-card-title {
 
 .description{
   padding: 0px 15px 0px 10px;
-
+  .product-head{
+    font-size: 20px;
+  }
 }
 
 .margin-top-14{

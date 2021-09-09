@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ShopOrder } from 'src/app/lib/interfaces';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { Shop, ShopOrder } from 'src/app/lib/interfaces';
+import { ShopService } from 'src/app/lib/services';
 import { environment } from '../../environments/environment';
 
 @Component({
@@ -10,11 +13,15 @@ import { environment } from '../../environments/environment';
 })
 export class OrderDeatilComponent implements OnInit {
   order:ShopOrder;
+  shop$: Observable<Shop>;
   mapUrl: string = null;
   displayedColumns = ["no", "name", "qty", "message", "price"];
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute,
+    private shopService: ShopService) { }
 
   ngOnInit(): void {
+
+    this.shop$ = this.shopService.aShop.pipe(tap(res=> console.log(res)));
     this.order = this.route.snapshot.data["order"];
 
     this.mapUrl = `${environment.gMapUrl}/maps?z=12&t=m&q=loc:${this.order?.loc?.lat}+${this.order?.loc?.lon}`;

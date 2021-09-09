@@ -6,7 +6,7 @@ import { Country, State, City, User } from 'src/app/lib/interfaces';
 import { Subscription } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
 import Notiflix from "notiflix";
-
+import { Socket } from 'ngx-socket-io';
 
 @Component({
   selector: 'app-edit-profile',
@@ -19,7 +19,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
   countries$:Observable<Country[]>;
   states$:Observable<State[]>;
   cities$:Observable<City[]>;
-
+  qr: string = null;
 
 
   countrySubscription: Subscription;
@@ -29,10 +29,29 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     private stateService: StateService,
     private cityService: CityService,
     private formBuilder: FormBuilder,
-    private userService: UserService,) { }
+    private userService: UserService,
+    private socket: Socket) { }
 
     get f() { return this.editProfileFrm.controls; }
   ngOnInit(): void {
+
+
+    this.socket.on('qrCode', (message)=>{
+      this.qr = message;
+    })
+
+    this.socket.on('authenticated', (message)=>{
+      this.qr = null;
+      console.log(message)
+    })
+
+    this.socket.on('console', (message)=>{
+      console.log(message)
+    })
+
+
+
+
     this.editProfileFrm = this.formBuilder.group({
       fname: [null, [ Validators.required]],
       lname:[null, [Validators.required]],

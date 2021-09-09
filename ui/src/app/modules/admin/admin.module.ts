@@ -1,5 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { environment } from '../../../environments/environment';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+
+
+import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
+
 
 import { SharedModuleModule } from '../../shared-module/shared-module.module';
 import {  AdminRoutingModule } from './admin-routing.module';
@@ -15,7 +21,8 @@ import { SignInComponent } from './sign-in/sign-in.component';
     CommonModule,
     SharedModuleModule,
     AdminRoutingModule,
-
+    NgxQRCodeModule,
+    SocketIoModule.forRoot(environment.socketConfig as SocketIoConfig)
   ],
   providers:[
 
