@@ -42,7 +42,7 @@ class ShopExpired extends Command
         if (self::$process_busy == false) {
             //error_log("shop expiring exixuted!", 1);
             self::$process_busy = true;
-            $emailJob = (new \App\Jobs\ShopExpiredEmailJob(null))->delay(Carbon::now()->addSeconds(2));
+            $emailJob = (new \App\Jobs\ShopExpiredEmailJob(null));
             dispatch($emailJob);
             self::$process_busy = false;
 
