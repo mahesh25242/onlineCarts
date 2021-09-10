@@ -1,15 +1,19 @@
 
 <app-carousel></app-carousel>
-<div class="container">
+<div>
   <!-- <div class="swipe" (swipe)="onSwipe($event)">
     <h1>Swipe Gesture</h1>
     <p>Works with both mouse and touch.</p>
     <h5 [innerHTML]="direction"></h5>
   </div> -->
 
-  <app-search fxHide.xs="true"></app-search>
+  <div class="container" fxHide.xs="true">
+    <app-search></app-search>
+  </div>
   <app-categories>
-    <app-product></app-product>
+    <div class="container">
+      <app-product></app-product>
+    </div>
   </app-categories>
 
 

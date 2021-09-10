@@ -4,6 +4,9 @@
       <mat-panel-title>
         {{page.name}}
       </mat-panel-title>
+      <mat-panel-description>
+        Click here to change &nbsp;<b>{{ page.name }}</b>&nbsp; page contents
+      </mat-panel-description>
     </mat-expansion-panel-header>
       <mat-card>
         <app-manage-cms-page [page]="page" (reload)="ngOnInit()"></app-manage-cms-page>

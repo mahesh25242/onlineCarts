@@ -1,13 +1,8 @@
 <div class="header-inner"></div>
 <div class="container">
-
-
-
   <div id="recaptcha-container"></div>
   <ng-container *ngIf="(shop$ | async) as shop">
     <h1>{{shop.name}} Details</h1>
-
-
     <mat-accordion class="example-headers-align" multi>
       <mat-expansion-panel>
         <mat-expansion-panel-header>
@@ -16,7 +11,7 @@
             <mat-icon>dark_mode</mat-icon>
           </mat-panel-title>
           <mat-panel-description>
-              Status: {{shop.status_text}}
+              Click here to change theme color, logo & favicon
           </mat-panel-description>
         </mat-expansion-panel-header>
 
@@ -25,22 +20,20 @@
 
 
 
-
+        Status: {{shop.status_text}}
         <div *ngIf="!shop.is_mobile_verified">
           Your mobile is not verified so cant get any order to your mobile
           <a href="javascript:{}" (click)="verifyMobile(shop)">Click here to verify</a>
         </div>
 
       </mat-expansion-panel>
-
-
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title>
             Edit Account
           </mat-panel-title>
           <mat-panel-description>
-            Edit Account
+            Click here to change shop details like phone, name, map URL etc.
           </mat-panel-description>
         </mat-expansion-panel-header>
 
@@ -192,16 +185,13 @@
           <button mat-raised-button class="float-right" color="primary" type="submit">Save</button>
         </form>
       </mat-expansion-panel>
-
-
-
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title>
             Banner
           </mat-panel-title>
           <mat-panel-description>
-            Change home page banner
+            Click here to change home page banner images
           </mat-panel-description>
         </mat-expansion-panel-header>
 
@@ -212,10 +202,6 @@
 
       </mat-expansion-panel>
       <app-manage-cms></app-manage-cms>
-
-
     </mat-accordion>
-
-
   </ng-container>
 </div>
