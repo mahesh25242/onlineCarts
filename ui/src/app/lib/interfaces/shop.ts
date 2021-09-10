@@ -46,7 +46,9 @@ export interface Shop {
   is_mobile_verified?: number,
   max_banner?: number,
   shop_delivery_slot?: ShopDeliverySlot[],
-  business_hours?: string
+  business_hours?: string,
+  shop_current_renewal?: ShopRenewal
+  shop_renewal?: ShopRenewal[]
 }
 
 
@@ -65,4 +67,16 @@ export interface Theme {
   class?: string,
   theme_color?: string,
   background_color?: string
+}
+
+export interface ShopRenewal {
+  id?: number,
+  shop_id?: number,
+  amount?: number,
+  from_date?: string,
+  to_date?: string,
+  status?: number,
+  shop?: Shop,
+  remaining_days?: number,
+  show_message?: boolean
 }

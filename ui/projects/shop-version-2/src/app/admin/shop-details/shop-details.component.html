@@ -3,14 +3,19 @@
   <div id="recaptcha-container"></div>
   <ng-container *ngIf="(shop$ | async) as shop">
     <h1>{{shop.name}} Details</h1>
-    <mat-accordion class="example-headers-align" multi>
+    <mat-card *ngIf="shop.shop_current_renewal">
+      <p>Expired on: {{shop.shop_current_renewal.to_date | date:'medium'}}</p>
+      <p *ngIf="shop.shop_current_renewal.show_message">Shop will stop working after {{shop.shop_current_renewal.remaining_days}} days. Please re new your subscription </p>
+    </mat-card>
+    <br/>
+    <mat-accordion multi>
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title>
             Theme & Branding
             <mat-icon>dark_mode</mat-icon>
           </mat-panel-title>
-          <mat-panel-description>
+          <mat-panel-description fxHide.xs="true">
               Click here to change theme color, logo & favicon
           </mat-panel-description>
         </mat-expansion-panel-header>
@@ -32,7 +37,7 @@
           <mat-panel-title>
             Edit Account
           </mat-panel-title>
-          <mat-panel-description>
+          <mat-panel-description fxHide.xs="true">
             Click here to change shop details like phone, name, map URL etc.
           </mat-panel-description>
         </mat-expansion-panel-header>
@@ -190,7 +195,7 @@
           <mat-panel-title>
             Banner
           </mat-panel-title>
-          <mat-panel-description>
+          <mat-panel-description fxHide.xs="true">
             Click here to change home page banner images
           </mat-panel-description>
         </mat-expansion-panel-header>

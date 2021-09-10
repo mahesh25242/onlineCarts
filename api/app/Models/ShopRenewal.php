@@ -8,7 +8,7 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Lumen\Auth\Authorizable;
 use Laravel\Passport\HasApiTokens;
-
+use Carbon\Carbon;
 
 class ShopRenewal extends Model implements AuthenticatableContract, AuthorizableContract
 {
@@ -28,7 +28,24 @@ class ShopRenewal extends Model implements AuthenticatableContract, Authorizable
         'amount' => 'double',
         'status' => 'boolean',
     ];
+    protected $appends = array('remaining_days', 'show_message');
 
+
+
+    public function getRemainingDaysAttribute()
+    {
+        $date = Carbon::parse($this->to_date);
+        $now = Carbon::now();
+
+        return $date->diffInDays($now);
+    }
+    public function getShowMessageAttribute()
+    {
+        $date = Carbon::parse($this->to_date);
+        $now = Carbon::now();
+
+        return $date->diffInDays($now) < 10;
+    }
 
 
     public function shop()

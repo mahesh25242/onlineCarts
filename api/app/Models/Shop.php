@@ -10,6 +10,7 @@ use Laravel\Lumen\Auth\Authorizable;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 
 class Shop extends Model implements AuthenticatableContract, AuthorizableContract
 {
@@ -167,6 +168,11 @@ class Shop extends Model implements AuthenticatableContract, AuthorizableContrac
     public function shopRenewal()
     {
         return $this->hasMany('App\Models\ShopRenewal');
+    }
+
+    public function shopCurrentRenewal()
+    {
+        return $this->hasOne('App\Models\ShopRenewal')->whereRaw("'".new Carbon."' BETWEEN from_date and to_date");
     }
 
     public function shopTheme()
