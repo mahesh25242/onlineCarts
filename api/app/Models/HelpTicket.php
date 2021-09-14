@@ -20,7 +20,7 @@ class HelpTicket extends Model implements AuthenticatableContract, AuthorizableC
      * @var array
      */
     protected $fillable = [
-        'parent', 'shop_id', 'subject', 'content', 'attachment', 'status'
+        'parent', 'shop_id', 'subject', 'content', 'attachment', 'status', 'help_ticket_type_id'
     ];
 
 
@@ -28,6 +28,7 @@ class HelpTicket extends Model implements AuthenticatableContract, AuthorizableC
         'parent' => 'integer',
         'shop_id' => 'integer',
         'status' => 'integer',
+        'help_ticket_type_id' => 'integer',
     ];
 
     protected $appends = array('status_text');

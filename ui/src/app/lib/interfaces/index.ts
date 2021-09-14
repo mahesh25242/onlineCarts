@@ -18,4 +18,4 @@ export * from './shop-order';
 export * from './shop-order-item';
 export * from './bc';
 export * from './shop-delivery-slot';
-
+export * from './help-ticket';

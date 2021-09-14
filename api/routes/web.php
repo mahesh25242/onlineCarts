@@ -156,6 +156,16 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
 
             });
 
+            $router->group(['prefix' => 'tickets'], function () use ($router) {
+                $router->post('/','HelpTicketController@allTickets');
+                $router->group(['prefix' => '{id}'], function () use ($router) {
+                    $router->get('/','HelpTicketController@replies');
+                    $router->post('/reply','HelpTicketController@reply');
+                });
+
+
+            });
+
         });
 
 

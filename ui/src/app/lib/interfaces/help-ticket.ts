@@ -1,3 +1,5 @@
+import { Pagination } from "./pagination";
+
 export interface HelpTicketType {
   id?: number,
   name?: string,
@@ -15,4 +17,8 @@ export interface HelpTicket {
   status_text?: string,
   help_ticket_type?: HelpTicketType,
   all_children_replies?: HelpTicket[]
+}
+
+export interface HelpTicketWithPagination extends Pagination {
+  data?: HelpTicket[]
 }

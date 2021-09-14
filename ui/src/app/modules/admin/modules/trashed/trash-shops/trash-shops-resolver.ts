@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot  } from '@angular/router';
 import { empty, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ShopService } from '../../../../lib/services';
+import { ShopService } from '../../../../../lib/services';
 
 @Injectable()
 export class TrashShopsResolver implements Resolve<any> {

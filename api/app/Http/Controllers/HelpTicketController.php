@@ -15,6 +15,46 @@ class HelpTicketController extends Controller
         return response($types);
     }
 
+    public function allTickets(Request $request){
+        $perPage = 50;
+        $types = \App\Models\HelpTicket::with(["shop"])->where("parent", 0)->latest()->paginate($perPage);
+        return response($types);
+
+    }
+
+    public function replies($id = 0){
+        $tktReplies = \App\Models\HelpTicket::with(["shop"])->where("parent", $id)->latest()->get();
+        return response($tktReplies);
+    }
+    public function reply(Request $request, $id = 0){
+
+        if(!$id){
+            return response(["message" => "Page not found", "status" =>0], 404);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'comment' => ['required', 'string'],
+        ]);
+
+        if($validator->fails()){
+            return response(['message' => 'Validation errors', 'errors' =>  $validator->errors(), 'status' => false], 422);
+        }
+        $hlpTkt = \App\Models\HelpTicket::find($id);
+
+        $helpTicket = new \App\Models\HelpTicket;
+        $helpTicket->parent = $id;
+        $helpTicket->shop_id =  $hlpTkt->shop_id;
+        $helpTicket->subject =  $hlpTkt->subject;
+        $helpTicket->content =  $request->input("comment", '');
+        $helpTicket->status =  0;
+        $helpTicket->help_ticket_type_id =  $hlpTkt->help_ticket_type_id;
+        $helpTicket->save();
+        return response([
+            "success" => 1,
+            "message" => 'successfully saved'
+        ]);
+    }
+
     public function tickets(Request $request){
         $shopKey = $request->header('shopKey');
         $shopKey = ($shopKey) ? $shopKey : $request->input("shop_key",'');

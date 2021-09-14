@@ -1,0 +1,7 @@
+<div *ngIf="replies$ | async as replies">
+  <div *ngFor="let reply of replies">
+    <p>{{ reply.updated_at | date: 'medium' }}</p>
+    <p  [innerHTML]="reply.content"></p>
+  </div>
+
+</div>

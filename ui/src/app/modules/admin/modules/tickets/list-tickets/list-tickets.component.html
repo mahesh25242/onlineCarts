@@ -1,0 +1,33 @@
+
+<div *ngIf="helpTickets$ | async as helpTickets">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col">Ticket#</th>
+      <th scope="col">Shop</th>
+      <th scope="col">Subject</th>
+      <th scope="col">Created</th>
+      <th scope="col">Updated At</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let helpTicket of helpTickets.data; index as i">
+          <th scope="row">
+            <a href="javascript:{}" (click)="view(helpTicket)">
+              {{ helpTicket.id }}
+            </a>
+          </th>
+          <td>
+            {{ helpTicket?.shop?.name }}
+          </td>
+          <td>{{ helpTicket.subject }}</td>
+          <td>{{ helpTicket.created_at | date:'medium' }}</td>
+          <td>{{ helpTicket.updated_at | date:'medium' }}</td>
+        </tr>
+
+    </tbody>
+    </table>
+
+  <ngb-pagination [collectionSize]="helpTickets.total"  [pageSize]="helpTickets.per_page" [(page)]="helpTickets.current_page" (pageChange)="loadPage($event)" [maxSize]="5" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
+
+</div>

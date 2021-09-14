@@ -1,1 +1,1 @@
-export * from './help-ticket';
+export * from 'src/app/lib/interfaces/help-ticket';

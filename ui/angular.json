@@ -23,7 +23,8 @@
               "firebase/app",
               "@firebase/auth",
               "notiflix",
-              "lodash"
+              "lodash",
+              "socket.io-client"
             ],
             "outputPath": "dist/cart",
             "index": "src/index.html",
@@ -162,7 +163,9 @@
               "@firebase/auth",
               "@firebase/util",
               "@firebase/component",
-              "@firebase/performance"
+              "@firebase/performance",
+              "socket.io-client",
+              "qrcode"
             ],
             "outputPath": "dist/shop-version-2",
             "index": "projects/shop-version-2/src/index.html",

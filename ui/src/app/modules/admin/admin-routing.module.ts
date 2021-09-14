@@ -31,8 +31,14 @@ const routes: Routes = [
 
       },
       {
+        path: 'tickets',
+        loadChildren: () => import('./modules/tickets/tickets.module').then(m => m.TicketsModule),
+        canActivate: [AdminAuthGuard],
+
+      },
+      {
         path: 'trash',
-        loadChildren: () => import('./trashed/trashed.module').then(m => m.TrashedModule),
+        loadChildren: () => import('./modules/trashed/trashed.module').then(m => m.TrashedModule),
         canActivate: [AdminAuthGuard],
 
       },
