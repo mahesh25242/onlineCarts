@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { find } from 'lodash';
 import { Observable, of } from 'rxjs';
-import { map, mergeMap } from 'rxjs/operators';
+import { map, mergeMap, take } from 'rxjs/operators';
 import { HelpTicket } from 'src/app/lib/interfaces';
 import { TicketService } from '../../services';
 @Component({
@@ -11,7 +11,7 @@ import { TicketService } from '../../services';
 })
 export class TicketRepliesComponent implements OnInit {
   @Input() id: number;
-
+  isCalled: boolean = false;
   replies$: Observable<HelpTicket[]>;
 
   constructor(private ticketService: TicketService) { }
@@ -21,10 +21,11 @@ export class TicketRepliesComponent implements OnInit {
 
       const replyExists = find(res.data, { id: this.id})
 
-      if(replyExists?.all_children_replies && replyExists.all_children_replies.length){
+      if(this.isCalled || (replyExists?.all_children_replies && replyExists.all_children_replies.length)){
         return of(replyExists.all_children_replies)
-      }else{
-        return this.ticketService.replies(this.id)
+      }else if(!this.isCalled){
+        this.isCalled = true;
+        return this.ticketService.replies(this.id);
       }
     }))
 
