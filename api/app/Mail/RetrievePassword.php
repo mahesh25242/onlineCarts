@@ -19,7 +19,7 @@ class RetrievePassword extends Mailable
 
     public function build()
     {
-       $user =  (array) $this->user;
+        $user =  (array) $this->user;
         return $this->view('email/retrievePassword', $user);
     }
 }

@@ -19,6 +19,11 @@ class NewTicketAdminNotification extends Mailable
 
     public function build()
     {
-        return $this->view('email/newTicketAdminNotification', ["helpTicket" => $this->helpTicket]);
+        if($this->helpTicket->parent){
+            return $this->view('email/TicketReplyAdminNotification', ["helpTicket" => $this->helpTicket]);
+        }else{
+            return $this->view('email/newTicketAdminNotification', ["helpTicket" => $this->helpTicket]);
+        }
+
     }
 }

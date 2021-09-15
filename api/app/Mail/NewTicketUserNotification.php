@@ -19,6 +19,11 @@ class NewTicketUserNotification extends Mailable
 
     public function build()
     {
-        return $this->view('email/newTicketUserNotification', ["helpTicket" => $this->helpTicket]);
+        if($this->helpTicket->parent){
+            return $this->view('email/TicketReplyUserNotification', ["helpTicket" => $this->helpTicket]);
+        }else{
+            return $this->view('email/newTicketUserNotification', ["helpTicket" => $this->helpTicket]);
+        }
+
     }
 }

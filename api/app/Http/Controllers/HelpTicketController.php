@@ -49,6 +49,10 @@ class HelpTicketController extends Controller
         $helpTicket->status =  0;
         $helpTicket->help_ticket_type_id =  $hlpTkt->help_ticket_type_id;
         $helpTicket->save();
+        $emailJob = (new \App\Jobs\TicketCreated($helpTicket))->delay(Carbon::now()->addSeconds(2));
+        dispatch($emailJob);
+
+
         return response([
             "success" => 1,
             "message" => 'successfully saved'

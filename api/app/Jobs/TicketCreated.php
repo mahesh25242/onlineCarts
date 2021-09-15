@@ -33,7 +33,12 @@ class TicketCreated extends Job
     public function handle()
     {
 
-        $email = new NewTicketAdminNotification($this->ticket);
+        if($this->ticket->parent > 0){
+
+        }else{
+            $email = new NewTicketAdminNotification($this->ticket);
+        }
+
         $settings = Setting::where("name", "ticket mail")->get()->first();
         $toEMail = $settings->value;
         if(env('APP_ENV') == 'local'){
@@ -43,7 +48,12 @@ class TicketCreated extends Job
             Mail::to($toEMail)->send($email);
         }
 
-        $email = new NewTicketUserNotification($this->ticket);
+        if($this->ticket->parent > 0){
+
+        }else{
+            $email = new NewTicketUserNotification($this->ticket);
+        }
+
         $toEMail = $this->ticket->shop->email;
         if(env('APP_ENV') == 'local'){
             $toEMail = env('DEVELOPER_MAIL');
@@ -53,4 +63,5 @@ class TicketCreated extends Job
         }
 
     }
+
 }
