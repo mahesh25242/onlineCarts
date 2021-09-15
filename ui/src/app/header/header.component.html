@@ -15,8 +15,12 @@
         <a class="nav-link" routerLink="/about-us" routerLinkActive="active">About Us</a>
       </li>
       <li class="nav-item">
+        <a class="nav-link" routerLink="/pricing" routerLinkActive="active">Pricing</a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" routerLink="/contact-us" routerLinkActive="active">Contact Us</a>
       </li>
+
 
       <ng-container *ngIf="(loggedUser$ | async) as loggedUser">
         <li class="nav-item">
@@ -27,6 +31,9 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="/admin/tickets" >Tickets</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/admin/settings" >Settings</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="/admin/trash" >Trash</a>

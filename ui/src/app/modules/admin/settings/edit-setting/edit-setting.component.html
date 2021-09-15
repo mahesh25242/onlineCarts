@@ -1,0 +1,27 @@
+<form [formGroup]="editForm" (ngSubmit)="save()">
+  <app-modal>
+    <div header>Edit - {{ setting.name }} </div>
+    <div body>
+        <div class="form-group">
+          <label for="name">Name</label>
+          {{setting.name}}
+        </div>
+        <div class="form-group">
+          <label for="value">Value</label>
+          <textarea  class="form-control" id="value"
+          [ngClass]="{'is-invalid': ( f.value.errors && f.value.errors.error)}"
+          placeholder="Value"
+          formControlName="value"></textarea>
+          <div *ngIf="f.value.errors && f.value.errors.error" class="invalid-feedback">
+            {{f.value.errors.error}}
+          </div>
+        </div>
+
+
+    </div>
+    <div footer>
+      <button type="button" class="btn btn-info" (click)="modal.close()">Cancel</button>
+      <button type="submit" class="btn btn-primary ml-1">Submit</button>
+    </div>
+  </app-modal>
+</form>

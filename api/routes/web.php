@@ -166,6 +166,11 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
 
             });
 
+            $router->group(['prefix' => 'settings'], function () use ($router) {
+                $router->get('/','SettingController@settings');
+            });
+
+
         });
 
 

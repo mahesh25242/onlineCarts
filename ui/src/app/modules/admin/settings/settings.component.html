@@ -1,0 +1,37 @@
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>
+        Id
+      </th>
+      <th>
+        Name
+      </th>
+      <th>
+        Value
+      </th>
+      <th>
+        Option
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngIf="settings$ | async as settings">
+      <tr *ngFor="let setting of settings">
+        <td>
+          {{ setting.id }}
+        </td>
+        <td>
+          {{ setting.name }}
+        </td>
+        <td>
+          {{ setting.value }}
+        </td>
+        <td>
+          <a href="javascript:{}" (click)="edit(setting)">Edit</a>
+        </td>
+      </tr>
+    </ng-container>
+  </tbody>
+</table>

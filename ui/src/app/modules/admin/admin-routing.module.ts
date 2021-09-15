@@ -5,6 +5,8 @@ import { AdminAuthGuard, NegateAuthGuard } from '../../lib/guard';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { AdminHomeComponent } from './admin-home.component';
 import { SignInComponent } from './sign-in/sign-in.component';
+import { SettingsComponent } from './settings/settings.component';
+import { SettingResolver } from './settings/setting-resolver';
 
 const routes: Routes = [
   {
@@ -23,6 +25,13 @@ const routes: Routes = [
       {
         path: 'edit-profile',
         component: EditProfileComponent,
+      },
+      {
+        path: 'settings',
+        component: SettingsComponent,
+        resolve:{
+          settings: SettingResolver
+        }
       },
       {
         path: 'shops',

@@ -28,6 +28,7 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
 import { OurClientsComponent } from './home/our-clients/our-clients.component';
 import { RefundAndCancellationComponent } from './refund-and-cancellation/refund-and-cancellation.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { PricingComponent } from './pricing/pricing.component';
 
 
 
@@ -50,7 +51,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     TermsAndConditionComponent,
     PrivacyPolicyComponent,
     OurClientsComponent,
-    RefundAndCancellationComponent
+    RefundAndCancellationComponent,
+    PricingComponent
   ],
   imports: [
     BrowserModule,

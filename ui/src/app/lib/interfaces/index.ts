@@ -19,3 +19,4 @@ export * from './shop-order-item';
 export * from './bc';
 export * from './shop-delivery-slot';
 export * from './help-ticket';
+export * from './setting'

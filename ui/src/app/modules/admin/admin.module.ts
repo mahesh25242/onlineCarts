@@ -13,12 +13,15 @@ import { AdminHomeComponent } from './admin-home.component';
 import { DashBoardComponent } from './dash-board/dash-board.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { SignInComponent } from './sign-in/sign-in.component';
+import { SettingsComponent } from './settings/settings.component';
+import { SettingResolver } from './settings/setting-resolver';
+import { EditSettingComponent } from './settings/edit-setting/edit-setting.component';
 
 
 
 @NgModule({
   declarations: [AdminHomeComponent, DashBoardComponent,
-    EditProfileComponent, SignInComponent],
+    EditProfileComponent, SignInComponent, SettingsComponent, EditSettingComponent],
   imports: [
     CommonModule,
     SharedModuleModule,
@@ -27,7 +30,7 @@ import { SignInComponent } from './sign-in/sign-in.component';
     SocketIoModule.forRoot(environment.socketConfig as SocketIoConfig)
   ],
   providers:[
-
+    SettingResolver
   ]
 })
 export class AdminModule { }
