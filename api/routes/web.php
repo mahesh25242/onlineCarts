@@ -168,6 +168,10 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
 
             $router->group(['prefix' => 'settings'], function () use ($router) {
                 $router->get('/','SettingController@settings');
+                $router->group(['prefix' => '{id}'], function () use ($router) {
+                    $router->post('/save','SettingController@save');
+                });
+
             });
 
 

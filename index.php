@@ -1,14 +1,15 @@
 <?php
 $apiUrl = 'https://api.onlinecarts.in/';
 
+
 $shopUrl = isset($_REQUEST["p"]) ? $_REQUEST["p"] : '';
 if(!$shopUrl) {
     header("Location: /front");
     exit;
 }
 
-$basePath = ($shopUrl) ? current(explode('/', $shopUrl)).'/' : '/'; 
-  
+$shopUrl = ltrim(trim($shopUrl), '/');
+$basePath = ($shopUrl) ? current(explode('/', $shopUrl)).'/' : '/';   
 $themeFileName =  basename($shopUrl);
 
 $ismanifest = false;
@@ -21,7 +22,7 @@ if($ismanifest){
     
     
     if($file_parts["filename"]){
-        $url = "{$apiUrl}public/v1/shop/manifest/".$file_parts["filename"];
+        $url = "{$apiUrl}v1/shop/manifest/".$file_parts["filename"];
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.0)");
@@ -85,7 +86,7 @@ if($ismanifest){
 
 
   
-   $url = "{$apiUrl}public/v1/shopName/".rtrim($basePath, "/");
+   $url = "{$apiUrl}v1/shopName/".rtrim($basePath, "/");
 
     
     
@@ -109,7 +110,7 @@ if($ismanifest){
         $data["siteName"] = $shop["name"] ?? 'demo';
         $data["basePath"] = "/{$basePath}";
         $data["shopKey"] =  $shop["shop_key"] ?? 'demo';
-        $data["baseUrl"] =  "{$apiUrl}public/" ?? '';
+        $data["baseUrl"] =  "{$apiUrl}" ?? '';
         $data["themeColor"] = $shop["theme_color"] ?? '#000000';
         
         require_once '_theme/index.php';

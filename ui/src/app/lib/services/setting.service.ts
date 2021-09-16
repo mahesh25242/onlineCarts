@@ -22,4 +22,8 @@ export class SettingService {
     }));
   }
 
+  saveSetting(postData: any | null = null){
+    return this.http.post<any[]>(`/admin/settings/${postData.id}/save`, postData);
+  }
+
 }
