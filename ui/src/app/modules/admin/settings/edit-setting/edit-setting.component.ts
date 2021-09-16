@@ -4,6 +4,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Setting } from 'src/app/lib/interfaces';
 import { SettingService } from '../../../../lib/services';
 import Notiflix from "notiflix";
+import { mergeMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-edit-setting',
@@ -27,7 +28,9 @@ export class EditSettingComponent implements OnInit {
       value : this.f.value.value
     };
     Notiflix.Loading.Circle();
-    this.settingService.saveSetting(postData).subscribe(res=>{
+    this.settingService.saveSetting(postData).pipe(mergeMap(res=>{
+      return this.settingService.getAllSettings();
+    })).subscribe(res=>{
       Notiflix.Notify.Success(`Successfully updated `);
       this.modal.close();
     }, error=>{
