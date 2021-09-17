@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { UserService } from '../lib/services';
+import { SettingService, UserService } from '../lib/services';
 import { Subscription, Observable } from 'rxjs';
 import { User } from '../lib/interfaces';
 
@@ -19,14 +19,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
   signOutSubscription: Subscription;
   loggedUser$: Observable<User>;
   isNavbarCollapsed:boolean = true;
+  footerData$: Observable<any>;
   constructor(private userService: UserService,
-    private router: Router) { }
+    private router: Router,
+    private settingService: SettingService) { }
 
   ngOnInit(): void {
     this.loggedUser$ = this.userService.getloggedUser;
     this.loggedSubScrioption = this.userService.authUser().subscribe(res=>{
       //_.find(res.role, (rl) => console.log(rl)); //check loaddash is working
     });
+
+    this.footerData$ = this.settingService.footerData();
   }
 
 

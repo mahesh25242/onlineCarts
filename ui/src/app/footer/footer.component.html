@@ -1,9 +1,10 @@
 <footer id="footer">
   <div class="footer-top">
-    <div class="container">
+    <div class="container" *ngIf="footerData$ | async as footerData">
       <div class="row">
         <div class="col-lg-3 col-md-6 footer-info">
-          <h3>Online Carts</h3>
+          <h3>{{ footerData.site_name}} </h3>
+
           <p>Grow your business with onlinecarts.</p>
         </div>
         <div class="col-lg-3 col-md-6 footer-links">
@@ -45,13 +46,22 @@
             Contact Us
             <a class="btn btn-outline-primary float-right btn-sm" routerLink="/contact-us" routerLinkActive="active">Contact Us</a>
           </h4>
-          <p>BHC Junction<br>
-            Kochi - 682030<br>
-            Kakkanad<br>
-            <strong>Email:</strong> onlinecartsin@gmail.com<br>
+          <address class="address" *ngIf="footerData.address">
+            {{footerData.address}}
+          </address>
+          <div>
+             <a [href]="'https://api.whatsapp.com/send?phone='+footerData.mobile+'&text=Hi'"
+              target="_blank" class="d-block d-md-none d-lg-none d-xl-none">{{ footerData.mobile  }} ( Whastsapp Only )</a>
+              <a [href]="'https://web.whatsapp.com/send?phone='+footerData.mobile+'&text=Hi'"
+               target="_blank" class="d-none d-md-block d-lg-block d-xl-block">{{ footerData.mobile  }} ( Whastsapp Only )</a>
+          </div>
 
-
+          <p *ngIf="footerData.email">
+            <strong>Email:</strong> {{ footerData.email }}<br>
           </p>
+
+
+
 
         </div>
 

@@ -1,1 +1,27 @@
-<p>pricing works!</p>
+<section class="page-section">
+  <div class="container page__container">
+    <div class="row">
+      <div class="col-md-5 col">
+        <h4 class="c-title">Pricing</h4>
+      </div>
+    </div>
+    <div class="page-content">
+      <div *ngIf="packages$ | async as packages">
+        <div class="alert alert-warning" role="alert" *ngIf="!packages || !packages.length">
+          No package found
+        </div>
+
+        <ul>
+          <li *ngFor="let package of packages">
+            <h2>{{ package.name }}</h2>
+            <h5>{{ package.duration }}</h5>
+            <p>{{ package.description }}</p>
+            <p>₹ {{ package.price }}</p>
+          </li>
+        </ul>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+</section>
+

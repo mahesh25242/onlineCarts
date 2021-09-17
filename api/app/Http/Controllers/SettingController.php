@@ -33,5 +33,12 @@ class SettingController extends Controller
         return response(['message' => 'Successfully saved', 'status' => true]);
     }
 
-
+    public function footerData(){
+        $settings = \App\Models\Setting::whereIn("name", ["site_name", "email", "mobile", "address"])->get();
+        $returnarr = [];
+        foreach($settings as $setting){
+            $returnarr[$setting->name] = $setting->value;
+        }
+        return response($returnarr);
+    }
 }

@@ -7,6 +7,8 @@ import { AdminHomeComponent } from './admin-home.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SettingsComponent } from './settings/settings.component';
 import { SettingResolver } from './settings/setting-resolver';
+import { PackageComponent } from './package/package.component';
+import { PackageResolver } from './package/package-resolver';
 
 const routes: Routes = [
   {
@@ -31,6 +33,13 @@ const routes: Routes = [
         component: SettingsComponent,
         resolve:{
           settings: SettingResolver
+        }
+      },
+      {
+        path: 'packages',
+        component: PackageComponent,
+        resolve:{
+          settings: PackageResolver
         }
       },
       {

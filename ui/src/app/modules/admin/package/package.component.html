@@ -1,0 +1,53 @@
+<button class="btn btn-primary float-right" (click)="createNew()">Create Package</button>
+<div class="clearfix mb-3 mt-2"></div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>
+        ID
+      </th>
+      <th>
+        Name
+      </th>
+      <th>
+        Price
+      </th>
+      <th>
+        Duration
+      </th>
+      <th>
+        Status
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <ng-container *ngIf="(packages$ | async) as packages">
+      <tr *ngIf="packages && !packages.length">
+        <td colspan="5">
+          <div class="alert alert-warning">No result found</div>
+        </td>
+      </tr>
+      <tr *ngFor="let package of packages">
+        <td>
+          {{ package.id }}
+        </td>
+        <td>
+          <a href="javascript:{}" (click)="createNew(package)">{{package.name}}</a>
+        </td>
+        <td>
+          {{ package.price }}
+        </td>
+        <td>
+          {{ package.duration }}
+        </td>
+        <td>
+          {{ package.status_text }}
+        </td>
+      </tr>
+    </ng-container>
+
+  </tbody>
+</table>
+

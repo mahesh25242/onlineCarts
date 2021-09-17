@@ -39,7 +39,7 @@ class TicketCreated extends Job
             $email = new NewTicketAdminNotification($this->ticket);
         }
 
-        $settings = Setting::where("name", "ticket mail")->get()->first();
+        $settings = Setting::where("name", "ticket_mail")->get()->first();
         $toEMail = $settings->value;
         if(env('APP_ENV') == 'local'){
             $toEMail = env('DEVELOPER_MAIL');

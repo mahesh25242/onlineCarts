@@ -20,3 +20,4 @@ export * from './bc';
 export * from './shop-delivery-slot';
 export * from './help-ticket';
 export * from './setting'
+export * from './package'

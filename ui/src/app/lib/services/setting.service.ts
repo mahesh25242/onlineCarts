@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { share, shareReplay, tap } from 'rxjs/operators';
 import { Setting } from '../interfaces';
 
 @Injectable({
@@ -24,6 +24,9 @@ export class SettingService {
 
   saveSetting(postData: any | null = null){
     return this.http.post<any[]>(`/admin/settings/${postData.id}/save`, postData);
+  }
+  footerData(){
+    return this.http.get<Setting[]>(`/footerData`).pipe(shareReplay(1));
   }
 
 }

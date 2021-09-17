@@ -1,0 +1,70 @@
+<form [formGroup]="pkgFrm" (ngSubmit)="save()">
+  <app-modal>
+    <div header>
+      {{ (pkg?.id) ? 'Edit '+pkg.name : 'Create New Package' }}
+    </div>
+    <div body>
+
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text"  class="form-control" id="name"
+        [ngClass]="{'is-invalid': ( f.name.errors && f.name.errors.error)}"
+        placeholder="Package Name"
+        formControlName="name">
+        <div *ngIf="f.name.errors && f.name.errors.error" class="invalid-feedback">
+          {{f.name.errors.error}}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea  class="form-control" id="description"
+        [ngClass]="{'is-invalid': ( f.description.errors && f.description.errors.error)}"
+        placeholder="description"
+        formControlName="description"></textarea>
+        <div *ngIf="f.description.errors && f.description.errors.error" class="invalid-feedback">
+          {{f.description.errors.error}}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="price">Price</label>
+        <input type="number"  class="form-control" id="price"
+        [ngClass]="{'is-invalid': ( f.price.errors && f.price.errors.error)}"
+        placeholder="Price"
+        formControlName="price">
+        <div *ngIf="f.price.errors && f.price.errors.error" class="invalid-feedback">
+          {{f.price.errors.error}}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="duration">Duration (in month(s))</label>
+        <input type="number"  class="form-control" id="duration"
+        [ngClass]="{'is-invalid': ( f.duration.errors && f.duration.errors.error)}"
+        placeholder="Duration in month(s)"
+        formControlName="duration">
+        <div *ngIf="f.duration.errors && f.duration.errors.error" class="invalid-feedback">
+          {{f.duration.errors.error}}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="status">Status</label>
+        <select class="form-control" id="status" formControlName="status">
+          <option value="1">On</option>
+          <option value="0">Off</option>
+        </select>
+        <div *ngIf="f.status.errors && f.status.errors.error" class="invalid-feedback">
+          {{f.status.errors.error}}
+        </div>
+      </div>
+
+
+    </div>
+    <div footer>
+      <button type="button" class="btn btn-info" (click)="modal.close()">Cancel</button>
+      <button type="submit" class="btn btn-primary ml-1">Submit</button>
+    </div>
+  </app-modal>
+</form>

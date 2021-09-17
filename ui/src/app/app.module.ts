@@ -29,6 +29,7 @@ import { OurClientsComponent } from './home/our-clients/our-clients.component';
 import { RefundAndCancellationComponent } from './refund-and-cancellation/refund-and-cancellation.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { PricingComponent } from './pricing/pricing.component';
+import { PackageResolver } from './pricing/package-resolver';
 
 
 
@@ -66,6 +67,7 @@ import { PricingComponent } from './pricing/pricing.component';
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
+    PackageResolver,
     httpInterceptorProviders
   ],
   bootstrap: [AppComponent]

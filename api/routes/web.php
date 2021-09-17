@@ -36,7 +36,14 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
     $router->post('demoSignIn','UsersController@demoSignIn');
     $router->get('/shopName/{name}','ShopsController@byShopName');
     $router->get('/allShops','ShopsController@allShops');
+    $router->get('/footerData','SettingController@footerData');
 
+    $router->group(['prefix' => 'packages'], function () use ($router) {
+        $router->get('/','PackageController@packages');
+        $router->group(['prefix' => '{id}', 'middleware' => 'admin'], function () use ($router) {
+            $router->post('/save','PackageController@save');
+        });
+    });
 
     /* Billing apps */
     $router->group(['prefix' => 'shop', 'middleware' =>  'AppMiddleware'], function () use ($router) {
@@ -171,7 +178,6 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
                 $router->group(['prefix' => '{id}'], function () use ($router) {
                     $router->post('/save','SettingController@save');
                 });
-
             });
 
 

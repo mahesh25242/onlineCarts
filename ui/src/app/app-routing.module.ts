@@ -9,6 +9,7 @@ import { TermsAndConditionComponent } from './terms-and-condition/terms-and-cond
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { RefundAndCancellationComponent } from './refund-and-cancellation/refund-and-cancellation.component';
 import { PricingComponent } from './pricing/pricing.component';
+import { PackageResolver } from './pricing/package-resolver';
 
 const routes: Routes = [
   {
@@ -21,7 +22,10 @@ const routes: Routes = [
   },
   {
     path: 'pricing',
-    component: PricingComponent
+    component: PricingComponent,
+    resolve:{
+      packages: PackageResolver
+    }
   },
   {
     path: 'how-it-works',
