@@ -3,15 +3,30 @@
     {{ shop.name }}
   </div>
   <div body>
-    <select *ngIf="packages$ | async as packages" class="form-control">
-      <option value="">Select</option>
-      <option value="" *ngFor="let package of packages">
-        {{package.name}}
-      </option>
-    </select>
+
+
+    <div class="form-group">
+      <label for="name">Choose a Package</label>
+      <select *ngIf="packages$ | async as packages" class="form-control" [formControl]="package_id" >
+        <option value="">Select</option>
+        <option [value]="package.id" *ngFor="let package of packages">
+          {{package.name}}
+        </option>
+        <option value="-1">Custom</option>
+      </select>
+    </div>
+
+    <div *ngIf="package_id.value === '-1'">
+      <div class="form-group">
+        <label for="duration">How many days</label>
+        <input type="number" class="form-control" id="duration"
+        placeholder="Duration in days"
+        >
+      </div>
+    </div>
   </div>
   <div footer>
     <button type="button" class="btn btn-info" (click)="modal.close()">Cancel</button>
-    <button type="submit" class="btn btn-primary ml-1">Submit</button>
+    <button type="submit" class="btn btn-primary ml-1" (click)="save()">Submit</button>
   </div>
 </app-modal>
