@@ -18,6 +18,7 @@ import { ListProductsComponent } from './products/list-product/list-products.com
 import { ShopDeliveryPageComponent } from './delivery/shop-delivery-page.component';
 import { CreateProductResolver } from './products/create-product/create-product-resolver';
 import { AccountComponent } from './account/account.component';
+import { RenewPackageComponent } from './renew-package/renew-package.component';
 
 
 
@@ -92,6 +93,11 @@ const routes: Routes = [
       {
         path: 'account',
         component: AccountComponent,
+        canActivate: [AdminAuthGuard],
+      },
+      {
+        path: 'renew',
+        component: RenewPackageComponent,
         canActivate: [AdminAuthGuard],
       },
     ]

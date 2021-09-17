@@ -31,12 +31,17 @@
           {{ shop.status_text }}
         </td>
         <td>
-          <a href="javascript:{}" [routerLink]="'edit/'+shop.shop_key" class="btn btn-primary btn-sm">
-            <fa-icon [icon]="faEdit"></fa-icon>
-          </a> |
-          <a href="javascript:{}" (click)="delete(shop)" class="btn btn-danger btn-sm">
-            <fa-icon [icon]="faTrash"></fa-icon>
-          </a>
+
+          <div ngbDropdown class="d-inline-block">
+            <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Options</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <button ngbDropdownItem (click)="chooseSubScr(shop)">Choose Subscription</button>
+              <a ngbDropdownItem  [routerLink]="'edit/'+shop.shop_key"><fa-icon [icon]="faEdit"></fa-icon> Edit</a>
+              <button class="text-danger" ngbDropdownItem (click)="delete(shop)" *ngIf="!shop.is_default"><fa-icon [icon]="faTrash"></fa-icon> Delete</button>
+            </div>
+          </div>
+
+
         </td>
       </tr>
     </ng-container>

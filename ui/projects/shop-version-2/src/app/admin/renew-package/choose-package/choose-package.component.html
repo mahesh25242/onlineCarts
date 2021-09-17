@@ -1,0 +1,28 @@
+<h1 mat-dialog-title>
+  {{data?.name}}
+</h1>
+<div mat-dialog-content>
+  You are selected the {{data?.name}}. its validaty is {{ data?.duration}} months.
+  For this subscription you should pay ₹{{ data?.price}}. You can pay this amount with the following options
+  <ol>
+    <li>
+      Upi transaction
+    </li>
+    <li>
+      Qrcode Scaning
+    </li>
+    <li>
+      Account Transfer
+    </li>
+  </ol>
+
+  After you transfer the amount to our account with any of the above method please whatsapp the screenshot or photo of receipt to
+
+  <p>
+    If you want any help and support you can create ticket
+    <a [routerLink]="['/admin/account']" (click)="dialogRef.close()">Help Support</a> inside manage account
+  </p>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-raised-button color="primary" cdkFocusInitial mat-dialog-close>Ok</button>
+</div>

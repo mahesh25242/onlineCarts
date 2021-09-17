@@ -9,6 +9,7 @@ import {
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { GeneralService } from '../services';
+import Notiflix from "notiflix";
 
 @Injectable()
 export class ShopInterceptor implements HttpInterceptor {
@@ -22,6 +23,7 @@ export class ShopInterceptor implements HttpInterceptor {
         if (error instanceof HttpErrorResponse && error.status === 402 ) {
           this.generalService.shopDisabled$.next(true);
         }
+
         return throwError(error);
       }));
   }

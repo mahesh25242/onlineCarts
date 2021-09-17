@@ -105,7 +105,7 @@ $app->configure('dompdf');
 
 $app->middleware([
     App\Http\Middleware\CorsMiddleware::class,
-    App\Http\Middleware\ShopAccessMiddleWare::class,
+   // App\Http\Middleware\ShopAccessMiddleWare::class,
  ]);
 
 $app->routeMiddleware([
@@ -115,6 +115,7 @@ $app->routeMiddleware([
     'shop' => \App\Http\Middleware\ShopAuthenticate::class,
     'adminAndShop' => \App\Http\Middleware\AdminAndShopAuthenticate::class,
     'AppMiddleware' => \App\Http\Middleware\AppMiddleware::class,
+    'activeShopMiddleWare' => \App\Http\Middleware\ActiveShopMiddleWare::class,
     'auth' => App\Http\Middleware\Authenticate::class,
     'client' => \Laravel\Passport\Http\Middleware\CheckClientCredentials::class,
 ]);

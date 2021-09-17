@@ -29,6 +29,7 @@ import { OrdersResolver } from './shop/orders/orders-resolver';
 import { OrderDetailsComponent } from './shop/orders/order-details/order-details.component';
 import { DeliveryLocationsComponent } from './shop/delivery-locations/delivery-locations.component';
 import { DeliveryLocationsResolver } from './shop/delivery-locations/delivery-locations-resolver';
+import { ChooseSubscriptionComponent } from './list/choose-subscription/choose-subscription.component';
 
 @NgModule({
   declarations: [  UsersComponent, DetailsComponent, ShopsComponent, ListComponent, CreateComponent, CreateUserComponent, ShopCategoryComponent, CreateShopCategoryComponent, ShopComponent, CreateAdminComponent,
@@ -36,7 +37,8 @@ import { DeliveryLocationsResolver } from './shop/delivery-locations/delivery-lo
     CreateProductComponent,
     OrdersComponent,
     OrderDetailsComponent,
-    DeliveryLocationsComponent],
+    DeliveryLocationsComponent,
+    ChooseSubscriptionComponent],
   imports: [
     CommonModule,
     SharedModuleModule,

@@ -5,6 +5,8 @@ import { ShopService } from 'src/app/lib/services';
 import Notiflix from "notiflix";
 import { map, mergeMap } from 'rxjs/operators';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ChooseSubscriptionComponent } from './choose-subscription/choose-subscription.component';
 
 @Component({
   selector: 'app-list',
@@ -15,8 +17,14 @@ export class ListComponent implements OnInit {
   faEdit = faEdit;
   faTrash = faTrash;
   shops$: Observable<Shop[]>;
-  constructor(private shopService: ShopService) { }
+  constructor(private shopService: ShopService,
+    private _modalService: NgbModal,) { }
 
+
+    chooseSubScr(shop: Shop = null){
+      const activeModal = this._modalService.open(ChooseSubscriptionComponent);
+      activeModal.componentInstance.shop = shop;
+    }
 
   delete(shop: Shop = null){
     Notiflix.Confirm.Show( 'delete?', `Do you want to delete ${shop.name}`, 'Yes', 'No', ()=>{

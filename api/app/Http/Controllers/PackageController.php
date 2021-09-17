@@ -21,14 +21,15 @@ class PackageController extends Controller
             $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
         }
 
+
         $packages = new \App\Models\Package;
-        if($request->input("status",0)){
+        if($shop){
+            $packages = $packages->where("status", 1)->where("price",'>', 0);
+        }else if($request->input("status",0)){
             $packages = $packages->where("status", $request->input("status", 0));
         }
 
-        if($shop){
-            $packages = $packages->where("status", 1)->get();
-        }
+
 
         return response($packages->get());
     }

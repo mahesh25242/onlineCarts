@@ -48,21 +48,25 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
     /* Billing apps */
     $router->group(['prefix' => 'shop', 'middleware' =>  'AppMiddleware'], function () use ($router) {
         $router->get('/','ShopsController@shopDetails');
-        $router->group(['prefix' => 'banner'], function () use ($router) {
+        $router->group(['prefix' => 'banner', 'middleware' => 'activeShopMiddleWare'], function () use ($router) {
             $router->get('/','ShopBannerController@banners');
             $router->post('/save','ShopBannerController@save');
         });
 
-        $router->group(['prefix' => 'cms'], function () use ($router) {
+        $router->group(['prefix' => 'cms', 'middleware' => 'activeShopMiddleWare'], function () use ($router) {
             $router->get('/','CMSController@pages');
         });
 
         $router->get('/manifest/{shopKey}','ShopsController@webmanifest');
-
         $router->get('/adminHomeStat','ShopsController@adminHomeStat');
-        $router->post('createOrder','ShopOrderController@createOrder');
-        $router->post('showOrderDetail','ShopOrderController@showOrderDetail');
-        $router->group(['prefix' => 'product'], function () use ($router) {
+
+        $router->group(['middleware' => 'activeShopMiddleWare'], function () use ($router) {
+
+            $router->post('createOrder','ShopOrderController@createOrder');
+            $router->post('showOrderDetail','ShopOrderController@showOrderDetail');
+        });
+
+        $router->group(['prefix' => 'product', 'middleware' => 'activeShopMiddleWare'], function () use ($router) {
             $router->get('showCategories','ShopProductCategoryController@showCategories');
             $router->post('showProducts','ShopProductController@showProducts');
             $router->get('showProductsFilters','ShopProductController@showProductsFilters');
@@ -88,10 +92,13 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
             $router->get('authUser','UsersController@authUser');
             $router->post('setUserLogin','UsersController@setUserLogin');
             $router->get('signOut','UsersController@signOut');
-            $router->post('updateAvatar','UsersController@updateAvatar');
-            $router->post('updateProfile','UsersController@updateProfile');
+            $router->group(['middleware' => 'activeShopMiddleWare'], function () use ($router) {
+                $router->post('updateAvatar','UsersController@updateAvatar');
+                $router->post('updateProfile','UsersController@updateProfile');
+            });
 
-            $router->group(['prefix' => 'shop'], function () use ($router) {
+
+            $router->group(['prefix' => 'shop', 'middleware' => 'activeShopMiddleWare'], function () use ($router) {
                 $router->post('/store','ShopsController@updateDetails');
                 $router->post('/changelogoFav','ShopsController@setFaviconOrLogo');
                 $router->post('/orders','ShopOrderController@orders');

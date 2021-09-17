@@ -1,2 +1,9 @@
-<a class="btn btn-primary" [routerLink]="['/admin/trash/shops']" routerLinkActive="active">Shops</a>
+
+<nav ngbNav #nav="ngbNav" class="nav-tabs">
+  <ng-container ngbNavItem>
+    <a ngbNavLink [routerLink]="['/admin/trash']" routerLinkActive="active">Shops</a>
+  </ng-container>
+</nav>
+
+
 <router-outlet></router-outlet>

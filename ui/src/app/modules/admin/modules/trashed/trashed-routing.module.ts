@@ -12,7 +12,7 @@ const routes: Routes = [
     component: TrashedComponent,
     children:[
       {
-        path:'shops',
+        path:'',
         component: TrashShopsComponent,
         resolve:{
           shops: TrashShopsResolver
