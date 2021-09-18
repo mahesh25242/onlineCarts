@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Validator;
+use App\Mail\AdminSubscriptionChangeNotification;
 
 class PackageController extends Controller
 {
@@ -95,10 +96,10 @@ class PackageController extends Controller
         }
 
 
-
+        $shopRenewal =  new \App\Models\ShopRenewal;
         if($request->input("package_id", 0) == '-1'){
             $endDay = clone $startDay;
-            $shopRenewal =  new \App\Models\ShopRenewal;
+
             $shopRenewal->shop_id = $shop_id;
             $shopRenewal->amount = 0;
             $shopRenewal->from_date = $startDay;
@@ -112,7 +113,6 @@ class PackageController extends Controller
             if($package){
                 $endDay = clone $startDay;
 
-                $shopRenewal =  new \App\Models\ShopRenewal;
                 $shopRenewal->shop_id = $shop_id;
                 $shopRenewal->amount = $package->price;
                 $shopRenewal->from_date = $startDay;
@@ -123,10 +123,32 @@ class PackageController extends Controller
                 $shopRenewal->save();
             }
         }
-        $shop = \App\Models\Shop::find($shop_id);
-        $shop->status = 1;
-        $shop->save();
-        return $shop;
+        if($shopRenewal->id){
+            $shop = \App\Models\Shop::find($shop_id);
+            $shop->status = 1;
+            $shop->save();
+
+            $toEMail = $shop->email;
+            if(env('APP_ENV') == 'local'){
+                $toEMail = env('DEVELOPER_MAIL');
+            }
+
+            if($toEMail){
+                try{
+                    Mail::to($toEMail)->send(new AdminSubscriptionChangeNotification($shopRenewal));
+                }catch (\Swift_TransportException $e) {
+                    //  echo 'Caught exception: ',  $e->getMessage(), "\n";
+                }
+            }
+
+        }
+
+
+
+        return response([
+            "success" => 1,
+            "message" => 'successfully saved'
+        ]);
     }
 
 }

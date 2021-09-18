@@ -7,19 +7,22 @@
     </div>
     <div class="page-content">
       <div *ngIf="packages$ | async as packages">
+
         <div class="alert alert-warning" role="alert" *ngIf="!packages || !packages.length">
           No package found
         </div>
+        <div *ngIf="packages && packages.length > 0">
+            <p>You can purchase the below package in each shop admin page. </p>
+            <div class="row">
+              <div class="col-md-4 col-sm-6 col-xs-12 pkg-inner" *ngFor="let package of packages">
+                <h2 class="text-primary">{{ package.name }}</h2>
+                <h5>{{ package.duration }} ( in Month(s) )</h5>
+                <p>{{ package.description }}</p>
+                <p>₹ {{ package.price }}</p>
+              </div>
+            </div>
+        </div>
 
-        <ul>
-          <li *ngFor="let package of packages">
-            <h2>{{ package.name }}</h2>
-            <h5>{{ package.duration }}</h5>
-            <p>{{ package.description }}</p>
-            <p>₹ {{ package.price }}</p>
-          </li>
-        </ul>
-        <div class="clearfix"></div>
       </div>
     </div>
   </div>
