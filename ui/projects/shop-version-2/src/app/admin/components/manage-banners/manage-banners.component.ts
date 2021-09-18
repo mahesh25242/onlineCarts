@@ -18,10 +18,11 @@ export class ManageBannersComponent implements OnInit {
     private generalService: GeneralService,) { }
 
   handleImageSelection(img: any, idx: number){
-    Notiflix.Block.Merge({svgSize:'20px',});
-    Notiflix.Block.Dots(`.upload-banner-btn-${idx}`);
+
 
     this.imageCompress.uploadFile().then(({image, orientation}) => {
+      Notiflix.Block.Merge({svgSize:'20px',});
+    Notiflix.Block.Dots(`.upload-banner-btn-${idx}`);
       //this.imgResultBeforeCompress = image;
 //      console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
 
