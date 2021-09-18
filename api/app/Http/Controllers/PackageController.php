@@ -91,7 +91,7 @@ class PackageController extends Controller
         if($ShopRenewal){
             $startDay = Carbon::parse($ShopRenewal->to_date)->addDays(1)->startOfDay();
         }else{
-            $startDay = Carbon::tomorrow()->startOfDay();
+            $startDay = Carbon::today()->startOfDay();
         }
 
 

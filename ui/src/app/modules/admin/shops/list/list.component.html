@@ -35,7 +35,7 @@
           <div ngbDropdown class="d-inline-block">
             <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Options</button>
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-              <button ngbDropdownItem (click)="chooseSubScr(shop)">Choose Subscription</button>
+              <button ngbDropdownItem (click)="chooseSubScr(shop)" *ngIf="!shop.is_default">Choose Subscription</button>
               <a ngbDropdownItem  [routerLink]="'edit/'+shop.shop_key"><fa-icon [icon]="faEdit"></fa-icon> Edit</a>
               <button class="text-danger" ngbDropdownItem (click)="delete(shop)" *ngIf="!shop.is_default"><fa-icon [icon]="faTrash"></fa-icon> Delete</button>
             </div>
