@@ -89,7 +89,7 @@ class PackageController extends Controller
         ->orderBy("to_date", "DESC")->get()->first();
 
         if($ShopRenewal){
-            $startDay = $ShopRenewal->to_date->addDays(1)->startOfDay();
+            $startDay = Carbon::parse($ShopRenewal->to_date)->addDays(1)->startOfDay();
         }else{
             $startDay = Carbon::tomorrow()->startOfDay();
         }
@@ -123,7 +123,10 @@ class PackageController extends Controller
                 $shopRenewal->save();
             }
         }
-
+        $shop = \App\Models\Shop::find($shop_id);
+        $shop->status = 1;
+        $shop->save();
+        return $shop;
     }
 
 }
