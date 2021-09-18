@@ -37,4 +37,8 @@ class Package extends Model implements AuthenticatableContract, AuthorizableCont
         return (($this->status) ? 'On' : 'Off');
     }
 
+    public function shopRenewal()
+    {
+        return $this->hasMany('App\Models\ShopRenewal');
+    }
 }

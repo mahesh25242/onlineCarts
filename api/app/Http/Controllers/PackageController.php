@@ -69,6 +69,61 @@ class PackageController extends Controller
     }
 
 
+    public function assignToShop(Request $request){
+        $validator = Validator::make($request->all(), [
+            'package_id' => ['required'],
+            'shop_id' => ['required']
+        ]);
 
+
+        if($validator->fails()){
+            return response(['message' => 'Validation errors', 'errors' =>  $validator->errors(), 'status' => false], 422);
+        }
+        $shop_id = $request->input('shop_id', 0);
+        $package_id = $request->input('package_id', 0);
+        $custom_days = $request->input('custom_days', 0);
+        $comments = $request->input('comments', '');
+
+        $ShopRenewal = \App\Models\ShopRenewal::where("shop_id", $shop_id)
+        ->whereDate('to_date', '>=', Carbon::now())
+        ->orderBy("to_date", "DESC")->get()->first();
+
+        if($ShopRenewal){
+            $startDay = $ShopRenewal->to_date->addDays(1)->startOfDay();
+        }else{
+            $startDay = Carbon::tomorrow()->startOfDay();
+        }
+
+
+
+        if($request->input("package_id", 0) == '-1'){
+            $endDay = clone $startDay;
+            $shopRenewal =  new \App\Models\ShopRenewal;
+            $shopRenewal->shop_id = $shop_id;
+            $shopRenewal->amount = 0;
+            $shopRenewal->from_date = $startDay;
+            $shopRenewal->to_date = $endDay->addDays($custom_days)->endOfDay();
+            $shopRenewal->status = 1;
+            $shopRenewal->package_id = 0;
+            $shopRenewal->comments = $comments;
+            $shopRenewal->save();
+        }else{
+            $package = \App\Models\Package::find($package_id);
+            if($package){
+                $endDay = clone $startDay;
+
+                $shopRenewal =  new \App\Models\ShopRenewal;
+                $shopRenewal->shop_id = $shop_id;
+                $shopRenewal->amount = $package->price;
+                $shopRenewal->from_date = $startDay;
+                $shopRenewal->to_date = $endDay->addMonths($package->duration)->endOfDay();
+                $shopRenewal->status = 1;
+                $shopRenewal->package_id = $package->id;
+                $shopRenewal->comments = $comments;
+                $shopRenewal->save();
+            }
+        }
+
+    }
 
 }

@@ -7,7 +7,8 @@
 
     <div class="form-group">
       <label for="name">Choose a Package</label>
-      <select *ngIf="packages$ | async as packages" class="form-control" [formControl]="package_id" >
+      <select *ngIf="packages$ | async as packages" class="form-control"
+       [formControl]="package_id" >
         <option value="">Select</option>
         <option [value]="package.id" *ngFor="let package of packages">
           {{package.name}}
@@ -20,6 +21,7 @@
       <div class="form-group">
         <label for="duration">How many days</label>
         <input type="number" class="form-control" id="duration"
+        [formControl]="custom_days"
         placeholder="Duration in days"
         >
       </div>

@@ -20,6 +20,9 @@ class CreateShopRenewalsTable extends Migration
             $table->dateTime('from_date')->nullable();
             $table->dateTime('to_date')->nullable();
             $table->boolean('status')->default(1);
+            $table->integer('package_id')->nullable();
+            $table->string('attachement')->nullable();
+            $table->string('comments')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

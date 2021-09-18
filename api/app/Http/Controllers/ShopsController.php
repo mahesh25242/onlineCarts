@@ -100,12 +100,18 @@ class ShopsController extends Controller
             $shop->logo = $defaultShop->logo;
             $shop->save();
 
-            $plan = \App\Models\Setting::where("name", 'shop_expiry')->get()->first();
-            $planDays = ($plan) ? (int) $plan->value : 90;
+            $package = \App\Models\Package::where("price", 0)->get()->first();
+            if($package){
+                $planMonths = $package->duration();
+            }else{
+                $plan = \App\Models\Setting::where("name", 'shop_expiry')->get()->first();
+                $planMonths = ($plan) ? (int) $plan->value : 1;
+            }
+
             $shop->shopRenewal()->create([
                 "amount" => 0,
                 "from_date" => Carbon::now()->startOfDay(),
-                "to_date" => Carbon::now()->addDays($planDays)->endOfDay(),
+                "to_date" => Carbon::now()->addMonths($planMonths)->endOfDay(),
                 "status" => 1
             ]);
             $userRole = \App\Models\UserRole::updateOrCreate(

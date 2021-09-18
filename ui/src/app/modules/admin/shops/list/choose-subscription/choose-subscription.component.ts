@@ -12,13 +12,19 @@ import { PackageService } from 'src/app/lib/services';
 })
 export class ChooseSubscriptionComponent implements OnInit {
   package_id = new FormControl('');
+  custom_days = new FormControl('');
   packages$: Observable<Package[]>
   @Input() shop: Shop;
   constructor(private packageService: PackageService,
     public modal: NgbActiveModal) { }
 
   save(){
-    console.log(this.package_id.value)
+    const postData = {
+      package_id: this.package_id.value,
+      custom_days: this.custom_days.value,
+      shop_id: this.shop.id
+    }
+    this.packageService.assignPackageToShop(postData).subscribe();
   }
   ngOnInit(): void {
 

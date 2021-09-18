@@ -47,8 +47,8 @@ return [
     |
     */
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'kmcnoreply@us.crawco.com'),
-        'name' => env('MAIL_FROM_NAME', 'GCMS'),
+        'address' => env('MAIL_FROM_ADDRESS', 'onlinecartsin@gmail.com'),
+        'name' => env('MAIL_FROM_NAME', 'OnlineCarts.in'),
     ],
     /*
     |--------------------------------------------------------------------------

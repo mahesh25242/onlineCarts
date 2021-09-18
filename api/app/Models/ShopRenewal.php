@@ -21,12 +21,13 @@ class ShopRenewal extends Model implements AuthenticatableContract, Authorizable
      * @var array
      */
     protected $fillable = [
-        'shop_id', 'amount', 'from_date', 'to_date', 'status'
+        'shop_id', 'amount', 'from_date', 'to_date', 'status','package_id', 'attachement', 'comments'
     ];
     protected $casts = [
         'shop_id' => 'integer',
         'amount' => 'double',
         'status' => 'boolean',
+        'package_id' =>'number'
     ];
     protected $appends = array('remaining_days', 'show_message');
 
@@ -51,6 +52,11 @@ class ShopRenewal extends Model implements AuthenticatableContract, Authorizable
     public function shop()
     {
         return $this->hasMany('App\Models\Shop');
+    }
+
+    public function package()
+    {
+        return $this->belongsTo('App\Models\Package');
     }
 
 

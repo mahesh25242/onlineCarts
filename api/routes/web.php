@@ -42,6 +42,7 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
         $router->get('/','PackageController@packages');
         $router->group(['prefix' => '{id}', 'middleware' => 'admin'], function () use ($router) {
             $router->post('/save','PackageController@save');
+            $router->post('/assignToShop','PackageController@assignToShop');
         });
     });
 
