@@ -1,16 +1,19 @@
 <div class="header-inner"></div>
-<div class="container">
-  <h1>Renew Package</h1>
+<div class="container" *ngIf="shop$ | async as shop">
+  <h1>{{ (shop?.shop_current_renewal?.show_message) ? 'Re-new' :'' }} Packages</h1>
   <div fxLayout="row" fxLayout.xs="column" fxFill="fill" fxLayoutAlign="space-between" *ngIf="packages$ | async as packages">
     <mat-card *ngFor="let package of packages" fxFlex.gt-xs="48%">
       <mat-card-title>{{package.name}}</mat-card-title>
       <mat-card-content>
         <h5>{{ package.duration }} Months</h5>
         <p>{{ package.description }}</p>
-        <p>₹ {{ package.price }}</p>
+        <p>{{ package.price | currency:'INR'}}</p>
       </mat-card-content>
-      <mat-card-actions>
-        <button mat-raised-button color="primary" (click)="choose(package)">Choose It</button>
+      <mat-card-actions >
+        <div *ngIf="!shop?.shop_current_renewal?.show_message">
+          You can start re-new of your subscripption only before {{ shop?.shop_current_renewal?.show_message_days }} days of your expirtaion to till the expiry date.
+        </div>
+        <button *ngIf="shop?.shop_current_renewal?.show_message" mat-raised-button color="primary" (click)="choose(package)">Choose It</button>
       </mat-card-actions>
     </mat-card>
   </div>

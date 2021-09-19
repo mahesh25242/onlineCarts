@@ -14,6 +14,7 @@ class ShopRenewal extends Model implements AuthenticatableContract, Authorizable
 {
     use HasApiTokens, Authenticatable, Authorizable;
 
+    private $shoMessageDays = 10; //days to show renew alet message and also show renew related message and buttons and data
 
     /**
      * The attributes that are mass assignable.
@@ -27,9 +28,9 @@ class ShopRenewal extends Model implements AuthenticatableContract, Authorizable
         'shop_id' => 'integer',
         'amount' => 'double',
         'status' => 'boolean',
-        'package_id' =>'number'
+        'package_id' =>'integer'
     ];
-    protected $appends = array('remaining_days', 'show_message');
+    protected $appends = array('remaining_days', 'show_message', 'show_message_days');
 
 
 
@@ -45,7 +46,12 @@ class ShopRenewal extends Model implements AuthenticatableContract, Authorizable
         $date = Carbon::parse($this->to_date);
         $now = Carbon::now();
 
-        return $date->diffInDays($now) < 10;
+        return $date->diffInDays($now) < $this->shoMessageDays ;
+    }
+
+    public function getShowMessageDaysAttribute()
+    {
+        return $this->shoMessageDays;
     }
 
 

@@ -41,4 +41,14 @@ class SettingController extends Controller
         }
         return response($returnarr);
     }
+
+    public function paymentData(){
+        $settings = \App\Models\Setting::whereIn("name", ["payment_upi", "payment_account_no", "payment_qr_code", "mobile"])->get();
+        $returnarr = [];
+        foreach($settings as $setting){
+            $returnarr[$setting->name] = $setting->value;
+        }
+        return response($returnarr);
+    }
+
 }

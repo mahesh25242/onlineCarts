@@ -78,5 +78,6 @@ export interface ShopRenewal {
   status?: number,
   shop?: Shop,
   remaining_days?: number,
-  show_message?: boolean
+  show_message?: boolean,
+  show_message_days?: number,
 }

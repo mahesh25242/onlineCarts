@@ -16,6 +16,8 @@ import { FocusInvalidInputDirective } from '../../components/focus-invalid-input
 
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {NgxImageCompressService} from 'ngx-image-compress';
+import { NgxNumToWordsModule } from 'ngx-num-to-words';
+
 
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
@@ -76,6 +78,7 @@ Notiflix.Block.Init({ svgColor:"#204486", });
     NgxMatDatetimePickerModule,
     NgxMatNativeDateModule,
     FlexLayoutModule,
+    NgxNumToWordsModule,
 
     MatIconModule,
     MatButtonModule,
@@ -125,6 +128,7 @@ Notiflix.Block.Init({ svgColor:"#204486", });
     NgxMatNativeDateModule,
 
     FlexLayoutModule,
+    NgxNumToWordsModule,
 
     MatIconModule,
     MatButtonModule,

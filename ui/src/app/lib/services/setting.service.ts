@@ -29,4 +29,8 @@ export class SettingService {
     return this.http.get<Setting[]>(`/footerData`).pipe(shareReplay(1));
   }
 
+  paymentData(){
+    return this.http.get<Setting[]>(`/shop/paymentData`);
+  }
+
 }

@@ -18,7 +18,7 @@
                 <h2 class="text-primary">{{ package.name }}</h2>
                 <h5>{{ package.duration }} ( in Month(s) )</h5>
                 <p>{{ package.description }}</p>
-                <p>₹ {{ package.price }}</p>
+                <p>{{ package.price | currency:'INR'}}</p>
               </div>
             </div>
         </div>

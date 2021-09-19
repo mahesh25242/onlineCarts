@@ -1,6 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
 import { Package } from 'src/app/lib/interfaces';
+import { SettingService } from 'src/app/lib/services';
 
 @Component({
   selector: 'app-choose-package',
@@ -8,11 +10,13 @@ import { Package } from 'src/app/lib/interfaces';
   styleUrls: ['./choose-package.component.scss']
 })
 export class ChoosePackageComponent implements OnInit {
-
+  paymentData$: Observable<any>;
   constructor(@Inject(MAT_DIALOG_DATA) public data: Package,
-  public dialogRef: MatDialogRef<ChoosePackageComponent>) { }
+  public dialogRef: MatDialogRef<ChoosePackageComponent>,
+  private settingService: SettingService) { }
 
   ngOnInit(): void {
+    this.paymentData$ = this.settingService.paymentData();
   }
 
 }
