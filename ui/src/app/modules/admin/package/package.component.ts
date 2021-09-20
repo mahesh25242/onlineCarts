@@ -16,7 +16,9 @@ export class PackageComponent implements OnInit {
     private _modalService: NgbModal) { }
 
   createNew(pkg: Package = null){
-    const activeModal = this._modalService.open(EditPackageComponent);
+    const activeModal = this._modalService.open(EditPackageComponent,{
+      size: 'lg'
+    });
     activeModal.componentInstance.pkg = pkg;
   }
   ngOnInit(): void {

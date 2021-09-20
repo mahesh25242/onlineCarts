@@ -18,7 +18,7 @@ class ShopsController extends Controller
 
 
     public function shops(Request $request){
-        $shops = \App\Models\Shop::get();
+        $shops = \App\Models\Shop::with(["shopCurrentRenewal"])->get();
         return response($shops);
     }
 

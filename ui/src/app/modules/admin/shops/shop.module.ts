@@ -30,6 +30,7 @@ import { OrderDetailsComponent } from './shop/orders/order-details/order-details
 import { DeliveryLocationsComponent } from './shop/delivery-locations/delivery-locations.component';
 import { DeliveryLocationsResolver } from './shop/delivery-locations/delivery-locations-resolver';
 import { ChooseSubscriptionComponent } from './list/choose-subscription/choose-subscription.component';
+import { FilterShopsComponent } from './list/filter-shops/filter-shops.component';
 
 @NgModule({
   declarations: [  UsersComponent, DetailsComponent, ShopsComponent, ListComponent, CreateComponent, CreateUserComponent, ShopCategoryComponent, CreateShopCategoryComponent, ShopComponent, CreateAdminComponent,
@@ -38,7 +39,8 @@ import { ChooseSubscriptionComponent } from './list/choose-subscription/choose-s
     OrdersComponent,
     OrderDetailsComponent,
     DeliveryLocationsComponent,
-    ChooseSubscriptionComponent],
+    ChooseSubscriptionComponent,
+    FilterShopsComponent],
   imports: [
     CommonModule,
     SharedModuleModule,

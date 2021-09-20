@@ -1,0 +1,24 @@
+<div class="card">
+  <div class="card-body">
+    <form [formGroup]="filterFrm" (submit)="search()">
+      <div class="row">
+        <div class="col">
+           <label for="name" class="form-label">Name</label>
+           <input type="text" class="form-control" id="name" placeholder="Enter Shop Name">
+        </div>
+        <div class="col">
+          <label for="status" class="form-label">Status</label>
+          <select class="form-control" id="status">
+            <option value="">Select</option>
+            <option value="1">Active</option>
+            <option value="0">In-Active</option>
+          </select>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary mt-3">Search</button>
+    </form>
+
+
+  </div>
+</div>
