@@ -47,7 +47,7 @@ export class RegistrationStepTwoComponent implements OnInit {
         country_id: this.f.country_id.value,
         shop_category_id: this.f.shop_category_id.value,
         short_name: this.f.short_name.value,
-        phone: this.f.phone.value,
+        phone: `+${this.f.country_id.value?.phonecode}${this.f.phone.value}`,
         address: this.f.address.value,
         state_id: this.f.state_id.value,
         city_id: this.f.city_id.value,

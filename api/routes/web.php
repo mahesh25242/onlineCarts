@@ -98,7 +98,7 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
                 $router->post('updateProfile','UsersController@updateProfile');
             });
 
-
+            $router->get('/shop/paymentData','SettingController@paymentData');
             $router->group(['prefix' => 'shop', 'middleware' => 'activeShopMiddleWare'], function () use ($router) {
                 $router->post('/store','ShopsController@updateDetails');
                 $router->post('/changelogoFav','ShopsController@setFaviconOrLogo');
@@ -106,7 +106,7 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
                 $router->post('/orders/changeStatus','ShopOrderController@changeStatus');
                 $router->post('/generateSite','ShopsController@generateSite');
                 $router->post('/mobile_verified','ShopsController@mobileVerified');
-                $router->get('/paymentData','SettingController@paymentData');
+
                 $router->group(['prefix' => 'deliveries'], function () use ($router) {
                     $router->post('/slotToo','ShopDeliveryController@deliveries');
                     $router->post('delete','ShopDeliveryController@delete');

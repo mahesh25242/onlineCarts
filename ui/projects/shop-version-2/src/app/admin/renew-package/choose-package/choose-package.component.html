@@ -17,7 +17,7 @@
         </div>
 
       </li>
-      <li>
+      <li *ngIf="paymentData.payment_account_no">
         Account Transfer
         <div class="account-no" [innerHTML]="paymentData.payment_account_no"></div>
       </li>

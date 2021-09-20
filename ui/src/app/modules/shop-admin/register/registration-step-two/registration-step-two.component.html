@@ -68,7 +68,10 @@
             placeholder="Enter your Mobile number"
             formControlName="phone">
         </div>
-        <small>The order deatil will whats app to this number, You can change this at any time through after login</small>
+        <small>
+          This mobile is used for whatsapp communication with shop especially for product order.
+          please enter whatsapp registered number with out country code
+        </small>
         <div *ngIf="f.phone.errors && f.phone.errors.error" class="invalid-feedback">
           {{f.phone.errors.error}}
         </div>

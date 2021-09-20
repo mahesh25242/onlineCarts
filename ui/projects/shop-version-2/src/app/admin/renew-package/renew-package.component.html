@@ -10,10 +10,10 @@
         <p>{{ package.price | currency:'INR'}}</p>
       </mat-card-content>
       <mat-card-actions >
-        <div *ngIf="(!shop.is_default && !shop?.shop_current_renewal) || !shop?.shop_current_renewal?.show_message">
+        <div *ngIf="!shop.is_default && (!shop?.shop_current_renewal || !shop?.shop_current_renewal?.show_message)">
           You can start re-new of your subscripption only before {{ shop?.shop_current_renewal?.show_message_days }} days of your expirtaion to till the expiry date.
         </div>
-        <button *ngIf="(!shop.is_default && !shop?.shop_current_renewal) || shop?.shop_current_renewal?.show_message" mat-raised-button color="primary" (click)="choose(package)">Choose It</button>
+        <button *ngIf="!shop.is_default && ( !shop?.shop_current_renewal || shop?.shop_current_renewal?.show_message)" mat-raised-button color="primary" (click)="choose(package)">Choose It</button>
       </mat-card-actions>
     </mat-card>
   </div>

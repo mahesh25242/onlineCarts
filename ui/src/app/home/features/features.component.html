@@ -4,80 +4,20 @@
       <h2>Features</h2>
     </div>
   </div>
-  <div class="col-md-6">
-    <div class="feature-item">
-      <div class="icon">
-        <fa-icon [icon]="faHandPointRight"></fa-icon>
-      </div>
-      <h4>Product Categorisation</h4>
-      <p>The shop will list their product in categorised manner. So it make easy to catch the desired product product by customer in speedy way</p>
-    </div>
-  </div>
-  <div class="col-md-6">
-    <div class="feature-item">
-      <div class="icon">
-        <fa-icon [icon]="faHandPointRight"></fa-icon>
-      </div>
-      <h4>Different Varients of a product</h4>
-      <p>
-        A  product can add with diffret varient each varient has specifi price , image, description, and type.
-        Using this  you can add multiple varient of a product under it.
-      </p>
-    </div>
-  </div>
-  <div class="col-md-6">
-    <div class="feature-item">
-      <div class="icon"><fa-icon [icon]="faHandPointRight"></fa-icon></div>
-      <h4>CMS Pages</h4>
-      <p>shop has 2 additional page like about Us and Contact us these 2 page content can manage by each shop.</p>
-    </div>
-  </div>
-  <div class="col-md-6">
-    <div class="feature-item">
-      <div class="icon"><fa-icon [icon]="faHandPointRight"></fa-icon></div>
-      <h4>Search products</h4>
-      <p>shop has seperate search engine to find there product so a customer can find there product in easy way .</p>
-    </div>
-  </div>
-  <div class="col-md-6">
-    <div class="feature-item">
-      <div class="icon"><fa-icon [icon]="faHandPointRight"></fa-icon></div>
-      <h4>Customasiabel Delivery point</h4>
-      <p>shop has a features to manage there delivery spots , delivery change  to each point, minimum order amount for each point. If it is a shop branch then it can add address and google map link there</p>
-    </div>
-  </div>
-  <div class="col-md-6">
-    <div class="feature-item">
-      <div class="icon"><fa-icon [icon]="faHandPointRight"></fa-icon></div>
-      <h4>Customasiabel Delivery Slots</h4>
-      <p>Shop can add a delivery time slop if it has home delivery. using this we can create mutiple time slot for delivery</p>
-    </div>
-  </div>
 
-
-
-  <div class="col-md-6">
-    <div class="feature-item">
-      <div class="icon"><fa-icon [icon]="faHandPointRight"></fa-icon></div>
-      <h4>PWA ( Prograsive Web Apps )</h4>
-      <p>This is developed with PWA concept. using this customer / shop owner can install this app uing browser. while we done like this then that app will list in our app section in mobile</p>
+  <div class="row mbr-justify-content-center">
+    <div class="col-lg-6 mbr-col-md-10" *ngFor="let itm of item">
+        <div class="wrap">
+            <div class="ico-wrap">
+                <fa-icon class="mbr-iconfont" [icon]="faHandPointRight"></fa-icon>
+            </div>
+            <div class="text-wrap vcenter">
+                <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5" [innerHTML]="itm.t"></h2>
+                <p class="mbr-fonts-style text1 mbr-text display-6" [innerHTML]="itm.c"></p>
+            </div>
+        </div>
     </div>
-  </div>
 
-  <div class="col-md-6">
-    <div class="feature-item">
-      <div class="icon"><fa-icon [icon]="faHandPointRight"></fa-icon></div>
-      <h4>Customise Design</h4>
-      <p>Each shop can customise there design with our themes and upload banners.</p>
-    </div>
-  </div>
-
-  <div class="col-md-6">
-    <div class="feature-item">
-      <div class="icon"><fa-icon [icon]="faHandPointRight"></fa-icon></div>
-      <h4>Whatsapp Order</h4>
-      <p>shop site not integrate any payment gate. THe payments was done with shop & customers directly.</p>
-    </div>
   </div>
 
 </div>

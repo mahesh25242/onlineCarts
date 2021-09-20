@@ -1,22 +1,23 @@
 <ng-container *ngIf="shops$ | async as shops">
-  <div class="row" *ngIf="shops && shops.length">
-    <div class="col-md-12">
-      <div class="section-heading">
-        <h2>Clients</h2>
+
+
+  <div class="section-heading text-center">
+    <h2>Our Clients</h2>
+  </div>
+
+  <div class="row">
+    <a class="col-lg-3 col-xs-6 text-center" target="_blank" [href]="shop.shop_url" *ngFor="let shop of shops">
+      <div class="box">
+        <div class="box-content">
+          <h3 class="tag-title">{{ shop.name }}</h3>
+        </div>
+        <address>
+          {{ shop.address }}
+        </address>
       </div>
-    </div>
-    <div class="col-md-3" *ngFor="let shop of shops">
-      <div class="feature-item">
-        <h4>
-          <a [href]="shop.shop_url" target="_blank" *ngIf="shop.shop_url">{{shop.name}}</a>
-          <span *ngIf="!shop.shop_url">{{ shop.name }}</span>
-        </h4>
-      </div>
-    </div>
-
-
-
+    </a>
 
   </div>
+  <br/>
 </ng-container>
 

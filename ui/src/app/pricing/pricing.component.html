@@ -11,15 +11,28 @@
         <div class="alert alert-warning" role="alert" *ngIf="!packages || !packages.length">
           No package found
         </div>
+
+
         <div *ngIf="packages && packages.length > 0">
-            <p>You can purchase the below package in each shop admin page. </p>
-            <div class="row">
-              <div class="col-md-4 col-sm-6 col-xs-12 pkg-inner" *ngFor="let package of packages">
-                <h2 class="text-primary">{{ package.name }}</h2>
-                <h5>{{ package.duration }} ( in Month(s) )</h5>
-                <p>{{ package.description }}</p>
-                <p>{{ package.price | currency:'INR'}}</p>
+            <p>We are mainly offering {{ packages.length }} packages. The first one is trial package.
+              whick is for our new customers to test their product with our service and check is this is suilt for them.
+            </p>
+            <p>
+              You can purchase below package once you register with us and also expire the trial period. So for new customer they should pay only after trial period expiry. If they didn't renew their subscription then our system fisrt make it as inactive and then  deleted all data related to that particular shop.
+            </p>
+
+
+            <div class="row text-center">
+
+              <div class="col-md-4" *ngFor="let package of packages">
+                <div class="wrap"  >
+                  <h2>{{ package.name }}</h2>
+                  <h5>{{ package.duration }} ( in Month(s) )</h5>
+                  <p>{{ package.description }}</p>
+                  <p class="price">{{ package.price | currency:'INR'}}</p>
+                </div>
               </div>
+
             </div>
         </div>
 
