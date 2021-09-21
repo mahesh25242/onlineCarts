@@ -99,46 +99,48 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
             });
 
             $router->get('/shop/paymentData','SettingController@paymentData');
-            $router->group(['prefix' => 'shop', 'middleware' => 'activeShopMiddleWare'], function () use ($router) {
+            $router->group(['prefix' => 'shop'], function () use ($router) {
                 $router->get('/getMyPayments','ShopsController@getMyPayments');
-                $router->post('/store','ShopsController@updateDetails');
-                $router->post('/changelogoFav','ShopsController@setFaviconOrLogo');
-                $router->post('/orders','ShopOrderController@orders');
-                $router->post('/orders/changeStatus','ShopOrderController@changeStatus');
-                $router->post('/generateSite','ShopsController@generateSite');
-                $router->post('/mobile_verified','ShopsController@mobileVerified');
+                $router->group(['middleware' => 'activeShopMiddleWare'], function () use ($router) {
+                    $router->post('/store','ShopsController@updateDetails');
+                    $router->post('/changelogoFav','ShopsController@setFaviconOrLogo');
+                    $router->post('/orders','ShopOrderController@orders');
+                    $router->post('/orders/changeStatus','ShopOrderController@changeStatus');
+                    $router->post('/generateSite','ShopsController@generateSite');
+                    $router->post('/mobile_verified','ShopsController@mobileVerified');
 
-                $router->group(['prefix' => 'deliveries'], function () use ($router) {
-                    $router->post('/slotToo','ShopDeliveryController@deliveries');
-                    $router->post('delete','ShopDeliveryController@delete');
-                    $router->post('store','ShopDeliveryController@store');
-                    $router->group(['prefix' => 'slot'], function () use ($router) {
-                        $router->post('delete','ShopDeliverySlotController@delete');
-                        $router->post('store','ShopDeliverySlotController@store');
+                    $router->group(['prefix' => 'deliveries'], function () use ($router) {
+                        $router->post('/slotToo','ShopDeliveryController@deliveries');
+                        $router->post('delete','ShopDeliveryController@delete');
+                        $router->post('store','ShopDeliveryController@store');
+                        $router->group(['prefix' => 'slot'], function () use ($router) {
+                            $router->post('delete','ShopDeliverySlotController@delete');
+                            $router->post('store','ShopDeliverySlotController@store');
+                        });
                     });
-                });
-                $router->group(['prefix' => 'themes'], function () use ($router) {
-                    $router->get('/','ThemesController@index');
-                    $router->post('/save','ThemesController@store');
-                });
-
-
-                $router->group(['prefix' => 'products'], function () use ($router) {
-                    $router->post('/','ShopProductController@products');
-                    $router->post('store','ShopProductController@store');
-                    $router->post('delete','ShopProductController@delete');
-                    $router->post('changeStatus','ShopProductController@changeStatus');
-                    $router->group(['prefix' => 'categories'], function () use ($router) {
-                        $router->post('/','ShopProductCategoryController@categories');
-                        $router->post('store','ShopProductCategoryController@store');
-                        $router->post('delete','ShopProductCategoryController@delete');
-                        $router->post('changeStatus','ShopProductCategoryController@changeStatus');
+                    $router->group(['prefix' => 'themes'], function () use ($router) {
+                        $router->get('/','ThemesController@index');
+                        $router->post('/save','ThemesController@store');
                     });
 
-                });
 
-                $router->group(['prefix' => 'cms'], function () use ($router) {
-                    $router->post('/store','CMSController@store');
+                    $router->group(['prefix' => 'products'], function () use ($router) {
+                        $router->post('/','ShopProductController@products');
+                        $router->post('store','ShopProductController@store');
+                        $router->post('delete','ShopProductController@delete');
+                        $router->post('changeStatus','ShopProductController@changeStatus');
+                        $router->group(['prefix' => 'categories'], function () use ($router) {
+                            $router->post('/','ShopProductCategoryController@categories');
+                            $router->post('store','ShopProductCategoryController@store');
+                            $router->post('delete','ShopProductCategoryController@delete');
+                            $router->post('changeStatus','ShopProductCategoryController@changeStatus');
+                        });
+
+                    });
+
+                    $router->group(['prefix' => 'cms'], function () use ($router) {
+                        $router->post('/store','CMSController@store');
+                    });
                 });
 
                 $router->group(['prefix' => 'tickets'], function () use ($router) {
