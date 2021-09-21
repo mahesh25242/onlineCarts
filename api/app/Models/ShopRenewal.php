@@ -57,7 +57,7 @@ class ShopRenewal extends Model implements AuthenticatableContract, Authorizable
 
     public function shop()
     {
-        return $this->hasMany('App\Models\Shop');
+        return $this->belongsTo('App\Models\Shop');
     }
 
     public function package()

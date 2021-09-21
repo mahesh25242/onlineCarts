@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Validator;
 use App\Mail\AdminSubscriptionChangeNotification;
+use App\Events\PlanPurchaseEvent;
 
 class PackageController extends Controller
 {

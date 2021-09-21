@@ -19,7 +19,13 @@ class AdminSubscriptionChangeNotification extends Mailable
 
     public function build()
     {
-        return $this->view('email/adminSubscriptionChangeNotification', ["shopRenewal" => $this->shopRenewal]);
+        return $this->view('email/adminSubscriptionChangeNotification', ["shopRenewal" => $this->shopRenewal])
+        ->attach($this->public_path("assets/invoices/{$this->shopRenewal->id}.pdf"));
 
+    }
+
+    private function  public_path($path = null)
+    {
+        return rtrim(app()->basePath('public/' . $path), '/');
     }
 }

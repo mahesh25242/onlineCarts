@@ -6,7 +6,7 @@ use App\Events\PlanPurchaseEvent;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Barryvdh\DomPDF\Facade as PDF;
-use App\Mail\InvoiceMail;
+use App\Mail\AdminSubscriptionChangeNotification;
 use Mail;
 use Illuminate\Http\Request;
 
@@ -33,32 +33,33 @@ class PlanPurchaseListener
     {
 
         if($event->shopRenewal->id ){
-            $pdf = PDF::loadView('PDF.shopInvoice', array(
-                "shopRenewal" => $shopRenewal,
+            $pdf = PDF::loadView('pdf.shopInvoice', array(
+                "shopRenewal" => $event->shopRenewal,
                 "request" =>$this->request
             ));
-            $pdf->save(public_path("assets/invoices/{$shopRenewal->id}.pdf"));
 
-            $toEMail = $shopRenewal->shop->email;
+            $pdf->save($this->public_path("assets/invoices/{$event->shopRenewal->id}.pdf"));
+
+            $toEMail = $event->shopRenewal->shop->email;
             if(env('APP_ENV') == 'local'){
                 $toEMail = env('DEVELOPER_MAIL');
             }
 
             try{
-              //  Mail::to($toEMail)->send(new AdminSubscriptionChangeNotification($shopRenewal));
+               Mail::to($toEMail)->send(new AdminSubscriptionChangeNotification($event->shopRenewal));
             }catch (\Swift_TransportException $e) {
                 //  echo 'Caught exception: ',  $e->getMessage(), "\n";
             }
 
             //mail to super user
-            $setting = \App\Setting::where("name", "shop_expiry_email")->get()->first();
+            $setting = \App\Models\Setting::where("name", "shop_expiry_email")->get()->first();
             $toEMail = $setting->value;
             if(env('APP_ENV') == 'local'){
                 $toEMail = env('DEVELOPER_MAIL');
             }
             if($toEMail){
                 try{
-                    Mail::to($toEMail)->send(new AdminSubscriptionChangeNotification($shopRenewal));
+                    Mail::to($toEMail)->send(new AdminSubscriptionChangeNotification($event->shopRenewal));
                 }catch (\Swift_TransportException $e) {
                     //  echo 'Caught exception: ',  $e->getMessage(), "\n";
                 }
@@ -67,4 +68,10 @@ class PlanPurchaseListener
 
 
     }
+
+    private function  public_path($path = null)
+    {
+        return rtrim(app()->basePath('public/' . $path), '/');
+    }
+
 }
