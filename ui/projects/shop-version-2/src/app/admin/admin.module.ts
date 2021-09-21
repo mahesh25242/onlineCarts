@@ -39,6 +39,7 @@ import { ManageCmsPageComponent } from './components/manage-cms/manage-cms-page/
 import { AccountComponent } from './account/account.component';
 import { RenewPackageComponent } from './renew-package/renew-package.component';
 import { ChoosePackageComponent } from './renew-package/choose-package/choose-package.component';
+import { MyPaymentsComponent } from './my-payments/my-payments.component';
 
 
 @NgModule({
@@ -48,7 +49,7 @@ import { ChoosePackageComponent } from './renew-package/choose-package/choose-pa
     ShopDetailsComponent, OrdersComponent, OrderDetailsComponent, OrderSearchComponent,
     SearchProductComponent, ManageBannersComponent, ThemeAndBrandingComponent,
     ShopDeliveryPageComponent, ShopDeliverySlotComponent,
-    CreateShopDeliverySlotComponent, ManageCmsComponent, ManageCmsPageComponent, AccountComponent, RenewPackageComponent, ChoosePackageComponent
+    CreateShopDeliverySlotComponent, ManageCmsComponent, ManageCmsPageComponent, AccountComponent, RenewPackageComponent, ChoosePackageComponent, MyPaymentsComponent
   ],
   imports: [
     CommonModule,

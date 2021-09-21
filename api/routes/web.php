@@ -20,7 +20,7 @@ $router->get('/key', function() {
     return \Illuminate\Support\Str::random(32);
 });
 
-$router->get('test','UsersController@test');
+//$router->get('test','UsersController@test');
 
 //$router->get('/{sitemap}','SiteMapController@index');
 
@@ -100,6 +100,7 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
 
             $router->get('/shop/paymentData','SettingController@paymentData');
             $router->group(['prefix' => 'shop', 'middleware' => 'activeShopMiddleWare'], function () use ($router) {
+                $router->get('/getMyPayments','ShopsController@getMyPayments');
                 $router->post('/store','ShopsController@updateDetails');
                 $router->post('/changelogoFav','ShopsController@setFaviconOrLogo');
                 $router->post('/orders','ShopOrderController@orders');

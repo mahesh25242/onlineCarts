@@ -758,4 +758,21 @@ class ShopsController extends Controller
 
         return response($shops);
     }
+
+    public function getMyPayments(Request $request){
+        $shopKey = $request->header('shopKey');
+        $shopKey = ($shopKey) ? $shopKey : $request->input("shop_key");
+
+        $shopKey = '3d9f5a8eec71764c7c2df5a56496c8a1320dd921';
+        $perPage = $request->input("pageSize", 50);
+        if($shopKey){
+            $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
+            $shopRenewal = \App\Models\ShopRenewal::with(["package"])->where("shop_id", $shop->id)
+            ->latest()->paginate($perPage);
+
+            return response($shopRenewal);
+        }else{
+            return response(['message' => 'No data found!', 'status' => false]);
+        }
+    }
 }

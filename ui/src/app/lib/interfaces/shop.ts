@@ -6,6 +6,7 @@ import { State } from "./state";
 import { UserRole } from "./user-role";
 import { ShopDelivery } from './shop-delivery';
 import { ShopDeliverySlot } from "./shop-delivery-slot";
+import { Pagination } from "./pagination";
 
 export interface Shop {
   id?: number,
@@ -80,4 +81,8 @@ export interface ShopRenewal {
   remaining_days?: number,
   show_message?: boolean,
   show_message_days?: number,
+}
+
+export interface ShopRenewalWithPagination extends Pagination {
+  data?: ShopRenewal[]
 }

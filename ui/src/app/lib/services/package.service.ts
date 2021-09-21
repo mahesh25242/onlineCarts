@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {  Package } from '../interfaces';
+import {  Package, ShopRenewal, ShopRenewalWithPagination } from '../interfaces';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
@@ -26,5 +26,9 @@ export class PackageService {
 
   assignPackageToShop(postParm: any = null){
     return this.http.post<Package[]>(`/packages/${postParm.package_id}/assignToShop`, postParm);
+  }
+
+  getMyPayments(parms: any = null){
+    return this.http.get<ShopRenewalWithPagination>(`/shop/getMyPayments?page=${parms.pageIndex + 1}&pageSize=${parms.pageSize}`);
   }
 }
