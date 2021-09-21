@@ -7,5 +7,5 @@
         Please find attachment for the invoice
     @endif
 
-    If you have any query related to this please use your Subscription id as {{ $shopRenewal->id }}
+    If you have any query related to this please use your Subscription id as <b>{{ $shopRenewal->id }}</b>
 @endsection
