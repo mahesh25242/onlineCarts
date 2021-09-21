@@ -128,18 +128,9 @@ class PackageController extends Controller
             $shop->status = 1;
             $shop->save();
 
-            $toEMail = $shop->email;
-            if(env('APP_ENV') == 'local'){
-                $toEMail = env('DEVELOPER_MAIL');
-            }
 
-            if($toEMail){
-                try{
-                    Mail::to($toEMail)->send(new AdminSubscriptionChangeNotification($shopRenewal));
-                }catch (\Swift_TransportException $e) {
-                    //  echo 'Caught exception: ',  $e->getMessage(), "\n";
-                }
-            }
+            event(new PlanPurchaseEvent($shopRenewal));
+
 
         }
 

@@ -1,23 +1,18 @@
-<div class="row">
-  <div class="col-md-12">
-    <div class="section-heading">
-      <h2>Features</h2>
-    </div>
-  </div>
+<div class="section-heading">
+  <h2>Features</h2>
+</div>
 
-  <div class="row mbr-justify-content-center">
-    <div class="col-lg-6 mbr-col-md-10" *ngFor="let itm of item">
-        <div class="wrap">
-            <div class="ico-wrap">
-                <fa-icon class="mbr-iconfont" [icon]="faHandPointRight"></fa-icon>
-            </div>
-            <div class="text-wrap vcenter">
-                <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5" [innerHTML]="itm.t"></h2>
-                <p class="mbr-fonts-style text1 mbr-text display-6" [innerHTML]="itm.c"></p>
-            </div>
-        </div>
-    </div>
-
+<div class="row mbr-justify-content-center">
+  <div class="col-lg-6 mbr-col-md-10" *ngFor="let itm of item">
+      <div class="wrap">
+          <div class="ico-wrap">
+              <fa-icon class="mbr-iconfont" [icon]="faHandPointRight"></fa-icon>
+          </div>
+          <div class="text-wrap vcenter">
+              <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5" [innerHTML]="itm.t"></h2>
+              <p class="mbr-fonts-style text1 mbr-text display-6" [innerHTML]="itm.c"></p>
+          </div>
+      </div>
   </div>
 
 </div>
