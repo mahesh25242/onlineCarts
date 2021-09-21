@@ -17,13 +17,39 @@
       </select>
     </div>
 
+
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea  class="form-control" id="description"
+      [formControl]="description"
+      placeholder="Enter Description"
+      [ngClass]="{'is-invalid': ( description.errors && description.errors.error)}"
+      ></textarea>
+      <div *ngIf="description.errors && description.errors.error" class="invalid-feedback">
+        {{description.errors.error}}
+      </div>
+
+    </div>
+    <div class="form-group">
+      <button type="button" (click)="fileInput.click()" class="btn btn-primary avatar-up-btn">
+        <span>{{ (receipt.value?.name) ? 'change' : 'Attach Receipt'}}</span>
+        <input #fileInput type="file" (change)="onFileInput($event.target.files)"  style="display:none;" />
+      </button>
+      {{ receipt.value?.name }}
+    </div>
+
     <div *ngIf="package_id.value === '-1'">
       <div class="form-group">
         <label for="duration">How many days</label>
         <input type="number" class="form-control" id="duration"
         [formControl]="custom_days"
         placeholder="Duration in days"
+        [ngClass]="{'is-invalid': ( custom_days.errors && custom_days.errors.error)}"
         >
+        <div *ngIf="custom_days.errors && custom_days.errors.error" class="invalid-feedback">
+          {{custom_days.errors.error}}
+        </div>
+
       </div>
     </div>
   </div>

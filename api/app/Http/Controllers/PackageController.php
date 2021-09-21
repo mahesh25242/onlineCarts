@@ -72,10 +72,19 @@ class PackageController extends Controller
 
 
     public function assignToShop(Request $request){
-        $validator = Validator::make($request->all(), [
-            'package_id' => ['required'],
-            'shop_id' => ['required']
-        ]);
+        $validationArr = [];
+        if($request->input("package_id", 0) == '-1'){
+            $validationArr = [
+                'shop_id' => ['required'],
+                'custom_days' => 'required'
+            ];
+        }else{
+            $validationArr = [
+                'package_id' => ['required'],
+                'shop_id' => ['required']
+            ];
+        }
+        $validator = Validator::make($request->all(), $validationArr);
 
 
         if($validator->fails()){
@@ -95,6 +104,9 @@ class PackageController extends Controller
         }else{
             $startDay = Carbon::today()->startOfDay();
         }
+
+
+
 
 
         $shopRenewal =  new \App\Models\ShopRenewal;
@@ -129,6 +141,17 @@ class PackageController extends Controller
             $shop->status = 1;
             $shop->save();
 
+
+            if ($request->hasFile('receipt')) {
+                $destinationPath = "assets/shop/".$shop->shop_key."/general";
+                $extension = $request->file('receipt')->getClientOriginalExtension();
+                $fileName = sprintf("%s.%s", uniqid('recept_'),$extension);
+
+                $request->file('receipt')->move($destinationPath, $fileName);
+
+                $shopRenewal->attachement = $fileName;
+                $shopRenewal->save();
+            }
 
             event(new PlanPurchaseEvent($shopRenewal));
 

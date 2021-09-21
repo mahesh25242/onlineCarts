@@ -24,7 +24,7 @@ export class PackageService {
     return this.http.post<Package[]>(`/packages/${postParm.id}/save`, postParm);
   }
 
-  assignPackageToShop(postParm: {package_id: number, shop_id: number, custom_days?: number} | null = null){
+  assignPackageToShop(postParm: any = null){
     return this.http.post<Package[]>(`/packages/${postParm.package_id}/assignToShop`, postParm);
   }
 }

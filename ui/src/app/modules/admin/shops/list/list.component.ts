@@ -22,7 +22,9 @@ export class ListComponent implements OnInit {
 
 
     chooseSubScr(shop: Shop = null){
-      const activeModal = this._modalService.open(ChooseSubscriptionComponent);
+      const activeModal = this._modalService.open(ChooseSubscriptionComponent, {
+        size: 'lg'
+      });
       activeModal.componentInstance.shop = shop;
     }
 
