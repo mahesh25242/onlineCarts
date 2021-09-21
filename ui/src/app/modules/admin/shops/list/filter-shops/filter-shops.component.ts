@@ -16,6 +16,7 @@ export class FilterShopsComponent implements OnInit {
     const postData = {
       name: this.f.name.value,
       status: this.f.status.value,
+      phone: this.f.phone.value,
     }
     this.shopService.getAllShops(postData).subscribe();
   }
@@ -23,7 +24,8 @@ export class FilterShopsComponent implements OnInit {
   ngOnInit(): void {
     this.filterFrm = this.formBuilder.group({
       name: [null, []],
-      status: [null, []],
+      status: ["", []],
+      phone: [null, []],
     });
   }
 

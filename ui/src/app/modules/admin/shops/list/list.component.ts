@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Shop } from 'src/app/lib/interfaces';
+import { Shop, ShopWithPagination } from 'src/app/lib/interfaces';
 import { ShopService } from 'src/app/lib/services';
 import Notiflix from "notiflix";
 import { map, mergeMap } from 'rxjs/operators';
@@ -16,7 +16,7 @@ import { ChooseSubscriptionComponent } from './choose-subscription/choose-subscr
 export class ListComponent implements OnInit {
   faEdit = faEdit;
   faTrash = faTrash;
-  shops$: Observable<Shop[]>;
+  shops$: Observable<ShopWithPagination>;
   constructor(private shopService: ShopService,
     private _modalService: NgbModal,) { }
 
@@ -46,6 +46,12 @@ export class ListComponent implements OnInit {
       // No button callback alert('If you say so...');
     } );
   }
+
+  loadPage(page){
+    this.shopService.getAllShops(null, page).subscribe()
+
+  }
+
   ngOnInit(): void {
     this.shops$ = this.shopService.shops;
   }

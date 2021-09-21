@@ -86,3 +86,7 @@ export interface ShopRenewal {
 export interface ShopRenewalWithPagination extends Pagination {
   data?: ShopRenewal[]
 }
+
+export interface ShopWithPagination extends Pagination {
+  data?: Shop[]
+}

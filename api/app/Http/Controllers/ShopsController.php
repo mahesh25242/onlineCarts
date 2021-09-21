@@ -18,12 +18,32 @@ class ShopsController extends Controller
 
 
     public function shops(Request $request){
-        $shops = \App\Models\Shop::with(["shopCurrentRenewal"])->get();
-        return response($shops);
+        $perpage = 50;
+        $shops = \App\Models\Shop::with(["shopCurrentRenewal"]);
+
+        if($request->input("name", null)){
+
+            $name = $request->input("name");
+            $shops = $shops->where("name", 'like', "%{$name}%");
+        }
+
+        if($request->input("phone", null)){
+
+            $phone = $request->input("phone");
+            $shops = $shops->where("phone", 'like', "%{$phone}%");
+        }
+
+        if($request->input("status" ,null) !== null && $request->input("status" ,null) !== ""){
+            $status = $request->input("status");
+            $shops = $shops->where("status",  $status);
+        }
+
+        return response($shops->paginate($perpage));
     }
 
     public function trashShops(Request $request){
-        $shops = \App\Models\Shop::onlyTrashed()->get();
+        $perpage = 50;
+        $shops = \App\Models\Shop::onlyTrashed()->paginate($perpage);
         return response($shops);
     }
 

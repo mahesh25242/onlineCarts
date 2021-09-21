@@ -1,34 +1,42 @@
+<ng-container *ngIf="shops$ | async as shops">
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>
-        ID
-      </th>
-      <th>
-        Name
-      </th>
-      <th>
-        Status
-      </th>
-      <th>
-        Options
-      </th>
-    </tr>
-  </thead>
-  <tbody *ngIf="shops$ | async as shops">
-    <tr *ngFor="let shop of shops">
-      <td>
-        {{shop.id}}
-      </td>
-      <td>{{shop.name}}</td>
-      <td>
-        {{shop.status_text}}
-      </td>
-      <td>
-        <a href="javascript:{}" (click)="delete(shop)">Delete</a> |
-        <a href="javascript:{}" (click)="restore(shop)">Restore</a>
-      </td>
-    </tr>
-  </tbody>
-</table>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>
+          ID
+        </th>
+        <th>
+          Name
+        </th>
+        <th>
+          Status
+        </th>
+        <th>
+          Options
+        </th>
+      </tr>
+    </thead>
+    <tbody >
+      <tr  *ngIf="!shops.total">
+        <td colspan="4">
+          <div class="alert alert-warning">No trashed shop found</div>
+        </td>
+      </tr>
+      <tr *ngFor="let shop of shops.data">
+        <td>
+          {{shop.id}}
+        </td>
+        <td>{{shop.name}}</td>
+        <td>
+          {{shop.status_text}}
+        </td>
+        <td>
+          <a href="javascript:{}" (click)="delete(shop)">Delete</a> |
+          <a href="javascript:{}" (click)="restore(shop)">Restore</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <ngb-pagination *ngIf="shops.total" [collectionSize]="shops.total"  [pageSize]="shops.per_page" [(page)]="shops.current_page" (pageChange)="loadPage($event)" [maxSize]="5" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
+</ng-container>

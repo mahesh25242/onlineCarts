@@ -1,14 +1,15 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { NullTemplateVisitor } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { delay, map, share, tap } from 'rxjs/operators';
-import { Shop, ShopDelivery, ShopDeliverySlot } from '../interfaces';
+import { Shop, ShopDelivery, ShopDeliverySlot, ShopWithPagination } from '../interfaces';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ShopService {
-  private shops$: BehaviorSubject<Shop[]> = new BehaviorSubject<Shop[]>(null);
+  private shops$: BehaviorSubject<ShopWithPagination> = new BehaviorSubject<ShopWithPagination>(null);
   private shop$: BehaviorSubject<Shop> = new BehaviorSubject<Shop>(null);
   private deliveriesSlot$: BehaviorSubject<{deliveries?: ShopDelivery[], slots?: ShopDeliverySlot[] }> = new BehaviorSubject<{deliveries?: ShopDelivery[], slots?: ShopDeliverySlot[] }>(null);
   constructor(private http: HttpClient) { }
@@ -33,15 +34,15 @@ export class ShopService {
   get deliveriesSlot(){
     return this.deliveriesSlot$.asObservable();
   }
-  getAllShops(postData: any = null){
-    return this.http.post<Shop[]>("/admin/shops", postData).pipe(map(res=>{
+  getAllShops(postData: any = null, page: number = 1){
+    return this.http.post<ShopWithPagination>(`/admin/shops?page=${page}`, postData).pipe(map(res=>{
       this.shops$.next(res);
       return res;
     }));
   }
 
-  getAllTrashShops(postData: any = null){
-    return this.http.post<Shop[]>("/admin/shops/trash", postData).pipe(map(res=>{
+  getAllTrashShops(postData: any = NullTemplateVisitor, page: number = 1){
+    return this.http.post<ShopWithPagination>(`/admin/shops/trash?page=${page}`, postData).pipe(map(res=>{
       this.shops$.next(res);
       return res;
     }));

@@ -3,6 +3,7 @@
 <div class="clearfix mb-3 mt-2"></div>
 <app-filter-shops></app-filter-shops>
 <div class="clearfix mb-3 mt-2"></div>
+<ng-container *ngIf="(shops$ | async) as shops">
 <table class="table">
   <thead>
     <tr>
@@ -24,8 +25,14 @@
     </tr>
   </thead>
   <tbody>
-    <ng-container *ngIf="(shops$ | async) as shops">
-      <tr *ngFor="let shop of shops">
+      <tr  *ngIf="!shops.total">
+        <td colspan="5">
+          <div class="alert alert-warning">
+            No shop found
+          </div>
+        </td>
+      </tr>
+      <tr *ngFor="let shop of shops.data">
         <td>
           {{ shop.id }}
         </td>
@@ -52,10 +59,11 @@
 
         </td>
       </tr>
-    </ng-container>
+
 
   </tbody>
 </table>
 
-
+<ngb-pagination [collectionSize]="shops.total"  [pageSize]="shops.per_page" [(page)]="shops.current_page" (pageChange)="loadPage($event)" [maxSize]="5" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
+</ng-container>
 </div>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Shop } from 'src/app/lib/interfaces';
+import { Shop, ShopWithPagination } from 'src/app/lib/interfaces';
 import { ShopService } from 'src/app/lib/services';
 import Notiflix from "notiflix";
 import { map, mergeMap } from 'rxjs/operators';
@@ -11,7 +11,7 @@ import { map, mergeMap } from 'rxjs/operators';
   styleUrls: ['./trash-shops.component.scss']
 })
 export class TrashShopsComponent implements OnInit {
-  shops$: Observable<Shop[]>;
+  shops$: Observable<ShopWithPagination>;
 
   constructor(private shopService: ShopService) { }
 
@@ -51,6 +51,11 @@ export class TrashShopsComponent implements OnInit {
     }, ()=>{
       // No button callback alert('If you say so...');
     } );
+  }
+
+  loadPage(page){
+    this.shopService.getAllTrashShops(null, page).subscribe()
+
   }
 
   ngOnInit(): void {

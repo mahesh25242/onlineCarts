@@ -4,11 +4,17 @@
       <div class="row">
         <div class="col">
            <label for="name" class="form-label">Name</label>
-           <input type="text" class="form-control" id="name" placeholder="Enter Shop Name">
+           <input type="text" class="form-control" id="name" placeholder="Enter Shop Name"
+           formControlName="name">
+        </div>
+        <div class="col">
+           <label for="phone" class="form-label">Phone</label>
+           <input type="tel" class="form-control" id="phone" placeholder="Enter Shop Phone"
+           formControlName="phone">
         </div>
         <div class="col">
           <label for="status" class="form-label">Status</label>
-          <select class="form-control" id="status">
+          <select class="form-control" id="status" formControlName="status">
             <option value="">Select</option>
             <option value="1">Active</option>
             <option value="0">In-Active</option>
