@@ -103,6 +103,7 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
                 $router->get('/paymentData','SettingController@paymentData');
                 $router->get('/getMyPayments','ShopsController@getMyPayments');
                 $router->group(['prefix' => 'abuses'], function () use ($router) {
+                    $router->get('/','ReportAbuseController@shopAbuses');
                     $router->get('/types','ReportAbuseController@types');
                     $router->post('/report','ReportAbuseController@save');
                 });

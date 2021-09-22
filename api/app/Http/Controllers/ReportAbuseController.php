@@ -44,7 +44,7 @@ class ReportAbuseController extends Controller
         return response([ 'message' => 'Account created successfully!', 'status' => true]);
     }
 
-    public function shopAbuses(){
+    public function shopAbuses(Request $request){
         $shopKey = $request->header('shopKey');
         $shopKey = ($shopKey) ? $shopKey : $request->input("shop_key",'');
 
@@ -60,7 +60,7 @@ class ReportAbuseController extends Controller
         $perPage = $request->input("perPage", 50);
 
         $perPage = (is_numeric($perPage) && $perPage> 0) ? $perPage : 50;
-        $reportAbuse = \App\Models\ReportAbuse::paginate($perPage);
+        $reportAbuse = \App\Models\ReportAbuse::with(["shopProduct.shopProductCategory", "reportAbuseType"])->paginate($perPage);
         return response( $reportAbuse);
     }
 

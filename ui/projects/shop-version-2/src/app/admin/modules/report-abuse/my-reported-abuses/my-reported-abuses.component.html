@@ -1,0 +1,71 @@
+<ng-container *ngIf="abuses$ | async as abuses">
+
+  <div  [ngClass.lt-sm]="'has-mobile-cards'">
+    <table mat-table [dataSource]="abuses.data">
+
+      <!-- id Column -->
+      <ng-container matColumnDef="no">
+        <th mat-header-cell *matHeaderCellDef> No. </th>
+        <td mat-cell *matCellDef="let element; let i = index;" data-label="No."> {{abuses.from + i}} </td>
+      </ng-container>
+
+
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let element" data-label="Name">
+          {{ (element?.name) ? element?.name : '-' }}
+        </td>
+      </ng-container>
+
+      <!-- total Column -->
+      <ng-container matColumnDef="type">
+        <th mat-header-cell *matHeaderCellDef> Type </th>
+        <td mat-cell *matCellDef="let element" data-label="Type">
+          {{ element?.report_abuse_type?.name }}
+        </td>
+      </ng-container>
+
+      <!-- total Column -->
+      <ng-container matColumnDef="product">
+        <th mat-header-cell *matHeaderCellDef> Product </th>
+        <td mat-cell *matCellDef="let element" data-label="Product">
+          <!-- <a [routerLink]="['/as']" >as</a> -->
+          <!-- <a *ngIf="element?.shop_product"  [routerLink]="[element?.shop_product?.shop_product_category?.url, element?.shop_product?.url]" ></a> -->
+            {{ element?.shop_product?.name }}
+
+        </td>
+      </ng-container>
+
+       <!-- total Column -->
+       <ng-container matColumnDef="dated">
+        <th mat-header-cell *matHeaderCellDef> Dated </th>
+        <td mat-cell *matCellDef="let element" data-label="Dated">
+          {{ element?.created_at | date:'medium'}}
+        </td>
+      </ng-container>
+
+
+      <!-- total Column -->
+      <ng-container matColumnDef="comment">
+        <th mat-header-cell *matHeaderCellDef> Comment </th>
+        <td mat-cell *matCellDef="let element" data-label="Comment">
+          {{ element?.content}}
+        </td>
+      </ng-container>
+
+
+      <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="6">No data found</td>
+      </tr>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+
+  <mat-paginator *ngIf="abuses.total" [length]="abuses.total"
+              [pageSize]="50"
+              [pageSizeOptions]="[ 50, 70, 100]"
+              (page)="goto($event)">
+  </mat-paginator>
+</ng-container>

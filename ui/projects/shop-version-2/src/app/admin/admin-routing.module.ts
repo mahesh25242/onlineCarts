@@ -19,6 +19,9 @@ import { ShopDeliveryPageComponent } from './delivery/shop-delivery-page.compone
 import { CreateProductResolver } from './products/create-product/create-product-resolver';
 import { AccountComponent } from './account/account.component';
 import { RenewPackageComponent } from './renew-package/renew-package.component';
+import { ManageTicketsComponent } from './modules/tickets/manage-tickets/manage-tickets.component';
+import { MyPaymentsComponent } from './my-payments/my-payments.component';
+import { MyReportedAbusesComponent } from './modules/report-abuse/my-reported-abuses/my-reported-abuses.component';
 
 
 
@@ -94,6 +97,24 @@ const routes: Routes = [
         path: 'account',
         component: AccountComponent,
         canActivate: [AdminAuthGuard],
+        children:[
+          {
+            path: '',
+            component: EditProfileComponent,
+          },
+          {
+            path: 'help-desk',
+            component: ManageTicketsComponent,
+          },
+          {
+            path: 'my-payments',
+            component: MyPaymentsComponent,
+          },
+          {
+            path: 'my-abuses',
+            component: MyReportedAbusesComponent,
+          },
+        ]
       },
       {
         path: 'renew',

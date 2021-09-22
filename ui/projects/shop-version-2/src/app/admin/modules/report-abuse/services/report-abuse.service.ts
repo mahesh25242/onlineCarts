@@ -17,8 +17,8 @@ export class ReportAbuseService {
     return this.http.get<ReportAbuseType[]>('/shop/abuses/types');
   }
 
-  myReports(){
-    return this.http.get<ReportAbuseWithPagination>('/shop/abuses');
+  myReports(parms: any = null){
+    return this.http.get<ReportAbuseWithPagination>(`/shop/abuses?page=${parms.pageIndex+1}&pageSize=${parms.pageSize}`);
   }
 
   save(postData: any = null){

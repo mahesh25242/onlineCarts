@@ -4,7 +4,7 @@ import { EditorModule } from '@tinymce/tinymce-angular';
 
 
 import { SharedModuleModule } from '../lib/shared-module/shared-module.module';
-import { TagModule, TicketModule } from './modules';
+import { TagModule, TicketModule, ReportAbuseModule } from './modules';
 
 import {  AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin.component';
@@ -57,7 +57,8 @@ import { MyPaymentsComponent } from './my-payments/my-payments.component';
     SharedModuleModule,
     EditorModule,
     TagModule,
-    TicketModule
+    TicketModule,
+    ReportAbuseModule
   ],
   providers:[
     CategoriesResolver,

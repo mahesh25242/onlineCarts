@@ -19,7 +19,6 @@ export class MyPaymentsComponent implements OnInit {
   constructor(private packageService: PackageService) { }
 
   goto(pageEvent: PageEvent){
-    console.log(pageEvent)
     this.PageEvent$.next(pageEvent);
   }
 

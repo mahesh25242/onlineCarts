@@ -30,60 +30,70 @@
           <div fxFlex="65%" fxFlex.xs="100%" [ngClass.gt-xs]="'description'">
             <div>
               <h1 class="primary-text-color product-head">{{ product.name }} [ {{ product.shop_product_selected_variant?.name }} ]</h1>
-              <small *ngIf="product?.shop_product_category?.name"><h5 class="primary-text-color">{{ product?.shop_product_category?.name }}</h5></small>
-              <app-report-abuse [item]="product"></app-report-abuse>
+              <small *ngIf="product?.shop_product_category?.name" fxLayout="row" fxLayoutAlign="space-between">
+                <h5 class="primary-text-color">{{ product?.shop_product_category?.name }}</h5>
+                <app-report-abuse [item]="product"></app-report-abuse>
+              </small>
+
             </div>
 
 
-            <div fxLayout="row" fxLayoutAlign="space-between">
+            <div fxLayout.gt-md="row" fxLayout="column" fxLayoutAlign="space-between">
 
-              <mat-form-field fxFlex="45%"  appearance="standard" *ngIf="(product.shop_product_variant.length > 1)">
-                <mat-label>Choose Varient</mat-label>
-                <mat-select formControlName="shop_product_variant_id" required (selectionChange)="chooseVarient()">
-                  <mat-option *ngFor="let shop_product_variant of product.shop_product_variant" [value]="shop_product_variant.id">
-                    {{shop_product_variant.name}} - {{shop_product_variant.price | currency:'INR'}}
-                  </mat-option>
-                </mat-select>
-                <mat-error *ngIf="f.shop_product_variant_id.errors && f.shop_product_variant_id.errors.error">
-                  {{f.shop_product_variant_id.errors.error}}
-                </mat-error>
-              </mat-form-field>
+              <div fxLayout="row" fxFlex="50%" fxLayoutAlign="space-between">
+                <mat-form-field fxFlex="45%"  appearance="standard" *ngIf="(product.shop_product_variant.length > 1)">
+                  <mat-label>Choose Varient</mat-label>
+                  <mat-select formControlName="shop_product_variant_id" required (selectionChange)="chooseVarient()">
+                    <mat-option *ngFor="let shop_product_variant of product.shop_product_variant" [value]="shop_product_variant.id">
+                      {{shop_product_variant.name}} - {{shop_product_variant.price | currency:'INR'}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="f.shop_product_variant_id.errors && f.shop_product_variant_id.errors.error">
+                    {{f.shop_product_variant_id.errors.error}}
+                  </mat-error>
+                </mat-form-field>
 
-              <div
-               [ngClass.lt-sm]="'price-lt-sm'"
-              class="price" fxFlex="50%"   *ngIf="product.shop_product_selected_variant?.price">
-                <div [ngClass]="{'margin-top-14': product.shop_product_variant.length <= 1}">
-                  <del *ngIf="product.shop_product_selected_variant?.actual_price">{{ product.shop_product_selected_variant?.actual_price | currency:'INR' }}</del>
-                  &nbsp;&nbsp;<span class="weight-bold animate__animated animate__flipInX"> {{ product.shop_product_selected_variant?.price | currency:'INR'}} </span>
+                <div
+                 [ngClass.lt-sm]="'price-lt-sm'"
+                class="price" fxFlex="50%"   *ngIf="product.shop_product_selected_variant?.price">
+                  <div [ngClass]="{'margin-top-14': product.shop_product_variant.length <= 1}">
+                    <del *ngIf="product.shop_product_selected_variant?.actual_price">{{ product.shop_product_selected_variant?.actual_price | currency:'INR' }}</del>
+                    &nbsp;&nbsp;<span class="weight-bold animate__animated animate__flipInX"> {{ product.shop_product_selected_variant?.price | currency:'INR'}} </span>
+                  </div>
+                </div>
+              </div>
+
+              <div fxLayout="row" fxFlex="50%" fxLayoutAlign="center center" >
+                <div>
+                  <button type="button" mat-icon-button color="primary" (click)="updateCart('-')" [disabled]="qty<2"
+                  matTooltip="Decrease the quantity" class="animate__animated"
+                  [ngClass]="{'animate__flipInY' : qty<2 }">
+                    <mat-icon>remove_circle_outline</mat-icon>
+                  </button>
+                  {{qty}}
+                  <button type="button" mat-icon-button color="primary" (click)="updateCart('+')"
+                  matTooltip="Increase the quantity">
+                    <mat-icon>add_circle_outline</mat-icon>
+                  </button>
+                </div>
+                <div>
+                  <button    mat-raised-button color="primary" type="submit">Add To Cart</button>
                 </div>
               </div>
             </div>
 
-          <div class="relativePosition" [ngClass.lt-sm]="'text-center'">
-            <button type="button" mat-icon-button color="primary" (click)="updateCart('-')" [disabled]="qty<2"
-            matTooltip="Decrease the quantity" class="animate__animated"
-            [ngClass]="{'animate__flipInY' : qty<2 }">
-              <mat-icon>remove_circle_outline</mat-icon>
-            </button>
-            {{qty}}
-            <button type="button" mat-icon-button color="primary" (click)="updateCart('+')"
-            matTooltip="Increase the quantity">
-              <mat-icon>add_circle_outline</mat-icon>
-            </button>
 
-            <button    mat-raised-button color="primary" type="submit">Add To Cart</button>
-
-          </div>
 
           <mat-card>
-            <mat-chip-list aria-label="varient tag" *ngIf="product.shop_product_selected_variant?.shop_product_variant_tag && product.shop_product_selected_variant?.shop_product_variant_tag.length">
-              <mat-chip color="accent" selected class="animate__animated animate__flipInX" *ngFor="let shop_product_variant_tag of product.shop_product_selected_variant?.shop_product_variant_tag">{{shop_product_variant_tag.name}}</mat-chip>
-            </mat-chip-list>
-
             <app-product-tag-chip [product]="product"></app-product-tag-chip>
-            <p>{{product.shop_product_selected_variant?.description}}</p>
+            <br/>
+
 
             <p *ngIf="product.description" [innerHTML]="product.description"></p>
+
+            <p>{{product.shop_product_selected_variant?.description}}</p>
+
+
 
 
           </mat-card>
