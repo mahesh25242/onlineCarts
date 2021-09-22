@@ -10,6 +10,7 @@ import { SettingService } from '../lib/services';
 export class FooterComponent implements OnInit {
   footerData$: Observable<any>;
   faAngleDoubleRight = faAngleDoubleRight;
+  currentYear: number = new Date().getFullYear();
   constructor(private settingService: SettingService) { }
 
   ngOnInit(): void {

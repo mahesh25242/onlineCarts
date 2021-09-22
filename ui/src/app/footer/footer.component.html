@@ -1,6 +1,6 @@
-<footer id="footer">
+<footer id="footer" *ngIf="footerData$ | async as footerData">
   <div class="footer-top">
-    <div class="container" *ngIf="footerData$ | async as footerData">
+    <div class="container" >
       <div class="row">
         <div class="col-lg-3 col-md-6 footer-info">
           <h3>
@@ -70,6 +70,6 @@
     </div>
   </div>
   <div class="container">
-    <div class="copyright">© Copyright <strong>Online Carts</strong>. All Rights Reserved</div>
+    <div class="copyright">© Copyright {{currentYear}}<strong>{{ footerData.site_name }}</strong>. All Rights Reserved</div>
   </div>
 </footer>

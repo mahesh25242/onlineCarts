@@ -98,9 +98,15 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
                 $router->post('updateProfile','UsersController@updateProfile');
             });
 
-            $router->get('/shop/paymentData','SettingController@paymentData');
+
             $router->group(['prefix' => 'shop'], function () use ($router) {
+                $router->get('/paymentData','SettingController@paymentData');
                 $router->get('/getMyPayments','ShopsController@getMyPayments');
+                $router->group(['prefix' => 'abuses'], function () use ($router) {
+                    $router->get('/types','ReportAbuseController@types');
+                    $router->post('/report','ReportAbuseController@save');
+                });
+
                 $router->group(['middleware' => 'activeShopMiddleWare'], function () use ($router) {
                     $router->post('/store','ShopsController@updateDetails');
                     $router->post('/changelogoFav','ShopsController@setFaviconOrLogo');

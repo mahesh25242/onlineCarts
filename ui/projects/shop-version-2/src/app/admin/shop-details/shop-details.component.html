@@ -4,10 +4,20 @@
   <ng-container *ngIf="(shop$ | async) as shop">
     <h1>{{shop.name}} Details</h1>
     <mat-card *ngIf="shop.shop_current_renewal">
+      <p>Status: {{shop.status_text}}</p>
       <p>Expired on: {{shop.shop_current_renewal.to_date | date:'medium'}}</p>
       <p *ngIf="shop.shop_current_renewal.show_message">Shop will stop working after {{shop.shop_current_renewal.remaining_days}} days. Please re new your subscription </p>
     </mat-card>
     <br/>
+
+    <div *ngIf="!shop.is_mobile_verified">
+      <mat-card >
+          Your mobile is not verified so cant get any order to your mobile
+          <a href="javascript:{}" (click)="verifyMobile(shop)">Click here to verify your mobile</a>
+      </mat-card>
+      <br/>
+    </div>
+
     <mat-accordion multi>
       <mat-expansion-panel>
         <mat-expansion-panel-header>
@@ -25,11 +35,6 @@
 
 
 
-        Status: {{shop.status_text}}
-        <div *ngIf="!shop.is_mobile_verified">
-          Your mobile is not verified so cant get any order to your mobile
-          <a href="javascript:{}" (click)="verifyMobile(shop)">Click here to verify</a>
-        </div>
 
       </mat-expansion-panel>
       <mat-expansion-panel>

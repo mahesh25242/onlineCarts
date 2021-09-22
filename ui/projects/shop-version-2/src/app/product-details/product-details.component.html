@@ -4,6 +4,7 @@
 
       <form [formGroup]="addToCartFrm" (ngSubmit)="addToCart()">
         <mat-card>
+
         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
           <div fxFlex="35%" fxFlex.xs="100%">
             <div fxLayout="column" fxLayoutAlign="space-between">
@@ -30,6 +31,7 @@
             <div>
               <h1 class="primary-text-color product-head">{{ product.name }} [ {{ product.shop_product_selected_variant?.name }} ]</h1>
               <small *ngIf="product?.shop_product_category?.name"><h5 class="primary-text-color">{{ product?.shop_product_category?.name }}</h5></small>
+              <app-report-abuse [item]="product"></app-report-abuse>
             </div>
 
 

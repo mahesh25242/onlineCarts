@@ -15,7 +15,7 @@ import { AngularFirePerformanceModule, PerformanceMonitoringService } from '@ang
 import { httpInterceptorProviders } from './lib/interceptor'
 
 import { SharedModuleModule } from './lib/shared-module/shared-module.module';
-import { TagModule } from './admin/modules';
+import { TagModule, ReportAbuseModule } from './admin/modules';
 import * as Hammer from 'hammerjs';
 import { LOCALE_ID} from '@angular/core';
 
@@ -159,6 +159,7 @@ function initializeAppFactory(shopService: ShopService) {
     NgcCookieConsentModule.forRoot(cookieConfig),
     NgxSliderModule,
     TagModule,
+    ReportAbuseModule,
     NgxQRCodeModule,
     AngularFirePerformanceModule
   ],

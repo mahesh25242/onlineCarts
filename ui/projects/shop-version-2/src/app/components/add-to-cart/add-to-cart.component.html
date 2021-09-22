@@ -4,6 +4,7 @@
     <mat-card-subtitle>{{ data.shop_product_selected_variant?.name}}</mat-card-subtitle>
 
   <div mat-dialog-content>
+    <app-report-abuse [item]="data"></app-report-abuse>
     <div class="product-image" [ngStyle]="{'background-image': 'url(' + ((data?.shop_product_selected_variant?.shop_product_image?.image) ?  data.shop_product_selected_variant.shop_product_image.image_path : 'assets/no-image.jpg') + ')'}">
       <div *ngIf="data.shop_product_selected_variant?.type.id"
       [matTooltip]="(data?.shop_product_selected_variant?.type.id == 1) ? 'Veg' : ( (data?.shop_product_selected_variant?.type.id == 2) ? 'Non-Veg':'' )"

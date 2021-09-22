@@ -108,5 +108,9 @@ class ShopProduct extends Model implements AuthenticatableContract, Authorizable
         );
     }
 
+    public function reportAbuse()
+    {
+        return $this->hasMany('App\Models\ReportAbuse');
+    }
 
 }

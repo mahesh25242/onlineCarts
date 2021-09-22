@@ -12,6 +12,9 @@ $theme: mat-light-theme($primary, $accent, $warn);
   color: mat-color($primary)
 }
 
+
+
+
 .main-menu-text-color{
   color:  $light-primary-text
 }
@@ -26,6 +29,10 @@ $theme: mat-light-theme($primary, $accent, $warn);
   background-color: mat-color($primary) !important;
 }
 
+.footer-bg{
+  $footerbg: mat-palette($primary, 100, A700, A700);
+  background-color: mat-color($footerbg)
+}
 
 .shop-default-light-theme {
   $primary: mat-palette($mat-blue-grey);
@@ -50,6 +57,10 @@ $theme: mat-light-theme($primary, $accent, $warn);
     background-color: mat-color($primary) !important;
   }
 
+  .footer-bg{
+    $footerbg: mat-palette($primary, 100, A700, A700);
+    background-color: mat-color($footerbg)
+  }
 }
 
 
@@ -73,6 +84,11 @@ $theme: mat-light-theme($primary, $accent, $warn);
   .primary-bg{
     background-color: mat-color($primary) !important;
   }
+
+  .footer-bg{
+    $footerbg: mat-palette($primary, 100, A700, A700);
+    background-color: mat-color($footerbg)
+  }
 }
 
 .shop-default-purple-light-theme {
@@ -94,6 +110,11 @@ $theme: mat-light-theme($primary, $accent, $warn);
 
   .primary-bg{
     background-color: mat-color($primary) !important;
+  }
+
+  .footer-bg{
+    $footerbg: mat-palette($primary, 100, A700, A700);
+    background-color: mat-color($footerbg)
   }
 }
 
@@ -117,6 +138,11 @@ $theme: mat-light-theme($primary, $accent, $warn);
   .primary-bg{
     background-color: mat-color($primary) !important;
   }
+
+  .footer-bg{
+    $footerbg: mat-palette($primary, 100, A700, A700);
+    background-color: mat-color($footerbg)
+  }
 }
 .shop-default-indigo-light-theme {
   $primary: mat-palette($mat-indigo);
@@ -137,6 +163,11 @@ $theme: mat-light-theme($primary, $accent, $warn);
 
   .primary-bg{
     background-color: mat-color($primary) !important;
+  }
+
+  .footer-bg{
+    $footerbg: mat-palette($primary, 100, A700, A700);
+    background-color: mat-color($footerbg)
   }
 }
 
@@ -161,6 +192,11 @@ $theme: mat-light-theme($primary, $accent, $warn);
   .primary-bg{
     background-color: mat-color($primary) !important;
   }
+
+  .footer-bg{
+    $footerbg: mat-palette($primary, 100, A700, A700);
+    background-color: mat-color($footerbg)
+  }
 }
 
 
@@ -183,6 +219,11 @@ $theme: mat-light-theme($primary, $accent, $warn);
 
   .primary-bg{
     background-color: mat-color($primary) !important;
+  }
+
+  .footer-bg{
+    $footerbg: mat-palette($primary, 100, A700, A700);
+    background-color: mat-color($footerbg)
   }
 }
 
@@ -210,6 +251,11 @@ $theme: mat-light-theme($primary, $accent, $warn);
   .primary-bg{
     background-color: mat-color($primary) !important;
   }
+
+  .footer-bg{
+    $footerbg: mat-palette($primary, 100, A700, A700);
+    background-color: mat-color($footerbg)
+  }
 }
 
 .shop-default-teal-light-theme {
@@ -231,6 +277,11 @@ $theme: mat-light-theme($primary, $accent, $warn);
 
   .primary-bg{
     background-color: mat-color($primary) !important;
+  }
+
+  .footer-bg{
+    $footerbg: mat-palette($primary, 100, A700, A700);
+    background-color: mat-color($footerbg)
   }
 }
 
@@ -256,6 +307,11 @@ $theme: mat-light-theme($primary, $accent, $warn);
   .primary-bg{
     background-color: mat-color($primary) !important;
   }
+
+  .footer-bg{
+    $footerbg: mat-palette($primary, 100, A700, A700);
+    background-color: mat-color($footerbg)
+  }
 }
 
 .shop-default-light-green-light-theme {
@@ -278,6 +334,11 @@ $theme: mat-light-theme($primary, $accent, $warn);
 
   .primary-bg{
     background-color: mat-color($primary) !important;
+  }
+
+  .footer-bg{
+    $footerbg: mat-palette($primary, 100, A700, A700);
+    background-color: mat-color($footerbg)
   }
 }
 
@@ -306,6 +367,11 @@ $theme: mat-light-theme($primary, $accent, $warn);
   .primary-bg{
     background-color: mat-color($primary) !important;
   }
+
+  .footer-bg{
+    $footerbg: mat-palette($primary, 100, A700, A700);
+    background-color: mat-color($footerbg)
+  }
 }
 
 .shop-default-yellow-theme {
@@ -331,6 +397,11 @@ $theme: mat-light-theme($primary, $accent, $warn);
 
   .primary-bg{
     background-color: mat-color($primary) !important;
+  }
+
+  .footer-bg{
+    $footerbg: mat-palette($primary, 100, A700, A700);
+    background-color: mat-color($footerbg)
   }
 }
 
@@ -358,6 +429,11 @@ $theme: mat-light-theme($primary, $accent, $warn);
   .primary-bg{
     background-color: mat-color($primary) !important;
   }
+
+  .footer-bg{
+    $footerbg: mat-palette($primary, 100, A700, A700);
+    background-color: mat-color($footerbg)
+  }
 }
 
 .shop-default-orange-theme {
@@ -379,6 +455,11 @@ $theme: mat-light-theme($primary, $accent, $warn);
 
   .primary-bg{
     background-color: mat-color($primary) !important;
+  }
+
+  .footer-bg{
+    $footerbg: mat-palette($primary, 100, A700, A700);
+    background-color: mat-color($footerbg)
   }
 }
 
@@ -402,6 +483,11 @@ $theme: mat-light-theme($primary, $accent, $warn);
   .primary-bg{
     background-color: mat-color($primary) !important;
   }
+
+  .footer-bg{
+    $footerbg: mat-palette($primary, 100, A700, A700);
+    background-color: mat-color($footerbg)
+  }
 }
 
 .shop-default-brown-theme {
@@ -423,6 +509,11 @@ $theme: mat-light-theme($primary, $accent, $warn);
 
   .primary-bg{
     background-color: mat-color($primary) !important;
+  }
+
+  .footer-bg{
+    $footerbg: mat-palette($primary, 100, A700, A700);
+    background-color: mat-color($footerbg)
   }
 }
 
@@ -446,6 +537,11 @@ $theme: mat-light-theme($primary, $accent, $warn);
   .primary-bg{
     background-color: mat-color($primary) !important;
   }
+
+  .footer-bg{
+    $footerbg: mat-palette($primary, 100, A700, A700);
+    background-color: mat-color($footerbg)
+  }
 }
 
 .shop-default-blue-gray-theme {
@@ -468,6 +564,12 @@ $theme: mat-light-theme($primary, $accent, $warn);
   .primary-bg{
     background-color: mat-color($primary) !important;
   }
+
+  .footer-bg{
+    $footerbg: mat-palette($primary, 100, A700, A700);
+    background-color: mat-color($footerbg)
+  }
+
 }
 
 
@@ -489,3 +591,6 @@ body{
     }
   }
 }
+
+
+
