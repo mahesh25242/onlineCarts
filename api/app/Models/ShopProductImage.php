@@ -38,7 +38,7 @@ class ShopProductImage extends Model implements AuthenticatableContract, Authori
 
     public function getImagePathAttribute()
     {
-        if($this->image && $this->shopProduct->shop->shop_key){
+        if($this->image && $this->shopProduct && $this->shopProduct->shop->shop_key){
             if(file_exists("assets/shop/{$this->shopProduct->shop->shop_key}/products/{$this->image}")){
                 return url("assets/shop/{$this->shopProduct->shop->shop_key}/products/{$this->image}");
             }else{

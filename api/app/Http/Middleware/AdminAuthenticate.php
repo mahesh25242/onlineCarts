@@ -23,6 +23,6 @@ class AdminAuthenticate
         if(\App\Models\User::has("isSuperAdmin")->find(Auth::id()) && \App\Models\User::has("isSuperAdmin")->find(Auth::id())->exists())
                 return $next($request);
        }
-       return response('Unauthorized.', 401);;
+       return response('Unauthorized Admin.', 401);;
     }
 }

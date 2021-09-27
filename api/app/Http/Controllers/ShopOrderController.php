@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Validator;
+use App\Http\Resources\ShopOrderResurce;
 
 class ShopOrderController extends Controller
 {
@@ -219,7 +220,10 @@ class ShopOrderController extends Controller
     public function showOrderDetail(Request $request){
         $id =  $request->input("id", null);
         $shopOrder = \App\Models\ShopOrder::with(["shopCustomer", "shopDelivery", "shopOrderItem.shopProductVariant.shopProduct", "shopOrderItem.shopProductVariant.shopProductImage"])->where("sec_key", $id)->get()->first();
-        return response($shopOrder);
+       // $shopOrder->shop_customer->phone = "asas";
+   //  $phone_number = '******' . substr( $phone_number, - 4);
+     //   return response($shopOrder);
+        return response(new ShopOrderResurce($shopOrder));
     }
 
 }

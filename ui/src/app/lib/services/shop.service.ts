@@ -120,7 +120,11 @@ export class ShopService {
     return this.http.post<any>("/shop/mobile_verified", {idToken})
   }
 
-  allShops(){
-    return this.http.get<any>("/allShops")
+  ourClients(){
+    return this.http.get<any>("/ourClients");
+  }
+
+  changeStatus(postData: any = null){
+    return this.http.post<any>("/admin/shops/changeStatus", postData);
   }
 }

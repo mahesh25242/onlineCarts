@@ -12,12 +12,14 @@ use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use App\Mail\ShopRegisterNotification;
 use Mail;
+use Illuminate\Support\Facades\DB;
 
 class UsersController extends Controller
 {
 
 
     public function test(){
+
         try{
             Mail::to("mahesh25242@gmail.com")->send(new ShopRegisterNotification(\App\Models\User::find(1), \App\Models\Shop::find(1)));
         }catch (\Swift_TransportException $e) {
@@ -260,15 +262,67 @@ class UsersController extends Controller
         $authUser = $auth->getUser($uid);
 
         $http = new \GuzzleHttp\Client;
+        $oauth_clients = DB::table('oauth_clients')->where("password_client", 1)->get()->first();
 
 
         $res = $http->post(url("v1/oauth/token"), [
             'form_params' => [
                 'grant_type' => 'password',
                 'client_id' => '2',
-                'client_secret' => 'K6IlhS1oZBgxNQciIEtCoXzlHRGu0MefIkNkp68b',
+                'client_secret' => $oauth_clients->secret,
                 'username' => $authUser->email,
                 'password' => $authUser->uid,
+                'scope' => '',
+            ],
+        ]);
+
+        $statusCode = $res->getStatusCode(); // 200
+        if($statusCode == 200){
+            return $res->getBody();
+        }else{
+            return response(["success" => false, "message"=> "user not found"], 401);
+        }
+
+    }
+
+    public function signIn(Request $request){
+        $http = new \GuzzleHttp\Client;
+
+        $oauth_clients = DB::table('oauth_clients')->where("password_client", 1)->get()->first();
+
+
+        $res = $http->post(url("v1/oauth/token"), [
+            'form_params' => [
+                'grant_type' => 'password',
+                'client_id' => '2',
+                'client_secret' => $oauth_clients->secret,
+                'username' => $request->input("username", ''),
+                'password' => $request->input("password", ''),
+                'scope' => '',
+            ],
+        ]);
+
+        $statusCode = $res->getStatusCode(); // 200
+        if($statusCode == 200){
+            return $res->getBody();
+        }else{
+            return response(["success" => false, "message"=> "user not found"], 401);
+        }
+
+    }
+
+    public function refreshToken(Request $request){
+        $http = new \GuzzleHttp\Client;
+
+        $oauth_clients = DB::table('oauth_clients')->where("password_client", 1)->get()->first();
+
+
+        $res = $http->post(url("v1/oauth/token"), [
+            'form_params' => [
+                'grant_type' => 'refresh_token',
+                'client_id' => '2',
+                'client_secret' => $oauth_clients->secret,
+                'refresh_token' => $request->input("refresh_token", ''),
                 'scope' => '',
             ],
         ]);
@@ -285,12 +339,13 @@ class UsersController extends Controller
     public function demoSignIn(){
         $http = new \GuzzleHttp\Client;
 
+        $oauth_clients = DB::table('oauth_clients')->where("password_client", 1)->get()->first();
 
         $res = $http->post(url("v1/oauth/token"), [
             'form_params' => [
                 'grant_type' => 'password',
                 'client_id' => '2',
-                'client_secret' => 'K6IlhS1oZBgxNQciIEtCoXzlHRGu0MefIkNkp68b',
+                'client_secret' => $oauth_clients->secret,
                 'username' => 'demo@cart.com',
                 'password' => '123456',
                 'scope' => '',

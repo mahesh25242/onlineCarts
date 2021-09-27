@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Mail\ShopRegisterNotification;
 use Mail;
 use Carbon\Carbon;
+use App\Events\ShopStatusChangeEvent;
 
 class ShopsController extends Controller
 {
@@ -271,6 +272,7 @@ class ShopsController extends Controller
         }
         return response(['message' => 'successfully chnaged!', 'status' => true]);
     }
+
     public function delete(Request $request, $id=0){
         if($request->input("force", null)){
             $shop =  \App\Models\Shop::where("id", $id)->withTrashed()->get()->first();
@@ -288,6 +290,28 @@ class ShopsController extends Controller
         }
 
        return response(['message' => 'successfully deleted!', 'status' => true]);
+    }
+
+    public function changeStatus(Request $request){
+        $validator = Validator::make($request->all(), [
+            'shop_id' => ['required'],
+            'prefill_message_name' => ['required'],
+        ]);
+
+        if($validator->fails()){
+            return response(['message' => 'Validation errors', 'errors' =>  $validator->errors(), 'status' => false], 422);
+        }
+
+        $shop = \App\Models\Shop::find($request->input("shop_id", 0));
+        if(!$shop){
+            return response(['message' => '404', 'status' => true], 404);
+        }
+        $shop->status = !$shop->status;
+        $shop->save();
+
+        event(new ShopStatusChangeEvent($shop, ["pmn" => $request->input("prefill_message_name", '')]));
+
+        return response(['message' => 'successfully changed status!', 'status' => true]);
     }
 
     public function getAShop(Request $request, $id=0){
@@ -310,6 +334,11 @@ class ShopsController extends Controller
             if(!$shop->is_default && !$shop->shopCurrentRenewal){
                 $shop->status = 0;
                 $shop->save();
+
+                event(new ShopStatusChangeEvent($shop, ["pmn" => 'shop payment pending']));
+
+
+
             }
             return response($shop);
         }else{
@@ -771,10 +800,10 @@ class ShopsController extends Controller
         return response(['message' => 'Validation errors', 'errors' =>  ["name" => 'invalida id token'], 'status' => false], 422);
     }
 
-    public function allShops(){
-        $shops = \App\Models\Shop::
-        where("is_default", '!=', 1)->
-        take(20)->get();
+    public function ourClients(){
+        $shops = \App\Models\Shop::where("is_default", '!=', 1)
+        ->where("is_mobile_verified",  1)
+        ->take(20)->get();
 
         return response($shops);
     }
@@ -795,4 +824,5 @@ class ShopsController extends Controller
             return response(['message' => 'No data found!', 'status' => false]);
         }
     }
+
 }

@@ -60,6 +60,18 @@ const routes: Routes = [
         canActivate: [AdminAuthGuard],
 
       },
+      {
+        path: 'reported-abuses',
+        loadChildren: () => import('./modules/reported-abuse/reported-abuse.module').then(m => m.ReportedAbuseModule),
+        canActivate: [AdminAuthGuard],
+
+      },
+      {
+        path: 'prefill-messages',
+        loadChildren: () => import('./modules/prefill-message/prefill-message.module').then(m => m.PrefillMessageModule),
+        canActivate: [AdminAuthGuard],
+
+      },
     ]
   },
 

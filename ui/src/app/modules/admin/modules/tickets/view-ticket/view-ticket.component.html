@@ -1,21 +1,12 @@
-
-    <div class="modal-header">
-      <h4 class="modal-title">{{ ticket.subject }}</h4>
-      <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <div [innerHTML]="ticket.content"></div>
-
-      <textarea [(ngModel)]="comment" placeholder="Reply Comment" class="form-control"></textarea>
-      <button type="button" class="btn btn-primary" [disabled]="!comment" (click)="sendReply()">Sent</button>
-
-      <app-ticket-replies [id]="ticket.id"></app-ticket-replies>
-
-
-
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
-    </div>
+<app-modal>
+  <div header>#{{ ticket.id }} - {{ ticket.subject }}</div>
+  <div body>
+    <div [innerHTML]="ticket.content"></div>
+    <textarea [(ngModel)]="comment" placeholder="Reply Comment" class="form-control"></textarea>
+    <button type="button" class="btn btn-primary" [disabled]="!comment" (click)="sendReply()">Sent</button>
+    <app-ticket-replies [id]="ticket.id"></app-ticket-replies>
+  </div>
+  <div footer>
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+  </div>
+</app-modal>

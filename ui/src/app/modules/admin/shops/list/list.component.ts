@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Shop, ShopWithPagination } from 'src/app/lib/interfaces';
 import { ShopService } from 'src/app/lib/services';
 import Notiflix from "notiflix";
@@ -7,6 +7,7 @@ import { map, mergeMap } from 'rxjs/operators';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ChooseSubscriptionComponent } from './choose-subscription/choose-subscription.component';
+import { ChangeStatusComponent } from './change-status/change-status.component';
 
 @Component({
   selector: 'app-list',
@@ -17,6 +18,8 @@ export class ListComponent implements OnInit {
   faEdit = faEdit;
   faTrash = faTrash;
   shops$: Observable<ShopWithPagination>;
+
+
   constructor(private shopService: ShopService,
     private _modalService: NgbModal,) { }
 
@@ -28,6 +31,15 @@ export class ListComponent implements OnInit {
       activeModal.componentInstance.shop = shop;
     }
 
+    changeStatus(shop: Shop = null){
+      const activeModal = this._modalService.open(ChangeStatusComponent, {
+        size: 'lg'
+      });
+      activeModal.componentInstance.shop = shop;
+
+
+
+    }
   delete(shop: Shop = null){
     Notiflix.Confirm.Show( 'delete?', `Do you want to delete ${shop.name}`, 'Yes', 'No', ()=>{
       Notiflix.Loading.Arrows();

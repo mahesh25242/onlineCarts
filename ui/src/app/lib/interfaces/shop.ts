@@ -49,7 +49,7 @@ export interface Shop {
   shop_delivery_slot?: ShopDeliverySlot[],
   business_hours?: string,
   shop_current_renewal?: ShopRenewal
-  shop_renewal?: ShopRenewal[]
+  shop_renewal?: ShopRenewal[],
 }
 
 

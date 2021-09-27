@@ -10,7 +10,7 @@ import {PlatformLocation } from '@angular/common';
   providedIn: 'root'
 })
 export class GeneralService {
-  shopDisabled$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
+  shopDisabled$: BehaviorSubject<{subject?: string, message?: string}> = new BehaviorSubject<{subject?: string, message?: string}>(null);
   isAdmin$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
   banners$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   private httpClient: HttpClient;

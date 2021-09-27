@@ -1,5 +1,7 @@
 <?php
+namespace Database\Seeders;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Seeder;
 
 class RolesTableSeeder extends Seeder
@@ -11,11 +13,17 @@ class RolesTableSeeder extends Seeder
 */
 public function run()
 {
-	DB::table('roles')->truncate();
 	$roles = array(
             array('name' => 'Super User','status' => 1, 'description' => 'Super user can handle entire site'),
-            array('name' => 'Admin','value' => 1, 'description' => 'its Shop Admin')
+            array('name' => 'Admin','status' => 1, 'description' => 'its Shop Admin')
 		);
-		DB::table('roles')->insert($roles);
+
+        foreach($roles as $rle){
+            if(DB::table('roles')->where('name', trim($rle["name"]))->doesntExist()){
+                DB::table('roles')->insert($rle);
+            }
+        }
+
 	}
+
 }

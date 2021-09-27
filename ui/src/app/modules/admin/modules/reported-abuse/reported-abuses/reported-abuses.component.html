@@ -1,0 +1,55 @@
+<ng-container *ngIf="abuses$ | async as abuses">
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>
+          ID
+        </th>
+        <td>
+          Type
+        </td>
+        <th>
+          Name
+        </th>
+        <th>
+          Shop
+        </th>
+        <th>
+          Product
+        </th>
+        <th>
+          Dated
+        </th>
+      </tr>
+    </thead>
+    <tbody >
+      <tr  *ngIf="!abuses.total">
+        <td colspan="4">
+          <div class="alert alert-warning">No abuse found</div>
+        </td>
+      </tr>
+      <tr *ngFor="let abuse of abuses.data">
+        <td>
+          {{abuse.id}}
+        </td>
+        <td>
+          {{ abuse.report_abuse_type?.name}}
+        </td>
+        <td>
+          <a href="javascript:{}" (click)="view(abuse)">{{ (abuse.name) ? abuse.name : '-' }}</a>
+        </td>
+        <td>
+          {{abuse.shop?.name}}
+        </td>
+        <td>
+          {{abuse.shop_product?.name}}
+        </td>
+        <td>
+          {{abuse.created_at | date: 'medium'}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <ngb-pagination *ngIf="abuses.total" [collectionSize]="abuses.total"  [pageSize]="abuses.per_page" [(page)]="abuses.current_page" (pageChange)="loadPage($event)" [maxSize]="5" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
+</ng-container>

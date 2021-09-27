@@ -68,7 +68,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
     public function getCreatedAtHumanAttribute()
     {
-        return $this->created_at->diffForHumans();
+        return ($this->created_at) ? $this->created_at->diffForHumans() : null;
     }
 
 

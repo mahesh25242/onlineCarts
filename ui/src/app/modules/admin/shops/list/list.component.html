@@ -40,7 +40,7 @@
           <a [routerLink]="'shop/'+shop.shop_key">{{shop.name}}</a>
         </td>
         <td>
-          {{ shop.status_text }}
+          <a href="javascript:{}" (click)="changeStatus(shop)">{{ shop.status_text }}</a>
         </td>
         <td>
           {{ shop?.shop_current_renewal?.to_date | date:'medium' }} ( {{ shop?.shop_current_renewal?.remaining_days }} )

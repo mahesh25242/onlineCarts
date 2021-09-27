@@ -19,11 +19,13 @@ class ActiveShopMiddleWare
     {
 
         $shopKey = $request->header('shopKey');
+        $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
 
-        if(\App\Models\Shop::where("shop_key", $shopKey)->where("status", 1)->exists()){
+        if($shop->status){
             return $next($request);
         }
 
-        return response('Unauthorized.', 402);
+
+        return response( $shop->shopStatusMessage, 402);
     }
 }

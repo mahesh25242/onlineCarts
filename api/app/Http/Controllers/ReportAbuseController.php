@@ -60,9 +60,15 @@ class ReportAbuseController extends Controller
         $perPage = $request->input("perPage", 50);
 
         $perPage = (is_numeric($perPage) && $perPage> 0) ? $perPage : 50;
-        $reportAbuse = \App\Models\ReportAbuse::with(["shopProduct.shopProductCategory", "reportAbuseType"])->latest()->paginate($perPage);
+        $reportAbuse = \App\Models\ReportAbuse::with(["shopProduct.shopProductCategory", "reportAbuseType"])
+        ->where("shop_id", $shop->id)->latest()->paginate($perPage);
         return response( $reportAbuse);
     }
 
+    public function abuses(Request $request){
+        $perPage = 50;
+        $reportAbuse = \App\Models\ReportAbuse::with(["shopProduct.shopProductCategory", "reportAbuseType", "shop"])->latest()->paginate($perPage);
+        return response( $reportAbuse);
+    }
 
 }

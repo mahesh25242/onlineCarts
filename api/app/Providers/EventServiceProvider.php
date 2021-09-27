@@ -21,5 +21,8 @@ class EventServiceProvider extends ServiceProvider
         \App\Events\PlanPurchaseEvent::class => [
             \App\Listeners\PlanPurchaseListener::class,
         ],
+        \App\Events\ShopStatusChangeEvent::class => [
+            \App\Listeners\ShopStatusChangeListener::class,
+        ],
     ];
 }

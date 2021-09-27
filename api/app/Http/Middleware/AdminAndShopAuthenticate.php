@@ -44,6 +44,6 @@ class AdminAndShopAuthenticate
 
 
         }
-        return response('Unauthorized.', 401);
+        return response('Unauthorized naither admin nor shop.', 401);
     }
 }

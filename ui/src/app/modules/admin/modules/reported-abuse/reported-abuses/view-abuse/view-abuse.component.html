@@ -1,0 +1,15 @@
+<app-modal>
+ <div header>
+   #{{ ra.id }} Abuse {{ ra.name }}
+ </div>
+ <div body>
+  <ul class="list-group">
+    <li class="list-group-item">Name: {{ ra.name }}</li>
+    <li class="list-group-item">Shop: {{ ra.shop?.name }} ( <a [href]="'https://web.whatsapp.com/send?phone='+ra.shop?.phone+'&text=Hi'" target="_blank">{{ra.shop?.phone}}</a> )</li>
+    <li class="list-group-item">Type: {{ ra.report_abuse_type?.name }}</li>
+    <li class="list-group-item">Product: {{ ra.shop_product?.name }}</li>
+    <li class="list-group-item">Dated: {{ ra.created_at | date:'medium' }}</li>
+    <li class="list-group-item">{{ ra.content }}</li>
+  </ul>
+ </div>
+</app-modal>

@@ -79,6 +79,12 @@ class Shop extends Model implements AuthenticatableContract, AuthorizableContrac
                 $shop->shopDelivery()->forceDelete();
                 $shop->shopOrder()->forceDelete();
                 $shop->shopRenewal()->forceDelete();
+                $shop->shopTheme()->forceDelete();
+                $shop->shopDeliverySlot()->forceDelete();
+                $shop->cms()->forceDelete();
+                $shop->helpTicket()->forceDelete();
+                $shop->reportAbuse()->forceDelete();
+                $shop->shopMessage()->forceDelete();
                 return true;
             }
         });
@@ -89,7 +95,9 @@ class Shop extends Model implements AuthenticatableContract, AuthorizableContrac
     }
 
     public function getFaviconAttribute($favicon){
-        return ($favicon) ?  url("/assets/shop/{$this->shop_key}/general/{$favicon}?rand={$this->updated_at->timestamp}"): '';
+        return $favicon;
+        $rndNo = ($this->updated_at) ? $this->updated_at->timestamp : $this->id;
+        return ($favicon) ?  url("/assets/shop/{$this->shop_key}/general/{$favicon}?rand={$rndNo}"): '';
     }
 
     public function getStatusTextAttribute()
@@ -198,6 +206,19 @@ class Shop extends Model implements AuthenticatableContract, AuthorizableContrac
     public function reportAbuse()
     {
         return $this->hasMany('App\Models\ReportAbuse');
+    }
+
+    public function shopMessage()
+    {
+        return $this->hasMany('App\Models\ShopMessage');
+    }
+
+    public function shopStatusMessage()
+    {
+        if(!$this->status)
+            return $this->hasOne('App\Models\ShopMessage')->with(["prefillMessage"])->latest();
+        else
+             return null;
     }
 
 }

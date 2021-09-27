@@ -1,0 +1,42 @@
+<button class="btn btn-primary" type="button" (click)="createOrEdit()">Create</button>
+<ng-container *ngIf="messages$ | async as messages">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>
+          ID
+        </th>
+        <td>
+          Name
+        </td>
+        <th>
+          Subject
+        </th>
+        <th>
+          Is Default
+        </th>
+      </tr>
+    </thead>
+    <tbody >
+      <tr  *ngIf="!messages.length">
+        <td colspan="4">
+          <div class="alert alert-warning">No abuse found</div>
+        </td>
+      </tr>
+      <tr *ngFor="let message of messages">
+        <td>
+          {{message.id}}
+        </td>
+        <td>
+          <a href="javascript:{}" (click)="createOrEdit(message)">{{ message?.name}}</a>
+        </td>
+        <td>
+          {{ message?.subject}}
+        </td>
+        <td>
+          {{ (message?.is_default) ? 'Yes' : 'No' }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</ng-container>

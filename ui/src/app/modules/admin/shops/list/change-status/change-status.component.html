@@ -1,0 +1,19 @@
+<app-modal>
+  <div header>
+    Change {{ shop.name }} to {{ (shop.status) ? 'In-active': 'Active' }}
+  </div>
+  <div body>
+    <div class="mb-3" *ngIf="prefillMessages$ | async as prefillMessages">
+      <label for="prefill_message_name" class="form-label">Pre-fill Message</label>
+      <select class="form-control" id="prefill_message_name" [formControl]="prefill_message_name">
+        <option value="">Please Select</option>
+        <option *ngFor="let pm of prefillMessages" [value]="pm.name">
+          {{ pm.subject }}
+        </option>
+      </select>
+    </div>
+  </div>
+  <div footer>
+    <button class="btn btn-danger" (click)="changeStatus()" [disabled]="!prefill_message_name.value">Update</button>
+  </div>
+</app-modal>

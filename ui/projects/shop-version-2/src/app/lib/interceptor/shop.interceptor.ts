@@ -21,7 +21,16 @@ export class ShopInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError(error => {
         if (error instanceof HttpErrorResponse && error.status === 402 ) {
-          this.generalService.shopDisabled$.next(true);
+          let msg = {
+            subject: '',
+            message: ''
+          }
+          if(error.error?.prefill_message){
+            msg ={...msg, ...error.error?.prefill_message}
+          }else{
+            msg = { subject: 'Disabled', message: 'Shop was disabled please contact admin'}
+          }
+          this.generalService.shopDisabled$.next(msg);
         }
 
         return throwError(error);

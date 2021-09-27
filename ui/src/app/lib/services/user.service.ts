@@ -36,7 +36,7 @@ export class UserService {
   }
 
   signIn(user: any=null){
-    return this.http.post<any>('/oauth/token',user).pipe(map(res=>{
+    return this.http.post<any>('/signIn',user).pipe(map(res=>{
       this.setLogin(res);
       return res;
     }));
@@ -65,11 +65,8 @@ export class UserService {
       const postData = {
         'grant_type' : 'refresh_token',
         'refresh_token' : `${token.refresh_token}`,
-        'client_id' : environment.client_id,
-        'client_secret' : environment.lumenSecret,
-        'scope' : '',
       }
-      return this.http.post<any>('/oauth/token',postData).pipe(map(res=>{
+      return this.http.post<any>('/refreshToken',postData).pipe(map(res=>{
         this.setLogin(res);
         return res;
       }))

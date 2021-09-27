@@ -39,12 +39,8 @@ export class SignInComponent implements OnInit, OnDestroy {
     Notiflix.Loading.Pulse(`please wait`);
     this.invalidlogin = false;
     const postData = {
-      "grant_type": "password",
-      "client_id": environment.client_id,
-      "client_secret": environment.lumenSecret,
       "password": this.f.password.value,
       "username": this.f.mobile.value,
-      "scope": "",
       "recaptcha": null
     };
 

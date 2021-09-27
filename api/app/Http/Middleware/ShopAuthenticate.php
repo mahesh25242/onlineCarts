@@ -26,6 +26,6 @@ class ShopAuthenticate
             if($user->userRole->shop->status)
                 return $next($request);
         }
-        return response('Unauthorized.', 401);
+        return response('Unauthorized shop.', 401);
     }
 }

@@ -1,5 +1,7 @@
 <?php
+namespace Database\Seeders;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -19,13 +21,13 @@ public function run()
             'lname' => 'User',
             'status' => 1,
             'email' => 'admin@cart.com',
-            'password' => '$2y$10$5f3dYiEC.hnKaFXeXuNrLeU5kQVrTMuqPwEqIgOfGrV5kM9NX9eNK',
+            'password' => Hash::make('123456'),
             'phone' => '123456'
         ];
-        $user = \App\User::create($input);
+        $user = \App\Models\User::create($input);
 
-        $user->createToken('cart')->accessToken;
-        \App\UserRole::updateOrCreate(
+
+        \App\Models\UserRole::updateOrCreate(
             [
                 "role_id" => 1,
                 "user_id" => $user->id

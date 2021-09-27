@@ -15,7 +15,7 @@ export class OurClientsComponent implements OnInit {
   constructor(private shopService: ShopService) { }
 
   ngOnInit(): void {
-    this.shops$ = this.shopService.allShops();
+    this.shops$ = this.shopService.ourClients();
   }
 
 }

@@ -8,9 +8,6 @@ export const environment = {
   baseUrl: 'http://localhost/onlineCart/api/public/v1',
   //baseUrl: 'https://agoranature.com/api/public/v1', //test
   recaptchaKey: '6LcZDNQaAAAAAIieSLB3rZgoCSgxeh6cXJEF9pLH',
-  lumenSecret: 'K6IlhS1oZBgxNQciIEtCoXzlHRGu0MefIkNkp68b',
-  client_id: 2 ,
-  grant_type: "password",
   siteAddress: 'http://localhost/onlineCart/api/public',
   //siteAddress: 'https://agoranature.com/api/public', //test
   gMapUrl: `http://maps.google.com`,

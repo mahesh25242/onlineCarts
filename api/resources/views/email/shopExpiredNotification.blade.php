@@ -1,6 +1,6 @@
 @extends('email.layouts.app')
 @section('content')
-    <p>Hello  {{ $shop->nane }},</p>
+    <p>Hello  {{ $shop->name }},</p>
     <p>Your app will stop working.</p>
     <ul>
         <li>Name: {{ $shop->name }}</li>

@@ -24,30 +24,37 @@
 
 
       <ng-container *ngIf="(loggedUser$ | async) as loggedUser">
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/admin/shops" (click)="isNavbarCollapsed = true" >Shop</a>
+        <li ngbDropdown class="nav-item">
+          <a href="javascript:{}" class="nav-link btn btn-link" id="dropdownBasic1" ngbDropdownToggle>Shop</a>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <a ngbDropdownItem routerLink="/admin/shops" [routerLinkActiveOptions]="{exact:
+              true}" (click)="isNavbarCollapsed = true" routerLinkActive="active">Shops</a>
+            <a ngbDropdownItem routerLink="/admin/shops/categories" (click)="isNavbarCollapsed = true" routerLinkActive="active">Categories</a>
+            <a ngbDropdownItem routerLink="/admin/packages" (click)="isNavbarCollapsed = true" routerLinkActive="active">Packages</a>
+            <a ngbDropdownItem routerLink="/admin/tickets" (click)="isNavbarCollapsed = true" routerLinkActive="active">Tickets</a>
+            <a ngbDropdownItem routerLink="/admin/reported-abuses" (click)="isNavbarCollapsed = true" routerLinkActive="active">Report Abuses</a>
+          </div>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/admin/shops/categories" (click)="isNavbarCollapsed = true" >Shop Categories</a>
+
+        <li ngbDropdown class="nav-item">
+          <a href="javascript:{}" class="nav-link btn btn-link" id="dropdownBasic1" ngbDropdownToggle>settings</a>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <a ngbDropdownItem routerLink="/admin/settings" [routerLinkActiveOptions]="{exact:
+              true}" (click)="isNavbarCollapsed = true" routerLinkActive="active">General Settings</a>
+            <a ngbDropdownItem routerLink="/admin/prefill-messages" (click)="isNavbarCollapsed = true" routerLinkActive="active">Pre-Fill Messages</a>
+          </div>
         </li>
+
+
         <li class="nav-item">
-          <a class="nav-link" routerLink="/admin/packages" (click)="isNavbarCollapsed = true" >Packages</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/admin/tickets" (click)="isNavbarCollapsed = true">Tickets</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/admin/settings" (click)="isNavbarCollapsed = true">Settings</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/admin/trash" (click)="isNavbarCollapsed = true">Trash</a>
+          <a class="nav-link" routerLink="/admin/trash" (click)="isNavbarCollapsed = true" routerLinkActive="active">Trash</a>
         </li>
 
         <li class="nav-item">
           <div ngbDropdown class="d-inline-block">
             <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>{{loggedUser.fname}}</button>
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-              <button ngbDropdownItem  routerLink="/admin/edit-profile">Edit Profile</button>
+              <button ngbDropdownItem  routerLink="/admin/edit-profile" routerLinkActive="active">Edit Profile</button>
               <button ngbDropdownItem  (click)="signOut()">Sign Out</button>
             </div>
           </div>

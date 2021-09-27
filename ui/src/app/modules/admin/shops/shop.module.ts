@@ -31,6 +31,7 @@ import { DeliveryLocationsComponent } from './shop/delivery-locations/delivery-l
 import { DeliveryLocationsResolver } from './shop/delivery-locations/delivery-locations-resolver';
 import { ChooseSubscriptionComponent } from './list/choose-subscription/choose-subscription.component';
 import { FilterShopsComponent } from './list/filter-shops/filter-shops.component';
+import { ChangeStatusComponent } from './list/change-status/change-status.component';
 
 @NgModule({
   declarations: [  UsersComponent, DetailsComponent, ShopsComponent, ListComponent, CreateComponent, CreateUserComponent, ShopCategoryComponent, CreateShopCategoryComponent, ShopComponent, CreateAdminComponent,
@@ -40,7 +41,8 @@ import { FilterShopsComponent } from './list/filter-shops/filter-shops.component
     OrderDetailsComponent,
     DeliveryLocationsComponent,
     ChooseSubscriptionComponent,
-    FilterShopsComponent],
+    FilterShopsComponent,
+    ChangeStatusComponent],
   imports: [
     CommonModule,
     SharedModuleModule,

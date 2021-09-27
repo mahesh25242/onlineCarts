@@ -20,7 +20,7 @@ $router->get('/key', function() {
     return \Illuminate\Support\Str::random(32);
 });
 
-//$router->get('test','UsersController@test');
+$router->get('test','UsersController@test');
 
 //$router->get('/{sitemap}','SiteMapController@index');
 
@@ -34,8 +34,10 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
     $router->post('register','ShopsController@register');
     $router->post('socialLogin','UsersController@socialLogin');
     $router->post('demoSignIn','UsersController@demoSignIn');
+    $router->post('signIn','UsersController@signIn');
+    $router->post('refreshToken','UsersController@refreshToken');
     $router->get('/shopName/{name}','ShopsController@byShopName');
-    $router->get('/allShops','ShopsController@allShops');
+    $router->get('/ourClients','ShopsController@ourClients');
     $router->get('/footerData','SettingController@footerData');
 
     $router->group(['prefix' => 'packages'], function () use ($router) {
@@ -52,6 +54,11 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
         $router->group(['prefix' => 'banner', 'middleware' => 'activeShopMiddleWare'], function () use ($router) {
             $router->get('/','ShopBannerController@banners');
             $router->post('/save','ShopBannerController@save');
+        });
+
+        $router->group(['prefix' => 'abuses'], function () use ($router) {
+            $router->get('/types','ReportAbuseController@types');
+            $router->post('/report','ReportAbuseController@save');
         });
 
         $router->group(['prefix' => 'cms', 'middleware' => 'activeShopMiddleWare'], function () use ($router) {
@@ -104,8 +111,6 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
                 $router->get('/getMyPayments','ShopsController@getMyPayments');
                 $router->group(['prefix' => 'abuses'], function () use ($router) {
                     $router->get('/','ReportAbuseController@shopAbuses');
-                    $router->get('/types','ReportAbuseController@types');
-                    $router->post('/report','ReportAbuseController@save');
                 });
 
                 $router->group(['middleware' => 'activeShopMiddleWare'], function () use ($router) {
@@ -165,6 +170,7 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
         $router->group(['prefix' => 'admin',  'middleware' =>  'admin'], function () use ($router) {
 
             $router->post('createAdmin','UsersController@createAdmin');
+            $router->get('abuses','ReportAbuseController@abuses');
 
             $router->group(['prefix' => 'shops'], function () use ($router) {
                 $router->post('/','ShopsController@shops');
@@ -172,6 +178,7 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
                 $router->get('/shop/{id}','ShopsController@getAShop');
                 $router->post('store','ShopsController@store');
                 $router->post('delete/{id}','ShopsController@delete');
+                $router->post('changeStatus','ShopsController@changeStatus');
                 $router->post('/generateSite','ShopsController@generateSite');
                 $router->post('/downloadSite','ShopsController@downloadSite');
                 $router->group(['prefix' => 'categories'], function () use ($router) {
@@ -196,6 +203,13 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
                 $router->get('/','SettingController@settings');
                 $router->group(['prefix' => '{id}'], function () use ($router) {
                     $router->post('/save','SettingController@save');
+                });
+            });
+
+            $router->group(['prefix' => 'preefillMessage'], function () use ($router) {
+                $router->get('/','PrefillMessageController@messages');
+                $router->group(['prefix' => '{id}'], function () use ($router) {
+                    $router->post('/save','PrefillMessageController@save');
                 });
             });
 
