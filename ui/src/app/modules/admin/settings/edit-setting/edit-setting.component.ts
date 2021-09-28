@@ -25,7 +25,8 @@ export class EditSettingComponent implements OnInit {
   save(){
     const postData = {
       id: this.setting.id,
-      value : this.f.value.value
+      value : this.f.value.value,
+      description : this.f.description.value
     };
     Notiflix.Loading.Circle();
     this.settingService.saveSetting(postData).pipe(mergeMap(res=>{
@@ -48,7 +49,8 @@ export class EditSettingComponent implements OnInit {
   }
   ngOnInit(): void {
     this.editForm = this.formBuilder.group({
-      value: [this.setting.value, []]
+      value: [this.setting.value, []],
+      description: [this.setting.description, []],
     });
 
   }

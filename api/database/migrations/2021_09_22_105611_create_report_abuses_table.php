@@ -19,6 +19,7 @@ class CreateReportAbusesTable extends Migration
             $table->foreignId('shop_id')->constrained('shops');
             $table->string('url')->nullable();
             $table->string('name')->nullable();
+            $table->string('ip')->nullable();
             $table->longText('content')->nullable();
             $table->bigInteger('shop_product_id')->nullable();
             $table->timestamps();

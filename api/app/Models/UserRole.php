@@ -53,5 +53,14 @@ class UserRole extends Model implements AuthenticatableContract, AuthorizableCon
         return $this->belongsTo('App\Models\Role');
     }
 
+    public function UserIdProof()
+    {
+        return $this->hasMany('App\Models\UserIdProof', 'user_id', 'user_id');
+    }
+
+    public function latestuserIdProof()
+    {
+        return $this->hasOne('App\Models\UserIdProof', 'user_id', 'user_id')->latest();
+    }
 
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSettingsTable extends Migration
+class CreateUserIdProofsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,14 @@ class CreateSettingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('settings', function (Blueprint $table) {
+        Schema::create('user_id_proofs', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users');
             $table->string('name')->nullable();
-            $table->mediumText('value')->nullable();
-            $table->string('description')->nullable();
+            $table->mediumText('file_name')->nullable();
+            $table->boolean('status')->default(0);
+            $table->dateTime('from_date')->nullable();
+            $table->dateTime('to_date')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +32,6 @@ class CreateSettingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('settings');
+        Schema::dropIfExists('user_id_proofs');
     }
 }

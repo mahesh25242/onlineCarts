@@ -150,6 +150,16 @@ export class UserService {
     return this.http.post<any>(`/${urlPart}/delete`, user);
   }
 
+  idProofType(){
+    return this.http.get<any>("/idProof/types");
+  }
 
+  checkExists(){
+    return this.http.get<any>("/idProof/checkExists");
+  }
+
+  uploadIdProof(postData: any  = null){
+    return this.http.post<any>("/idProof/upload", postData);
+  }
 
 }

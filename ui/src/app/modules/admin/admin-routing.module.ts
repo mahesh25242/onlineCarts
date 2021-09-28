@@ -72,6 +72,12 @@ const routes: Routes = [
         canActivate: [AdminAuthGuard],
 
       },
+      {
+        path: 'user-id-proof',
+        loadChildren: () => import('./modules/user-id-proof/user-id-proofmodule').then(m => m.UserIdProofModule),
+        canActivate: [AdminAuthGuard],
+
+      },
     ]
   },
 

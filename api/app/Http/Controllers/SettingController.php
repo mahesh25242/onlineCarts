@@ -29,6 +29,7 @@ class SettingController extends Controller
 
         $setting = \App\Models\Setting::find($id);
         $setting->value = $request->input("value", '');
+        $setting->description = $request->input("description", '');
         $setting->save();
         return response(['message' => 'Successfully saved', 'status' => true]);
     }

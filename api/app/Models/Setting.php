@@ -20,7 +20,7 @@ class Setting extends Model implements AuthenticatableContract, AuthorizableCont
      * @var array
      */
     protected $fillable = [
-         'name', 'value'
+         'name', 'value', 'description'
     ];
 
 

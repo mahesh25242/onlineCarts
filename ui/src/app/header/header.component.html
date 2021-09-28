@@ -27,12 +27,14 @@
         <li ngbDropdown class="nav-item">
           <a href="javascript:{}" class="nav-link btn btn-link" id="dropdownBasic1" ngbDropdownToggle>Shop</a>
           <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <a ngbDropdownItem routerLink="/admin/tickets" (click)="isNavbarCollapsed = true" routerLinkActive="active">Tickets</a>
+            <a ngbDropdownItem routerLink="/admin/reported-abuses" (click)="isNavbarCollapsed = true" routerLinkActive="active">Report Abuses</a>
+            <a ngbDropdownItem routerLink="/admin/user-id-proof" (click)="isNavbarCollapsed = true" routerLinkActive="active">User Id Proof</a>
+
             <a ngbDropdownItem routerLink="/admin/shops" [routerLinkActiveOptions]="{exact:
               true}" (click)="isNavbarCollapsed = true" routerLinkActive="active">Shops</a>
             <a ngbDropdownItem routerLink="/admin/shops/categories" (click)="isNavbarCollapsed = true" routerLinkActive="active">Categories</a>
             <a ngbDropdownItem routerLink="/admin/packages" (click)="isNavbarCollapsed = true" routerLinkActive="active">Packages</a>
-            <a ngbDropdownItem routerLink="/admin/tickets" (click)="isNavbarCollapsed = true" routerLinkActive="active">Tickets</a>
-            <a ngbDropdownItem routerLink="/admin/reported-abuses" (click)="isNavbarCollapsed = true" routerLinkActive="active">Report Abuses</a>
           </div>
         </li>
 

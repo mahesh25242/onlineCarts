@@ -144,7 +144,7 @@ class PackageController extends Controller
 
             if ($request->hasFile('receipt')) {
                 $destinationPath = "assets/shop/".$shop->shop_key."/general";
-                $extension = $request->file('receipt')->getClientOriginalExtension();
+                $extension = $request->file('receipt')->extension();
                 $fileName = sprintf("%s.%s", uniqid('recept_'),$extension);
 
                 $request->file('receipt')->move($destinationPath, $fileName);

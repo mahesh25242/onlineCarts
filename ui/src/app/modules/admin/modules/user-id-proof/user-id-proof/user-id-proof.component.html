@@ -1,0 +1,49 @@
+<ng-container *ngIf="idProofs$ | async as idProofs">
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>
+          ID
+        </th>
+        <td>
+          Name
+        </td>
+        <th>
+          Status
+        </th>
+        <th>
+          Shop
+        </th>
+        <th>
+          Dated
+        </th>
+      </tr>
+    </thead>
+    <tbody >
+      <tr  *ngIf="!idProofs.total">
+        <td colspan="6">
+          <div class="alert alert-warning">No abuse found</div>
+        </td>
+      </tr>
+      <tr *ngFor="let idprf of idProofs.data">
+        <td>
+          {{idprf.id}}
+        </td>
+        <td>
+          <a [href]="idprf.file_name" target="_blank">{{ (idprf.name) ? idprf.name : '-' }}</a>
+        </td>
+        <td>
+          <a href="javascript:{}" (click)="changeStatus(idprf)">{{ idprf.status ? 'Active' : 'In-Active' }}</a>
+        </td>
+        <td>
+          {{idprf.user_role?.shop?.name}}
+        </td>
+        <td>
+          {{idprf.created_at | date: 'medium'}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <ngb-pagination *ngIf="idProofs.total" [collectionSize]="idProofs.total"  [pageSize]="idProofs.per_page" [(page)]="idProofs.current_page" (pageChange)="loadPage($event)" [maxSize]="5" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
+</ng-container>

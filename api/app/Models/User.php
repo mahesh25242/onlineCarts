@@ -160,5 +160,14 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         return $this->hasMany('App\Models\ShopProductVariant', 'created_by');
     }
 
+    public function UserIdProof()
+    {
+        return $this->hasMany('App\Models\UserIdProof');
+    }
+
+    public function latestuserIdProof()
+    {
+        return $this->hasOne('App\Models\UserIdProof')->latest();
+    }
 
 }

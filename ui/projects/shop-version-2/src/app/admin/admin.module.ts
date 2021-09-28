@@ -40,6 +40,7 @@ import { AccountComponent } from './account/account.component';
 import { RenewPackageComponent } from './renew-package/renew-package.component';
 import { ChoosePackageComponent } from './renew-package/choose-package/choose-package.component';
 import { MyPaymentsComponent } from './my-payments/my-payments.component';
+import { UploadUserIdComponent } from './edit-profile/upload-user-id/upload-user-id.component';
 
 
 @NgModule({
@@ -49,7 +50,7 @@ import { MyPaymentsComponent } from './my-payments/my-payments.component';
     ShopDetailsComponent, OrdersComponent, OrderDetailsComponent, OrderSearchComponent,
     SearchProductComponent, ManageBannersComponent, ThemeAndBrandingComponent,
     ShopDeliveryPageComponent, ShopDeliverySlotComponent,
-    CreateShopDeliverySlotComponent, ManageCmsComponent, ManageCmsPageComponent, AccountComponent, RenewPackageComponent, ChoosePackageComponent, MyPaymentsComponent
+    CreateShopDeliverySlotComponent, ManageCmsComponent, ManageCmsPageComponent, AccountComponent, RenewPackageComponent, ChoosePackageComponent, MyPaymentsComponent, UploadUserIdComponent
   ],
   imports: [
     CommonModule,

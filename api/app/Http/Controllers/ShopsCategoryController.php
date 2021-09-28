@@ -36,7 +36,7 @@ class ShopsCategoryController extends Controller
 
         if ($request->hasFile('image')) {
             $destinationPath = "assets/categories/";
-            $extension = $request->file('image')->getClientOriginalExtension();
+            $extension = $request->file('image')->extension();
             $fileName = sprintf("%s.%s", uniqid('img_'),$extension);
 
             $request->file('image')->move($destinationPath, $fileName);

@@ -213,6 +213,8 @@ class Shop extends Model implements AuthenticatableContract, AuthorizableContrac
         return $this->hasMany('App\Models\ShopMessage');
     }
 
+
+
     public function shopStatusMessage()
     {
         if(!$this->status)
@@ -220,5 +222,6 @@ class Shop extends Model implements AuthenticatableContract, AuthorizableContrac
         else
              return null;
     }
+
 
 }

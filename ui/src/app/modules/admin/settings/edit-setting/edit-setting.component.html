@@ -16,6 +16,16 @@
             {{f.value.errors.error}}
           </div>
         </div>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea  class="form-control" id="description"
+          [ngClass]="{'is-invalid': ( f.description.errors && f.description.errors.error)}"
+          placeholder="Description"
+          formControlName="description"></textarea>
+          <div *ngIf="f.description.errors && f.description.errors.error" class="invalid-feedback">
+            {{f.description.errors.error}}
+          </div>
+        </div>
 
 
     </div>

@@ -20,7 +20,7 @@ class ReportAbuse extends Model implements AuthenticatableContract, Authorizable
      * @var array
      */
     protected $fillable = [
-        'report_abuse_type_id', 'shop_id', 'url', 'name', 'content', 'shop_product_id'
+        'report_abuse_type_id', 'shop_id', 'url', 'name', 'ip', 'content', 'shop_product_id'
     ];
 
 

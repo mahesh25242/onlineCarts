@@ -11,6 +11,11 @@
     </tr>
     </thead>
     <tbody>
+        <tr *ngIf="!helpTickets.total">
+          <td colspan="5">
+            <div class="alert alert-warning">No ticket found</div>
+          </td>
+        </tr>
         <tr *ngFor="let helpTicket of helpTickets.data; index as i">
           <th scope="row">
             <a href="javascript:{}" (click)="view(helpTicket)">
@@ -28,6 +33,6 @@
     </tbody>
     </table>
 
-  <ngb-pagination [collectionSize]="helpTickets.total"  [pageSize]="helpTickets.per_page" [(page)]="helpTickets.current_page" (pageChange)="loadPage($event)" [maxSize]="5" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
+  <ngb-pagination *ngIf="helpTickets.total" [collectionSize]="helpTickets.total"  [pageSize]="helpTickets.per_page" [(page)]="helpTickets.current_page" (pageChange)="loadPage($event)" [maxSize]="5" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
 
 </div>

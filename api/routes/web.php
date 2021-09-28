@@ -26,6 +26,8 @@ $router->get('test','UsersController@test');
 
 $router->group(['prefix' => 'v1'], function () use ($router) {
 
+
+
     $router->get('countries','CountryController@countries');
     $router->get('states','StateController@states');
     $router->get('cities','CityController@cities');
@@ -94,12 +96,23 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
     });
 
 
+
     $router->group(['middleware' => 'auth'], function () use ($router) {
+
+
 
         $router->group(['middleware' =>  'adminAndShop'], function () use ($router) {
             $router->get('authUser','UsersController@authUser');
             $router->post('setUserLogin','UsersController@setUserLogin');
             $router->get('signOut','UsersController@signOut');
+
+            $router->group(['prefix' => 'idProof'], function () use ($router) {
+                $router->get('types','IdProofController@types');
+                $router->get('checkExists','IdProofController@checkExists');
+                $router->post('upload','IdProofController@upload');
+            });
+
+
             $router->group(['middleware' => 'activeShopMiddleWare'], function () use ($router) {
                 $router->post('updateAvatar','UsersController@updateAvatar');
                 $router->post('updateProfile','UsersController@updateProfile');
@@ -171,6 +184,11 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
 
             $router->post('createAdmin','UsersController@createAdmin');
             $router->get('abuses','ReportAbuseController@abuses');
+
+            $router->group(['prefix' => 'userIdProof'], function () use ($router) {
+                $router->get('/','IdProofController@userIdProofs');
+                $router->post('changeStatus','IdProofController@changeStatus');
+            });
 
             $router->group(['prefix' => 'shops'], function () use ($router) {
                 $router->post('/','ShopsController@shops');
