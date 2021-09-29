@@ -70,10 +70,13 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 registerLocaleData(localeIn);
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class MyHammerConfig extends HammerGestureConfig {
   overrides = <any> {
-    swipe: { direction: Hammer.DIRECTION_ALL },
+    'pinch': { enable: false },
+    'rotate': { enable: false },
+    'swipe': { direction: Hammer.DIRECTION_HORIZONTAL, threshold: 5  },
+    //threshold: 5
   };
 }
 const baseHref = document.getElementsByTagName('base')
