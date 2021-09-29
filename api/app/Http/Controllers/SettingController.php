@@ -19,7 +19,7 @@ class SettingController extends Controller
     public function save(Request $request, $id = 0){
         $validator = Validator::make($request->all(), [
             'id' => ['required'],
-            'value' => ['required', 'string']
+            //'value' => ['required', 'string']
         ]);
 
 
