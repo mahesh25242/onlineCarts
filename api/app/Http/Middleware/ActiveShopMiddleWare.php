@@ -21,7 +21,7 @@ class ActiveShopMiddleWare
         $shopKey = $request->header('shopKey');
         $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
 
-        if($shop->status){
+        if(($shop && $shop->status) || !$shop){
             return $next($request);
         }
 
