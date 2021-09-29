@@ -109,7 +109,10 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
             $router->group(['prefix' => 'idProof'], function () use ($router) {
                 $router->get('types','IdProofController@types');
                 $router->get('checkExists','IdProofController@checkExists');
-                $router->post('upload','IdProofController@upload');
+                $router->post('upload',[
+                    'middleware' => 'demoShopMiddleWare',
+                    'uses' => 'IdProofController@upload'
+                ]);
             });
 
 
@@ -121,26 +124,47 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
 
             $router->group(['prefix' => 'shop'], function () use ($router) {
                 $router->get('/paymentData','SettingController@paymentData');
-                $router->get('/getMyPayments','ShopsController@getMyPayments');
+                $router->get('/getMyPayments', 'ShopsController@getMyPayments');
                 $router->group(['prefix' => 'abuses'], function () use ($router) {
                     $router->get('/','ReportAbuseController@shopAbuses');
                 });
 
                 $router->group(['middleware' => 'activeShopMiddleWare'], function () use ($router) {
-                    $router->post('/store','ShopsController@updateDetails');
+                    $router->post('/store', [
+                        'middleware' => 'demoShopMiddleWare',
+                        'uses' => 'ShopsController@updateDetails'
+                    ]);
                     $router->post('/changelogoFav','ShopsController@setFaviconOrLogo');
                     $router->post('/orders','ShopOrderController@orders');
-                    $router->post('/orders/changeStatus','ShopOrderController@changeStatus');
+                    $router->post('/orders/changeStatus', [
+                        'middleware' => 'demoShopMiddleWare',
+                        'uses' => 'ShopOrderController@changeStatus'
+                    ]);
                     $router->post('/generateSite','ShopsController@generateSite');
-                    $router->post('/mobile_verified','ShopsController@mobileVerified');
+                    $router->post('/mobile_verified',[
+                        'middleware' => 'demoShopMiddleWare',
+                        'uses' => 'ShopsController@mobileVerified'
+                    ]);
 
                     $router->group(['prefix' => 'deliveries'], function () use ($router) {
                         $router->post('/slotToo','ShopDeliveryController@deliveries');
-                        $router->post('delete','ShopDeliveryController@delete');
-                        $router->post('store','ShopDeliveryController@store');
+                        $router->post('delete', [
+                            'middleware' => 'demoShopMiddleWare',
+                            'uses' => 'ShopDeliveryController@delete'
+                        ]);
+                        $router->post('store', [
+                            'middleware' => 'demoShopMiddleWare',
+                            'uses' => 'ShopDeliveryController@store'
+                        ]);
                         $router->group(['prefix' => 'slot'], function () use ($router) {
-                            $router->post('delete','ShopDeliverySlotController@delete');
-                            $router->post('store','ShopDeliverySlotController@store');
+                            $router->post('delete', [
+                                'middleware' => 'demoShopMiddleWare',
+                                'uses' => 'ShopDeliverySlotController@delete'
+                            ]);
+                            $router->post('store', [
+                                'middleware' => 'demoShopMiddleWare',
+                                'uses' => 'ShopDeliverySlotController@store'
+                            ]);
                         });
                     });
                     $router->group(['prefix' => 'themes'], function () use ($router) {
@@ -151,20 +175,45 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
 
                     $router->group(['prefix' => 'products'], function () use ($router) {
                         $router->post('/','ShopProductController@products');
-                        $router->post('store','ShopProductController@store');
-                        $router->post('delete','ShopProductController@delete');
-                        $router->post('changeStatus','ShopProductController@changeStatus');
+                        $router->post('store',[
+                            'middleware' => 'demoShopMiddleWare',
+                            'uses' => 'ShopProductController@store'
+                        ]);
+                        $router->post('delete',[
+                            'middleware' => 'demoShopMiddleWare',
+                            'uses' => 'ShopProductController@delete'
+                        ]);
+                        $router->post('changeStatus', [
+                            'middleware' => 'demoShopMiddleWare',
+                            'uses' => 'ShopProductController@changeStatus'
+                        ]);
+
                         $router->group(['prefix' => 'categories'], function () use ($router) {
                             $router->post('/','ShopProductCategoryController@categories');
-                            $router->post('store','ShopProductCategoryController@store');
-                            $router->post('delete','ShopProductCategoryController@delete');
-                            $router->post('changeStatus','ShopProductCategoryController@changeStatus');
+                            $router->post('store',
+                            [
+                                'middleware' => 'demoShopMiddleWare',
+                                'uses' => 'ShopProductCategoryController@store'
+                            ]);
+                            $router->post('delete',
+                            [
+                                'middleware' => 'demoShopMiddleWare',
+                                'uses' => 'ShopProductCategoryController@delete'
+                            ]);
+                            $router->post('changeStatus',
+                            [
+                                'middleware' => 'demoShopMiddleWare',
+                                'uses' => 'ShopProductCategoryController@changeStatus'
+                            ]);
                         });
 
                     });
 
                     $router->group(['prefix' => 'cms'], function () use ($router) {
-                        $router->post('/store','CMSController@store');
+                        $router->post('/store', [
+                            'middleware' => 'demoShopMiddleWare',
+                            'uses' => 'CMSController@store'
+                        ]);
                     });
                 });
 
@@ -172,7 +221,10 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
                     $router->get('/types','HelpTicketController@types');
                     $router->group(['prefix' => 'ticket'], function () use ($router) {
                         $router->get('/','HelpTicketController@tickets');
-                        $router->post('/saveTicket','HelpTicketController@saveTicket');
+                        $router->post('/saveTicket', [
+                            'middleware' => 'demoShopMiddleWare',
+                            'uses' => 'HelpTicketController@saveTicket'
+                        ]);
                     });
                 });
             });

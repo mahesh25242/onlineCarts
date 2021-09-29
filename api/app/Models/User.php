@@ -96,6 +96,11 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         return $this->hasMany('App\Models\UserRole');
     }
 
+    public function isSuperUser()
+    {
+        return $this->hasMany('App\Models\UserRole')->where("role_id", 1);
+    }
+
     public function UserAddress()
     {
         return $this->hasMany('App\Models\UserAddress');

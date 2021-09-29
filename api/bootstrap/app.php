@@ -116,6 +116,7 @@ $app->routeMiddleware([
     'adminAndShop' => \App\Http\Middleware\AdminAndShopAuthenticate::class,
     'AppMiddleware' => \App\Http\Middleware\AppMiddleware::class,
     'activeShopMiddleWare' => \App\Http\Middleware\ActiveShopMiddleWare::class,
+    'demoShopMiddleWare' => \App\Http\Middleware\DemoShopMiddleWare::class,
     'auth' => App\Http\Middleware\Authenticate::class,
     'client' => \Laravel\Passport\Http\Middleware\CheckClientCredentials::class,
 ]);

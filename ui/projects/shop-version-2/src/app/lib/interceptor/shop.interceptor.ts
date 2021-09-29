@@ -33,7 +33,12 @@ export class ShopInterceptor implements HttpInterceptor {
           this.generalService.shopDisabled$.next(msg);
         }
 
+        if (error instanceof HttpErrorResponse && error.status === 423 ) {
+          Notiflix.Notify.Failure(error.error.message);
+        }
         return throwError(error);
+
+
       }));
   }
 }

@@ -297,7 +297,7 @@ export class CreateProductComponent implements OnInit, OnDestroy {
       }
 
 
-      if(this.product.shop_product_tag && this.product.shop_product_tag.length){
+      if(this.product?.shop_product_tag && this.product?.shop_product_tag?.length){
         this.createProductFrm.controls.shop_product_tags.setValue(this.product.shop_product_tag);
       }
 
