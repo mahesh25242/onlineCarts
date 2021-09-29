@@ -12,39 +12,39 @@ export class FeaturesComponent implements OnInit {
   item:{t: string, c: string}[] = [
     {
       t: `Product Categorisation`,
-      c: `The shop will list their product in categorised manner. So it make easy to catch the desired product product by customer in speedy way`
+      c: `The shop will list products in categorised manner. So the customers can easily catch their products.`
     },
     {
       t: `Different Varients of a product`,
-      c: `A product can add with diffret varient each varient has specifi price , image, description, and type. Using this you can add multiple varient of a product under it.`
+      c: `Each product can add with different varients with seperate price , image, description, type etc. So no need to add as a differnt product.`
     },
     {
       t: `CMS Pages`,
-      c: `shop has 2 additional page like about Us and Contact us these 2 page content can manage by each shop.`
+      c: `shop has 2 cms page which are about Us and Contact us. The page content can manage in each shops\'s admin.`
     },
     {
       t: `Search products`,
-      c: `shop has seperate search engine to find there product so a customer can find there product in easy way`
+      c: `shop has product search engine to find shop's product so a customer of a shop can easily find their needs`
     },
     {
-      t: `Customasiabel Delivery point`,
-      c: `shop has a features to manage there delivery spots , delivery change to each point, minimum order amount for each point. If it is a shop branch then it can add address and google map link there.`
+      t: `Customizable Delivery point`,
+      c: `shop has a features to manage there delivery spots , and also can set delivery charge , Minimum order amount of order to each created point . Can add shop branch as a delevry point (pick up spot) with address and map url.`
     },
     {
-      t: `Customasiabel Delivery Slots`,
-      c: `Shop can add a delivery time slop if it has home delivery. using this we can create mutiple time slot for delivery`
+      t: `Customizable Delivery Slots`,
+      c: `Shop can add a delivery time slots. using this we can create mutiple time slot for delivery`
     },
     {
       t: `PWA ( Prograsive Web Apps )`,
-      c: `This is developed with PWA concept. using this customer / shop owner can install this app uing browser. while we done like this then that app will list in our app section in mobile`
+      c: `Using this customer / shop owner can install this app in mobile or desktop. while you do this then that app will list in your app section in mobile`
     },
     {
       t: `Customise Design`,
-      c: `Each shop can customise there design with our themes and upload banners`
+      c: `Each shop can customise there design with our customs themes , upload banners etc`
     },
     {
       t: `Whatsapp Order`,
-      c: `shop site not integrate any payment gate. THe payments was done with shop & customers directly`
+      c: `The order was directly go to shop registered mobile using whatsapp message link`
     }
   ]
   constructor() { }
