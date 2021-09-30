@@ -42,12 +42,16 @@ export class RegistrationStepTwoComponent implements OnInit {
 
     save(){
       Notiflix.Block.Pulse(`#registerForm`);
+      let phone = '';
+      if(this.f.phone.value){
+        phone = `+${this.f.country_id.value?.phonecode}${this.f.phone.value}`;
+      }
       const postData = {
         name: this.f.name.value,
         country_id: this.f.country_id.value,
         shop_category_id: this.f.shop_category_id.value,
         short_name: this.f.short_name.value,
-        phone: `+${this.f.country_id.value?.phonecode}${this.f.phone.value}`,
+        phone: phone,
         address: this.f.address.value,
         state_id: this.f.state_id.value,
         city_id: this.f.city_id.value,
