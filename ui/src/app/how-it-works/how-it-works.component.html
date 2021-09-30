@@ -6,16 +6,38 @@
       </div>
     </div>
     <div class="page-content">
-      <div class="row">
-        <div class="col">
-          <p>
-            Ipsum tristique ac, torquent hymenaeos dignissim volutpat aliquet hendrerit. Ridiculus volutpat. Placerat blandit vehicula augue dis purus, massa mattis praesent risus lectus massa vulputate nisi curabitur ad suspendisse lorem pede dapibus donec ullamcorper. Accumsan adipiscing.
-          </p>
-          <p>
-            Massa curae; purus vehicula habitant in maecenas purus massa luctus mollis, venenatis. Semper dignissim porttitor metus. Suscipit, dapibus sociis amet vestibulum scelerisque auctor nonummy eget venenatis quis et, in ultricies dignissim ad nascetur, habitasse posuere turpis, bibendum.
-          </p>
+      <div class="how-section1 mt-3">
+        <div class="row mt-3" *ngFor="let dt of data; let i=index;">
+          <ng-container *ngIf="((i+1) % 2)">
+            <ng-container *ngTemplateOutlet="firstDom; context: {$implicit: dt}"></ng-container>
+          </ng-container>
+          <ng-container *ngIf="!((i+1) % 2)">
+            <ng-container *ngTemplateOutlet="secondDom;  context: {$implicit: dt}"></ng-container>
+          </ng-container>
+
         </div>
-      </div>
+
+        <ng-template #firstDom let-dt >
+          <div class="col-md-6 how-img">
+            <img [src]="dt.img" class="img-fluid" [alt]="dt.title"/>
+          </div>
+          <div class="col-md-6">
+            <h4>{{ dt.title }}</h4>
+            <h4 class="subheading">{{ dt.subTitle }}</h4>
+            <p class="text-muted" [innerHTML]="dt.content"></p>
+          </div>
+        </ng-template>
+        <ng-template #secondDom let-dt>
+          <div class="col-md-6" >
+            <h4>{{ dt.title }}</h4>
+            <h4 class="subheading">{{ dt.subTitle }}</h4>
+            <p class="text-muted" [innerHTML]="dt.content"></p>
+          </div>
+          <div class="col-md-6 how-img">
+            <img  [src]="dt.img" class="img-fluid" [alt]="dt.title"/>
+          </div>
+        </ng-template>
+    </div>
     </div>
   </div>
 </section>
