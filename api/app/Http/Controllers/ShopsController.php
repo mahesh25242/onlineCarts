@@ -123,7 +123,7 @@ class ShopsController extends Controller
 
             $package = \App\Models\Package::where("price", 0)->get()->first();
             if($package){
-                $planMonths = $package->duration();
+                $planMonths = $package->duration;
             }else{
                 $plan = \App\Models\Setting::where("name", 'shop_expiry')->get()->first();
                 $planMonths = ($plan) ? (int) $plan->value : 1;
