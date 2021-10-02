@@ -39,7 +39,7 @@ class ShopOrderResurce extends JsonResource
             'shop' => $this->shop,
             'shop_customer' => new ShopCustomerResurce($this->shopCustomer),
             'shop_delivery' => $this->shopDelivery,
-            'shop_orderItem' => $this->shopOrderItem,
+            'shop_order_item' => $this->shopOrderItem,
         ];
     }
 }
