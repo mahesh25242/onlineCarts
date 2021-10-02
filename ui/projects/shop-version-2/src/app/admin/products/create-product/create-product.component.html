@@ -17,7 +17,12 @@
 
       <mat-tab-group [selectedIndex]="selectedTab.value"
       (selectedIndexChange)="selectedTab.setValue($event)">
-        <mat-tab label="Product Details">
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon>category</mat-icon>
+            &nbsp;{{ (f.name.value) ? f.name.value+' Detail' : 'Product Detail' }}
+          </ng-template>
+
           <ng-template matTabContent>
             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start">
               <div fxFlex="50%" fxFlex.xs="100%">
@@ -105,6 +110,12 @@
           </ng-template>
         </mat-tab>
         <mat-tab label="Varients">
+          <ng-template mat-tab-label>
+            <mat-icon>bakery_dining</mat-icon>
+            &nbsp;{{ f.name.value }} Varients
+          </ng-template>
+
+
             <div formArrayName="varients" fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="start" >
               <ng-container  *ngFor="let stat of varients.controls; let i=index; let last = last">
                 <mat-card fxFlex="31%" fxFlex.xs="100%"  [formGroupName]="i" class="varient-block">
