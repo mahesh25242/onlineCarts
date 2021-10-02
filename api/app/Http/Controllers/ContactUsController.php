@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Validator;
 
+
 class ContactUsController extends Controller
 {
 
@@ -34,11 +35,10 @@ class ContactUsController extends Controller
         $contact->email = $request->input("email", '');
         $contact->phone = $request->input("phone", '');
         $contact->comment = $request->input("comment", '');
-        if(Auth::id()){
-            $contact->created_by = Auth::id();
-        }
+
 
         $contact->save();
+        event(new \App\Events\ContactUsEvent($contact));
         return response(['message' => sprintf("Hey %s! thank you for contacting us!", $request->input("name", "")), 'status' => true]);
     }
 

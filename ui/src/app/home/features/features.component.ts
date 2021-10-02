@@ -36,7 +36,7 @@ export class FeaturesComponent implements OnInit {
     },
     {
       t: `PWA ( Prograsive Web Apps )`,
-      c: `Using this customer / shop owner can install this app in mobile or desktop. while you do this then that app will list in your app section in mobile`
+      c: `Using this customer / shop owner can install this app in mobile or desktop. It gives app like feel`
     },
     {
       t: `Customise Design`,

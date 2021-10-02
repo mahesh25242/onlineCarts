@@ -23,7 +23,7 @@ class UsersController extends Controller
         try{
             Mail::to("mahesh25242@gmail.com")->send(new ShopRegisterNotification(\App\Models\User::find(1), \App\Models\Shop::find(1)));
         }catch (\Swift_TransportException $e) {
-          //  echo 'Caught exception: ',  $e->getMessage(), "\n";
+            echo 'Caught exception: ',  $e->getMessage(), "\n";
         }
     }
     public function createAdmin(Request $request)

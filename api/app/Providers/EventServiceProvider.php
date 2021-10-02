@@ -24,5 +24,8 @@ class EventServiceProvider extends ServiceProvider
         \App\Events\ShopStatusChangeEvent::class => [
             \App\Listeners\ShopStatusChangeListener::class,
         ],
+        \App\Events\ContactUsEvent::class => [
+            \App\Listeners\ContactUsEventListener::class,
+        ],
     ];
 }

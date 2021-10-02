@@ -43,7 +43,7 @@ export class ContactUsComponent implements OnInit, OnDestroy {
         Notiflix.Loading.Remove();
         this.contactUsFrm.reset();
 
-        Notiflix.Notify.Success(`successfully registered as ${res.message}`);
+        Notiflix.Notify.Success(`successfully sent your query`);
 
       }, error=>{
         Notiflix.Loading.Remove();

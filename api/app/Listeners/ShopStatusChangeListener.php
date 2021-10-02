@@ -58,6 +58,19 @@ class ShopStatusChangeListener
             }catch (\Swift_TransportException $e) {
                 //  echo 'Caught exception: ',  $e->getMessage(), "\n";
             }
+
+
+            $setting = \App\Models\Setting::where("name", "shop_expiry_email")->get()->first();
+            $toEMail = $setting->value;
+            if(env('APP_ENV') == 'local'){
+                $toEMail = env('DEVELOPER_MAIL');
+            }
+
+            try{
+                Mail::to($toEMail)->send(new ShopStatusChangeNotification($event->shop, $others));
+             }catch (\Swift_TransportException $e) {
+                 //  echo 'Caught exception: ',  $e->getMessage(), "\n";
+             }
         }
 
 
