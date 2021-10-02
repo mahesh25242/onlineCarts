@@ -11,9 +11,9 @@
     <div *ngIf="!isSearch && (shop$ | async) as shop">
       <a class="shop-head main-menu-text-color" routerLink="/" matRipple >
         <div class="logo" [style.background-image]="'url(' + shop.logo + ')'"></div>
-        <div  [ngClass.xs]="{'small-head': (bc?.backUrl && !isSearch)}">
+        <div  [ngClass.xs]="{'small-head': (bc.title && !isSearch)}">
           {{shop.name | uppercase }}
-          <marquee fxHide.gt-xs="true" *ngIf="bc?.backUrl && !isSearch"  direction="left" scrolldelay="130" behavior="loop">
+          <marquee fxHide.gt-xs="true" *ngIf="bc.title && !isSearch"  direction="left" scrolldelay="130" behavior="loop">
             {{ bc.title }}
           </marquee>
         </div>

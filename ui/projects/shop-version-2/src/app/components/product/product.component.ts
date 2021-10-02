@@ -90,7 +90,7 @@ export class ProductComponent implements OnInit, OnDestroy {
         if(!parms?.q){
           this.generalService.bc$.next({
             siteName: environment.siteName,
-            title: `${product?.shop_product_category?.name}`,
+            title: product?.shop_product_category?.name ?? null,
             url:'',
             backUrl: ''
           });

@@ -19,12 +19,6 @@ export class PageNotFoundComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.generalService.bc$.next({
-      siteName: environment.siteName,
-      title: 'Home',
-      url:'',
-      backUrl: null
-    });
 
 
     this.page$ =   this.route.url.pipe(mergeMap(url =>{
@@ -33,8 +27,18 @@ export class PageNotFoundComponent implements OnInit {
         path = url[0].path;
       }
 
+
+
       return this.cmsService.getPages.pipe(map(res=>{
-        return find(res, { url: path})
+        const page = find(res, { url: path});
+        this.generalService.bc$.next({
+          siteName: environment.siteName,
+          title: page.name,
+          url:'',
+          backUrl: null
+        });
+
+        return page;
       }));
     }))
 
