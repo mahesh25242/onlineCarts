@@ -331,7 +331,7 @@ class ShopsController extends Controller
             $shop = \App\Models\Shop::with(["country", "state", "city",
              "shopDelivery", "shopTheme.theme", "shopDeliverySlot",
               "shopCurrentRenewal"])->where("shop_key", $shopKey)->get()->first();
-            if(!$shop->is_default && !$shop->shopCurrentRenewal){
+            if(!$shop->is_default && !$shop->shopCurrentRenewal && $shop->status){
                 $shop->status = 0;
                 $shop->save();
 
