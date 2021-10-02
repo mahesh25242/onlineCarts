@@ -11,6 +11,19 @@
     position: relative;
 }
 
+
+
+mat-nav-list{
+  a{
+    background-color: rgba(255, 255, 255, 0.5) !important;
+    &.active{
+      background-color: rgba(224, 220, 220, 0.5) !important;
+    }
+  }
+
+
+}
+
 .veg, .nonveg {
   border: 2px solid #35D200;
   width: 16px;
