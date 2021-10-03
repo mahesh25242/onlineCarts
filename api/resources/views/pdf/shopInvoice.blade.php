@@ -163,10 +163,16 @@
                                             </td>
                                             <td>
 	                                            <p style="color: #767676; margin-bottom:0px; padding: 0; font-size:12px;">
-                                                    <b>onlinecarts.in</b><br>
-                                                    Andoor, Palackattumala P.O<br>
-                                                    Kottayam, Kerala - 686635<br>
-                                                    India.
+                                                    <b>{{ $generalSettings["site_name"] }}</b><br>
+                                                    @if ( $generalSettings["address"] )
+                                                        {{ $generalSettings["address"] }}<br>
+                                                    @endif
+                                                    @if ( $generalSettings["email"] )
+                                                        Email: {{ $generalSettings["email"] }}<br>
+                                                    @endif
+                                                    @if ( $generalSettings["mobile"] )
+                                                        Phone: {{ $generalSettings["mobile"] }}<br>
+                                                    @endif
                                                 </p>
                                             </td>
                                         </tr>

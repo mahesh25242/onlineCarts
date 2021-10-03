@@ -33,9 +33,16 @@ class PlanPurchaseListener
     {
 
         if($event->shopRenewal->id ){
+            $settings = \App\Models\Setting::whereIn("name", ["site_name", "email", "mobile", "address"])->get();
+            $generalSettings = [];
+            foreach($settings as $setting){
+                $generalSettings[$setting->name] = $setting->value;
+            }
+
             $pdf = PDF::loadView('pdf.shopInvoice', array(
                 "shopRenewal" => $event->shopRenewal,
-                "request" =>$this->request
+                "request" =>$this->request,
+                "generalSettings" =>$generalSettings,
             ));
 
             $pdf->save($this->public_path("assets/invoices/{$event->shopRenewal->id}.pdf"));
