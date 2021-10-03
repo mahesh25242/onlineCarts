@@ -1,3 +1,4 @@
+import { PlatformLocation } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -15,17 +16,25 @@ export class OrderDeatilComponent implements OnInit {
   order:ShopOrder;
   shop$: Observable<Shop>;
   mapUrl: string = null;
+  qrUrl: string = '';
+
   displayedColumns = ["no", "name", "qty", "message", "price"];
+
   constructor(private route: ActivatedRoute,
     private shopService: ShopService,
-    private generalService: GeneralService,) { }
+    private generalService: GeneralService,
+    private platformLocation: PlatformLocation) {
+
+     }
 
   ngOnInit(): void {
+
 
     this.shop$ = this.shopService.aShop;
     this.order = this.route.snapshot.data["order"];
 
     this.mapUrl = `${environment.gMapUrl}/maps?z=12&t=m&q=loc:${this.order?.loc?.lat}+${this.order?.loc?.lon}`;
+    this.qrUrl = (this.platformLocation as any).location.href;
 
     this.generalService.bc$.next({
       siteName: environment.siteName,

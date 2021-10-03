@@ -25,10 +25,23 @@ class ShopOrderResurce extends JsonResource
             'shop_customer_id' => $this->shop_customer_id,
             'total' => $this->total,
             'delivery_chage' => $this->delivery_chage,
-            'address' => $this->address,
-            'pin' => $this->pin,
+            $this->mergeWhen(
+                Auth::check()
+            , [
+                'address' => $this->address,
+                'pin' => $this->pin,
+                'loc' => $this->loc,
+            ]),
+            $this->mergeWhen(
+                !Auth::check()
+            , [
+                'address' => '*******',
+                'pin' => null,
+                'loc' => null,
+            ]),
+
             'note' => $this->note,
-            'loc' => $this->loc,
+
             'status' => $this->status,
             'shop_delivery_id' => $this->shop_delivery_id,
             'delivery_at' => $this->delivery_at,

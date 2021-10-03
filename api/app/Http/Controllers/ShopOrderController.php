@@ -218,8 +218,23 @@ class ShopOrderController extends Controller
     }
 
     public function showOrderDetail(Request $request){
+        $shop = null;
+        $shopKey = $request->header('shopKey');
+        $shopKey = ( $shopKey ) ?  $shopKey  :$request->input("shop_key");
+        if($shopKey){
+            $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
+        }
+        if(!$shop){
+            return response(['message' => 'No shop found!', 'status' => false], 404);
+        }
+
+
+
         $id =  $request->input("id", null);
-        $shopOrder = \App\Models\ShopOrder::with(["shopCustomer", "shopDelivery", "shopOrderItem.shopProductVariant.shopProduct", "shopOrderItem.shopProductVariant.shopProductImage"])->where("sec_key", $id)->get()->first();
+        $shopOrder = \App\Models\ShopOrder::with(["shopCustomer", "shopDelivery", "shopOrderItem.shopProductVariant.shopProduct", "shopOrderItem.shopProductVariant.shopProductImage"])
+        ->where("sec_key", $id)
+        ->where("shop_id", $shop->id)
+        ->get()->first();
        // $shopOrder->shop_customer->phone = "asas";
    //  $phone_number = '******' . substr( $phone_number, - 4);
      //   return response($shopOrder);

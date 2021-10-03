@@ -2,7 +2,7 @@
 <div class="container" *ngIf="shop$ | async as shop">
   <h1>{{ (shop?.shop_current_renewal?.show_message) ? 'Re-new' :'' }} Packages</h1>
   <div fxLayout="row" fxLayout.xs="column" fxFill="fill" fxLayoutAlign="space-between" *ngIf="packages$ | async as packages">
-    <mat-card *ngFor="let package of packages" fxFlex.gt-xs="48%">
+    <mat-card *ngFor="let package of packages; let i=index;" fxFlex.gt-xs="48%"  [ngClass.lt-md]="(i) ? 'mt-02' : '' ">
       <mat-card-title>{{package.name}}</mat-card-title>
       <mat-card-content>
         <h5>{{ package.duration }} Months</h5>

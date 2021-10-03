@@ -6,7 +6,7 @@
   <div *ngIf="shop$ | async as shop" class="qr-code">
     <ngx-qrcode
   elementType="url"
-  [value]="shop.shop_url+'/order/'+order.sec_key"
+  [value]="qrUrl"
   errorCorrectionLevel="L"></ngx-qrcode>
   </div>
 
