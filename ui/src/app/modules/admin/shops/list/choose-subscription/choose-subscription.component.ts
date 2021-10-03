@@ -38,7 +38,6 @@ export class ChooseSubscriptionComponent implements OnInit {
 
     const formData = new FormData();
     formData.append('package_id', `${ postData.package_id ?? `` }`);
-    formData.append('package_id', `${ postData.custom_days ?? `` }`);
     formData.append('shop_id', `${ postData.shop_id ?? `` }`);
     formData.append('description', `${ postData.description ?? `` }`);
     if(this.receipt.value)
