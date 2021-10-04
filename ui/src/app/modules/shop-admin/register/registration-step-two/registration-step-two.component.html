@@ -33,6 +33,7 @@
         bindLabel="name"
         id="shop_category_id"
         placeholder="Choose your shop category"
+        #catSelect (close)="catSelect.blur()"
         formControlName="shop_category_id">
         </ng-select>
         <div *ngIf="f.shop_category_id.errors && f.shop_category_id.errors.error" class="invalid-feedback">
@@ -49,6 +50,7 @@
         id="country_id"
         [ngClass]="{'is-invalid': ( f.country_id.errors && f.country_id.errors.error)}"
         placeholder="Choose your shop country"
+        #countrySelect (close)="countrySelect.blur()"
         formControlName="country_id">
         </ng-select>
         <div *ngIf="f.country_id.errors && f.country_id.errors.error" class="invalid-feedback">
@@ -97,6 +99,7 @@
           [ngClass]="{'is-invalid': ( f.state_id.errors && f.state_id.errors.error)}"
           id="state_id"
           placeholder="Choose the state"
+          #stateSelect (close)="stateSelect.blur()"
           formControlName="state_id">
           </ng-select>
         <div *ngIf="f.state_id.errors && f.state_id.errors.error" class="invalid-feedback">
@@ -107,6 +110,7 @@
       <div class="form-group col-md-6">
         <label for="city_id">City *</label>
         <ng-select [items]="(cities$ | async)"
+        #citySelect (close)="citySelect.blur()"
         [ngClass]="{'is-invalid': ( f.city_id.errors && f.city_id.errors.error)}"
           bindLabel="name"
           id="city_id"
