@@ -31,6 +31,10 @@ export class FeaturesComponent implements OnInit {
       c: `Each shop can add their delivery spot. The delivery spot can be added as a pick up spot or as a local place.  If the delivery spot is a pickup point,then you can add its address and map url. Delivery charge, minimum order,  etc. can also be added for your each delivery spot`
     },
     {
+      t: `Whatsapp Order`,
+      c: `When a customer orders a product in the shop, the order details will be sent to the number of the shop as a chat app. No payment is required to order the product. So if you get an order shop, you have to contact the customer and confirm it (through whatsapp / call).`
+    },
+    {
       t: `Customizable Delivery Slots`,
       c: `Delivery time slot can be added to each shop if required. Then the customer can select that time slot and order the product for delivery.`
     },
@@ -42,10 +46,7 @@ export class FeaturesComponent implements OnInit {
       t: `Customise Design`,
       c: `Each shop admin can set the theme, banner, logo and favicon of their shop. It can also be changed once you set.`
     },
-    {
-      t: `Whatsapp Order`,
-      c: `When a customer orders a product in the shop, the order details will be sent to the number of the shop as a chat app. No payment is required to order the product. So if you get an order shop, you have to contact the customer and confirm it (through whatsapp / call).`
-    }
+
   ]
   constructor() { }
 
