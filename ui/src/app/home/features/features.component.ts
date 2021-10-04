@@ -12,27 +12,27 @@ export class FeaturesComponent implements OnInit {
   item:{t: string, c: string}[] = [
     {
       t: `Product Categorisation`,
-      c: `The shop will list products in categorised manner. So the customers can easily catch their products.`
+      c: `You can categorize and list your product.`
     },
     {
       t: `Different Varients of a product`,
-      c: `Each product can add with different varients with seperate price , image, description, type etc. So no need to add as a differnt product.`
+      c: `You can add multiple variants of a product under that product. You can add separate image, tag and price for each variant.`
     },
     {
       t: `CMS Pages`,
-      c: `shop has 2 cms page which are about Us and Contact us. The page content can manage in each shops\'s admin.`
+      c: `Each shop can change the content of their about us and terms page from their backend.`
     },
     {
       t: `Search products`,
-      c: `shop has product search engine to find shop's product so a customer of a shop can easily find their needs`
+      c: `Customers of each shop can search and find products in that shop.`
     },
     {
       t: `Customizable Delivery point`,
-      c: `shop has a features to manage there delivery spots , and also can set delivery charge , Minimum order amount of order to each created point . Can add shop branch as a delevry point (pick up spot) with address and map url.`
+      c: `Each shop can add their delivery spot. The delivery spot can be added as a pick up spot or as a local place.  If the delivery spot is a pickup point,then you can add its address and map url. Delivery charge, minimum order,  etc. can also be added for your each delivery spot`
     },
     {
       t: `Customizable Delivery Slots`,
-      c: `Shop can add a delivery time slots. using this we can create mutiple time slot for delivery`
+      c: `Delivery time slot can be added to each shop if required. Then the customer can select that time slot and order the product for delivery.`
     },
     {
       t: `PWA ( Prograsive Web Apps )`,
@@ -40,11 +40,11 @@ export class FeaturesComponent implements OnInit {
     },
     {
       t: `Customise Design`,
-      c: `Each shop can customise there design with our customs themes , upload banners etc`
+      c: `Each shop admin can set the theme, banner, logo and favicon of their shop. It can also be changed once you set.`
     },
     {
       t: `Whatsapp Order`,
-      c: `The order was directly go to shop registered mobile using whatsapp message link`
+      c: `When a customer orders a product in the shop, the order details will be sent to the number of the shop as a chat app. No payment is required to order the product. So if you get an order shop, you have to contact the customer and confirm it (through whatsapp / call).`
     }
   ]
   constructor() { }
