@@ -1,14 +1,12 @@
-@import '../../../../variables';
+@import '../../../variables.scss';
 
 .item{
-  padding-top: 40px;
-  padding-bottom: 0px;
+
   .toparea{
     position: relative;
     background: #fff;
-    margin-top: -80px;
-    border-radius: 50px;
-    padding-top: 30px;
+
+
     .numberstep{
       background-color: $primaryColor;
       border-radius: 50%;

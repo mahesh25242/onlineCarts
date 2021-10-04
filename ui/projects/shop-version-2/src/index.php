@@ -18,6 +18,18 @@
   <!-- add to homescreen for ios -->
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+  <?php if (isset($data["shopKey"]) && $data["shopKey"] == '3d9f5a8eec71764c7c2df5a56496c8a1320dd921'){?>
+    <script type='text/javascript'>
+    window.smartlook||(function(d) {
+      var o=smartlook=function(){ o.api.push(arguments)},h=d.getElementsByTagName('head')[0];
+      var c=d.createElement('script');o.api=new Array();c.async=true;c.type='text/javascript';
+      c.charset='utf-8';c.src='https://rec.smartlook.com/recorder.js';h.appendChild(c);
+      })(document);
+      smartlook('init', 'df6649854dfe7af0a7af8d7dd14276614a58e67d');
+  </script>
+
+  <?php } ?>
 </head>
 <body class="mat-typography">
 

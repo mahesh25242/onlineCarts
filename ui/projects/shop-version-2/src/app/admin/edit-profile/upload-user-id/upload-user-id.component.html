@@ -11,7 +11,7 @@
     </mat-form-field>
 
     <button (click)="handleImageSelection()" type="button" mat-stroked-button color="primary" *ngIf="idProofType.value && status.value !== 1">
-      <span>{{ (idProof) ? 'Change' : 'Choose' }} {{ idProofType.value }}</span>
+      <span>{{ (idProof) ? 'Change' : 'Upload a scanned copy of' }} {{ idProofType.value }}</span>
     </button>
 
   </div>

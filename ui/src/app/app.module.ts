@@ -22,7 +22,7 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { BannerComponent } from './header/banner/banner.component';
 import { FeaturesComponent } from './home/features/features.component';
-import { StepsToStartComponent } from './header/banner/steps-to-start/steps-to-start.component';
+import { StepsToStartComponent } from './home/steps-to-start/steps-to-start.component';
 import { TermsAndConditionComponent } from './terms-and-condition/terms-and-condition.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { OurClientsComponent } from './home/our-clients/our-clients.component';
@@ -30,6 +30,7 @@ import { RefundAndCancellationComponent } from './refund-and-cancellation/refund
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { PricingComponent } from './pricing/pricing.component';
 import { PackageResolver } from './pricing/package-resolver';
+import { WhoNeedThisComponent } from './home/who-need-this/who-need-this.component';
 
 
 
@@ -53,7 +54,8 @@ import { PackageResolver } from './pricing/package-resolver';
     PrivacyPolicyComponent,
     OurClientsComponent,
     RefundAndCancellationComponent,
-    PricingComponent
+    PricingComponent,
+    WhoNeedThisComponent
   ],
   imports: [
     BrowserModule,
