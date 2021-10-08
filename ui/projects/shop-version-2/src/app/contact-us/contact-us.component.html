@@ -53,7 +53,7 @@
       </div>
       <br/>
 
-      <ng-container  *ngIf="shop?.branches">
+      <ng-container  *ngIf="shop?.branches && shop?.branches.length">
         <h1>More Location(s)</h1>
         <div  fxLayout="row wrap"  fxLayout.lt-md="column"  fxLayoutAlign="space-between">
           <div *ngFor="let branch of shop?.branches" [fxFlex]="(100/3)">

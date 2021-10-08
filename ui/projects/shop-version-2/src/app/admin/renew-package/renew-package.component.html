@@ -1,13 +1,15 @@
 <div class="header-inner"></div>
 <div class="container" *ngIf="shop$ | async as shop">
   <h1>{{ (shop?.shop_current_renewal?.show_message) ? 'Re-new' :'' }} Packages</h1>
+  <p *ngIf="shop.shop_point?.points">You have {{ shop.shop_point?.points }} coins with your account. So the package price was adjusted with your coins.</p>
   <div fxLayout="row" fxLayout.xs="column" fxFill="fill" fxLayoutAlign="space-between" *ngIf="packages$ | async as packages">
     <mat-card *ngFor="let package of packages; let i=index;" fxFlex.gt-xs="48%"  [ngClass.lt-md]="(i) ? 'mt-02' : '' ">
       <mat-card-title>{{package.name}}</mat-card-title>
       <mat-card-content>
         <h5>{{ package.duration }} Months</h5>
         <p>{{ package.description }}</p>
-        <p>{{ package.price | currency:'INR'}}</p>
+        <p>{{ package.price  | currency:'INR'}}
+        </p>
       </mat-card-content>
       <mat-card-actions >
         <div *ngIf="!shop.is_default && (!shop?.shop_current_renewal || !shop?.shop_current_renewal?.show_message)">

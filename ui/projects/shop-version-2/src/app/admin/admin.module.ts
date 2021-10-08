@@ -4,7 +4,7 @@ import { EditorModule } from '@tinymce/tinymce-angular';
 
 
 import { SharedModuleModule } from '../lib/shared-module/shared-module.module';
-import { TagModule, TicketModule, ReportAbuseModule } from './modules';
+import { TagModule, TicketModule, ReportAbuseModule, ShopPointsModule } from './modules';
 
 import {  AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin.component';
@@ -43,6 +43,7 @@ import { MyPaymentsComponent } from './my-payments/my-payments.component';
 import { UploadUserIdComponent } from './edit-profile/upload-user-id/upload-user-id.component';
 
 
+
 @NgModule({
   declarations: [  AdminComponent, SignInComponent, HomeComponent, CategoriesComponent,
     ProductsComponent, ListProductsComponent, EditProfileComponent, CreateCategoryComponent,
@@ -59,7 +60,8 @@ import { UploadUserIdComponent } from './edit-profile/upload-user-id/upload-user
     EditorModule,
     TagModule,
     TicketModule,
-    ReportAbuseModule
+    ReportAbuseModule,
+    ShopPointsModule
   ],
   providers:[
     CategoriesResolver,

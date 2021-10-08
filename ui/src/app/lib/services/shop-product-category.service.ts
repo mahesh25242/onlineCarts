@@ -1,9 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ɵBrowserGetTestability } from '@angular/platform-browser';
-import { BehaviorSubject, iif, Observable, of, throwError } from 'rxjs';
-import { catchError, map, mergeMap, share, shareReplay, tap } from 'rxjs/operators';
-import { ShopCategory, ShopProductCategory } from '../interfaces';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { catchError, map, mergeMap, tap } from 'rxjs/operators';
+import { ShopProductCategory } from '../interfaces';
 
 @Injectable({
   providedIn: 'root'

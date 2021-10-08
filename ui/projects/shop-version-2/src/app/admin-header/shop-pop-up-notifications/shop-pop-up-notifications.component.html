@@ -1,0 +1,11 @@
+<div fxLayout="row" fxLayoutAlign="space-between" >
+  <mat-card >
+    <mat-selection-list #shoes [multiple]="false">
+      <mat-list-option *ngFor="let msg of messages" [value]="msg">
+        <p>{{msg?.prefill_message?.message  | slice:0:50}}</p>
+        <p>@ {{ msg.created_at | date:'medium' }}</p>
+      </mat-list-option>
+    </mat-selection-list>
+    <!-- {{shoes.selectedOptions.selected[0]?.value}} -->
+  </mat-card>
+</div>

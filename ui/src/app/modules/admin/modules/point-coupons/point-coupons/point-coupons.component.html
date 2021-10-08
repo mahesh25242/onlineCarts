@@ -1,0 +1,74 @@
+<button class="btn btn-primary" type="button" (click)="createOrEdit()">Create</button>
+<ng-container *ngIf="pointCoupons$ | async as pointCoupons">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>
+          ID
+        </th>
+        <td>
+          Code
+        </td>
+        <th>
+          No of use
+        </th>
+        <th>
+          Points
+        </th>
+        <th>
+          Shop
+        </th>
+        <th>
+          Start
+        </th>
+        <th>
+          End
+        </th>
+        <th>
+          Options
+        </th>
+      </tr>
+    </thead>
+    <tbody >
+      <tr  *ngIf="!pointCoupons.total">
+        <td colspan="8">
+          <div class="alert alert-warning">No coupon(s) found</div>
+        </td>
+      </tr>
+      <tr *ngFor="let coupon of pointCoupons.data">
+        <td>
+          {{coupon.id}}
+        </td>
+        <td>
+          <a href="javascript:{}" (click)="createOrEdit(coupon)">{{ coupon?.code}}</a>
+        </td>
+        <td>
+          {{ coupon?.no_use}}
+        </td>
+        <td>
+          {{ coupon?.point}}
+        </td>
+        <td>
+          {{ coupon?.shop?.name}}
+        </td>
+        <td>
+          {{ coupon?.start_date | date:'medium'}}
+        </td>
+        <td>
+          {{ coupon?.end_date | date:'medium'}}
+        </td>
+        <td>
+          <div ngbDropdown class="d-inline-block">
+            <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Options</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <button ngbDropdownItem (click)="usedReport(coupon)">Used Report</button>
+              <button ngbDropdownItem class="text-danger" (click)="delete(coupon)">Delete</button>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <ngb-pagination *ngIf="pointCoupons.total" [collectionSize]="pointCoupons.total"  [pageSize]="pointCoupons.per_page" [(page)]="pointCoupons.current_page" (pageChange)="loadPage($event)" [maxSize]="5" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
+
+</ng-container>

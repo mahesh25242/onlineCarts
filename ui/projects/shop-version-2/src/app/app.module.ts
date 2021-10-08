@@ -60,14 +60,15 @@ import { ProductItemComponent } from './components/product/product-item/product-
 import { LayoutComponent } from './layout/layout.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
 import { DeliveryLocationComponent } from './cart-details/delivery-loaction/delivery-loaction.component';
+import { ShopPopUpNotificationsComponent } from './admin-header/shop-pop-up-notifications/shop-pop-up-notifications.component';
 
 import { ShopService } from 'src/app/lib/services/shop.service';
 
 import { registerLocaleData } from '@angular/common';
 
 import localeIn from '@angular/common/locales/en-IN';
-import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+
 registerLocaleData(localeIn);
 
 @Injectable({providedIn: 'root'})
@@ -142,7 +143,8 @@ function initializeAppFactory(shopService: ShopService) {
     CarouselComponent,
     DeliveryLocationComponent,
     MobileContactComponent,
-    SearchFilterComponent
+    SearchFilterComponent,
+    ShopPopUpNotificationsComponent
   ],
   imports: [
     BrowserModule,

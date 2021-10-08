@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { map, shareReplay, catchError } from 'rxjs/operators';
 import { of, BehaviorSubject, Observable, throwError } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { Pagination, User, UserWithPagination } from '../interfaces';
-import { environment } from '../../../environments/environment';
+import { User, UserWithPagination } from '../interfaces';
 import * as _ from 'lodash';
 
 import { AngularFireAuth } from "@angular/fire/auth";

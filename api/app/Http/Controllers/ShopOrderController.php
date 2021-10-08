@@ -236,8 +236,8 @@ class ShopOrderController extends Controller
         ->where("shop_id", $shop->id)
         ->get()->first();
        // $shopOrder->shop_customer->phone = "asas";
-   //  $phone_number = '******' . substr( $phone_number, - 4);
-     //   return response($shopOrder);
+        //  $phone_number = '******' . substr( $phone_number, - 4);
+        //   return response($shopOrder);
         return response(new ShopOrderResurce($shopOrder));
     }
 

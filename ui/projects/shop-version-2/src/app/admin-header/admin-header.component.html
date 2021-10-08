@@ -8,8 +8,12 @@
   </ng-container>
   <div *ngIf="(shop$ | async) as shop">
     <a class="logo main-menu-text-color" [style.background-image]="'url(' + shop.logo + ')'" routerLink="/admin">{{shop.name}}</a>
+
   </div>
   <div class="flex-right" *ngIf="layOutXSmall.matches">
+      <ng-container *ngTemplateOutlet="notificationTemplate">
+      </ng-container>
+
       <button mat-icon-button (click)="onToggleSidenav()">
           <mat-icon>menu</mat-icon>
       </button>
@@ -20,6 +24,7 @@
 
 
     <ng-container *ngIf="(loggedUser$ | async) as loggedUser">
+
         <a class="main-menu-text-color" routerLink="/admin/categories" routerLinkActive="active">Categories</a>
         <a class="main-menu-text-color" routerLink="/admin/products/0"  routerLinkActive="active">Products</a>
         <a class="main-menu-text-color" routerLink="/admin/deliveries"  routerLinkActive="active">Delivery</a>
@@ -29,7 +34,12 @@
 
         <a class="main-menu-text-color" routerLink="/admin/renew" routerLinkActive="active">Pricing</a>
         <a class="main-menu-text-color" routerLink="/">Back To Site</a>
+
         <div class="ml-15">
+          <ng-container *ngTemplateOutlet="notificationTemplate">
+          </ng-container>
+
+
           <button  (click)="signOut()"  mat-stroked-button class="main-menu-text-color" >{{loggedUser.fname}}
             <mat-icon color="warn">power_settings_new</mat-icon>
           </button>
@@ -38,10 +48,33 @@
   </div>
   </ng-container>
 
+
 </mat-toolbar>
+
+<ng-template #notificationTemplate>
+  <button mat-icon-button cdkOverlayOrigin #trigger="cdkOverlayOrigin" (click)="openOverlay()"
+  [ngClass]="{'accent-color': isOpen}">
+    <mat-icon>notifications</mat-icon>
+  </button>
+
+  <ng-template
+  cdkConnectedOverlay
+  [cdkConnectedOverlayOrigin]="trigger"
+  [cdkConnectedOverlayOpen]="isOpen"
+  >
+    <app-shop-pop-up-notifications [messages]="messages"></app-shop-pop-up-notifications>
+  </ng-template>
+
+</ng-template>
+
 <div *ngIf="(localGeneralService.shopDisabled | async) as shopDisabled" class="alert alert-warning shop-message">
   {{ shopDisabled.message }}
   <br/>
   <a mat-primary-button routerLink="admin/renew">Click here for renew your account</a>
 </div>
+
+
+
+
+
 

@@ -76,6 +76,11 @@ const routes: Routes = [
         path: 'user-id-proof',
         loadChildren: () => import('./modules/user-id-proof/user-id-proofmodule').then(m => m.UserIdProofModule),
         canActivate: [AdminAuthGuard],
+      },
+      {
+        path: 'point-coupons',
+        loadChildren: () => import('./modules/point-coupons/point-coupons.module').then(m => m.PointCouponsModule),
+        canActivate: [AdminAuthGuard],
 
       },
     ]

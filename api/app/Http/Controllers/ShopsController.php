@@ -12,6 +12,7 @@ use App\Mail\ShopRegisterNotification;
 use Mail;
 use Carbon\Carbon;
 use App\Events\ShopStatusChangeEvent;
+use App\Http\Resources\ShopResurce;
 
 class ShopsController extends Controller
 {
@@ -340,7 +341,7 @@ class ShopsController extends Controller
 
 
             }
-            return response($shop);
+            return response(new ShopResurce($shop));
         }else{
             return response(['message' => 'No data found!', 'status' => false]);
         }

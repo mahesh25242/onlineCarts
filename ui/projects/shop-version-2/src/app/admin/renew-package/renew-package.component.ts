@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { Package, Shop } from 'src/app/lib/interfaces';
 import { PackageService, ShopService } from 'src/app/lib/services';
+import { ShopPoint } from '../modules/shop-points/interfaces';
 import { ChoosePackageComponent } from './choose-package/choose-package.component';
 @Component({
   selector: 'app-renew-package',
@@ -11,7 +12,7 @@ import { ChoosePackageComponent } from './choose-package/choose-package.componen
 })
 export class RenewPackageComponent implements OnInit {
   packages$: Observable<Package[]>;
-  shop$: Observable<Shop>;
+  shop$: Observable<Shop & {shop_point?: ShopPoint}>;
   constructor(private packageService: PackageService,
     public dialog: MatDialog,
     private shopService: ShopService) { }

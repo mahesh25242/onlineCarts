@@ -45,6 +45,14 @@
         </li>
 
         <li ngbDropdown class="nav-item">
+          <a href="javascript:{}" class="nav-link btn btn-link" id="dropdownBasic1" ngbDropdownToggle>Manage</a>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <a ngbDropdownItem routerLink="/admin/point-coupons" [routerLinkActiveOptions]="{exact:
+              true}" (click)="isNavbarCollapsed = true" routerLinkActive="active">Point Coupons</a>
+          </div>
+        </li>
+
+        <li ngbDropdown class="nav-item">
           <a href="javascript:{}" class="nav-link btn btn-link" id="dropdownBasic1" ngbDropdownToggle>settings</a>
           <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
             <a ngbDropdownItem routerLink="/admin/settings" [routerLinkActiveOptions]="{exact:

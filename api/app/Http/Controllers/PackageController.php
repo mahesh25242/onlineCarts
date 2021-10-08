@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Validator;
 use App\Mail\AdminSubscriptionChangeNotification;
 use App\Events\PlanPurchaseEvent;
+use App\Http\Resources\PackageResurce;
 
 class PackageController extends Controller
 {
@@ -33,7 +34,8 @@ class PackageController extends Controller
 
 
 
-        return response($packages->get());
+
+        return response(PackageResurce::collection($packages->get()) );
     }
 
     public function save(Request $request){

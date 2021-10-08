@@ -223,5 +223,15 @@ class Shop extends Model implements AuthenticatableContract, AuthorizableContrac
              return null;
     }
 
+    public function shopPoint()
+    {
+        return $this->hasOne('App\Models\ShopPoint');
+    }
+
+    public function pointCoupon()
+    {
+        return $this->hasMany('App\Models\PointCoupon');
+    }
+
 
 }

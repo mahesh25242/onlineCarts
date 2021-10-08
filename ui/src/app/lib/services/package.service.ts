@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {  Package, ShopRenewal, ShopRenewalWithPagination } from '../interfaces';
+import {  Package, ShopRenewalWithPagination } from '../interfaces';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 

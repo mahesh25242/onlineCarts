@@ -1,0 +1,11 @@
+
+<div *ngIf="shopPoint$ | async as shopPoint">
+  Coins : {{ shopPoint.points }}
+</div>
+<p>
+  These are the coins that are credited to your account.
+  1 coins = 1 rupies.
+  So you can use this point to renew the subscription of the shop.
+  If you use this coins to renew, Then you should pay only the balance amount of that selected package.
+</p>
+<app-redeem-point-coupon (redeemed)="reCall$.next(true)"></app-redeem-point-coupon>

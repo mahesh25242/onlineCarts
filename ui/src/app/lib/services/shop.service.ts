@@ -1,8 +1,8 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { NullTemplateVisitor } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { delay, map, share, tap } from 'rxjs/operators';
+import { map, share, tap } from 'rxjs/operators';
 import { Shop, ShopDelivery, ShopDeliverySlot, ShopWithPagination } from '../interfaces';
 
 @Injectable({
@@ -126,5 +126,9 @@ export class ShopService {
 
   changeStatus(postData: any = null){
     return this.http.post<any>("/admin/shops/changeStatus", postData);
+  }
+
+  shopMessages(){
+    return this.http.get<any>("/shop/messages/latest");
   }
 }

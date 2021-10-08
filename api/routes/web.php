@@ -58,6 +58,11 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
             $router->post('/save','ShopBannerController@save');
         });
 
+        $router->group(['prefix' => 'points'], function () use ($router) {
+            $router->get('/','ShopPointController@points');
+        });
+
+
         $router->group(['prefix' => 'abuses'], function () use ($router) {
             $router->get('/types','ReportAbuseController@types');
             $router->post('/report','ReportAbuseController@save');
@@ -127,6 +132,20 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
                 $router->get('/getMyPayments', 'ShopsController@getMyPayments');
                 $router->group(['prefix' => 'abuses'], function () use ($router) {
                     $router->get('/','ReportAbuseController@shopAbuses');
+                });
+
+                $router->group(['prefix' => 'messages'], function () use ($router) {
+                    $router->get('/latest','ShopMessageController@latestMsgs');
+                });
+
+                $router->group(['prefix' => 'points'], function () use ($router) {
+                    $router->get('/','ShopPointController@points');
+                    $router->group(['middleware' => 'activeShopMiddleWare'], function () use ($router) {
+                        $router->post('/redeemPoints', [
+                            'middleware' => 'demoShopMiddleWare',
+                            'uses' => 'ShopPointController@redeemPoints'
+                        ]);
+                    });
                 });
 
                 $router->group(['middleware' => 'activeShopMiddleWare'], function () use ($router) {
@@ -236,6 +255,15 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
 
             $router->post('createAdmin','UsersController@createAdmin');
             $router->get('abuses','ReportAbuseController@abuses');
+
+            $router->group(['prefix' => 'pointCoupons'], function () use ($router) {
+                $router->get('/','PointCouponController@coupons');
+                $router->group(['prefix' => '{id}'], function () use ($router) {
+                    $router->post('save','PointCouponController@save');
+                    $router->post('delete','PointCouponController@delete');
+                    $router->post('report','PointCouponController@report');
+                });
+            });
 
             $router->group(['prefix' => 'userIdProof'], function () use ($router) {
                 $router->get('/','IdProofController@userIdProofs');
