@@ -28,8 +28,9 @@ class PackageResurce extends JsonResource
             $shopKey = $request->input("shop_key");
             $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
         }
+
         $price = $this->price;
-        if($shop->shopPoint){
+        if($shop && $shop->shopPoint){
             $price = ($this->price - $shop->shopPoint->points);
         }
 
@@ -41,12 +42,13 @@ class PackageResurce extends JsonResource
             'price' => $price,
             'duration' => $this->duration,
             'status' => $this->status,
+            'status_text' => $this->status_text,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             $this->mergeWhen(
                 Auth::check()
             , [
-                'points' => ($shop->shopPoint) ? $shop->shopPoint->points : 0
+                'points' => ($shop && $shop->shopPoint) ? $shop->shopPoint->points : 0
             ]),
         ];
     }
