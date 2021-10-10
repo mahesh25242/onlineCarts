@@ -46,7 +46,7 @@ class PackageResurce extends JsonResource
             $this->mergeWhen(
                 Auth::check()
             , [
-                'points' => $shop->shopPoint->points
+                'points' => ($shop->shopPoint) ? $shop->shopPoint->points : 0
             ]),
         ];
     }
