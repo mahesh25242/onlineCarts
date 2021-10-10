@@ -21,7 +21,7 @@ class ShopsController extends Controller
 
     public function shops(Request $request){
         $perpage = 50;
-        $shops = \App\Models\Shop::with(["shopCurrentRenewal"]);
+        $shops = \App\Models\Shop::with(["shopCurrentRenewal", "shopPoint"]);
 
         if($request->input("name", null)){
 

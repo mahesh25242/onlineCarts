@@ -20,6 +20,9 @@
         Expiry
       </th>
       <th>
+        Points
+      </th>
+      <th>
         Options
       </th>
     </tr>
@@ -47,6 +50,9 @@
           <span *ngIf="shop?.shop_current_renewal?.remaining_days">
             ( {{ shop?.shop_current_renewal?.remaining_days }} )
           </span>
+        </td>
+        <td>
+          {{ shop?.shop_point?.points }}
         </td>
         <td>
 
