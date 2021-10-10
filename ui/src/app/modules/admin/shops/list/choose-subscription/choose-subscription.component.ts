@@ -61,7 +61,7 @@ export class ChooseSubscriptionComponent implements OnInit {
   }
   ngOnInit(): void {
 
-    this.packages$ = this.packageService.listAllPackages(1);
+    this.packages$ = this.packageService.listAllPackages(1, this.shop.shop_key);
   }
 
 }

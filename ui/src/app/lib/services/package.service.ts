@@ -14,8 +14,16 @@ export class PackageService {
   get packages(){
     return this.packages$.asObservable();
   }
-  listAllPackages(activeOnly: number = null): Observable<Package[]> {
-    return this.http.get<Package[]>(`/packages${(activeOnly !== null) ? `?status=${activeOnly}` : ''}`).pipe(tap(packages=>{
+  listAllPackages(activeOnly: number | null = null, shopKey: string | null = null): Observable<Package[]> {
+
+    let parm = '';
+    if(activeOnly !== null){
+      parm = `status=${activeOnly}`;
+    }
+    if(shopKey){
+      parm += `${(parm) ? `&`: ``}shop_key=${shopKey}`;
+    }
+    return this.http.get<Package[]>(`/packages${(parm) ? `?${parm}` : ''}`).pipe(tap(packages=>{
       this.packages$.next(packages);
     }));
   }

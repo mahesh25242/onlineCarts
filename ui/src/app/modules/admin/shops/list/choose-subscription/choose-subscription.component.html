@@ -11,7 +11,7 @@
        [formControl]="package_id" >
         <option value="">Select</option>
         <option [value]="package.id" *ngFor="let package of packages">
-          {{package.name}} (package.price | currency:'INR')
+          {{package.name}} {{ (package.price | currency:'INR') }}
         </option>
         <option value="-1">Custom</option>
       </select>

@@ -15,6 +15,7 @@ class PackageController extends Controller
 
     public function packages(Request $request){
         $shopKey = $request->header('shopKey');
+        $isFromShop = ($shopKey) ? true : false;
         $shopKey = ($shopKey) ? $shopKey : $request->input("shop_key",'');
 
         if($shopKey){
@@ -26,7 +27,7 @@ class PackageController extends Controller
 
 
         $packages = new \App\Models\Package;
-        if($shop){
+        if($isFromShop){
             $packages = $packages->where("status", 1)->where("price",'>', 0);
         }else if($request->input("status",0)){
             $packages = $packages->where("status", $request->input("status", 0));
