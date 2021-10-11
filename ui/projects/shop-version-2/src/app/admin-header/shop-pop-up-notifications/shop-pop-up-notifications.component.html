@@ -1,8 +1,12 @@
 <div fxLayout="row" fxLayoutAlign="space-between" >
   <mat-card >
-    <mat-selection-list #shoes [multiple]="false">
+    <div *ngIf="!messages || !messages.length">
+      No notification found!
+    </div>
+    <mat-selection-list #shoes [multiple]="false" *ngIf="messages && messages.length">
       <mat-list-option *ngFor="let msg of messages" [value]="msg">
-        <p>{{msg?.prefill_message?.message  | slice:0:50}}</p>
+        <p *ngIf="msg?.prefill_message">{{msg?.prefill_message?.message  | slice:0:50}}</p>
+        <p *ngIf="msg?.message">{{msg?.message  | slice:0:50}}</p>
         <p>@ {{ msg.created_at | date:'medium' }}</p>
       </mat-list-option>
     </mat-selection-list>

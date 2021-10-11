@@ -53,6 +53,9 @@ export class ShopService {
   }
 
   registerShop(postData: any = null){
+    const ref_by = localStorage.getItem("ref_by");
+    if(ref_by)
+      postData = {...postData, ...{ref_by : ref_by}}
     return this.http.post<any>("/register", postData);
   }
 

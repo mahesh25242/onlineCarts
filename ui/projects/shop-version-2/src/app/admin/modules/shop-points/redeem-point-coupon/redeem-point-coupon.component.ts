@@ -1,9 +1,8 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { ShopPointsService } from '../services';
 import Notiflix from "notiflix";
-import { mergeMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-redeem-point-coupon',

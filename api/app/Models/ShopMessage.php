@@ -20,7 +20,7 @@ class ShopMessage extends Model implements AuthenticatableContract, Authorizable
      * @var array
      */
     protected $fillable = [
-         'shop_id', 'prefill_message_id'
+         'shop_id', 'prefill_message_id', 'message'
     ];
 
 

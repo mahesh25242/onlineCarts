@@ -29,6 +29,8 @@ class ShopPoint extends Model implements AuthenticatableContract, AuthorizableCo
         'points' => 'integer',
     ];
 
+
+
     public function shopPointTran()
     {
         return $this->hasMany('App\Models\ShopPointTran');

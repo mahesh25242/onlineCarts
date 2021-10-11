@@ -51,7 +51,6 @@ class ShopsController extends Controller
 
 
     public function store(Request $request){
-
         $validator = Validator::make($request->all(), [
             'name' => ['required'],
             'status' => ['required'],
@@ -149,6 +148,55 @@ class ShopsController extends Controller
                 ]
             );
 
+            if($request->input("ref_by", null)){
+                $refPointSet = \App\Models\Setting::where("name", 'ref_point')->get()->first();
+                $refPoint = ($refPointSet) ? (int) $refPointSet->value : 0;
+                if($refPoint){
+                    //addpoint to referensed shop
+                    $ref_by = $request->input("ref_by", null);
+                    $refShop =   \App\Models\Shop::where('shop_key', $ref_by)->get()->first();
+                    if($refShop->shopPoint){
+                        $ShopPoint = $refShop->shopPoint;
+                        $refShop->shopPoint->points += $refPoint;
+                        $refShop->shopPoint->save();
+                    }else{
+                        $ShopPoint = new \App\Models\ShopPoint;
+                        $ShopPoint->shop_id = $refShop->id;
+                        $ShopPoint->points = $refPoint;
+                        $ShopPoint->save();
+                    }
+
+                    $shopPointTran = new \App\Models\ShopPointTran;
+                    $shopPointTran->shop_point_id = $ShopPoint->id;
+                    $shopPointTran->point = $refPoint;
+                    $shopPointTran->is_reference = 1;
+                    $shopPointTran->save();
+                    \App\Models\ShopMessage::create([
+                        'shop_id' => $ShopPoint->shop_id,
+                        'prefill_message_id' => 0,
+                        'message' => sprintf("%d was added to your account for reference", $refPoint)
+                    ]);
+
+                    //addpoint to registered shop
+                    $ShopPoint = new \App\Models\ShopPoint;
+                    $ShopPoint->shop_id = $shop->id;
+                    $ShopPoint->points = $refPoint;
+                    $ShopPoint->save();
+
+                    $shopPointTran = new \App\Models\ShopPointTran;
+                    $shopPointTran->shop_point_id = $ShopPoint->id;
+                    $shopPointTran->point = $refPoint;
+                    $shopPointTran->is_reference = 1;
+                    $shopPointTran->save();
+                    \App\Models\ShopMessage::create([
+                        'shop_id' => $ShopPoint->shop_id,
+                        'prefill_message_id' => 0,
+                        'message' => sprintf("%d was added to your account for reference", $refPoint)
+                    ]);
+
+                }
+
+            }
 
             $toEMail = $email;
             if(env('APP_ENV') == 'local'){

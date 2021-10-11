@@ -85,6 +85,11 @@ class Shop extends Model implements AuthenticatableContract, AuthorizableContrac
                 $shop->helpTicket()->forceDelete();
                 $shop->reportAbuse()->forceDelete();
                 $shop->shopMessage()->forceDelete();
+                if($shop->shopPoint){
+                    $shop->shopPoint->shopPointTran()->forceDelete();
+                    $shop->shopPoint()->forceDelete();
+                }
+
                 return true;
             }
         });

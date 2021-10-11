@@ -20,13 +20,14 @@ class ShopPointTran extends Model implements AuthenticatableContract, Authorizab
      * @var array
      */
     protected $fillable = [
-        'shop_point_id', 'point'
+        'shop_point_id', 'point', 'is_reference'
     ];
 
 
     protected $casts = [
         'shop_point_id' => 'integer',
         'point' => 'integer',
+        'is_reference' => 'integer',
     ];
 
     public function shopPoint()

@@ -17,6 +17,7 @@ class CreateShopPointTransTable extends Migration
             $table->id();
             $table->foreignId('shop_point_id')->constrained('shop_points');
             $table->double('point', 8, 2)->default(0);
+            $table->boolean('is_reference')->default(0);
             $table->timestamps();
         });
     }

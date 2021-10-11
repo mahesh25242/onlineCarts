@@ -17,6 +17,7 @@ class CreateShopMessagesTable extends Migration
             $table->id();
             $table->foreignId('shop_id')->constrained('shops');
             $table->integer('prefill_message_id')->nullable();
+            $table->mediumText('message')->nullable();
             $table->timestamps();
         });
     }
