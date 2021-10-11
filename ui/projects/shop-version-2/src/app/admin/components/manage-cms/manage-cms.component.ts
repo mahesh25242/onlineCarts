@@ -19,12 +19,14 @@ export class ManageCmsComponent implements OnInit {
 
     this.pages$ = this.cmsService.pages().pipe(map(res=>{
       if(!res || !res.length){
-        res = [{
-          name: 'About Us',
-          content: 'About Us',
-          url: 'about_us',
-          status: 1
-        }];
+        res = [
+          {
+            name: 'About Us',
+            content: 'About Us',
+            url: 'about_us',
+            status: 1
+          }
+      ];
       }
 
       return res;

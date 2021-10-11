@@ -70,8 +70,9 @@ class ShopsController extends Controller
         $country_id = ($request->input("country_id", null)) ? json_decode($request->input("country_id", null), true) : '' ;
         $state_id = ($request->input("state_id", null)) ? json_decode($request->input("state_id", null), true) : '' ;
         $city_id = ($request->input("city_id", null)) ? json_decode($request->input("city_id", null), true) : '' ;
+        $shop_category_id = ($request->input("shop_category_id", null)) ? json_decode($request->input("shop_category_id", null), true) : '' ;
 
-        $input["shop_category_id"] = $request->input("shop_category_id.id", 0);
+        $input["shop_category_id"] = $shop_category_id["id"] ?? 0;
         $input["country_id"] = $country_id["id"] ?? null;
         $input["state_id"] = $state_id["id"] ?? null;
         $input["city_id"] = $city_id["id"] ?? null;

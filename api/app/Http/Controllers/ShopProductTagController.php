@@ -9,8 +9,16 @@ class ShopProductTagController extends Controller
 {
 
 
-    public function index(){
-        $shopProductTag = \App\Models\ShopProductTag::all();
+    public function index(Request $request){
+        $shopKey = $request->header('shopKey');
+        if($shopKey){
+            $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
+        }else{
+            $shopKey = $request->input("shop_key", '');
+            $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
+        }
+
+        $shopProductTag = \App\Models\ShopProductTag::where("shop_category_id", $shop->shop_category_id)->get();
         return response($shopProductTag);
     }
 
