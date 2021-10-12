@@ -205,10 +205,13 @@ class ShopProductController extends Controller
 
 
         $spt = [];
+
         if( $request->input("shop_product_tags", null) && $request->input("shop_product_tags", null)!= 'null'){
             $shop_product_tags = $request->input("shop_product_tags", null);
             if($shop_product_tags){
+
                 $shop_product_tags = json_decode($shop_product_tags, true);
+
                 foreach( $shop_product_tags as $tags){
                     $shopProductTagMap = \App\Models\ShopProductTagMap::updateOrCreate(
                         [
@@ -221,7 +224,7 @@ class ShopProductController extends Controller
                         ]
                     );
                 }
-                $spt[] = $shopProduct->id;
+                $spt[] = $shopProductTagMap->id;
             }
         }
 
