@@ -97,6 +97,7 @@ export class SearchFilterComponent implements OnInit {
     this.categories$ = this.shopProductCategoryService.categories;
 
     this.filters$ = this.shopProductService.showProductsFilters().pipe(tap(res=>{
+
       this.options.ceil = res?.max_price
       this.options.floor = res?.min_price
 

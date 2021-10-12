@@ -1,29 +1,18 @@
 <ng-container  *ngIf="(products$ | async) else loading">
   <div  fxHide.gt-xs="true" class="search-filter">
-    <button mat-raised-button color="primary" class="xs-filter-bt"
-    [matMenuTriggerFor]="menu" >Sort By</button>
-    <mat-menu #menu="matMenu" xPosition="after" (closed)="ngOnInit()">
-      <button mat-menu-item (click)="selectedItems.sort.name='name';selectedItems.sort.type='ASC';">Product Name</button>
-      <button mat-menu-item (click)="selectedItems.sort.name='price';selectedItems.sort.type='ASC';">Price Min to Max</button>
-      <button mat-menu-item (click)="selectedItems.sort.name='price';selectedItems.sort.type='DESC';">Price Max to Min</button>
-    </mat-menu>
-
-    <button mat-raised-button color="primary" class="xs-filter-bt" (click)="openFilter()" >Filter</button>
+    <ng-container *ngTemplateOutlet="sortTemplate; context: {$implicit: selectedItems}">
+    </ng-container>
   </div>
-  <div class="sp-h-10" fxHide.gt-xs="true"></div>
-  <div class="container">
-    <app-search fxHide.xs="true"></app-search>
-    <button mat-raised-button color="primary" class="xs-filter-bt"  [matMenuTriggerFor]="menu"  fxHide.xs="true">
-      Sort By: {{selectedItems?.sort?.name}}
-      <mat-icon *ngIf="selectedItems?.sort?.type == 'ASC'">arrow_drop_down</mat-icon>
-      <mat-icon *ngIf="selectedItems?.sort?.type == 'DESC'">arrow_drop_up</mat-icon>
-    </button>
-    <mat-menu #menu="matMenu" xPosition="after" (closed)="ngOnInit()">
-      <button mat-menu-item (click)="selectedItems.sort.name='name';selectedItems.sort.type='ASC';">Product Name</button>
-      <button mat-menu-item (click)="selectedItems.sort.name='price';selectedItems.sort.type='ASC';">Price Min to Max</button>
-      <button mat-menu-item (click)="selectedItems.sort.name='price';selectedItems.sort.type='DESC';">Price Max to Min</button>
-    </mat-menu>
-    <button mat-raised-button color="primary" (click)="openFilter()" fxHide.xs="true">Filter</button>
+
+  <div class="container" fxHide.xs="true">
+    <app-search></app-search>
+    <br/>
+    <div fxLayout="row" fxLayoutAlign="space-between">
+      <ng-container *ngTemplateOutlet="sortTemplate; context: {$implicit: selectedItems}">
+      </ng-container>
+    </div>
+  </div>
+  <div class="container" >
     <app-product [isSearch]="true"></app-product>
   </div>
 </ng-container>
@@ -31,4 +20,16 @@
   <div class="container">
     <mat-spinner></mat-spinner>
   </div>
+</ng-template>
+
+<ng-template #sortTemplate let-dt>
+  <button mat-raised-button color="primary" class="xs-filter-bt"
+  [matMenuTriggerFor]="menu" ><mat-icon>sort</mat-icon> Sort By</button>
+  <mat-menu #menu="matMenu" xPosition="after" (closed)="ngOnInit()">
+    <button mat-menu-item (click)="dt.selectedItems.sort.name='name';dt.selectedItems.sort.type='ASC';">Product Name</button>
+    <button mat-menu-item (click)="dt.selectedItems.sort.name='price';dt.selectedItems.sort.type='ASC';">Price Min to Max</button>
+    <button mat-menu-item (click)="dt.selectedItems.sort.name='price';dt.selectedItems.sort.type='DESC';">Price Max to Min</button>
+  </mat-menu>
+
+  <button mat-raised-button color="primary" class="xs-filter-bt" (click)="openFilter()" ><mat-icon>filter_alt</mat-icon> Filter</button>
 </ng-template>
