@@ -56,23 +56,12 @@ export class SearchResultComponent implements OnInit {
 
     }
 
-    searchSelect(data: string = null, idx: string = null){
-      if(this.selectedItems[idx].includes(data)){
-        this.selectedItems[idx].splice(this.selectedItems[idx].indexOf(data), 1);
-        let filtered = this.fitered$.getValue() ?? [];
-        filtered.splice(filtered.indexOf(data), 1);
-        filtered = (filtered.length) ? filtered : null;
-        this.fitered$.next(filtered);
-      }else{
-        this.selectedItems[idx].push(data);
-        let filtered = this.fitered$.getValue() ?? [];
-        filtered.push(data);
 
-        this.fitered$.next(filtered);
-      }
+    sortIt(name: string = 'name', type: string = 'ASC'){
+      this.selectedItems.sort.name= name;
+      this.selectedItems.sort.type= type;
+      this.ngOnInit();
     }
-
-
 
   ngOnInit(): void {
 

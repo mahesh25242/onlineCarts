@@ -7,6 +7,7 @@ use Validator;
 use Image;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class ShopProductController extends Controller
 {
@@ -44,9 +45,9 @@ class ShopProductController extends Controller
         if($request->input("shop_product_category_id", 0)){
             $products = $products->where("shop_product_category_id", $request->input("shop_product_category_id", 0));
         }
-
-        $orderBy = ["shop_products.sortorder", "ASC"];
-        if($request->input("selectedItems", null)){
+        $DBPrefix = env('DB_PREFIX', '');
+        $orderBy = ["{$DBPrefix}shop_products.sortorder", "ASC"];
+        if( $request->input("selectedItems", null)){
             if($request->input("selectedItems.categories", null)){
                 $products = $products->whereIn("shop_product_category_id", $request->input("selectedItems.categories", []));
             }
@@ -83,11 +84,19 @@ class ShopProductController extends Controller
                 switch($sortName){
                     case 'name':
                     case 'sortorder':
-                        $orderBy = [ ( $request->input("selectedItems.sort.name", null) ?? 'name') , ( $request->input("selectedItems.sort.type", null) ?? 'ASC') ];
+                        if($request->input("selectedItems.sort.name", null) == 'name'){
+                            $sortField =  "ANY_VALUE({$DBPrefix}shop_products.name)";
+                        }else{
+                            $sortField = "ANY_VALUE({$DBPrefix}shop_products.sortorder)";
+                        }
+
+                        // $sortField = ( $request->input("selectedItems.sort.name", null) ?? "{$DBPrefix}cart_shop_products.name");
+                        $orderBy = [ $sortField , ( $request->input("selectedItems.sort.type", null) ?? 'ASC') ];
                     break;
                     default:
-                        $sortField = ( $request->input("selectedItems.sort.name", null) ?? 'name');
-                        $sortField = ($sortField) ? "shop_product_variants.{$sortField}" : 'name';
+
+                        $sortField = ( $request->input("selectedItems.sort.name", null) ?? "{$DBPrefix}cart_shop_products.name");
+                        $sortField = ($sortField) ? "ANY_VALUE({$DBPrefix}shop_product_variants.{$sortField})" : "{$DBPrefix}cart_shop_products.name";
                         $orderBy = [ $sortField, ( $request->input("selectedItems.sort.type", null) ?? 'ASC') ];
                         $products =  $products->join('shop_product_variants', 'shop_product_variants.shop_product_id', '=', 'shop_products.id');
                     break;
@@ -97,6 +106,7 @@ class ShopProductController extends Controller
             }
 
         }
+
         if($request->input("cat_url", null)){
             $products = $products->whereHas("shopProductCategory", function($q) use($request){
                 $q->where("url", $request->input("cat_url", null));
@@ -115,7 +125,7 @@ class ShopProductController extends Controller
         }
 
         $products = $products->select("shop_products.*");
-        return response($products->orderBy($orderBy[0], $orderBy[1])->paginate($perPage ));
+        return response($products->groupBy("shop_products.id")->orderByRaw($orderBy[0], $orderBy[1])->paginate($perPage ));
     }
 
     public function showProductsFilters(Request $request){

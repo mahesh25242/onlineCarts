@@ -238,5 +238,18 @@ class Shop extends Model implements AuthenticatableContract, AuthorizableContrac
         return $this->hasMany('App\Models\PointCoupon');
     }
 
+    public function scopeUnreadForUser(Builder $query, $userId)
+    {
+        return $query->has('thread')
+            ->where('user_id', '!=', $userId)
+            ->whereHas('participants', function (Builder $query) use ($userId) {
+                $query->where('user_id', $userId)
+                    ->whereNull('deleted_at')
+                    ->where(function (Builder $q) {
+                        $q->where('last_read', '<', $this->getConnection()->raw($this->getConnection()->getTablePrefix() . $this->getTable() . '.created_at'))
+                            ->orWhereNull('last_read');
+                    });
+            });
+    }
 
 }

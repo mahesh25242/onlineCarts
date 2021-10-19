@@ -91,6 +91,7 @@ export class SearchFilterComponent implements OnInit {
 
 
   ngOnInit(): void {
+
     this.varients = this.data?.varients;
 
     this.selectedItems = this.data?.selectedItems;
@@ -98,13 +99,16 @@ export class SearchFilterComponent implements OnInit {
 
     this.filters$ = this.shopProductService.showProductsFilters().pipe(tap(res=>{
 
+
       this.options.ceil = res?.max_price
       this.options.floor = res?.min_price
 
-
       this.selectedItems.priceFrom = this.selectedItems.priceFrom ?? this.options.ceil;
       this.selectedItems.priceTo = this.selectedItems.priceTo ?? this.options.floor;
+      console.log(this.selectedItems, this.options)
+
     }));
+
   }
 
 }
