@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable,of,Subscription, throwError } from 'rxjs';
 import { mergeMap, map, catchError, delay } from 'rxjs/operators';
 import { Cart, CartDetail, Shop, ShopDelivery, ShopOrder } from 'src/app/lib/interfaces';
@@ -22,7 +22,7 @@ import { AngularFireAnalytics } from '@angular/fire/analytics';
   styleUrls: ['./cart-details.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CartDetailsComponent implements OnInit, OnDestroy {
+export class CartDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
   customerFrm: FormGroup;
 
 
@@ -351,5 +351,9 @@ export class CartDetailsComponent implements OnInit, OnDestroy {
 
   }
 
+  ngAfterViewInit(){
+    document.querySelector('mat-sidenav-content').scrollTop = 0;
+
+  }
 
 }

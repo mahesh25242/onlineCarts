@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ShopProduct, Cart } from 'src/app/lib/interfaces';
@@ -13,7 +13,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   templateUrl: './product-details.component.html',
   styleUrls: ['./product-details.component.scss']
 })
-export class ProductDetailsComponent implements OnInit, OnDestroy {
+export class ProductDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   environment = environment;
   addToCartFrm: FormGroup;
@@ -99,4 +99,8 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     this.shopProductCategoryService.hideTopCat$.next(false);
   }
 
+  ngAfterViewInit(){
+    document.querySelector('mat-sidenav-content').scrollTop = 0;
+
+  }
 }
