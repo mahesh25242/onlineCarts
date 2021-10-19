@@ -99,6 +99,9 @@
             <button mat-icon-button type="button"
                     shareButton="whatsapp"
                     #fbBtn="shareButton"
+                    [title]="product.name"
+                    [description]="product.description"
+                    [image]="(product.shop_product_selected_variant?.shop_product_image?.image) ? 'url(' +  product.shop_product_selected_variant.shop_product_image.image_path + ')' : 'url(/assets/no-image.jpg)'"
                     [matTooltip]="'share '+product.name+' in whatsapp'"
                 aria-label="share this product in whatsapp">
               <fa-icon *ngIf="fbBtn" [icon]="fbBtn.icon" size="lg"></fa-icon>
@@ -106,10 +109,16 @@
             <button mat-icon-button type="button"
                     shareButton="facebook"
                     #twtBtn="shareButton"
+                    [title]="product.name"
+                    [description]="product.description"
+                    [image]="(product.shop_product_selected_variant?.shop_product_image?.image) ? 'url(' +  product.shop_product_selected_variant.shop_product_image.image_path + ')' : 'url(/assets/no-image.jpg)'"
                     [matTooltip]="'share '+product.name+' in facebook'"
                     aria-label="share this product in facebook">
               <fa-icon *ngIf="twtBtn" [icon]="twtBtn.icon" size="lg"></fa-icon>
             </button>
+
+
+
 
           </mat-card>
 
