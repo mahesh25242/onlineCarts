@@ -322,7 +322,7 @@ export class CartDetailsComponent implements OnInit, OnDestroy {
     });
     this.shop$ = this.shopService.aShop;
 
-    this.cartDetails$ = this.cartService.cartDetails.pipe(delay(200));
+    this.cartDetails$ = this.cartService.cartDetails;
 
 
 
