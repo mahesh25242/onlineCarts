@@ -12,5 +12,21 @@
 
 <p *ngIf="shop$ | async as shop">
   If you share the link below, you will get 50 coins if a new shop was registered through this link. And also the registered shop will also get 50 coins. Click below link to copy the referring url
-  <a href="javascript:{}" [cdkCopyToClipboard]="orgin+'/front/?rf='+shop.shop_key" (cdkCopyToClipboardCopied)="copied()">{{ orgin }}/front/?rf={{shop.shop_key}}</a>
+  <a href="javascript:{}" matTooltip="click here to copy this referring url"
+  aria-label="click here to copy this referring url" [cdkCopyToClipboard]="orgin+'/front/?rf='+shop.shop_key" (cdkCopyToClipboardCopied)="copied()">{{ orgin }}/front/?rf={{shop.shop_key}}</a>
+  <button mat-icon-button
+        shareButton="whatsapp"
+        [url]="orgin+'/front/?rf='+shop.shop_key"
+        #fbBtn="shareButton"
+        matTooltip="share referring url in whatsapp"
+        aria-label="share this product in whatsapp">
+  <fa-icon *ngIf="fbBtn" [icon]="fbBtn.icon" size="lg"></fa-icon>
+</button>
+<button mat-icon-button
+[url]="orgin+'/front/?rf='+shop.shop_key"
+        shareButton="facebook"
+        #twtBtn="shareButton" matTooltip="share referring url in facebook"
+        aria-label="share this product in facebook">
+  <fa-icon *ngIf="twtBtn" [icon]="twtBtn.icon" size="lg"></fa-icon>
+</button>
 </p>

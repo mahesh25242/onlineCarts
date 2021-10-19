@@ -18,6 +18,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import {NgxImageCompressService} from 'ngx-image-compress';
 import { NgxNumToWordsModule } from 'ngx-num-to-words';
 
+import { ShareButtonsModule, } from 'ngx-sharebuttons/buttons';
+import { ShareIconsModule } from 'ngx-sharebuttons/icons';
+import { ShareModule } from 'ngx-sharebuttons';
+
 
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
@@ -81,6 +85,9 @@ Notiflix.Block.Init({ svgColor:"#204486", });
     NgxMatNativeDateModule,
     FlexLayoutModule,
     NgxNumToWordsModule,
+    ShareButtonsModule,
+    ShareIconsModule,
+    ShareModule,
 
     MatIconModule,
     MatButtonModule,
@@ -130,6 +137,10 @@ Notiflix.Block.Init({ svgColor:"#204486", });
     NgxMatTimepickerModule,
     NgxMatDatetimePickerModule,
     NgxMatNativeDateModule,
+
+    ShareButtonsModule,
+    ShareIconsModule,
+    ShareModule,
 
     FlexLayoutModule,
     NgxNumToWordsModule,
