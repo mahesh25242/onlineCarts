@@ -120,11 +120,14 @@
               <ng-container  *ngFor="let stat of varients.controls; let i=index; let last = last">
                 <mat-card fxFlex="31%" fxFlex.xs="100%"  [formGroupName]="i" class="varient-block"
                  >
-                  <mat-card-content [matBadge]="i+ 1" matBadgeSize="large" matBadgeOverlap="false"
-                  matBadgeColor="warn">
+                 <mat-card-subtitle class="text-center">
+                   <span class="varient-no">{{ i+ 1 }}</span>
+                 </mat-card-subtitle>
+                  <mat-card-content>
+
                     <mat-list role="list" >
                       <mat-list-item role="listitem" fxFill="fill">
-                        <mat-radio-button  [checked]="stat.get('is_primary').value == 1"  [value]="1" (click)="setPrimary(stat)"  matTooltip="Set one as primary " radioGroup="is_primary">Is Primary</mat-radio-button>
+                        <mat-radio-button color="primary"  [checked]="stat.get('is_primary').value == 1"  [value]="1" (click)="setPrimary(stat)"  matTooltip="Set one as primary " radioGroup="is_primary">Is Primary</mat-radio-button>
                         <mat-error *ngIf="stat.get('is_primary').errors && stat.get('is_primary').errors.error">
                           {{stat.get('is_primary').errors.error}}
                         </mat-error>
@@ -190,7 +193,9 @@
 
                       <mat-list-item fxFill="fill">
                         <button (click)="handleImageSelection(stat)" type="button" mat-stroked-button color="primary">
-                          <span>Choose Image</span>
+                          <span>
+                            {{ stat.get('currImage').value ? 'Change Image': 'Choose Image'}}
+                          </span>
                         </button>&nbsp; &nbsp;
                       </mat-list-item>
 

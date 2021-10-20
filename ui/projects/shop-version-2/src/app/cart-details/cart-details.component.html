@@ -20,7 +20,7 @@
         [ngClass.gt-md]="'grid-my-gt-md-list'" >
 
           <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
-            <div fxFlex="10%" fxFlex.xs="100%">
+            <div fxFlex="15%" fxFlex.xs="100%">
               <a [routerLink]="'/'+item.product.shop_product_category?.url+'/'+item.product.url">
                 <div class="product-img" [ngStyle]="{'background-image': 'url(' + ((item.product?.shop_product_selected_variant?.shop_product_image?.image) ?  item.product.shop_product_selected_variant.shop_product_image.image_path : 'assets/no-image.jpg') + ')'}">
                   <!-- <div *ngIf="item.product?.shop_product_selected_variant?.type.id"
@@ -30,57 +30,64 @@
                 </div>
               </a>
             </div>
-            <div fxFlex="65%" fxFlex.xs="100%">
-              <div class="middle">
-                <h4 class="cart-item-header pl-1">
+            <div fxFlex="85%" fxFlex.xs="100%">
+              <div >
+                <h4 class="cart-item-header pl-1 container">
                   <a class="primary-text-color" href="javascript:{}"
                   [routerLink]="'/'+item.product.shop_product_category?.url+'/'+item.product.url"> {{item.product.name}}</a>
                 </h4>
-                <div fxLayout.xs="row" fxLayout.gt-xs="column" fxLayoutAlign="space-between">
+                <div class="container" fxLayout.xs="row" fxLayout.gt-xs="column" fxLayoutAlign="space-between">
                   <small class="block pl-1">
                     {{item.product.shop_product_selected_variant.name}}
                     {{ item.qty}} {{ (item.qty > 1) ? 'packets': 'packet' }}
                   </small>
                   <b class="block pl-1">
-                    {{item.product.shop_product_selected_variant.price | currency:'INR' }} X {{item.qty}} =  {{item.price | currency:'INR'}}</b>
+                    {{item.product.shop_product_selected_variant.price | currency:'INR' }} X {{item.qty}} =  {{item.price | currency:'INR'}}
+                  </b>
                 </div>
 
 
-                <div>
+                <div class="container">
                   <small class="block pl-1" *ngIf="item.message"> {{item.message}}</small>
+
+                  <mat-chip-list  aria-label="varient tag" *ngIf="item.product.shop_product_selected_variant?.shop_product_variant_tag && item.product.shop_product_selected_variant?.shop_product_variant_tag.length">
+                    <mat-chip color="accent" selected class="animate__animated animate__flipInX" *ngFor="let shop_product_variant_tag of item.product.shop_product_selected_variant?.shop_product_variant_tag">{{shop_product_variant_tag.name}}</mat-chip>
+                  </mat-chip-list>
+
                 </div>
 
-                <mat-chip-list aria-label="varient tag" *ngIf="item.product.shop_product_selected_variant?.shop_product_variant_tag && item.product.shop_product_selected_variant?.shop_product_variant_tag.length">
-                  <mat-chip color="accent" selected class="animate__animated animate__flipInX" *ngFor="let shop_product_variant_tag of item.product.shop_product_selected_variant?.shop_product_variant_tag">{{shop_product_variant_tag.name}}</mat-chip>
-                </mat-chip-list>
 
-                <div [ngClass.xs]="'text-center'">
-                  Quantity:
-                  <button type="button" mat-icon-button color="primary" (click)="updateCart(item, '-')">
-                    <mat-icon>remove_circle_outline</mat-icon>
-                  </button>
-                  {{item.qty}}
-                  <button type="button" mat-icon-button color="primary" (click)="updateCart(item, '+')">
-                    <mat-icon>add_circle_outline</mat-icon>
-                  </button>
+
+                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between" fxFill="fill">
+                  <div  fxFlex="50%" fxFlex.xs="100%" [ngClass.xs]="'text-center'" [ngClass.gt-xs]="'container'">
+                    Quantity:
+                    <button  type="button" mat-icon-button color="primary" (click)="updateCart(item, '-')">
+                      <mat-icon>remove_circle_outline</mat-icon>
+                    </button>
+                    {{item.qty}}
+                    <button type="button" mat-icon-button color="primary" (click)="updateCart(item, '+')">
+                      <mat-icon>add_circle_outline</mat-icon>
+                    </button>
+                  </div>
+
+                  <div fxFlex="50%" fxFlex.xs="100%" fxLayoutAlign.xs="space-between" fxLayoutAlign.gt-xs="end">
+                    <button fxFlex.xs="20%" type="button"   class="itm-block-btn"  mat-flat-button  color="warn" (click)="deleteItem(item)"
+                    [matTooltip]="'Remove ' +item.product.name+ ' from cart'">
+                     <mat-icon>delete</mat-icon> <span fxHide.lt-md="true">Remove</span>
+                    </button>
+                    <button type="button" fxFlex.xs="80%"  class="itm-block-btn" mat-flat-button
+                      color="primary" (click)="editMessage(item)"
+                    [matTooltip]="'Add a custom message for '+item.product.name">
+                      <mat-icon>add_comment</mat-icon> <span> Custom Message</span>
+                    </button>
+                  </div>
+
                 </div>
-              </div>
-            </div>
-            <div fxFlex="25%" fxFlex.xs="100%" >
-              <div fxLayout="row" fxLayoutAlign="center end" fxFill="fill">
-                <button type="button" fxFlex.xs="50%" class="itm-block-btn"  mat-flat-button  color="warn" (click)="deleteItem(item)"
-                [matTooltip]="'Remove ' +item.product.name+ ' from cart'">
-                 <mat-icon>delete</mat-icon> <span fxHide.sm="true">Remove</span>
-                </button>
-                <button type="button" fxFlex.xs="50%" class="itm-block-btn" mat-flat-button
-                  color="primary" (click)="editMessage(item)"
-                [matTooltip]="'Add a custom message for '+item.product.name">
-                  <mat-icon>add_comment</mat-icon> <span fxHide.sm="true"> Custom Message</span>
-                </button>
-              </div>
 
 
+              </div>
             </div>
+
           </div>
 
         </mat-card>

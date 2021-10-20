@@ -8,6 +8,8 @@ $warn: mat-palette($mat-red);
 $theme: mat-light-theme($primary, $accent, $warn);
 @include angular-material-theme($theme);
 
+
+
 .primary-text-color{
   color: mat-color($primary)
 }
@@ -34,14 +36,25 @@ $theme: mat-light-theme($primary, $accent, $warn);
   background-color: mat-color($footerbg)
 }
 
+
 .shop-default-light-theme {
+
   $primary: mat-palette($mat-blue-grey);
   $accent: mat-palette($mat-amber, A400, A100, A700);
   $warn: mat-palette($mat-red);
   $theme: mat-light-theme($primary, $accent, $warn);
   @include angular-material-theme($theme);
 
+  $fg_palette:map-get($theme, foreground);
+  $bg_palette:map-get($theme, background);
+  $fg:map-get($fg_palette, text);
+  $bg:map-get($bg_palette, background);
 
+  --primary: #{mat-color($primary)};
+  --accent: #{mat-color($accent)};
+  --warn: #{mat-color($warn)};
+  --fg: #{$fg};
+  --bg: #{$bg};
 
   .primary-text-color{
     color:  mat-color($primary)
@@ -71,6 +84,18 @@ $theme: mat-light-theme($primary, $accent, $warn);
   $theme: mat-light-theme($primary, $accent, $warn);
   @include angular-material-theme($theme);
 
+
+  $fg_palette:map-get($theme, foreground);
+  $bg_palette:map-get($theme, background);
+  $fg:map-get($fg_palette, text);
+  $bg:map-get($bg_palette, background);
+
+  --primary: #{mat-color($primary)};
+  --accent: #{mat-color($accent)};
+  --warn: #{mat-color($warn)};
+  --fg: #{$fg};
+  --bg: #{$bg};
+
   .primary-text-color{
     color:  mat-color($primary)
   }
@@ -97,6 +122,18 @@ $theme: mat-light-theme($primary, $accent, $warn);
   $warn: mat-palette($mat-red);
   $theme: mat-light-theme($primary, $accent, $warn);
   @include angular-material-theme($theme);
+
+
+  $fg_palette:map-get($theme, foreground);
+  $bg_palette:map-get($theme, background);
+  $fg:map-get($fg_palette, text);
+  $bg:map-get($bg_palette, background);
+
+  --primary: #{mat-color($primary)};
+  --accent: #{mat-color($accent)};
+  --warn: #{mat-color($warn)};
+  --fg: #{$fg};
+  --bg: #{$bg};
 
   .primary-text-color{
     color:  mat-color($primary)
@@ -125,6 +162,18 @@ $theme: mat-light-theme($primary, $accent, $warn);
   $theme: mat-light-theme($primary, $accent, $warn);
   @include angular-material-theme($theme);
 
+
+  $fg_palette:map-get($theme, foreground);
+  $bg_palette:map-get($theme, background);
+  $fg:map-get($fg_palette, text);
+  $bg:map-get($bg_palette, background);
+
+  --primary: #{mat-color($primary)};
+  --accent: #{mat-color($accent)};
+  --warn: #{mat-color($warn)};
+  --fg: #{$fg};
+  --bg: #{$bg};
+
   .primary-text-color{
     color:  mat-color($primary)
   }
@@ -150,6 +199,18 @@ $theme: mat-light-theme($primary, $accent, $warn);
   $warn: mat-palette($mat-red);
   $theme: mat-light-theme($primary, $accent, $warn);
   @include angular-material-theme($theme);
+
+
+  $fg_palette:map-get($theme, foreground);
+  $bg_palette:map-get($theme, background);
+  $fg:map-get($fg_palette, text);
+  $bg:map-get($bg_palette, background);
+
+  --primary: #{mat-color($primary)};
+  --accent: #{mat-color($accent)};
+  --warn: #{mat-color($warn)};
+  --fg: #{$fg};
+  --bg: #{$bg};
 
   .primary-text-color{
     color:  mat-color($primary)
@@ -179,6 +240,17 @@ $theme: mat-light-theme($primary, $accent, $warn);
   $theme: mat-light-theme($primary, $accent, $warn);
   @include angular-material-theme($theme);
 
+  $fg_palette:map-get($theme, foreground);
+  $bg_palette:map-get($theme, background);
+  $fg:map-get($fg_palette, text);
+  $bg:map-get($bg_palette, background);
+
+  --primary: #{mat-color($primary)};
+  --accent: #{mat-color($accent)};
+  --warn: #{mat-color($warn)};
+  --fg: #{$fg};
+  --bg: #{$bg};
+
   .primary-text-color{
     color:  mat-color($primary)
   }
@@ -207,6 +279,17 @@ $theme: mat-light-theme($primary, $accent, $warn);
   $theme: mat-light-theme($primary, $accent, $warn);
   @include angular-material-theme($theme);
 
+  $fg_palette:map-get($theme, foreground);
+  $bg_palette:map-get($theme, background);
+  $fg:map-get($fg_palette, text);
+  $bg:map-get($bg_palette, background);
+
+  --primary: #{mat-color($primary)};
+  --accent: #{mat-color($accent)};
+  --warn: #{mat-color($warn)};
+  --fg: #{$fg};
+  --bg: #{$bg};
+
   .primary-text-color{
     color:  mat-color($primary)
   }
@@ -233,6 +316,17 @@ $theme: mat-light-theme($primary, $accent, $warn);
   $warn: mat-palette($mat-red);
   $theme: mat-light-theme($primary, $accent, $warn);
   @include angular-material-theme($theme);
+
+  $fg_palette:map-get($theme, foreground);
+  $bg_palette:map-get($theme, background);
+  $fg:map-get($fg_palette, text);
+  $bg:map-get($bg_palette, background);
+
+  --primary: #{mat-color($primary)};
+  --accent: #{mat-color($accent)};
+  --warn: #{mat-color($warn)};
+  --fg: #{$fg};
+  --bg: #{$bg};
 
   .primary-text-color{
     color:  mat-color($primary)
@@ -265,6 +359,17 @@ $theme: mat-light-theme($primary, $accent, $warn);
   $theme: mat-light-theme($primary, $accent, $warn);
   @include angular-material-theme($theme);
 
+  $fg_palette:map-get($theme, foreground);
+  $bg_palette:map-get($theme, background);
+  $fg:map-get($fg_palette, text);
+  $bg:map-get($bg_palette, background);
+
+  --primary: #{mat-color($primary)};
+  --accent: #{mat-color($accent)};
+  --warn: #{mat-color($warn)};
+  --fg: #{$fg};
+  --bg: #{$bg};
+
   .primary-text-color{
     color:  mat-color($primary)
   }
@@ -294,6 +399,17 @@ $theme: mat-light-theme($primary, $accent, $warn);
   $theme: mat-light-theme($primary, $accent, $warn);
   @include angular-material-theme($theme);
 
+  $fg_palette:map-get($theme, foreground);
+  $bg_palette:map-get($theme, background);
+  $fg:map-get($fg_palette, text);
+  $bg:map-get($bg_palette, background);
+
+  --primary: #{mat-color($primary)};
+  --accent: #{mat-color($accent)};
+  --warn: #{mat-color($warn)};
+  --fg: #{$fg};
+  --bg: #{$bg};
+
   .primary-text-color{
     color:  mat-color($primary)
   }
@@ -322,6 +438,17 @@ $theme: mat-light-theme($primary, $accent, $warn);
   $theme: mat-light-theme($primary, $accent, $warn);
   @include angular-material-theme($theme);
 
+  $fg_palette:map-get($theme, foreground);
+  $bg_palette:map-get($theme, background);
+  $fg:map-get($fg_palette, text);
+  $bg:map-get($bg_palette, background);
+
+  --primary: #{mat-color($primary)};
+  --accent: #{mat-color($accent)};
+  --warn: #{mat-color($warn)};
+  --fg: #{$fg};
+  --bg: #{$bg};
+
   .primary-text-color{
     color:  mat-color($primary)
   }
@@ -349,6 +476,17 @@ $theme: mat-light-theme($primary, $accent, $warn);
   $warn: mat-palette($mat-red);
   $theme: mat-light-theme($primary, $accent, $warn);
   @include angular-material-theme($theme);
+
+  $fg_palette:map-get($theme, foreground);
+  $bg_palette:map-get($theme, background);
+  $fg:map-get($fg_palette, text);
+  $bg:map-get($bg_palette, background);
+
+  --primary: #{mat-color($primary)};
+  --accent: #{mat-color($accent)};
+  --warn: #{mat-color($warn)};
+  --fg: #{$fg};
+  --bg: #{$bg};
 
   .primary-text-color{
     color:  mat-color(mat-palette($mat-lime, 800, A100, A700))
@@ -381,6 +519,17 @@ $theme: mat-light-theme($primary, $accent, $warn);
   $theme: mat-light-theme($primary, $accent, $warn);
   @include angular-material-theme($theme);
 
+  $fg_palette:map-get($theme, foreground);
+  $bg_palette:map-get($theme, background);
+  $fg:map-get($fg_palette, text);
+  $bg:map-get($bg_palette, background);
+
+  --primary: #{mat-color($primary)};
+  --accent: #{mat-color($accent)};
+  --warn: #{mat-color($warn)};
+  --fg: #{$fg};
+  --bg: #{$bg};
+
   .primary-text-color{
     color:  mat-color(mat-palette($mat-yellow, 800, A100, A700))
   }
@@ -411,6 +560,17 @@ $theme: mat-light-theme($primary, $accent, $warn);
   $warn: mat-palette($mat-red);
   $theme: mat-light-theme($primary, $accent, $warn);
   @include angular-material-theme($theme);
+
+  $fg_palette:map-get($theme, foreground);
+  $bg_palette:map-get($theme, background);
+  $fg:map-get($fg_palette, text);
+  $bg:map-get($bg_palette, background);
+
+  --primary: #{mat-color($primary)};
+  --accent: #{mat-color($accent)};
+  --warn: #{mat-color($warn)};
+  --fg: #{$fg};
+  --bg: #{$bg};
 
   .primary-text-color{
     color:  mat-color($primary)
@@ -443,6 +603,17 @@ $theme: mat-light-theme($primary, $accent, $warn);
   $theme: mat-light-theme($primary, $accent, $warn);
   @include angular-material-theme($theme);
 
+  $fg_palette:map-get($theme, foreground);
+  $bg_palette:map-get($theme, background);
+  $fg:map-get($fg_palette, text);
+  $bg:map-get($bg_palette, background);
+
+  --primary: #{mat-color($primary)};
+  --accent: #{mat-color($accent)};
+  --warn: #{mat-color($warn)};
+  --fg: #{$fg};
+  --bg: #{$bg};
+
   .primary-text-color{
     color:  mat-color($primary)
   }
@@ -469,6 +640,17 @@ $theme: mat-light-theme($primary, $accent, $warn);
   $warn: mat-palette($mat-red);
   $theme: mat-light-theme($primary, $accent, $warn);
   @include angular-material-theme($theme);
+
+  $fg_palette:map-get($theme, foreground);
+  $bg_palette:map-get($theme, background);
+  $fg:map-get($fg_palette, text);
+  $bg:map-get($bg_palette, background);
+
+  --primary: #{mat-color($primary)};
+  --accent: #{mat-color($accent)};
+  --warn: #{mat-color($warn)};
+  --fg: #{$fg};
+  --bg: #{$bg};
 
   .primary-text-color{
     color:  mat-color($primary)
@@ -497,6 +679,17 @@ $theme: mat-light-theme($primary, $accent, $warn);
   $theme: mat-light-theme($primary, $accent, $warn);
   @include angular-material-theme($theme);
 
+  $fg_palette:map-get($theme, foreground);
+  $bg_palette:map-get($theme, background);
+  $fg:map-get($fg_palette, text);
+  $bg:map-get($bg_palette, background);
+
+  --primary: #{mat-color($primary)};
+  --accent: #{mat-color($accent)};
+  --warn: #{mat-color($warn)};
+  --fg: #{$fg};
+  --bg: #{$bg};
+
   .primary-text-color{
     color:  mat-color($primary)
   }
@@ -524,6 +717,17 @@ $theme: mat-light-theme($primary, $accent, $warn);
   $theme: mat-light-theme($primary, $accent, $warn);
   @include angular-material-theme($theme);
 
+  $fg_palette:map-get($theme, foreground);
+  $bg_palette:map-get($theme, background);
+  $fg:map-get($fg_palette, text);
+  $bg:map-get($bg_palette, background);
+
+  --primary: #{mat-color($primary)};
+  --accent: #{mat-color($accent)};
+  --warn: #{mat-color($warn)};
+  --fg: #{$fg};
+  --bg: #{$bg};
+
   .primary-text-color{
     color:  mat-color(mat-palette($mat-grey, 800, A100, A700))
   }
@@ -550,6 +754,17 @@ $theme: mat-light-theme($primary, $accent, $warn);
   $warn: mat-palette($mat-red);
   $theme: mat-light-theme($primary, $accent, $warn);
   @include angular-material-theme($theme);
+
+  $fg_palette:map-get($theme, foreground);
+  $bg_palette:map-get($theme, background);
+  $fg:map-get($fg_palette, text);
+  $bg:map-get($bg_palette, background);
+
+  --primary: #{mat-color($primary)};
+  --accent: #{mat-color($accent)};
+  --warn: #{mat-color($warn)};
+  --fg: #{$fg};
+  --bg: #{$bg};
 
   .primary-text-color{
     color:  mat-color($primary)

@@ -48,7 +48,7 @@
           {{f.min_amount.errors.error}}
         </mat-error>
       </mat-form-field>
-      <mat-checkbox class="example-margin" formControlName="need_cust_loc" matTooltip="If it checked then while customer fill his/her details it will ask his/her location details too"
+      <mat-checkbox color="primary" class="example-margin" formControlName="need_cust_loc" matTooltip="If it checked then while customer fill his/her details it will ask his/her location details too"
       aria-label="Button that displays a tooltip when focused or hovered over">Home Delivery?</mat-checkbox>
 
       <ng-container *ngIf="!f.need_cust_loc.value">

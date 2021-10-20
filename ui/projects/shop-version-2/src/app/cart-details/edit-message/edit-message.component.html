@@ -1,8 +1,8 @@
 <form [formGroup]="editMessageFrm" (ngSubmit)="updateMessage()">
-  <h1 mat-dialog-title>Edit {{this.data.product.name }} Message</h1>
+  <h3 mat-dialog-title>Edit {{this.data.product.name }} Message</h3>
   <mat-dialog-content>
 
-      <mat-form-field class="full-width-text" appearance="standard">
+      <mat-form-field  appearance="standard" fxFill="fill">
         <mat-label>Message</mat-label>
         <textarea matInput formControlName="message"
          placeholder="Ex. Happy Birth Day John Doe" maxlength="200"></textarea>

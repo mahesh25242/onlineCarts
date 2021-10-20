@@ -11,7 +11,7 @@
     <app-search></app-search>
   </div>
   <app-categories>
-    <div class="container">
+    <div [ngClass.gt-sm]="'container'">
       <app-product></app-product>
     </div>
   </app-categories>
