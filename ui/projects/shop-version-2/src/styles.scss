@@ -12,7 +12,10 @@
 }
 
 mat-card{
-  padding: 10px !important;
+  padding: 10px;
+  &.full{
+    padding: 0px;
+  }
 }
 
 mat-nav-list{

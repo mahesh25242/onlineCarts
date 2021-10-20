@@ -17,7 +17,7 @@
         </h1>
         <mat-card *ngFor="let item of cartDetails?.carts"
         [ngClass.lt-md]="'grid-my-lt-md-list'"
-        [ngClass.gt-md]="'grid-my-gt-md-list'" >
+        [ngClass.gt-md]="'grid-my-gt-md-list'" class="full">
 
           <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
             <div fxFlex="15%" fxFlex.xs="100%">
@@ -59,9 +59,9 @@
 
 
                 <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between" fxFill="fill">
-                  <div  fxFlex="50%" fxFlex.xs="100%" [ngClass.xs]="'text-center'" [ngClass.gt-xs]="'container'">
-                    Quantity:
-                    <button  type="button" mat-icon-button color="primary" (click)="updateCart(item, '-')">
+                  <div class="qty-change"  fxFlex="50%" fxFlex.xs="100%" [ngClass.xs]="'text-center'" [ngClass.gt-xs]="'container'">
+                    <span fxHide.lt-md="true">Quantity:</span>
+                    <button  cla type="button" mat-icon-button color="primary" (click)="updateCart(item, '-')">
                       <mat-icon>remove_circle_outline</mat-icon>
                     </button>
                     {{item.qty}}

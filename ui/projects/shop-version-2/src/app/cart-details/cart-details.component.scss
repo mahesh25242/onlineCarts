@@ -87,3 +87,13 @@ svg {
 mat-spinner{
   margin: auto;
 }
+
+.qty-change{
+  font-size: 17px;
+  button{
+    mat-icon{
+      // font-weight: bold;
+       font-size: 30px;
+    }
+  }
+}
