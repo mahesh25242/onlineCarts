@@ -15,13 +15,13 @@
     <!-- <img mat-card-image *ngIf="product.shop_product_primary_variant?.shop_product_image?.image" [src]="environment.siteAddress+'/assets/shop/'+environment.shopKey+'/products/'+ product.shop_product_primary_variant.shop_product_image.image" [alt]="product.shop_product_primary_variant.name"> -->
   </div>
 
-  <mat-card-header>
+  <div class="product-header">
 
     <mat-card-title class="primary-text-color" matRipple [matRippleCentered]="true" [routerLink]="'/'+product.shop_product_category?.url+'/'+product.url"> {{ product.name }}</mat-card-title>
     <mat-card-subtitle>{{ product.shop_product_primary_variant?.name}}
       <span *ngIf="product.shop_product_variant.length > 1">
       | {{ product.shop_product_variant.length }} Varients </span> </mat-card-subtitle>
-  </mat-card-header>
+  </div>
 
   <mat-chip-list aria-label="varient tag" *ngIf="product.shop_product_primary_variant?.shop_product_variant_tag && product.shop_product_primary_variant?.shop_product_variant_tag.length">
     <mat-chip color="accent" selected class="animate__animated animate__flipInX" *ngFor="let shop_product_variant_tag of product.shop_product_primary_variant?.shop_product_variant_tag">{{shop_product_variant_tag.name}}</mat-chip>
