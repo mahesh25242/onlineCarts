@@ -24,6 +24,11 @@ export class DeliveryLocationComponent implements OnInit, OnDestroy {
 
   get f(){ return this.customerFrm.controls}
 
+  onTabChanged(evt){
+    this.customerFrm.patchValue({
+      selectedLocation: null
+    });
+  }
   ngOnInit(): void {
 
 

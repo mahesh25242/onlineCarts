@@ -10,31 +10,16 @@ $theme: mat-light-theme($primary, $accent, $warn);
 
 
 
-.primary-text-color{
-  color: mat-color($primary)
-}
-
-
 
 
 .main-menu-text-color{
   color:  $light-primary-text
 }
 
-.ngx-slider {
-  .ngx-slider-pointer{
-    background-color: mat-color($primary) !important;
-  }
-}
 
-.primary-bg{
-  background-color: mat-color($primary) !important;
-}
 
-.footer-bg{
-  $footerbg: mat-palette($primary, 100, A700, A700);
-  background-color: mat-color($footerbg)
-}
+
+
 
 
 .shop-default-light-theme {
@@ -56,24 +41,6 @@ $theme: mat-light-theme($primary, $accent, $warn);
   --fg: #{$fg};
   --bg: #{$bg};
 
-  .primary-text-color{
-    color:  mat-color($primary)
-  }
-
-  .ngx-slider {
-    .ngx-slider-pointer{
-      background-color: mat-color($primary) !important;
-    }
-  }
-
-  .primary-bg{
-    background-color: mat-color($primary) !important;
-  }
-
-  .footer-bg{
-    $footerbg: mat-palette($primary, 100, A700, A700);
-    background-color: mat-color($footerbg)
-  }
 }
 
 
@@ -96,24 +63,6 @@ $theme: mat-light-theme($primary, $accent, $warn);
   --fg: #{$fg};
   --bg: #{$bg};
 
-  .primary-text-color{
-    color:  mat-color($primary)
-  }
-
-  .ngx-slider {
-    .ngx-slider-pointer{
-      background-color: mat-color($primary) !important;
-    }
-  }
-
-  .primary-bg{
-    background-color: mat-color($primary) !important;
-  }
-
-  .footer-bg{
-    $footerbg: mat-palette($primary, 100, A700, A700);
-    background-color: mat-color($footerbg)
-  }
 }
 
 .shop-default-purple-light-theme {
@@ -134,25 +83,6 @@ $theme: mat-light-theme($primary, $accent, $warn);
   --warn: #{mat-color($warn)};
   --fg: #{$fg};
   --bg: #{$bg};
-
-  .primary-text-color{
-    color:  mat-color($primary)
-  }
-
-  .ngx-slider {
-    .ngx-slider-pointer{
-      background-color: mat-color($primary) !important;
-    }
-  }
-
-  .primary-bg{
-    background-color: mat-color($primary) !important;
-  }
-
-  .footer-bg{
-    $footerbg: mat-palette($primary, 100, A700, A700);
-    background-color: mat-color($footerbg)
-  }
 }
 
 .shop-default-deep-purple-light-theme {
@@ -174,24 +104,7 @@ $theme: mat-light-theme($primary, $accent, $warn);
   --fg: #{$fg};
   --bg: #{$bg};
 
-  .primary-text-color{
-    color:  mat-color($primary)
-  }
 
-  .ngx-slider {
-    .ngx-slider-pointer{
-      background-color: mat-color($primary) !important;
-    }
-  }
-
-  .primary-bg{
-    background-color: mat-color($primary) !important;
-  }
-
-  .footer-bg{
-    $footerbg: mat-palette($primary, 100, A700, A700);
-    background-color: mat-color($footerbg)
-  }
 }
 .shop-default-indigo-light-theme {
   $primary: mat-palette($mat-indigo);
@@ -212,24 +125,9 @@ $theme: mat-light-theme($primary, $accent, $warn);
   --fg: #{$fg};
   --bg: #{$bg};
 
-  .primary-text-color{
-    color:  mat-color($primary)
-  }
 
-  .ngx-slider {
-    .ngx-slider-pointer{
-      background-color: mat-color($primary) !important;
-    }
-  }
 
-  .primary-bg{
-    background-color: mat-color($primary) !important;
-  }
 
-  .footer-bg{
-    $footerbg: mat-palette($primary, 100, A700, A700);
-    background-color: mat-color($footerbg)
-  }
 }
 
 
@@ -251,24 +149,6 @@ $theme: mat-light-theme($primary, $accent, $warn);
   --fg: #{$fg};
   --bg: #{$bg};
 
-  .primary-text-color{
-    color:  mat-color($primary)
-  }
-
-  .ngx-slider {
-    .ngx-slider-pointer{
-      background-color: mat-color($primary) !important;
-    }
-  }
-
-  .primary-bg{
-    background-color: mat-color($primary) !important;
-  }
-
-  .footer-bg{
-    $footerbg: mat-palette($primary, 100, A700, A700);
-    background-color: mat-color($footerbg)
-  }
 }
 
 
@@ -290,24 +170,6 @@ $theme: mat-light-theme($primary, $accent, $warn);
   --fg: #{$fg};
   --bg: #{$bg};
 
-  .primary-text-color{
-    color:  mat-color($primary)
-  }
-
-  .ngx-slider {
-    .ngx-slider-pointer{
-      background-color: mat-color($primary) !important;
-    }
-  }
-
-  .primary-bg{
-    background-color: mat-color($primary) !important;
-  }
-
-  .footer-bg{
-    $footerbg: mat-palette($primary, 100, A700, A700);
-    background-color: mat-color($footerbg)
-  }
 }
 
 .shop-default-cyan-light-theme {
@@ -328,28 +190,13 @@ $theme: mat-light-theme($primary, $accent, $warn);
   --fg: #{$fg};
   --bg: #{$bg};
 
-  .primary-text-color{
-    color:  mat-color($primary)
-  }
+
 
   .main-menu-text-color{
     color:  $dark-primary-text
   }
 
-  .ngx-slider {
-    .ngx-slider-pointer{
-      background-color: mat-color($primary) !important;
-    }
-  }
 
-  .primary-bg{
-    background-color: mat-color($primary) !important;
-  }
-
-  .footer-bg{
-    $footerbg: mat-palette($primary, 100, A700, A700);
-    background-color: mat-color($footerbg)
-  }
 }
 
 .shop-default-teal-light-theme {
@@ -370,24 +217,9 @@ $theme: mat-light-theme($primary, $accent, $warn);
   --fg: #{$fg};
   --bg: #{$bg};
 
-  .primary-text-color{
-    color:  mat-color($primary)
-  }
 
-  .ngx-slider {
-    .ngx-slider-pointer{
-      background-color: mat-color($primary) !important;
-    }
-  }
 
-  .primary-bg{
-    background-color: mat-color($primary) !important;
-  }
 
-  .footer-bg{
-    $footerbg: mat-palette($primary, 100, A700, A700);
-    background-color: mat-color($footerbg)
-  }
 }
 
 
@@ -410,24 +242,9 @@ $theme: mat-light-theme($primary, $accent, $warn);
   --fg: #{$fg};
   --bg: #{$bg};
 
-  .primary-text-color{
-    color:  mat-color($primary)
-  }
 
-  .ngx-slider {
-    .ngx-slider-pointer{
-      background-color: mat-color($primary) !important;
-    }
-  }
 
-  .primary-bg{
-    background-color: mat-color($primary) !important;
-  }
 
-  .footer-bg{
-    $footerbg: mat-palette($primary, 100, A700, A700);
-    background-color: mat-color($footerbg)
-  }
 }
 
 .shop-default-light-green-light-theme {
@@ -449,24 +266,9 @@ $theme: mat-light-theme($primary, $accent, $warn);
   --fg: #{$fg};
   --bg: #{$bg};
 
-  .primary-text-color{
-    color:  mat-color($primary)
-  }
 
-  .ngx-slider {
-    .ngx-slider-pointer{
-      background-color: mat-color($primary) !important;
-    }
-  }
 
-  .primary-bg{
-    background-color: mat-color($primary) !important;
-  }
 
-  .footer-bg{
-    $footerbg: mat-palette($primary, 100, A700, A700);
-    background-color: mat-color($footerbg)
-  }
 }
 
 .shop-default-lime-light-theme {
@@ -488,28 +290,13 @@ $theme: mat-light-theme($primary, $accent, $warn);
   --fg: #{$fg};
   --bg: #{$bg};
 
-  .primary-text-color{
-    color:  mat-color(mat-palette($mat-lime, 800, A100, A700))
-  }
 
   .main-menu-text-color{
     color:  $dark-primary-text
   }
 
-  .ngx-slider {
-    .ngx-slider-pointer{
-      background-color: mat-color($primary) !important;
-    }
-  }
 
-  .primary-bg{
-    background-color: mat-color($primary) !important;
-  }
 
-  .footer-bg{
-    $footerbg: mat-palette($primary, 100, A700, A700);
-    background-color: mat-color($footerbg)
-  }
 }
 
 .shop-default-yellow-theme {
@@ -530,28 +317,14 @@ $theme: mat-light-theme($primary, $accent, $warn);
   --fg: #{$fg};
   --bg: #{$bg};
 
-  .primary-text-color{
-    color:  mat-color(mat-palette($mat-yellow, 800, A100, A700))
-  }
+
 
   .main-menu-text-color{
     color:  $dark-primary-text
   }
 
-  .ngx-slider {
-    .ngx-slider-pointer{
-      background-color: mat-color($primary) !important;
-    }
-  }
 
-  .primary-bg{
-    background-color: mat-color($primary) !important;
-  }
 
-  .footer-bg{
-    $footerbg: mat-palette($primary, 100, A700, A700);
-    background-color: mat-color($footerbg)
-  }
 }
 
 .shop-default-amber-theme {
@@ -572,28 +345,14 @@ $theme: mat-light-theme($primary, $accent, $warn);
   --fg: #{$fg};
   --bg: #{$bg};
 
-  .primary-text-color{
-    color:  mat-color($primary)
-  }
 
   .main-menu-text-color{
     color:  $dark-primary-text
   }
 
-  .ngx-slider {
-    .ngx-slider-pointer{
-      background-color: mat-color($primary) !important;
-    }
-  }
 
-  .primary-bg{
-    background-color: mat-color($primary) !important;
-  }
 
-  .footer-bg{
-    $footerbg: mat-palette($primary, 100, A700, A700);
-    background-color: mat-color($footerbg)
-  }
+
 }
 
 .shop-default-orange-theme {
@@ -614,24 +373,8 @@ $theme: mat-light-theme($primary, $accent, $warn);
   --fg: #{$fg};
   --bg: #{$bg};
 
-  .primary-text-color{
-    color:  mat-color($primary)
-  }
 
-  .ngx-slider {
-    .ngx-slider-pointer{
-      background-color: mat-color($primary) !important;
-    }
-  }
 
-  .primary-bg{
-    background-color: mat-color($primary) !important;
-  }
-
-  .footer-bg{
-    $footerbg: mat-palette($primary, 100, A700, A700);
-    background-color: mat-color($footerbg)
-  }
 }
 
 .shop-default-deep-orange-theme {
@@ -652,24 +395,8 @@ $theme: mat-light-theme($primary, $accent, $warn);
   --fg: #{$fg};
   --bg: #{$bg};
 
-  .primary-text-color{
-    color:  mat-color($primary)
-  }
 
-  .ngx-slider {
-    .ngx-slider-pointer{
-      background-color: mat-color($primary) !important;
-    }
-  }
 
-  .primary-bg{
-    background-color: mat-color($primary) !important;
-  }
-
-  .footer-bg{
-    $footerbg: mat-palette($primary, 100, A700, A700);
-    background-color: mat-color($footerbg)
-  }
 }
 
 .shop-default-brown-theme {
@@ -690,24 +417,8 @@ $theme: mat-light-theme($primary, $accent, $warn);
   --fg: #{$fg};
   --bg: #{$bg};
 
-  .primary-text-color{
-    color:  mat-color($primary)
-  }
 
-  .ngx-slider {
-    .ngx-slider-pointer{
-      background-color: mat-color($primary) !important;
-    }
-  }
 
-  .primary-bg{
-    background-color: mat-color($primary) !important;
-  }
-
-  .footer-bg{
-    $footerbg: mat-palette($primary, 100, A700, A700);
-    background-color: mat-color($footerbg)
-  }
 }
 
 .shop-default-grey-theme {
@@ -728,24 +439,8 @@ $theme: mat-light-theme($primary, $accent, $warn);
   --fg: #{$fg};
   --bg: #{$bg};
 
-  .primary-text-color{
-    color:  mat-color(mat-palette($mat-grey, 800, A100, A700))
-  }
 
-  .ngx-slider {
-    .ngx-slider-pointer{
-      background-color: mat-color($primary) !important;
-    }
-  }
 
-  .primary-bg{
-    background-color: mat-color($primary) !important;
-  }
-
-  .footer-bg{
-    $footerbg: mat-palette($primary, 100, A700, A700);
-    background-color: mat-color($footerbg)
-  }
 }
 
 .shop-default-blue-gray-theme {
@@ -765,25 +460,6 @@ $theme: mat-light-theme($primary, $accent, $warn);
   --warn: #{mat-color($warn)};
   --fg: #{$fg};
   --bg: #{$bg};
-
-  .primary-text-color{
-    color:  mat-color($primary)
-  }
-
-  .ngx-slider {
-    .ngx-slider-pointer{
-      background-color: mat-color($primary) !important;
-    }
-  }
-
-  .primary-bg{
-    background-color: mat-color($primary) !important;
-  }
-
-  .footer-bg{
-    $footerbg: mat-palette($primary, 100, A700, A700);
-    background-color: mat-color($footerbg)
-  }
 
 }
 

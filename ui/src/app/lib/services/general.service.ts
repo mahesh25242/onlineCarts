@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import {Title} from "@angular/platform-browser";
 import { delay, tap } from 'rxjs/operators';
 import { BC } from '../interfaces';
@@ -13,6 +13,8 @@ export class GeneralService {
   bc$: BehaviorSubject<BC> = new BehaviorSubject<BC>(null);
   showbanner$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   orderFormError$: BehaviorSubject<any> = new BehaviorSubject<any>(false);
+  customerLoc$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+
   constructor(private http: HttpClient,
     private titleService:Title) { }
 
@@ -25,8 +27,14 @@ export class GeneralService {
     return this.http.post("/sentContact", postData);
   }
 
-  reverseLatLngAddress(pos: {lon: number, lat: number}= null){
-    return this.http.get<any>(`${environment.openstreetmap}/reverse?format=json&lon=${pos.lon}&lat=${pos.lat}`);
+  reverseLatLngAddress(pos: {lon: number, lat: number, force?: boolean}= null){
+    if(!pos.force && this.customerLoc$.getValue()){
+      return this.customerLoc$.asObservable()
+    }else{
+      return this.http.get<any>(`${environment.openstreetmap}/reverse?format=json&lon=${pos.lon}&lat=${pos.lat}`).pipe(tap(res=>{
+        this.customerLoc$.next(res);
+      }));
+    }
   }
 
   searchAddress(pos: {lon: number, lat: number}= null){

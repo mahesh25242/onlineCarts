@@ -1,4 +1,5 @@
 <div class="header-inner"></div>
+
 <div class="container" *ngIf="breakPointObsr$ | async as bp">
   <ng-container *ngIf="(cartDetails$ | async) as cartDetails else loading">
 
@@ -61,7 +62,7 @@
                 <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between" fxFill="fill">
                   <div class="qty-change"  fxFlex="50%" fxFlex.xs="100%" [ngClass.xs]="'text-center'" [ngClass.gt-xs]="'container'">
                     <span fxHide.lt-md="true">Quantity:</span>
-                    <button  cla type="button" mat-icon-button color="primary" (click)="updateCart(item, '-')">
+                    <button  type="button" mat-icon-button color="primary" (click)="updateCart(item, '-')">
                       <mat-icon>remove_circle_outline</mat-icon>
                     </button>
                     {{item.qty}}
@@ -106,8 +107,8 @@
             </div>
 
             <section fxHide.lt-sm="true" class="right-section"  [matTooltip]="(!terms) ? 'Please accept terms' : ''"
-                fxLayout="row" fxLayoutAlign="space-between">
-                <ng-container *ngTemplateOutlet="sayHelloTemplate">
+                fxLayout="row" fxLayoutAlign="space-between" fxLayout.xs="column">
+                <ng-container *ngTemplateOutlet="placeOrderSection">
                 </ng-container>
             </section>
 
@@ -118,20 +119,20 @@
 
 
       <div class="bottom-fixed" fxHide.gt-xs="true" >
-        <mat-card fxLayout="row" fxLayoutAlign="space-between">
-          <ng-container *ngTemplateOutlet="sayHelloTemplate">
+        <mat-card fxLayout="column" fxLayoutAlign="space-between">
+          <ng-container *ngTemplateOutlet="placeOrderSection">
           </ng-container>
         </mat-card>
 
       </div>
     </ng-container>
 
-    <ng-template #sayHelloTemplate>
-      <div fxFlexAlign="center">
+    <ng-template #placeOrderSection>
+      <div  fxFlex.xs="100%" class="terms">
           <mat-checkbox color="primary" formControlName="terms"></mat-checkbox>
           <a href="javascript:{}" (click)="triggerTerms()" class="accept-terms">Accept terms</a>
       </div>
-      <div fxFlexAlign="center">
+      <div  fxFlex.xs="100%">
         <button class="whatsapp-btn animate__animated" mat-raised-button color="primary"  type="submit"
         [disabled]="!customerFrm.controls.terms.value" [ngClass]="{'animate__pulse': customerFrm.controls.terms.value}">
           <!-- Generator: Adobe Illustrator 25.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
@@ -147,7 +148,7 @@
             c-7.3,7.9-27.7,27.1-27.7,66s28.4,76.6,32.3,81.9c4,5.3,55.8,85.2,135.2,119.5c18.9,8.2,33.6,13,45.1,16.7c19,6,36.2,5.2,49.9,3.1
             c15.2-2.3,46.8-19.2,53.4-37.6c6.6-18.5,6.6-34.3,4.6-37.6C500.7,410.1,495.4,408.1,487.5,404.1z"/>
           </svg>
-            Send to Whatsapp </button>
+            Send this to {{ (shop$ | async)?.short_name}}'s Whatsapp </button>
       </div>
     </ng-template>
 

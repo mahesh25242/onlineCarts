@@ -57,7 +57,7 @@ export class OrderFormComponent implements OnInit {
             }
 
             return this.generalService.reverseLatLngAddress(loc).pipe(map(mAddress=>{
-
+              console.log(mAddress)
               if(this.f.pin && !this.f.pin.value && mAddress?.address?.postcode){
                 this.f.pin.setValue(mAddress?.address?.postcode)
               }

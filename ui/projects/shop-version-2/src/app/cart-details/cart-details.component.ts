@@ -1,6 +1,6 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable,of,Subscription, throwError } from 'rxjs';
-import { mergeMap, map, catchError, delay } from 'rxjs/operators';
+import { combineLatest, forkJoin, interval, Observable,of,race,Subscription, throwError, zip } from 'rxjs';
+import { mergeMap, map, catchError, delay, withLatestFrom, mergeAll, tap } from 'rxjs/operators';
 import { Cart, CartDetail, Shop, ShopDelivery, ShopOrder } from 'src/app/lib/interfaces';
 import { CartService, GeneralService, ShopService } from 'src/app/lib/services';
 import { environment } from '../../environments/environment';
@@ -36,7 +36,7 @@ export class CartDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
   selectedLocation: ShopDelivery;
   mapUrl: string = '';
   loc : any =null;
-  cartDetails$: Observable<CartDetail>;
+  cartDetails$: Observable<CartDetail> | null;
 
   breakPointSubScr: Subscription;
 
@@ -257,59 +257,12 @@ export class CartDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
     });
   }
 
-  checkBreakPoint(){
 
+  checkBreakPoint(){
     return this.breakpointObserver.observe([
       Breakpoints.Handset,
       Breakpoints.Tablet
-    ]).pipe(mergeMap(brakPoints=>{
-
-      if (brakPoints.matches && navigator.geolocation) {
-        return this.generalService.getLocation().pipe(mergeMap(coords=>{
-          if(coords){
-            this.loc = {
-              lat: coords?.coords?.latitude,
-              lon: coords?.coords?.longitude
-            }
-            this.mapUrl = `${environment.gMapUrl}/maps?z=12&t=m&q=loc:${coords?.coords?.latitude}+${coords?.coords?.longitude}`;
-            return this.generalService.reverseLatLngAddress(this.loc).pipe(map(mAddress=>{
-
-              if(this.f.pin && !this.f.pin.value && mAddress?.address?.postcode){
-                this.f.pin.setValue(mAddress?.address?.postcode)
-              }
-
-              if(this.f.address && !this.f.address.value && mAddress?.display_name){
-                this.f.address.setValue(mAddress?.display_name)
-              }
-              return brakPoints
-            }));
-          }else{
-            this.mapUrl = null;
-            return of(brakPoints);
-          }
-
-        }), catchError(err =>{
-          switch(err?.code){
-            case 1:
-              this.matSnackBar.open('Location Permission denied.', 'close');
-            break;
-            case 2:
-              this.matSnackBar.open('Sorry your position is unavailable.', 'close');
-            break;
-            case 3:
-              this.matSnackBar.open('Sorry your position request was timeout. Please try again.', 'close');
-            break;
-            default:
-              this.matSnackBar.open('Sorry unexpected error occur.', 'close');
-            break;
-          }
-          return of(brakPoints);
-        }))
-      }else{
-        return of(brakPoints)
-      }
-
-    }));
+    ]);
   }
   ngOnInit(): void {
     this.cartService.hideCartComponent$.next(true);

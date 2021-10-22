@@ -14,9 +14,18 @@
   position: fixed;
   z-index: 20000;
   width: 100%;
-  height: 70px;
+  height: 96px;
   bottom: 0px;
   left: 0px;
+  .whatsapp-btn{
+    margin-left: 0px;
+  }
+  .terms{
+    margin-bottom: 10px;
+  }
+  button{
+    width: 100%
+  }
 }
 .accept-terms{
   margin-left: 8px;

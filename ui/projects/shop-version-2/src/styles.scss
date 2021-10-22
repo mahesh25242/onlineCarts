@@ -11,6 +11,20 @@
     position: relative;
 }
 
+.primary-text-color{
+  color: var(--primary);
+}
+
+.primary-bg{
+  background-color: var(--primary);
+}
+
+.ngx-slider {
+  .ngx-slider-pointer{
+    background-color: var(--primary) !important;
+  }
+}
+
 mat-card{
   padding: 10px;
   &.full{

@@ -1,11 +1,13 @@
 
 <app-cart *ngIf="!(isAdmin$ | async)"></app-cart>
 <br/>
+
+
 <footer class="container footer-bg ">
-  <p class="main-menu-text-color">
+  <p >
     &copy;Copyright © {{currentYear}} {{environment.siteName}}. All Rights Reserved
     <ng-container *ngIf="shop$ | async as shop">
-      <a [href]="orgin+'/front/?rf='+shop.shop_key" class="pow-by main-menu-text-color">Powered by onlinecarts.in</a>
+      <a [href]="orgin+'/front/?rf='+shop.shop_key" class="pow-by">Powered by onlinecarts.in</a>
     </ng-container>
   </p>
 </footer>

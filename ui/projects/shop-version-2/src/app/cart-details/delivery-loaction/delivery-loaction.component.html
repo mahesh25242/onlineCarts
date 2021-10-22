@@ -2,23 +2,24 @@
   <div class="selectDelevery" >
     <h3>Delivered to:</h3>
 
-    <mat-tab-group mat-align-tabs="start" *ngIf="(shop$ | async) as shop" dynamicHeight >
+    <mat-tab-group mat-align-tabs="start" *ngIf="(shop$ | async) as shop" dynamicHeight
+    (selectedTabChange)="onTabChanged($event);">
       <mat-tab label="Pickup From Shop" *ngIf="shop?.shop_delivery_filtered?.free && shop?.shop_delivery_filtered?.free.length">
-        <ng-template matTabContent>
+        <!-- <ng-template matTabContent> -->
           <ng-container *ngTemplateOutlet="deliveryCharge"></ng-container>
           <app-order-form
           lp="free"
           [formGroup]="customerFrm"
           ></app-order-form>
-        </ng-template>
+        <!-- </ng-template> -->
       </mat-tab>
       <mat-tab label="Home Delivery" *ngIf="shop?.shop_delivery_filtered?.paid && shop?.shop_delivery_filtered.paid.length">
-        <ng-template matTabContent>
+        <!-- <ng-template matTabContent> -->
           <ng-container *ngTemplateOutlet="deliveryCharge"></ng-container>
           <app-order-form
           lp="paid"
           [formGroup]="customerFrm"></app-order-form>
-        </ng-template>
+        <!-- </ng-template> -->
       </mat-tab>
     </mat-tab-group>
 
