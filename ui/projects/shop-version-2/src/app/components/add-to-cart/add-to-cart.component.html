@@ -2,8 +2,8 @@
   <h1 mat-dialog-title class="primary-text-color">
     {{data.name}}
   </h1>
-    <mat-card-subtitle fxLayout="row" fxLayoutAlign="space-between">
-      <span>{{ data.shop_product_selected_variant?.name}}</span>
+    <mat-card-subtitle fxLayout="row" fxLayoutAlign="space-between" >
+      <span class="varient-name">{{ data.shop_product_selected_variant?.name}}</span>
       <app-report-abuse  [item]="data"></app-report-abuse>
 
     </mat-card-subtitle>
@@ -53,7 +53,6 @@
 
   </div>
   <div mat-dialog-actions>
-    <button mat-stroked-button type="button" (click)="dialogRef.close()">Close</button>
-    <button class="mat-primary_yellow" mat-raised-button color="primary" type="submit" cdkFocusInitial>Add</button>
+    <button fxFill="fill" class="mat-primary_yellow" mat-raised-button color="primary" type="submit" cdkFocusInitial>Add</button>
   </div>
 </form>
