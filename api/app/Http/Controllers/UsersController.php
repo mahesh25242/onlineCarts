@@ -19,12 +19,14 @@ class UsersController extends Controller
 
 
     public function test(){
+        $shopOrder = \App\Models\ShopOrder::find(6);
+        event(new \App\Events\OrderCreatedEvent($shopOrder));
 
-        try{
-            Mail::to("mahesh25242@gmail.com")->send(new ShopRegisterNotification(\App\Models\User::find(1), \App\Models\Shop::find(1)));
-        }catch (\Swift_TransportException $e) {
-            echo 'Caught exception: ',  $e->getMessage(), "\n";
-        }
+        // try{
+        //     Mail::to("mahesh25242@gmail.com")->send(new ShopRegisterNotification(\App\Models\User::find(1), \App\Models\Shop::find(1)));
+        // }catch (\Swift_TransportException $e) {
+        //     echo 'Caught exception: ',  $e->getMessage(), "\n";
+        // }
     }
     public function createAdmin(Request $request)
     {
