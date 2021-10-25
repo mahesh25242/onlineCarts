@@ -48,6 +48,7 @@ class OrderCreatedListener
                     'title' => $title,
                     'body' => $body,
                     'icon' => $event->order->shop->logo,
+                    'data' =>["is_admin" => true]
                 ],
                 'fcm_options' => [
                     'link' => $event->order->shop->shop_url."/order/{$event->order->sec_key}",

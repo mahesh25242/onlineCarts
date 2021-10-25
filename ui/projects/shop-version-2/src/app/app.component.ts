@@ -14,7 +14,7 @@ import Notiflix from 'notiflix';
 import { empty, Observable, of, Subscription } from 'rxjs';
 import { map, mergeMap, tap } from 'rxjs/operators';
 import { Shop } from 'src/app/lib/interfaces';
-import { ShopService, CmsService } from 'src/app/lib/services';
+import { ShopService, CmsService, CartService } from 'src/app/lib/services';
 import { GeneralService, MessagingService } from './lib/services';
 
 
@@ -46,6 +46,7 @@ export class AppComponent implements OnInit, OnDestroy{
     private messagingService: MessagingService,
     private matSnackBar: MatSnackBar,
     private shopService: ShopService,
+    private cartService: CartService,
     private ccService: NgcCookieConsentService,
     private cmsService: CmsService) {
 
@@ -108,8 +109,17 @@ export class AppComponent implements OnInit, OnDestroy{
       console.error('You are disabled notification');
       //this.matSnackBar.open(`You are disabled notification`, 'close');
     });
-  	this.showPushNoti = this.messagingService.currentMessage.asObservable().subscribe(msg=>{
-      //console.log(msg)
+  	this.showPushNoti = this.messagingService.currentMessage.asObservable().pipe(mergeMap(res=>{
+      if(res?.notification?.data?.is_admin){
+        const postData = {
+          pageSize : 50
+        }
+       return  this.cartService.getAllOrders(1, postData).pipe(map(ordrs => res))
+      }else{
+        return of(res);
+      }
+
+    })).subscribe(msg=>{
       if(msg)
         this.matSnackBar.open(`${msg.notification?.title} - ${msg.notification?.body}`, 'close');
     })
