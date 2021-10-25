@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 import { User } from 'src/app/lib/interfaces';
-import { ShopService, UserService } from 'src/app/lib/services';
+import { UserService } from 'src/app/lib/services';
 
 @Component({
   selector: 'app-admin-side-nav-list',
@@ -19,7 +19,6 @@ export class AdminSideNavListComponent implements OnInit, OnDestroy {
 
   constructor(private userService: UserService,
     private router: Router,
-    private shopService: ShopService,
     public afAuth: AngularFireAuth) { }
 
   signOut(){
@@ -28,14 +27,16 @@ export class AdminSideNavListComponent implements OnInit, OnDestroy {
         this.afAuth.signOut().then(gres=>{
           console.log(gres)
         })
+
         localStorage.removeItem('token');
         return this.userService.authUser();
       }))
     })).subscribe(res=>{
 
     }, err=>{
-      this.router.navigate(['/']);
-    });
+
+      this.router.navigate(['./']);
+    }).add(() => this.onSidenavClose());
   }
 
   ngOnInit() {

@@ -1,15 +1,14 @@
-import { Component, OnInit, OnDestroy, Output, EventEmitter, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { Observable, Subscription } from 'rxjs';
 import { BC, Shop, User } from 'src/app/lib/interfaces';
 import {  UserService, ShopService } from 'src/app/lib/services';
-import { mergeMap, map, tap } from 'rxjs/operators';
+import { mergeMap } from 'rxjs/operators';
 import { GeneralService as LocalGeneralService } from '../lib/services/index';
 import { GeneralService } from 'src/app/lib/services';
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { E } from '@angular/cdk/keycodes';
 
 
 @Component({
@@ -93,7 +92,6 @@ export class AdminHeaderComponent implements OnInit, OnDestroy {
         return this.userService.authUser();
       }))
     })).subscribe(res=>{
-
 
     }, err=>{
       this.router.navigate(['/']);
