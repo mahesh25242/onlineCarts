@@ -174,3 +174,29 @@ main {
 .cc-revoke{
   display: none !important;
 }
+
+.oc-loading{
+  div{
+    svg{
+      stroke: var(--primary)
+    }
+  }
+}
+.oc-confirm{
+  .oc-confirm-content{
+    border-radius: 0px !important;
+    .oc-confirm-head{
+      h5{
+        color: var(--primary) !important;
+      }
+    }
+    .oc-confirm-buttons{
+      .confirm-button-ok{
+        background-color: var(--primary) !important;
+      }
+    }
+  }
+
+
+}
+

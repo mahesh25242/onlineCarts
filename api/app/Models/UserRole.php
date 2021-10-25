@@ -63,4 +63,8 @@ class UserRole extends Model implements AuthenticatableContract, AuthorizableCon
         return $this->hasOne('App\Models\UserIdProof', 'user_id', 'user_id')->latest();
     }
 
+    public function shopUserPushToken()
+    {
+        return $this->hasMany('App\Models\ShopUserPushToken', 'user_id', 'user_id');
+    }
 }

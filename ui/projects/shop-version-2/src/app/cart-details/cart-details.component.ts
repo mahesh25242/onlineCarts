@@ -1,6 +1,6 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
-import { combineLatest, forkJoin, interval, Observable,of,race,Subscription, throwError, zip } from 'rxjs';
-import { mergeMap, map, catchError, delay, withLatestFrom, mergeAll, tap } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, forkJoin, interval, Observable,of,race,Subscription, throwError, zip } from 'rxjs';
+import { mergeMap, map, catchError, delay, withLatestFrom, mergeAll, tap, takeUntil } from 'rxjs/operators';
 import { Cart, CartDetail, Shop, ShopDelivery, ShopOrder } from 'src/app/lib/interfaces';
 import { CartService, GeneralService, ShopService } from 'src/app/lib/services';
 import { environment } from '../../environments/environment';
@@ -15,6 +15,8 @@ import { CurrencyPipe, DatePipe } from '@angular/common'
 import { OrderTermsComponent } from './order-terms/order-terms.component';
 import { MessagingService } from '../lib/services';
 import { AngularFireAnalytics } from '@angular/fire/analytics';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { DeleteConfirmationComponent } from './delete-confirmation/delete-confirmation.component';
 
 @Component({
   selector: 'app-cart-details',
@@ -44,6 +46,8 @@ export class CartDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   cartSubScr: Subscription;
   sentToShop: Subscription;
+
+  unsubscribe$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   constructor(private cartService: CartService,
     private formBuilder: FormBuilder,
     private shopService: ShopService,
@@ -55,7 +59,8 @@ export class CartDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
     public datepipe: DatePipe,
     private currencyPipe: CurrencyPipe,
     private messagingService: MessagingService,
-    private analytics: AngularFireAnalytics) {
+    private analytics: AngularFireAnalytics,
+    private _bottomSheet: MatBottomSheet) {
     cartService.shopKey = environment.shopKey;
   }
 
@@ -232,11 +237,18 @@ export class CartDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
 
 
   deleteItem(itm: Cart){
-    itm.qty = 0;
-    if(this.cartSubScr) this.cartSubScr.unsubscribe();
-    this.cartSubScr = this.cartService.updateCart(itm, '++').subscribe(res=>{
-      this.matSnackBar.open(`${itm.product.name} - ${itm.product.shop_product_selected_variant.name} successfully removed`, 'close');
+    Notiflix.Confirm.Show( 'Delete', `Do you want to delete?`, 'Yes', 'No', () => {
+      Notiflix.Loading.Pulse();
+      // Yes button callback
+      itm.qty = 0;
+      if(this.cartSubScr) this.cartSubScr.unsubscribe();
+      this.cartSubScr = this.cartService.updateCart(itm, '++').subscribe(res=>{
+        this.matSnackBar.open(`${itm.product.name} - ${itm.product.shop_product_selected_variant.name} successfully removed`, 'close');
+      }).add(()=>{
+        Notiflix.Loading.Remove();
+      });
     });
+
   }
 
 
@@ -265,6 +277,7 @@ export class CartDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
     ]);
   }
   ngOnInit(): void {
+
     this.cartService.hideCartComponent$.next(true);
 
     this.generalService.bc$.next({
@@ -275,7 +288,7 @@ export class CartDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
     });
     this.shop$ = this.shopService.aShop;
 
-    this.cartDetails$ = this.cartService.cartDetails;
+    this.cartDetails$ = this.cartService.cartDetails.pipe(delay(0.50));
 
 
 
@@ -289,6 +302,9 @@ export class CartDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy(){
+    this.unsubscribe$.next(true);
+    this.unsubscribe$.complete();
+
     this.cartService.hideCartComponent$.next(false);
     if(this.breakPointSubScr){
       this.breakPointSubScr.unsubscribe();

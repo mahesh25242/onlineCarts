@@ -41,11 +41,11 @@
           {{ product.shop_product_primary_variant?.actual_price | currency:'INR'}}
         </strike>
       </div>
-      <div fxFlex="30%" fxLayoutAlign="center end">
+      <div fxFlex="30%" fxLayoutAlign="center end" *ngIf="breakPointObsr$ | async as bp">
         <button [matBadge]="qty"  matBadgeColor="warn" mat-mini-fab [color]="(product.incart) ? 'warn': 'primary'" [matRippleCentered]="true"
         class="animate__animated addCart-btn" [ngClass]="{'animate__flipInY': product.incart}"
        [matTooltip]="(product.incart) ? product.name+' is already added' : 'Click here for add this item to cart'"
-       (click)="addToCart(product)"><mat-icon aria-hidden="false" aria-label="Add Icon">add</mat-icon></button>
+       (click)="addToCart(product, bp)"><mat-icon aria-hidden="false" aria-label="Add Icon">add</mat-icon></button>
 
       </div>
     </div>

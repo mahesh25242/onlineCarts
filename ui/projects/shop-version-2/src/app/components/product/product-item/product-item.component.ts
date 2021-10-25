@@ -1,3 +1,4 @@
+import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { find, findIndex } from 'lodash';
@@ -16,15 +17,18 @@ export class ProductItemComponent implements OnInit {
   @Input() shopProduct: ShopProduct;
   product$: Observable<ShopProduct>;
   qty:number = 0;
-
+  breakPointObsr$: Observable<BreakpointState>;
 
 
   constructor(public dialog: MatDialog,
-    private cartService: CartService) { }
+    private cartService: CartService,
+    private breakpointObserver: BreakpointObserver,) { }
 
-  addToCart(product: ShopProduct){
+  addToCart(product: ShopProduct, bp: BreakpointState){
+
     let dialogRef = this.dialog.open(AddToCartComponent, {
       data: product,
+      width: (bp.matches) ? '100%' : 'auto'
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -39,6 +43,12 @@ export class ProductItemComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.breakPointObsr$ = this.breakpointObserver.observe([
+      Breakpoints.Handset,
+      Breakpoints.Tablet
+    ]);
+
     this.shopProduct.incart = false;
     this.product$ = this.cartService.cart().pipe(map(res=>{
 

@@ -23,8 +23,32 @@ class AdminAndShopAuthenticate
             $exists = \App\Models\User::whereHas("userRole.shop", function($q) use($shopKey){
                 $q->where("shop_key", $shopKey);
             })->where("status", 1)->where("id", Auth::id())->exists();
-            if($exists)
+            if($exists){
+
+                $pushToken = $request->header('Push-Token');
+                if($pushToken){
+                    $checkCount = \App\Models\ShopUserPushToken::where("user_id",Auth::id())->count();
+
+                    $shopUserPushToken = \App\Models\ShopUserPushToken::where("web_push_token", $pushToken)->get()->first();
+                    if(!$shopUserPushToken){
+                        if($checkCount <= 3){
+                            $shopUserPushToken = new \App\Models\ShopUserPushToken;
+                            $shopUserPushToken->user_id = Auth::id();
+                            $shopUserPushToken->web_push_token = $pushToken;
+                            $shopUserPushToken->save();
+                        }else{
+                            $shopUserPushToken = \App\Models\ShopUserPushToken::where("user_id",Auth::id())->get()->first();
+                            $shopUserPushToken->user_id = Auth::id();
+                            $shopUserPushToken->web_push_token = $pushToken;
+                            $shopUserPushToken->save();
+                        }
+                    }
+
+                }
+
                 return $next($request);
+            }
+
         }
 
         if (Auth::check() )

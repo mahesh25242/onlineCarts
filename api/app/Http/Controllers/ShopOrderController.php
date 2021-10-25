@@ -139,6 +139,9 @@ class ShopOrderController extends Controller
                     $shopOrder->save();
 
 
+                    if($shopOrder){
+                        event(new \App\Events\OrderCreatedEvent($shopOrder));
+                    }
 
                     return response(\App\Models\ShopOrder::with(["shopCustomer"])->find($shopOrder->id) );
                 }else{

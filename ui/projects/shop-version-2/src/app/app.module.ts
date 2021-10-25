@@ -61,6 +61,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
 import { DeliveryLocationComponent } from './cart-details/delivery-loaction/delivery-loaction.component';
 import { ShopPopUpNotificationsComponent } from './admin-header/shop-pop-up-notifications/shop-pop-up-notifications.component';
+import { DeleteConfirmationComponent } from  './cart-details/delete-confirmation/delete-confirmation.component';
 
 import { ShopService } from 'src/app/lib/services/shop.service';
 
@@ -144,7 +145,8 @@ function initializeAppFactory(shopService: ShopService) {
     DeliveryLocationComponent,
     MobileContactComponent,
     SearchFilterComponent,
-    ShopPopUpNotificationsComponent
+    ShopPopUpNotificationsComponent,
+    DeleteConfirmationComponent
   ],
   imports: [
     BrowserModule,

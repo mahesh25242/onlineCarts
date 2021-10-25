@@ -72,7 +72,7 @@ class OrderChangedListener
             if($delTokens && !empty($delTokens)){
                 foreach($delTokens as $token){
                     if($token){
-                        $orders= \App\ShopOrder::where("web_push_token", $token)->get();
+                        $orders= \App\Models\ShopOrder::where("web_push_token", $token)->get();
                         if($orders){
                             foreach($orders as $order){
                                 $orders->shopCustomer->web_push_token = '';
@@ -89,7 +89,7 @@ class OrderChangedListener
             if($updateTokens && !empty($updateTokens)){
                 foreach($updateTokens as $oldToken=>$token){
                     if($token){
-                        $orders= \App\ShopOrder::where("web_push_token", $oldToken)->get();
+                        $orders= \App\Models\ShopOrder::where("web_push_token", $oldToken)->get();
                         if($orders){
                             foreach($orders as $order){
                                 $orders->shopCustomer->web_push_token = $token;

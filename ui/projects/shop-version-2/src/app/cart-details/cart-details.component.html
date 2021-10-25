@@ -21,6 +21,10 @@
         [ngClass.gt-md]="'grid-my-gt-md-list'" class="full">
 
           <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
+            <a href="javascript:{}" fxFlex.xs="20%" type="button"   class="del-item-bt"    color="warn" (click)="deleteItem(item)"
+              [matTooltip]="'Remove ' +item.product.name+ ' from cart'">
+               <mat-icon>delete</mat-icon>
+          </a>
             <div fxFlex="15%" fxFlex.xs="100%">
               <a [routerLink]="'/'+item.product.shop_product_category?.url+'/'+item.product.url">
                 <div class="product-img" [ngStyle]="{'background-image': 'url(' + ((item.product?.shop_product_selected_variant?.shop_product_image?.image) ?  item.product.shop_product_selected_variant.shop_product_image.image_path : 'assets/no-image.jpg') + ')'}">
@@ -72,11 +76,8 @@
                   </div>
 
                   <div fxFlex="50%" fxFlex.xs="100%" fxLayoutAlign.xs="space-between" fxLayoutAlign.gt-xs="end">
-                    <button fxFlex.xs="20%" type="button"   class="itm-block-btn"  mat-flat-button  color="warn" (click)="deleteItem(item)"
-                    [matTooltip]="'Remove ' +item.product.name+ ' from cart'">
-                     <mat-icon>delete</mat-icon> <span fxHide.lt-md="true">Remove</span>
-                    </button>
-                    <button type="button" fxFlex.xs="80%"  class="itm-block-btn" mat-flat-button
+
+                    <button type="button" fxFlex.xs="100%"  class="itm-block-btn" mat-flat-button
                       color="primary" (click)="editMessage(item)"
                     [matTooltip]="'Add a custom message for '+item.product.name">
                       <mat-icon>add_comment</mat-icon> <span> Custom Message</span>

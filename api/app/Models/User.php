@@ -175,4 +175,6 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         return $this->hasOne('App\Models\UserIdProof')->latest();
     }
 
+
+
 }

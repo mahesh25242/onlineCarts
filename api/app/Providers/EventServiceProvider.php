@@ -27,5 +27,8 @@ class EventServiceProvider extends ServiceProvider
         \App\Events\ContactUsEvent::class => [
             \App\Listeners\ContactUsEventListener::class,
         ],
+        \App\Events\OrderCreatedEvent::class => [
+            \App\Listeners\OrderCreatedListener::class,
+        ],
     ];
 }

@@ -58,11 +58,14 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {OverlayModule} from '@angular/cdk/overlay';
 import {ClipboardModule} from '@angular/cdk/clipboard';
 
-Notiflix.Confirm.Init({ borderRadius:"5px",titleColor:"#204486",okButtonBackground:"#204486",cancelButtonBackground:"#e2e2e2",cancelButtonColor:"#393939", });
+Notiflix.Confirm.Init({
+  className: 'oc-confirm'
+})
+
 Notiflix.Notify.Init({ width:"390px", success: {background:"#d4edda",textColor:"#155724",}, failure: {background:"#f8d7da",textColor:"#721c24",}, warning: {background:"#fff3cd",textColor:"#856404",}, info: {background:"#cce5ff",textColor:"#004085",}, });
-Notiflix.Report.Init({ svgSize:"80px",borderRadius:"5px",width:"390px", success: {svgColor:"#45c489",buttonBackground:"#204486",}, });
-Notiflix.Loading.Init({ svgColor:"#204486", });
-Notiflix.Block.Init({ svgColor:"#204486", });
+// Notiflix.Report.Init({ svgSize:"80px",borderRadius:"5px",width:"390px", success: {svgColor:"#45c489",buttonBackground:"#204486",}, });
+Notiflix.Loading.Init({ className: 'oc-loading'});
+Notiflix.Block.Init({ className: 'oc-loading' });
 
 @NgModule({
   declarations: [

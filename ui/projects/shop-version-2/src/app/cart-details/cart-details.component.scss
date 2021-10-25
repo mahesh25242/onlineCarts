@@ -46,6 +46,9 @@ mat-card{
     padding: 0px;
     button.itm-block-btn{
       border-radius: 0px;
+      &.del-btn{
+        border-radius: 50px;
+      }
     }
   }
 
@@ -104,5 +107,16 @@ mat-spinner{
       // font-weight: bold;
        font-size: 30px;
     }
+  }
+}
+.del-item-bt{
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  background-color: var(--warn);
+  border-bottom-right-radius: 20px;
+  mat-icon{
+    margin: 7px;
+    color: #fff;
   }
 }
