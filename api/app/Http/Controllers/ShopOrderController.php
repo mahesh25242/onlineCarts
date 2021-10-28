@@ -49,11 +49,8 @@ class ShopOrderController extends Controller
 
 
         $shop = null;
-        $shopKey = $request->header('shopKey');
-        $shopKey = ( $shopKey ) ?  $shopKey  :$request->input("shop_key");
-        if($shopKey){
-            $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
-        }
+        $shop = $request->input('x_shop', null);
+
         //return response([$shop->country->phonecode], 422);
         if($shop){
             $phone = $request->input("phone", '');
@@ -159,11 +156,8 @@ class ShopOrderController extends Controller
     public function orders(Request $request){
         $perPage = $request->input("pageSize", 20);
         $shop = null;
-        $shopKey = $request->header('shopKey');
-        $shopKey = ( $shopKey ) ?  $shopKey  :$request->input("shop_key");
-        if($shopKey){
-            $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
-        }
+        $shop = $request->input('x_shop', null);
+
         $orders = \App\Models\ShopOrder::with(["shopCustomer", "shopOrderItem.ShopProductVariant.shopProduct", "shopDelivery"])
         ->where("shop_id", $shop->id);
 
@@ -222,11 +216,8 @@ class ShopOrderController extends Controller
 
     public function showOrderDetail(Request $request){
         $shop = null;
-        $shopKey = $request->header('shopKey');
-        $shopKey = ( $shopKey ) ?  $shopKey  :$request->input("shop_key");
-        if($shopKey){
-            $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
-        }
+        $shop = $request->input('x_shop', null);
+
         if(!$shop){
             return response(['message' => 'No shop found!', 'status' => false], 404);
         }

@@ -12,11 +12,7 @@ class ShopPointController extends Controller
 
     public function points(Request $request){
         $shop = null;
-        $shopKey = $request->header('shopKey');
-        $shopKey = ( $shopKey ) ?  $shopKey  :$request->input("shop_key");
-        if($shopKey){
-            $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
-        }
+        $shop = $request->input('x_shop', null);
         if(!$shop){
             return response(['message' => 'No shop found!', 'status' => false], 404);
         }
@@ -27,11 +23,7 @@ class ShopPointController extends Controller
 
     public function redeemPoints(Request $request){
         $shop = null;
-        $shopKey = $request->header('shopKey');
-        $shopKey = ( $shopKey ) ?  $shopKey  :$request->input("shop_key");
-        if($shopKey){
-            $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
-        }
+        $shop = $request->input('x_shop', null);
         if(!$shop){
             return response(['message' => 'No shop found!', 'status' => false], 404);
         }

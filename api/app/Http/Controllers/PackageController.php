@@ -14,17 +14,8 @@ class PackageController extends Controller
 
 
     public function packages(Request $request){
-        $shopKey = $request->header('shopKey');
-        $isFromShop = ($shopKey) ? true : false;
-        $shopKey = ($shopKey) ? $shopKey : $request->input("shop_key",'');
-
-        if($shopKey){
-            $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
-        }else{
-            $shopKey = $request->input("shop_key");
-            $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
-        }
-
+        $shop = $request->input('x_shop', null);
+        $isFromShop = ($shop) ? true : false;
 
         $packages = new \App\Models\Package;
         if($isFromShop){
@@ -32,9 +23,6 @@ class PackageController extends Controller
         }else if($request->input("status",0)){
             $packages = $packages->where("status", $request->input("status", 0));
         }
-
-
-
 
         return response(PackageResurce::collection($packages->get()) );
     }

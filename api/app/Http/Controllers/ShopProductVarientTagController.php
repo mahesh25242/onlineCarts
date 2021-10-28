@@ -10,13 +10,7 @@ class ShopProductVarientTagController extends Controller
 
 
     public function index(Request $request){
-        $shopKey = $request->header('shopKey');
-        if($shopKey){
-            $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
-        }else{
-            $shopKey = $request->input("shop_key", '');
-            $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
-        }
+        $shop = $request->input('x_shop', null);
 
         $shopProductVarientTag = \App\Models\ShopProductVariantTag::where("shop_category_id", $shop->shop_category_id)->get();
         return response($shopProductVarientTag);
@@ -36,15 +30,9 @@ class ShopProductVarientTagController extends Controller
             return response(['message' => 'Validation errors', 'errors' =>  $validator->errors(), 'status' => false], 422);
         }
         $input = $request->all();
-        $shopKey = $request->header('shopKey');
-        if($shopKey){
-            $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
-            $shopId = ($shop) ? $shop->id : 0;
-        }else{
-            $shopKey = $request->input("shop_key", '');
-            $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
-            $shopId = ($shop) ? $shop->id : 0;
-        }
+
+        $shop = $request->input('x_shop', null);
+
         $input["shop_category_id"] = $shop->shop_category_id;
 
         $shopCategory = \App\Models\ShopProductVariantTag::updateOrCreate(

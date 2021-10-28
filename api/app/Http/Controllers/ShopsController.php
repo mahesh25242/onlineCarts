@@ -267,10 +267,7 @@ class ShopsController extends Controller
 
     public function setFaviconOrLogo(Request $request){
 
-        $shopKey = $request->header('shopKey');
-
-        $shopKey = ($shopKey) ? $shopKey : $request->input("shop_key");
-        $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
+        $shop = $request->input('x_shop', null);
 
         if(!$shop){
             return response(['message' => 'No shop found!', 'status' => false], 404);
@@ -373,14 +370,12 @@ class ShopsController extends Controller
     }
 
     public function shopDetails(Request $request){
-        $shopKey = $request->header('shopKey');
+        $shop = $request->input('x_shop', null);
 
-        $shopKey = ($shopKey) ? $shopKey : $request->input("shop_key");
-
-        if($shopKey){
+        if($shop){
             $shop = \App\Models\Shop::with(["country", "state", "city",
              "shopDelivery", "shopTheme.theme", "shopDeliverySlot",
-              "shopCurrentRenewal"])->where("shop_key", $shopKey)->get()->first();
+              "shopCurrentRenewal"])->find($shop->id);
             if(!$shop->is_default && !$shop->shopCurrentRenewal && $shop->status){
                 $shop->status = 0;
                 $shop->save();
@@ -517,21 +512,17 @@ class ShopsController extends Controller
             "map" => $request->input("map", ''),
             "business_hours" => $request->input("business_hours", ''),
         ];
-        $shopKey = $request->header('shopKey');
-        $shopKey = ($shopKey) ? $shopKey : $request->input("shop_key",'');
 
-        if($shopKey){
-            $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
-        }else{
-            $shopKey = $request->input("shop_key");
-            $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
-        }
+        $shop = $request->input('x_shop', null);
+
+
 
         if($shop->phone != $phone){
             $shopInput["is_mobile_verified"] = 0;
         }
+        $shop->update($shopInput);
 
-        \App\Models\Shop::where('id', $shop->id)->update($shopInput);
+       // \App\Models\Shop::where('id', $shop->id)->update($shopInput);
 
         if ($request->hasFile('logo')) {
             $logoName = sprintf("%s.%s",time(), $request->file('logo')->extension());
@@ -592,16 +583,8 @@ class ShopsController extends Controller
 
     public function adminHomeStat(Request $request){
 
-        $shopKey = $request->header('shopKey');
-        $shopKey = ($shopKey) ? $shopKey : $request->input("shop_key",'');
+        $shop = $request->input('x_shop', null);
 
-        $shop = null;
-        if($shopKey){
-            $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
-        }else{
-            $shopKey = $request->input("shop_key");
-            $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
-        }
         $stat = [
             "products" => \App\Models\ShopProduct::where("shop_id", $shop->id)->count(),
             "active_products" => \App\Models\ShopProduct::where("shop_id", $shop->id)->where("status", 1)->count(),
@@ -859,13 +842,10 @@ class ShopsController extends Controller
     }
 
     public function getMyPayments(Request $request){
-        $shopKey = $request->header('shopKey');
-        $shopKey = ($shopKey) ? $shopKey : $request->input("shop_key");
+        $shop = $request->input('x_shop', null);
 
-        $shopKey = '3d9f5a8eec71764c7c2df5a56496c8a1320dd921';
         $perPage = $request->input("pageSize", 50);
-        if($shopKey){
-            $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
+        if($shop){
             $shopRenewal = \App\Models\ShopRenewal::with(["package"])->where("shop_id", $shop->id)
             ->latest()->paginate($perPage);
 

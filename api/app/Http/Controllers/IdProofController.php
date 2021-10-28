@@ -43,12 +43,7 @@ class IdProofController extends Controller
 
     public function checkExists(Request $request){
 
-        $shopKey = $request->header('shopKey');
-
-        $shopKey = ($shopKey) ? $shopKey : $request->input("shop_key");
-        $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
-
-
+        $shop = $request->input('x_shop', null);
 
         $userIdProof = \App\Models\UserIdProof::where("user_id", Auth::id())
         ->latest()
@@ -59,10 +54,7 @@ class IdProofController extends Controller
 
 
     public function upload(Request $request){
-        $shopKey = $request->header('shopKey');
-
-        $shopKey = ($shopKey) ? $shopKey : $request->input("shop_key");
-        $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
+        $shop = $request->input('x_shop', null);
 
         if(!$shop){
             return response(['message' => 'No shop found!', 'status' => false], 404);

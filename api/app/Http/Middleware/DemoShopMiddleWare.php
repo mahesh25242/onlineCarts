@@ -22,9 +22,9 @@ class DemoShopMiddleWare
 
         $user = \App\Models\User::has("isSuperUser")->find(Auth::id());
 
-        if(!$shop->is_default || $user){
+       // if(!$shop->is_default || $user){
             return $next($request);
-        }
+       // }
 
         return response( [
             "message" => 'its a demo shop can\'t create or update any data'

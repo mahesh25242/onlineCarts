@@ -18,17 +18,11 @@ class ShopProductController extends Controller
 
 
     public function products(Request $request){
-
+        $shop = $request->input('x_shop', null);
         $perPage = $request->input("pageSize", 20);
-        $shopKey = $request->header('shopKey');
-        if($shopKey){
-            $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
-            $shopId = ($shop) ? $shop->id : 0;
-        }else{
-            $shopKey = $request->input('shop_key');
-            $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
-            $shopId = ($shop) ? $shop->id : 0;
-        }
+
+        $shopId = ($shop) ? $shop->id : 0;
+
 
         $products = \App\Models\ShopProduct::with([
             "shopProductCategory",
@@ -129,15 +123,9 @@ class ShopProductController extends Controller
     }
 
     public function showProductsFilters(Request $request){
-        $shopKey = $request->header('shopKey');
-        if($shopKey){
-            $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
-            $shopId = ($shop) ? $shop->id : 0;
-        }else{
-            $shopKey = $request->input('shop_key');
-            $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
-            $shopId = ($shop) ? $shop->id : 0;
-        }
+        $shop = $request->input('x_shop', null);
+        $shopId = ($shop) ? $shop->id : 0;
+
         $maxPrice = \App\Models\ShopProductVariant::whereHas("shopProduct", function($q) use($shopId){
             $q->where("shop_id", $shopId)->where("status", 1);
         })->max("price");
@@ -196,20 +184,14 @@ class ShopProductController extends Controller
             "url" => \Illuminate\Support\Str::slug($request->input("name", ''), '-')
         ];
 
-        $shopKey = $request->header('shopKey');
+        $shop = $request->input('x_shop', null);
+
 
         if($request->input("id", 0)){
             \App\Models\ShopProduct::where('id', $request->input("id", 0))->update($productIns);
             $shopProduct = \App\Models\ShopProduct::find($request->input("id", 0));
         }else{
-            if($shopKey){
-                $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
-                $productIns["shop_id"] = ($shop) ? $shop->id : 0;
-            }else{
-                $shopKey = $request->input("shop_key");
-                $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
-                $productIns["shop_id"] = ($shop) ? $shop->id : 0;
-            }
+            $productIns["shop_id"] = ($shop) ? $shop->id : 0;
             $shopProduct = \App\Models\ShopProduct::create($productIns);
         }
 
@@ -447,9 +429,7 @@ class ShopProductController extends Controller
     }
 
     public function delete(Request $request){
-        $shopKey = $request->header('shopKey');
-        $shopKey = ($shopKey) ? $shopKey : $request->input("shop_key");
-        $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
+        $shop = $request->input('x_shop', null);
         $shopId = ($shop) ? $shop->id : 0;
 
         $shpProduct =  \App\Models\ShopProduct::where('id', $request->input("id"))
@@ -458,9 +438,7 @@ class ShopProductController extends Controller
     }
 
     public function changeStatus(Request $request){
-        $shopKey = $request->header('shopKey');
-        $shopKey = ($shopKey) ? $shopKey : $request->input("shop_key");
-        $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
+        $shop = $request->input('x_shop', null);
         $shopId = ($shop) ? $shop->id : 0;
 
         $shopProduct =  \App\Models\ShopProduct::where('id', $request->input("id"))
@@ -471,6 +449,15 @@ class ShopProductController extends Controller
     }
 
     public function showProductDetails(Request $request){
+        $shop = $request->input('x_shop', null);
+
+        $condition = [
+            'url' => $request->input("url"),
+        ];
+
+        if($shop){
+            $condition['shop_id'] = $shop->id;
+        }
         $shpProduct =  \App\Models\ShopProduct::with([
             "shopProductCategory",
             "shopProductPrimaryVariant.shopProductImage",
@@ -478,11 +465,12 @@ class ShopProductController extends Controller
             "shopProductVariant.shopProductImage",
             "shopProductVariant.shopProductVariantTag",
             "shopProductTag"])->where("status", 1)
-        ->where('url', $request->input("url"))->get()->first();
+        ->where($condition)->get()->first();
         return response($shpProduct);
     }
 
     public function showProduct(Request $request, $id=0){
+
         $shpProduct =  \App\Models\ShopProduct::with(["shopProductCategory",
         "shopProductPrimaryVariant.shopProductImage",
         "shopProductPrimaryVariant.shopProductVariantTag",

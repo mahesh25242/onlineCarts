@@ -27,13 +27,9 @@ class ThemesController extends Controller
             return response(['message' => 'Validation errors', 'errors' =>  $validator->errors(), 'status' => false], 422);
         }
 
-        $shopKey = $request->header('shopKey');
-        if($shopKey){
-            $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
-        }else{
-            $shopKey = $request->input('shop_key');
-            $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
-        }
+        $shop = $request->input('x_shop', null);
+
+
         $theme_id = $request->input("theme_id", 0);
 
         $theme = \App\Models\Theme::find($theme_id);

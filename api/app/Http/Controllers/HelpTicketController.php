@@ -60,15 +60,8 @@ class HelpTicketController extends Controller
     }
 
     public function tickets(Request $request){
-        $shopKey = $request->header('shopKey');
-        $shopKey = ($shopKey) ? $shopKey : $request->input("shop_key",'');
+        $shop = $request->input('x_shop', null);
 
-        if($shopKey){
-            $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
-        }else{
-            $shopKey = $request->input("shop_key");
-            $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
-        }
         if(!$shop)
             return response(["message" => "Page not found", "status" =>0], 404);
 
@@ -80,15 +73,7 @@ class HelpTicketController extends Controller
     }
 
     public function saveTicket(Request $request){
-        $shopKey = $request->header('shopKey');
-        $shopKey = ($shopKey) ? $shopKey : $request->input("shop_key",'');
-
-        if($shopKey){
-            $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
-        }else{
-            $shopKey = $request->input("shop_key");
-            $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
-        }
+        $shop = $request->input('x_shop', null);
         if(!$shop)
             return response(["message" => "Page not found", "status" =>0], 404);
 

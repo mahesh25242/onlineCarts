@@ -9,15 +9,7 @@ class CMSController extends Controller
 
 
     public function pages(Request $request){
-        $shopKey = $request->header('shopKey');
-        $shopKey = ($shopKey) ? $shopKey : $request->input("shop_key",'');
-
-        if($shopKey){
-            $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
-        }else{
-            $shopKey = $request->input("shop_key");
-            $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
-        }
+        $shop = $request->input('x_shop', null);
         if(!$shop)
             return response(["message" => "Page not found", "status" =>0], 404);
 
@@ -27,15 +19,7 @@ class CMSController extends Controller
 
 
     public function store(Request $request){
-        $shopKey = $request->header('shopKey');
-        $shopKey = ($shopKey) ? $shopKey : $request->input("shop_key",'');
-
-        if($shopKey){
-            $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
-        }else{
-            $shopKey = $request->input("shop_key");
-            $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
-        }
+        $shop = $request->input('x_shop', null);
         if(!$shop)
             return response(["message" => "Page not found", "status" =>0], 404);
 

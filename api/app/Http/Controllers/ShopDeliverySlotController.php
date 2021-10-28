@@ -18,7 +18,9 @@ class ShopDeliverySlotController extends Controller
             return response(['message' => 'Validation errors', 'errors' =>  $validator->errors(), 'status' => false], 422);
         }
 
-        $shopKey = $request->header('shopKey');
+
+
+        $shop = $request->input('x_shop', null);
 
         $deliverySlotInput = [
             "name" => $request->input("name", ''),
@@ -29,14 +31,7 @@ class ShopDeliverySlotController extends Controller
             \App\Models\ShopDeliverySlot::where('id', $request->input("id", 0))->update($deliverySlotInput);
             $shopDeliverySlot = \App\Models\ShopDeliverySlot::find($request->input("id", 0));
         }else{
-            if($shopKey){
-                $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
-                $deliverySlotInput["shop_id"] = ($shop) ? $shop->id : 0;
-            }else{
-                $shopKey = $request->input("shop_key");
-                $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
-                $deliverySlotInput["shop_id"] = ($shop) ? $shop->id : 0;
-            }
+            $deliverySlotInput["shop_id"] = ($shop) ? $shop->id : 0;
             $shopDeliverySlot = \App\Models\ShopDeliverySlot::create($deliverySlotInput);
         }
         return response(['data' => $shopDeliverySlot, 'message' => 'successfully saved!', 'status' => true]);
@@ -44,8 +39,15 @@ class ShopDeliverySlotController extends Controller
 
     public function delete(Request $request){
         $id = $request->input("id", 0);
+        $shop = $request->input('x_shop', null);
+        $condition = [
+            "id" => $id
+        ];
+        if($shop->id){
+            $condition["shop_id"] = $shop->id;
+        }
         if($id){
-            $shopDeliverySlot = \App\Models\ShopDeliverySlot::where("id", $id)->delete();
+            $shopDeliverySlot = \App\Models\ShopDeliverySlot::where($condition)->delete();
         }
         return response(['message' => 'successfully deleted!', 'status' => true]);
     }

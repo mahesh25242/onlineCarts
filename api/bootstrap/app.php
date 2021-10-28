@@ -105,7 +105,7 @@ $app->configure('dompdf');
 
 $app->middleware([
     App\Http\Middleware\CorsMiddleware::class,
-   // App\Http\Middleware\ShopAccessMiddleWare::class,
+    App\Http\Middleware\ShopKeyToShopIdMiddleWare::class,
  ]);
 
 $app->routeMiddleware([

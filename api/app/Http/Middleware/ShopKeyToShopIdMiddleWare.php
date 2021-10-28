@@ -6,7 +6,7 @@ use Closure;
 use Auth;
 use Cache;
 use Carbon\Carbon;
-class ActiveShopMiddleWare
+class ShopKeyToShopIdMiddleWare
 {
     /**
      * Handle an incoming request.
@@ -20,17 +20,13 @@ class ActiveShopMiddleWare
 
         $shopKey = $request->header('shopKey');
         $xShop = $request->input('x_shop', null);
-        $shopKey = ($shopKey) ? $shopKey : $request->input('shop_key');
-        if(!$xShop && $shopKey ){
+
+        if(!$xShop  && $shopKey){
             $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
+            $request->merge(["x_shop"=> $shop]);
         }
 
 
-        if(($xShop && $xShop->status) || !$xShop){
-            return $next($request);
-        }
-
-
-        return response( $xShop->shopStatusMessage, 402);
+        return $next($request);
     }
 }

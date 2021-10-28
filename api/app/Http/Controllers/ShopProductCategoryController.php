@@ -16,16 +16,8 @@ class ShopProductCategoryController extends Controller
     }
 
     public function categories(Request $request){
-        $shopKey = $request->header('shopKey');
-        if($shopKey){
-            $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
-            $shopId = ($shop) ? $shop->id : 0;
-        }else{
-            $shopKey = $request->input("shop_key", '');
-            $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
-            $shopId = ($shop) ? $shop->id : 0;
-        }
-
+        $shop = $request->input('x_shop', null);
+        $shopId = ($shop) ? $shop->id : 0;
         $categories = \App\Models\ShopProductCategory::withCount(["shopProduct"])->where("shop_id", $shopId);
         if($request->input("status", 0)){
             $categories->where("status", $request->input("status", 0));
@@ -62,21 +54,13 @@ class ShopProductCategoryController extends Controller
         $input["url"] = \Illuminate\Support\Str::slug($input["name"], '-');
 
 
-        $shopKey = $request->header('shopKey');
-
+        $shop = $request->input('x_shop', null);
 
         if($request->input("id", 0)){
             $shopProductCategory = \App\Models\ShopProductCategory::where('id', $request->input("id", 0))->update($input);
             $shopProductCategory =  \App\Models\ShopProductCategory::find($request->input("id", 0));
         }else{
-            if($shopKey){
-                $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
-                $input["shop_id"] = ($shop) ? $shop->id : 0;
-            }else{
-                $shopKey = $request->input("shop_key", 0);
-                $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
-                $input["shop_id"] = ($shop) ? $shop->id : 0;
-            }
+            $input["shop_id"] = ($shop) ? $shop->id : 0;
             $shopProductCategory = \App\Models\ShopProductCategory::create($input);
         }
 
@@ -135,9 +119,7 @@ class ShopProductCategoryController extends Controller
     }
 
     public function delete(Request $request){
-       $shopKey = $request->header('shopKey');
-       $shopKey = ($shopKey) ? $shopKey : $request->input("shop_key");
-       $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
+       $shop = $request->input('x_shop', null);
        $shopId = ($shop) ? $shop->id : 0;
 
        $shopCategory =  \App\Models\ShopProductCategory::where('id', $request->input("id"))
@@ -146,9 +128,7 @@ class ShopProductCategoryController extends Controller
     }
 
     public function changeStatus(Request $request){
-        $shopKey = $request->header('shopKey');
-        $shopKey = ($shopKey) ? $shopKey : $request->input("shop_key");
-        $shop = \App\Models\Shop::where("shop_key", $shopKey)->get()->first();
+        $shop = $request->input('x_shop', null);
         $shopId = ($shop) ? $shop->id : 0;
 
         $shopCategory =  \App\Models\ShopProductCategory::where('id', $request->input("id"))

@@ -26,7 +26,9 @@ $router->get('test','UsersController@test');
 
 $router->group(['prefix' => 'v1'], function () use ($router) {
 
-
+    $router->group(['prefix' => 'bot'], function () use ($router) {
+        $router->post('/','BotManController@index');
+    });
 
     $router->get('countries','CountryController@countries');
     $router->get('states','StateController@states');
