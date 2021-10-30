@@ -11,7 +11,7 @@ import {
 import { SwUpdate } from '@angular/service-worker';
 import { NgcCookieConsentService, NgcInitializeEvent, NgcNoCookieLawEvent, NgcStatusChangeEvent } from 'ngx-cookieconsent';
 import Notiflix from 'notiflix';
-import { empty, Observable, of, Subscription } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 import { map, mergeMap, tap } from 'rxjs/operators';
 import { Shop } from 'src/app/lib/interfaces';
 import { ShopService, CmsService, CartService } from 'src/app/lib/services';

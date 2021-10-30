@@ -30,11 +30,31 @@
   </script>
 
   <?php } ?>
+
+  <script type="text/javascript">
+    var botmanWidget = {
+      frameEndpoint: '../widget.php'  ,
+      chatServer: 'https://api.onlinecarts.in/v1/bot',
+      placeholderText: 'Ask Me Something',
+
+      introMessage: "✋ Hi! I'm from <?php echo ($data["siteName"] ?? '');?>, Please say hi to start chat.",
+      title:'<?php echo ($data["siteName"] ?? '');?>',
+      mainColor:'<?php echo ($data["themeColor"] ?? '');?>',
+      aboutText:'powered by onlinecarts.in',
+      aboutLink:'https://onlinecarts.in',
+      bubbleBackground:'<?php echo ($data["themeColor"] ?? '');?>',
+      headerTextColor: '#fff',
+      shopId: '<?php echo ($data["shopKey"] ?? '');?>',
+      // userId: 'asas'
+    };
+  </script>
+
 </head>
 <body class="mat-typography">
 
 <app-root></app-root>
 
   <noscript>Please enable JavaScript to continue using this application.</noscript>
+  <script src='https://api.onlinecarts.in/assets/botman/js/widget.js'></script>
 </body>
 </html>

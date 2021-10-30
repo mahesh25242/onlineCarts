@@ -6,6 +6,7 @@ use BotMan\BotMan\Messages\Incoming\Answer;
 use BotMan\BotMan\Messages\Incoming\IncomingMessage;
 use BotMan\BotMan\Messages\Outgoing\Question;
 use BotMan\BotMan\Messages\Outgoing\Actions\Button;
+use App\Http\Controllers\BotManController;
 
 class OnStartConversation extends Conversation
 {
@@ -14,7 +15,7 @@ class OnStartConversation extends Conversation
     protected $email;
     protected $user;
     protected $shop;
-    protected $catUrl = 'https://onlinecarts.in/';
+    protected $cartUrl = 'https://onlinecarts.in/';
 
 
 
@@ -194,11 +195,11 @@ class OnStartConversation extends Conversation
         $question = Question::create('What kind of help you need from us?')
             ->callbackId('select_service')
             ->addButtons([
-                Button::create('Start An Account')->value('register')->additionalParameters([ 'url' => "{$this->catUrl}front/shop/register"]), // Here we want to add URL which should be redirect on new page after click
-                Button::create('How its work')->value('howitswork')->additionalParameters([ 'url' => "{$this->catUrl}front/how-it-works"]),
-                Button::create('Pricing')->value('pricing')->additionalParameters([ 'url' => "{$this->catUrl}front/pricing"]),
+                Button::create('Start An Account')->value('register')->additionalParameters([ 'url' => "{$this->cartUrl}front/shop/register"]), // Here we want to add URL which should be redirect on new page after click
+                Button::create('How its work')->value('howitswork')->additionalParameters([ 'url' => "{$this->cartUrl}front/how-it-works"]),
+                Button::create('Pricing')->value('pricing')->additionalParameters([ 'url' => "{$this->cartUrl}front/pricing"]),
                 Button::create('What are coins')->value('coins'),
-                Button::create('Request for a demo')->value('demo')->additionalParameters([ 'url' => "{$this->catUrl}demo"])
+                Button::create('Request for a demo')->value('demo')->additionalParameters([ 'url' => "{$this->cartUrl}demo"])
             ]);
 
             $this->ask($question, function(Answer $answer) {
@@ -206,8 +207,11 @@ class OnStartConversation extends Conversation
                     $selected = $answer->getValue();
                     switch($selected){
                         case "coins":
-                            $this->say('The coins are behave like a virtual money. You can use this coins for your <b>onlinecarts</b> related groups. ');
-                            $this->say('For example when you extend your subscription then you should pay the amount deducting coins');
+                            $message= BotManController::view('botMan/common/coins', [
+
+                            ]);
+
+                            $this->say("{$message}");
                         break;
                     }
                 }

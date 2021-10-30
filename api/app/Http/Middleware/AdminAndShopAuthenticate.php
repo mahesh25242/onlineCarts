@@ -56,12 +56,15 @@ class AdminAndShopAuthenticate
             if(\App\Models\User::find(Auth::id())->isSuperAdmin()->exists())
                 return $next($request);
 
+            $xShop = $request->input('x_shop', null);
             $isApps = $request->header('IsApps');
             if($isApps){
                 $user = \App\Models\User::find(Auth::id());
                 if($user->userRole->count() && $user->userRole->first()->shop()->count() &&
                 $user->userRole->first()->shop()->get()->first()->shop_key){
                     $request->headers->set('shopKey', $user->userRole->first()->shop()->get()->first()->shop_key);
+                    if(!$xShop)
+                        $request->merge(["x_shop"=> $user->userRole->first()->shop()->get()->first()]);
                     return $next($request);
                 }
             }

@@ -1,19 +1,14 @@
+<div #scroller></div>
 <ng-container class="example-button-container" *ngIf="(cart$ | async) as cart">
   <ng-container *ngIf="cart && cart.length && !(hideCartComponent$ | async) " >
-    <a   mat-fab cdkDrag
-    (cdkDragStarted)="dragStarted($event)"
+    <a *ngIf="displayDiv"   mat-fab [matBadge]="cart.length" matBadgePosition="above after"
+
      color="primary" class="extended-fab-button animate__animated "
      [ngClass]="{'animate__slideInUp animate__faster': classExists}" routerLink="/bag">
       <div  class="extend-btn-cart" [ngClass]="!isChanged ? 'animate__animated animate__headShake animate__faster' : ''">
-        <div class="left-align">
-          On Your Bag
-          <span class="d-block">{{cart.length}} <span class="items">{{ (cart.length > 1) ? 'Items' : 'Item' }}</span> </span>
-
-        </div>
         <div><mat-icon>shopping_cart</mat-icon></div>
 
-        <div class="right-align">Total Price
-        <span class="d-block"> {{ total | currency:'INR'}}</span></div>
+        <span class="d-block"> {{ total | currency:'INR'}}</span>
 
       </div>
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\BotMan\OnStartConversation;
+use App\Http\Controllers\BotMan\OnStartShopConversation;
 use BotMan\BotMan\Messages\Incoming\IncomingMessage;
 
 use BotMan\BotMan\BotMan;
@@ -18,6 +19,8 @@ class BotManController extends Controller
 
 
     public function index(Request $request){
+        $shop = $request->input('x_shop', null);
+
         $config = [
             // Your driver-specific configuration
             "driver" => "web",
@@ -37,21 +40,26 @@ class BotManController extends Controller
         // Create an instance
         $botman = BotManFactory::create($config, new LaravelCache());
 
-        $botman->hears(['hello', 'hi'], BotManController::class.'@startConversation');
+        if($shop){
+            $botman->hears(['hello', 'hi'], function($bot) use($shop) {
+                $bot->startConversation(new OnStartShopConversation($shop));
+            });
+        }else{
+
+            $botman->hears(['hello', 'hi'], BotManController::class.'@startConversation');
+        }
 
 
 
 
-        $botman->fallback(function($bot) {
 
-
+        $botman->fallback(function($bot){
         //print_r($bot->getMessage()->getPayload());
-
             $bot->reply('Sorry, I did not understand these commands. Please type <b>hi</b> to start chat');
         });
 
         $botman->hears(['stop', 'bye', 'thanks', 'exit'], function(BotMan $bot) {
-            $bot->reply('bye. Have a nice day.');
+            $bot->reply('bye. Thank you for using our service. Have a nice day.');
         })->stopsConversation();
 
         $botman->hears(['wru', 'who are you', 'who', 'you'], function(BotMan $bot) {
@@ -100,6 +108,10 @@ class BotManController extends Controller
         $bot->startConversation(new OnStartConversation);
     }
 
+
+    public static function view($template, $data=null){
+        return view($template, $data);
+    }
 
 
 

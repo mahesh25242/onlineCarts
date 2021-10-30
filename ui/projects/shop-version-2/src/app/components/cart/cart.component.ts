@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Cart } from 'src/app/lib/interfaces';
@@ -12,17 +12,21 @@ import { environment } from '../../../environments/environment';
   styleUrls: ['./cart.component.scss']
 })
 export class CartComponent implements OnInit {
+  @ViewChild('scroller')
+  scroller: ElementRef;
+  displayDiv = true;
+
   hideCartComponent$: Observable<boolean>;
   cart$: Observable<Cart[]>;
   total:number = 0;
   cartDetails: boolean = false;
   isChanged = true;
   classExists: boolean = true;
+
+
+
   constructor(private cartService: CartService) {
     cartService.shopKey = environment.shopKey;
-  }
-  dragStarted(evt){
-    this.classExists = false;
   }
 
 
@@ -61,6 +65,11 @@ export class CartComponent implements OnInit {
       }
 
     }));
+
+
+
+
   }
+
 
 }
