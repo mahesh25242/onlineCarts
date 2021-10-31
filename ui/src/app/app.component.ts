@@ -2,6 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
+declare const botmanChatWidget:any;
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -9,7 +11,7 @@ import { Subscription } from 'rxjs';
 })
 export class AppComponent implements OnInit, OnDestroy {
   qpSubScr: Subscription;
-  constructor(private route: ActivatedRoute){}
+  constructor(private route: ActivatedRoute, private router: Router){}
   title = 'cart';
 
   ngOnInit(){
@@ -18,6 +20,17 @@ export class AppComponent implements OnInit, OnDestroy {
         localStorage.setItem("ref_by", res?.rf);
       }
     })
+
+    window.addEventListener("message", (event) => {
+      if(event?.data?.redirect){
+        this.router.navigate([event.data.redirect]);
+        if(window.screen.width < 500){
+          botmanChatWidget.close()
+        }
+      }
+
+    }, false);
+
   }
 
   ngOnDestroy(){

@@ -17,7 +17,7 @@ import { Shop } from 'src/app/lib/interfaces';
 import { ShopService, CmsService, CartService } from 'src/app/lib/services';
 import { GeneralService, MessagingService } from './lib/services';
 
-
+declare const botmanChatWidget:any;
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -83,6 +83,15 @@ export class AppComponent implements OnInit, OnDestroy{
   }
   ngOnInit(): void {
 
+    window.addEventListener("message", (event) => {
+      if(event?.data?.redirect){
+        this.router.navigate([event.data.redirect]);
+        if(window.screen.width < 500){
+          botmanChatWidget.close()
+        }
+      }
+
+    }, false);
 
     this.shop$ = this.shopService.shopDetail().pipe(tap(res=>{
       document.body.className += ` ${res?.shop_theme?.theme?.class}`;

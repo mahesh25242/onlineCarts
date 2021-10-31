@@ -195,11 +195,12 @@ class OnStartConversation extends Conversation
         $question = Question::create('What kind of help you need from us?')
             ->callbackId('select_service')
             ->addButtons([
-                Button::create('Start An Account')->value('register')->additionalParameters([ 'url' => "{$this->cartUrl}front/shop/register"]), // Here we want to add URL which should be redirect on new page after click
-                Button::create('How its work')->value('howitswork')->additionalParameters([ 'url' => "{$this->cartUrl}front/how-it-works"]),
-                Button::create('Pricing')->value('pricing')->additionalParameters([ 'url' => "{$this->cartUrl}front/pricing"]),
+                Button::create('Start An Account')->value('register')->additionalParameters([ 'redirect' => "shop/register"]), // Here we want to add URL which should be redirect on new page after click
+                Button::create('How its work')->value('howitswork')->additionalParameters([ 'redirect' => "how-it-works"]),
+                Button::create('Pricing')->value('pricing')->additionalParameters([ 'redirect' => "pricing"]),
                 Button::create('What are coins')->value('coins'),
-                Button::create('Request for a demo')->value('demo')->additionalParameters([ 'url' => "{$this->cartUrl}demo"])
+                Button::create('demo Bakery shop')->value('demo_bakery')->additionalParameters([ 'url' => "{$this->cartUrl}demo"]),
+                Button::create('Demo Textile shop')->value('demo_textile')->additionalParameters([ 'url' => "{$this->cartUrl}mks"])
             ]);
 
             $this->ask($question, function(Answer $answer) {

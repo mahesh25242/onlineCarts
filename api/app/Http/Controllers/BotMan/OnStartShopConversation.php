@@ -59,6 +59,7 @@ class OnStartShopConversation extends Conversation
 
         $welcomeMessage .= 'How can I help you?';
         $question = Question::create($welcomeMessage)
+        ->callbackId('start_shop_chat')
         ->addButtons($buttons);
 
         $this->ask($question, [
@@ -96,22 +97,46 @@ class OnStartShopConversation extends Conversation
     }
 
 
+    private function orderTrakInfo($shopOrder = null)
+    {
+        $orderLink = sprintf("order/%s",$shopOrder->sec_key);
+        $question = Question::create('Click below button to know your order details')
+        ->callbackId('show_order_service')
+        ->addButtons([
+            Button::create(sprintf('Order #%s', $this->orderId))->value($shopOrder->id)->additionalParameters(['redirect' => $orderLink]), // Here we want to add URL which should be redirect on new page after click
+        ]);
+
+        $this->ask($question, [
+            [
+                'pattern' => "{$shopOrder->id}",
+                'callback' => function () use($shopOrder){
+                    $this->say(sprintf('Please check back screen to view %s\'s order details ', $shopOrder->shopCustomer->name));
+                    $this->reStartFromBegin();
+                }
+            ],
+        ]);
+    }
     public function orderTracking(){
         $this->ask('Can you provide your order number?', function(Answer $answer) {
             // Save result
             $orderNumber = $answer->getText();
-            $shopOrder = \App\Models\ShopOrder::find($orderNumber);
+            $shopOrder = \App\Models\ShopOrder::where(["shop_id" => $this->shop->id])->find($orderNumber);
             if($shopOrder){
                 $this->orderId = $shopOrder->id;
                 if($shopOrder->sec_key){
-                    $orderLink = sprintf("%s/order/%s",$this->shop->shop_url,$shopOrder->sec_key);
-                    $question = Question::create('Click below button to know your order details')
-                    ->callbackId('show_order_service')
-                    ->addButtons([
-                        Button::create(sprintf('Order #%s', $this->orderId))->value($shopOrder->id)->additionalParameters(['url' => $orderLink]), // Here we want to add URL which should be redirect on new page after click
-                    ]);
+                    if($this->shop->is_default){
+                        $this->orderTrakInfo($shopOrder);
+                    }else{
+                        $this->ask('Can you provide your ordered mobile?', function(Answer $answer) use($shopOrder){
+                            $mobile = $answer->getText();
+                            if(substr ($shopOrder->shopCustomer->phone, -10) ==  $mobile ){
+                                $this->orderTrakInfo($shopOrder);
+                            }
 
-                    $this->say($question);
+                        });
+                    }
+
+
                 }else{
                     $this->say('Your order is with us. But its not confirmed yet.');
                     $message = sprintf('Hi , Can you check the order Id: %s', $shopOrder->id);
@@ -119,7 +144,7 @@ class OnStartShopConversation extends Conversation
                 }
 
 
-                $this->reStartFromBegin();
+
 
             }else{
                 $this->say(sprintf("Sorry we can't find any order with #%s. You can contact shop throug whatsapp for fast response. click below button to done this", $orderNumber));
@@ -228,7 +253,7 @@ class OnStartShopConversation extends Conversation
         $question = Question::create('Click below button to know the possible methods to conact us')
         ->callbackId('contact_us_service')
         ->addButtons([
-            Button::create('Contact Us')->value('contact us')->additionalParameters(['url' => $this->shop->shop_url."/contact-us"]), // Here we want to add URL which should be redirect on new page after click
+            Button::create('Contact Us')->value('contact us')->additionalParameters(['redirect' => "contact-us"]), // Here we want to add URL which should be redirect on new page after click
         ]);
 
         $this->say($question);
