@@ -149,24 +149,74 @@ class OnStartShopConversation extends Conversation
 
     }
 
-    public function adminHelp(){
-        $buttons = [];
-        $buttons[] = Button::create("Need Help In Admin Section")->value("admin_help");
+    public function adminHelp($buttons = []){
+        $buttons[] = Button::create("How can i change my shop theme")->value("change_shop_theme");
+        $buttons[] = Button::create("Home to change/add shop home page banner")->value("change_banner");
+        $buttons[] = Button::create("Can we Add Product with out category")->value("product_without_category");
+
+        $question = Question::create("Please choose any of the options below")
+        ->addButtons($buttons);
+
+        $this->ask($question, [
+            [
+                'pattern' => 'product_without_category',
+                'callback' => function () {
+                    $message= BotManController::view('botMan/shop/productWithoutCategory', [
+                        "auth" => Auth::user()
+                    ]);
+
+                    $this->say("{$message}");
+                    $this->reStartFromBegin(true);
+                }
+            ],
+            [
+                'pattern' => 'change_shop_theme',
+                'callback' => function () {
+                    $message= BotManController::view('botMan/shop/changeShopTheme', [
+                        "auth" => Auth::user()
+                    ]);
+
+                    $this->say("{$message}");
+                    $this->reStartFromBegin(true);
+                }
+            ],
+            [
+                'pattern' => 'change_banner',
+                'callback' => function () {
+                    $message= BotManController::view('botMan/shop/changeShopBanner', [
+                        "auth" => Auth::user()
+                    ]);
+
+                    $this->say("{$message}");
+                    $this->reStartFromBegin(true);
+                }
+            ],
+        ]);
     }
 
 
-    public function reStartFromBegin(){
-        $question = Question::create('Please choose an option')
-        ->addButtons([
+    public function reStartFromBegin($contactUs = false){
+        $buttons = [
             Button::create('Go Back')->value('restart'),
             Button::create('End Chat')->value('bye'),
-        ]);
+        ];
+        if($contactUs){
+            $buttons[] = Button::create('Contact Us')->value('contact_us');
+        }
+        $question = Question::create('Please choose an option')
+        ->addButtons($buttons);
 
         $this->ask($question, [
             [
                 'pattern' => 'restart',
                 'callback' => function () {
                     $this->startShopChat();
+                }
+            ],
+            [
+                'pattern' => 'contact_us',
+                'callback' => function () {
+                    $this->contactUsLink();
                 }
             ],
         ]);
