@@ -175,6 +175,12 @@ class OnStartShopConversation extends Conversation
         $buttons[] = Button::create("How can i change my shop theme")->value("change_shop_theme");
         $buttons[] = Button::create("Home to change/add shop home page banner")->value("change_banner");
         $buttons[] = Button::create("Can i add product without category")->value("product_without_category");
+        $buttons[] = Button::create("How can i  add/change About us & terms page")->value("add_cms");
+        $buttons[] = Button::create("Where i can found my orders")->value("my_orders");
+        $buttons[] = Button::create("How much coins i earned")->value("my_coins");
+        $buttons[] = Button::create("Where i can apply my coupon code")->value("my_coupons");
+        $buttons[] = Button::create("How can i change my shop information")->value("change_shop_info");
+        $buttons[] = Button::create("How can i renew my subscription")->value("renew_subscription");
 
         $question = Question::create("Please choose any of the options below")
         ->addButtons($buttons);
@@ -206,6 +212,72 @@ class OnStartShopConversation extends Conversation
                 'pattern' => 'change_banner',
                 'callback' => function () {
                     $message= BotManController::view('botMan/shop/changeShopBanner', [
+                        "auth" => Auth::user()
+                    ]);
+
+                    $this->say("{$message}");
+                    $this->reStartFromBegin(true);
+                }
+            ],
+            [
+                'pattern' => 'add_cms',
+                'callback' => function () {
+                    $message= BotManController::view('botMan/shop/addChangeCms', [
+                        "auth" => Auth::user()
+                    ]);
+
+                    $this->say("{$message}");
+                    $this->reStartFromBegin(true);
+                }
+            ],
+            [
+                'pattern' => 'my_orders',
+                'callback' => function () {
+                    $message= BotManController::view('botMan/shop/myOrders', [
+                        "auth" => Auth::user()
+                    ]);
+
+                    $this->say("{$message}");
+                    $this->reStartFromBegin(true);
+                }
+            ],
+            [
+                'pattern' => 'my_coins',
+                'callback' => function () {
+                    $message= BotManController::view('botMan/shop/myCoins', [
+                        "auth" => Auth::user()
+                    ]);
+
+                    $this->say("{$message}");
+                    $this->reStartFromBegin(true);
+                }
+            ],
+            [
+                'pattern' => 'my_coupons',
+                'callback' => function () {
+                    $message= BotManController::view('botMan/shop/myCoupons', [
+                        "auth" => Auth::user()
+                    ]);
+
+                    $this->say("{$message}");
+                    $this->reStartFromBegin(true);
+                }
+            ],
+            [
+                'pattern' => 'change_shop_info',
+                'callback' => function () {
+                    $message= BotManController::view('botMan/shop/changeShopInfo', [
+                        "auth" => Auth::user()
+                    ]);
+
+                    $this->say("{$message}");
+                    $this->reStartFromBegin(true);
+                }
+            ],
+            [
+                'pattern' => 'renew_subscription',
+                'callback' => function () {
+                    $message= BotManController::view('botMan/shop/renewShopSubscription', [
                         "auth" => Auth::user()
                     ]);
 
