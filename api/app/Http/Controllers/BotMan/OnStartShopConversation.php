@@ -36,9 +36,6 @@ class OnStartShopConversation extends Conversation
     {
         $buttons = [];
 
-
-
-
         $buttons[] = Button::create(sprintf("How to contact %s", $this->shop->name))
         ->value("shop_phone");
         $buttons[] = Button::create("Order Tracking")->value("tracking");
@@ -177,7 +174,7 @@ class OnStartShopConversation extends Conversation
     public function adminHelp($buttons = []){
         $buttons[] = Button::create("How can i change my shop theme")->value("change_shop_theme");
         $buttons[] = Button::create("Home to change/add shop home page banner")->value("change_banner");
-        $buttons[] = Button::create("Can we Add Product with out category")->value("product_without_category");
+        $buttons[] = Button::create("Can i add product without category")->value("product_without_category");
 
         $question = Question::create("Please choose any of the options below")
         ->addButtons($buttons);
@@ -185,7 +182,7 @@ class OnStartShopConversation extends Conversation
         $this->ask($question, [
             [
                 'pattern' => 'product_without_category',
-                'callback' => function () {
+                'callback' => function (){
                     $message= BotManController::view('botMan/shop/productWithoutCategory', [
                         "auth" => Auth::user()
                     ]);
