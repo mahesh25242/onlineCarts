@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {
   Event,
@@ -24,6 +24,30 @@ declare const botmanChatWidget:any;
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit, OnDestroy{
+  lastScroll:number = 0;
+  @HostListener('window:scroll', ['$event']) // for window scroll events
+onScroll(event) {
+
+  this.lastScroll;
+  if (event.target.scrollTop > this.lastScroll){
+    this.lastScroll = event.target.scrollTop;
+    console.log('scrolling down');
+    document.getElementById('botmanWidgetRoot').style.display = 'none';
+    document.getElementById('page-cart-btn').style.display = 'none';
+    // document.getElementById('cart-header').style.display = 'block';
+    // document.getElementById('page-main').style.marginTop = '56px';
+    // downscroll code
+ } else {
+    this.lastScroll = event.target.scrollTop;
+    document.getElementById('botmanWidgetRoot').style.display = 'block';
+    document.getElementById('page-cart-btn').style.display = 'block';
+    // document.getElementById('cart-header').style.display = 'none';
+    // document.getElementById('page-main').style.marginTop = '0px';
+   console.log('scrolling up');
+    // upscroll code
+ }
+}
+
   title = '';
   showPushNoti: Subscription;
   receiveMessageSubScr: Subscription;
@@ -72,6 +96,10 @@ export class AppComponent implements OnInit, OnDestroy{
         case event instanceof NavigationEnd:
         case event instanceof NavigationCancel:
         case event instanceof NavigationError: {
+          if(document.getElementById('botmanWidgetRoot')){
+            document.getElementById('botmanWidgetRoot').style.display = 'block';
+            document.getElementById('page-cart-btn').style.display = 'block';
+          }
           Notiflix.Loading.Remove();
           break;
         }
@@ -162,6 +190,8 @@ export class AppComponent implements OnInit, OnDestroy{
       (event: NgcNoCookieLawEvent) => {
         // you can use this.ccService.getConfig() to do stuff...
       });
+
+
 
 
   }

@@ -50,6 +50,7 @@ export class CartComponent implements OnInit {
     }));
     let anyChange = 0;
     this.cart$ = this.cartService.cart().pipe(tap(res=>{
+      document.getElementById('page-cart-btn').style.display = 'block';
       this.total = 0;
 
       res.map(itm=>{
@@ -60,7 +61,10 @@ export class CartComponent implements OnInit {
       if(anyChange != this.total){
         if(anyChange){
           this.isChanged = false;
-          setTimeout(() => { this.isChanged = true}, 1000)
+          setTimeout(() => {
+            this.isChanged = true;
+
+          }, 1000)
         }
 
         anyChange = this.total;
