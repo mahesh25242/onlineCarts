@@ -16,7 +16,8 @@
     <mat-card class="p-20">
 
       <mat-tab-group [selectedIndex]="selectedTab.value"
-      (selectedIndexChange)="selectedTab.setValue($event)">
+      (selectedIndexChange)="selectedTab.setValue($event)" (swipeleft)="onSwipeLeft($event)"
+      (swiperight)="onSwipeRight($event)" >
         <mat-tab>
           <ng-template mat-tab-label>
             <mat-icon>category</mat-icon>

@@ -3,8 +3,9 @@
     <h3>Delivered to:</h3>
 
     <mat-tab-group mat-align-tabs="start" *ngIf="(shop$ | async) as shop" dynamicHeight
-    (selectedTabChange)="onTabChanged($event);">
-      <mat-tab label="Pickup From Shop" *ngIf="shop?.shop_delivery_filtered?.free && shop?.shop_delivery_filtered?.free.length">
+    (selectedTabChange)="onTabChanged($event);" (swipeleft)="onSwipeLeft($event)"
+    (swiperight)="onSwipeRight($event)" [selectedIndex]="selected" >
+      <mat-tab label="Pickup From Shop"   *ngIf="shop?.shop_delivery_filtered?.free && shop?.shop_delivery_filtered?.free.length">
         <!-- <ng-template matTabContent> -->
           <ng-container *ngTemplateOutlet="deliveryCharge"></ng-container>
           <app-order-form

@@ -71,6 +71,21 @@ export class CreateProductComponent implements OnInit, OnDestroy {
     return this.createProductFrm.get('varients') as FormArray;
  }
 
+ onSwipeLeft(evt){
+    if(this.selectedTab.value == 0){
+      this.selectedTab.setValue(1);
+    }
+  }
+
+
+  onSwipeRight(evt){
+    if(this.selectedTab.value == 1){
+      this.selectedTab.setValue(0);
+    }
+  }
+
+
+
   saveProduct(){
     Notiflix.Loading.Arrows();
 

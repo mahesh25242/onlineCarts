@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Cart } from 'src/app/lib/interfaces';
@@ -12,8 +13,7 @@ import { environment } from '../../../environments/environment';
   styleUrls: ['./cart.component.scss']
 })
 export class CartComponent implements OnInit {
-  @ViewChild('scroller')
-  scroller: ElementRef;
+
   displayDiv = true;
 
   hideCartComponent$: Observable<boolean>;
@@ -25,12 +25,15 @@ export class CartComponent implements OnInit {
 
 
 
-  constructor(private cartService: CartService) {
+  constructor(private cartService: CartService,
+    private router: Router) {
     cartService.shopKey = environment.shopKey;
   }
 
 
-
+  onSwipeRight(evt){
+    this.router.navigate(['bag']);
+  }
 
   updateCart(cart: Cart, action: string='+'){
     const itm =Object.assign({}, cart);

@@ -16,6 +16,7 @@ export class DeliveryLocationComponent implements OnInit, OnDestroy {
   cartSubScr: Subscription;
   shop$:Observable<Shop>;
   customerFrm: FormGroup;
+  selected:number = 0;
 
   constructor(private formBuilder: FormBuilder,
     private matSnackBar: MatSnackBar,
@@ -23,6 +24,19 @@ export class DeliveryLocationComponent implements OnInit, OnDestroy {
     private shopService: ShopService,) { }
 
   get f(){ return this.customerFrm.controls}
+
+  onSwipeLeft(evt){
+    if(this.selected == 0){
+      this.selected = 1;
+    }
+  }
+
+
+  onSwipeRight(evt){
+    if(this.selected == 1){
+      this.selected = 0;
+    }
+  }
 
   onTabChanged(evt){
     this.customerFrm.patchValue({
