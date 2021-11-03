@@ -118,12 +118,12 @@
 
             <div formArrayName="varients" fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="start" >
               <ng-container  *ngFor="let stat of varients.controls; let i=index; let last = last">
-                <mat-card fxFlex="31%" fxFlex.xs="100%"  [formGroupName]="i" class="varient-block"
-                 >
-                 <mat-card-subtitle class="text-center">
+                <div fxFlex="31%" fxFlex.xs="100%"  [formGroupName]="i" class="varient-block mt"
+                >
+                 <mat-card-subtitle class="text-center mt-20" >
                    <span class="varient-no">{{ i+ 1 }}</span>
                  </mat-card-subtitle>
-                  <mat-card-content>
+                  <div>
 
                     <mat-list role="list" >
                       <mat-list-item role="listitem" fxFill="fill">
@@ -199,21 +199,25 @@
                         </button>&nbsp; &nbsp;
                       </mat-list-item>
 
-                      <mat-list-item fxFill="fill">
-
-                        <button type="button" mat-raised-button  color="primary"
-                        (click)="addVarient(stat)" class="add-rem-btn">
-                        <mat-icon>add_circle_outline</mat-icon> Add New Varient
-                        </button>
-                        <button class="add-rem-btn"  *ngIf="varients.controls.length > 1" type="button"
-                          mat-raised-button  color="warn"
-                        (click)="removeVarient(i)">
-                        <mat-icon>delete_forever</mat-icon> Delete This Varient
-                        </button>
-                      </mat-list-item>
                     </mat-list>
-                  </mat-card-content>
-                </mat-card>
+                  </div>
+                  <div fxLayout="row"  fxLayoutAlign="space-around center">
+                    <div>
+                      <button type="button" mat-raised-button  color="primary"
+                      (click)="addVarient(stat)">
+                      <mat-icon>add_circle_outline</mat-icon>
+                        Add New
+                      </button>
+                    </div>
+                    <div fxLayoutAlign="end end">
+                      <button class="ml"  *ngIf="varients.controls.length > 1" type="button"
+                        mat-raised-button  color="warn"
+                      (click)="removeVarient(i)">
+                      <mat-icon>delete_forever</mat-icon> Delete
+                      </button>
+                    </div>
+                  </div>
+                </div>
 
 
 

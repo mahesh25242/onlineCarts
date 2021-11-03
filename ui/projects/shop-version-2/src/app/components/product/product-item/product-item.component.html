@@ -23,8 +23,8 @@
       | {{ product.shop_product_variant.length }} Varients </span> </mat-card-subtitle>
   </div>
 
-  <mat-chip-list aria-label="varient tag" *ngIf="product.shop_product_primary_variant?.shop_product_variant_tag && product.shop_product_primary_variant?.shop_product_variant_tag.length">
-    <mat-chip color="accent" selected class="animate__animated animate__flipInX" *ngFor="let shop_product_variant_tag of product.shop_product_primary_variant?.shop_product_variant_tag">{{shop_product_variant_tag.name}}</mat-chip>
+  <mat-chip-list  [ngClass.gt-xs]="'desk'" aria-label="varient tag" *ngIf="product.shop_product_primary_variant?.shop_product_variant_tag && product.shop_product_primary_variant?.shop_product_variant_tag.length">
+    <mat-chip color="accent" selected class="animate__animated animate__flipInX" *ngFor="let shop_product_variant_tag of product.shop_product_primary_variant?.shop_product_variant_tag | slice:0:2; ">{{shop_product_variant_tag.name}}</mat-chip>
   </mat-chip-list>
 
   <!--<mat-card-content>

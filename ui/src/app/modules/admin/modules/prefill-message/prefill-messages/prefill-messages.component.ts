@@ -5,6 +5,7 @@ import { mergeMap } from 'rxjs/operators';
 import { PrefillMessage } from '../interfaces';
 import { PrefillMessageService } from '../services';
 import { CreateNewComponent } from './create-new/create-new.component';
+import { SentOnWhatsappComponent } from './sent-on-whatsapp/sent-on-whatsapp.component';
 
 @Component({
   selector: 'app-prefill-messages',
@@ -34,6 +35,20 @@ export class PrefillMessagesComponent implements OnInit {
   }
 
 
+  sentOnWhatsapp(pm: PrefillMessage = null){
+    const modalRef = this.modalService.open(SentOnWhatsappComponent, {
+      size: 'lg'
+    });
+    modalRef.componentInstance.pm = pm;
+
+    modalRef.result.then((result) => {
+      if(result){
+        this.recall$.next(true);
+      }
+    }, (reason) => {
+
+    })
+  }
 
   ngOnInit(): void {
     this.messages$ = this.recall$.pipe(mergeMap(res=> this.prefillMessageService.messages() ));

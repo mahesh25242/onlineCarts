@@ -53,3 +53,11 @@ button.active{
     }
   }
 }
+mat-chip-list.desk{
+  position: absolute;
+  top: 129px;
+  mat-chip{
+    border-radius: 0px !important;
+    border-top-right-radius: 10px !important;
+  }
+}

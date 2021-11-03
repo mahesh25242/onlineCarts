@@ -15,6 +15,9 @@
         <th>
           Is Default
         </th>
+        <th>
+          Options
+        </th>
       </tr>
     </thead>
     <tbody >
@@ -35,6 +38,14 @@
         </td>
         <td>
           {{ (message?.is_default) ? 'Yes' : 'No' }}
+        </td>
+        <td>
+          <div ngbDropdown class="d-inline-block">
+            <button class="btn btn-outline-primary"  ngbDropdownToggle>Option</button>
+            <div ngbDropdownMenu >
+              <button ngbDropdownItem (click)="sentOnWhatsapp(message)">Whatsapp</button>
+            </div>
+          </div>
         </td>
       </tr>
     </tbody>

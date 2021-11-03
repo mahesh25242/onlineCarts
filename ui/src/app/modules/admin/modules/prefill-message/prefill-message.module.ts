@@ -5,12 +5,13 @@ import { SharedModuleModule } from '../../../../shared-module/shared-module.modu
 import { PrefillMessagesComponent } from './prefill-messages/prefill-messages.component';
 import { PrefillMessageRoutingModule } from './prefill-message-routing.module';
 import { CreateNewComponent } from './prefill-messages/create-new/create-new.component';
+import { SentOnWhatsappComponent } from './prefill-messages/sent-on-whatsapp/sent-on-whatsapp.component';
 
 
 
 
 @NgModule({
-  declarations: [PrefillMessagesComponent, CreateNewComponent],
+  declarations: [PrefillMessagesComponent, CreateNewComponent, SentOnWhatsappComponent],
   imports: [
     CommonModule,
     SharedModuleModule,
