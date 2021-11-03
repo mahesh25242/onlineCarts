@@ -14,6 +14,7 @@ use BotMan\BotMan\Cache\LaravelCache;
 
 
 
+
 class BotManController extends Controller
 {
 
@@ -39,6 +40,11 @@ class BotManController extends Controller
 
         // Create an instance
         $botman = BotManFactory::create($config, new LaravelCache());
+
+        $botman->hears('call me {name}', function ($bot, $name) {
+            $bot->reply('Your name is: '.$name);
+        });
+
 
         if($shop){
             $botman->hears(['hello', 'hi'], function($bot) use($shop) {

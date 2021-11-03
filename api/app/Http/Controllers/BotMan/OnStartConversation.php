@@ -36,6 +36,8 @@ class OnStartConversation extends Conversation
     {
 
 
+
+
         $this->ask('Please provide your email?', function(Answer $answer) {
             // Save result
             $this->email = $answer->getText();
@@ -185,10 +187,28 @@ class OnStartConversation extends Conversation
         $question = Question::create('You can get more details through our contact us')
         ->callbackId('contact_us_service')
         ->addButtons([
-            Button::create('Contact Us')->value('contact us')->additionalParameters(['url' => 'https://onlinecarts.in/front/contact-us']), // Here we want to add URL which should be redirect on new page after click
+            Button::create('Contact Us')->value('contact_us')->additionalParameters(['redirect' => 'contact-us']), // Here we want to add URL which should be redirect on new page after click
         ]);
 
-        $this->say($question);
+        $this->ask($question, [
+            [
+                'pattern' => 'contact_us',
+                'callback' => function () {
+                    $question = Question::create('please fill out background form Or')
+                    ->addButtons([
+                        Button::create('Go back')->value('go_back'), // Here we want to add URL which should be redirect on new page after click
+                    ]);
+                    $this->ask($question, [
+                        [
+                            'pattern' => 'go_back|back',
+                            'callback' => function(){
+                                $this->goBack();
+                            }
+                        ]
+                    ]);
+                }
+            ]
+        ]);
     }
 
     public function hasNotAccount(){
@@ -200,28 +220,56 @@ class OnStartConversation extends Conversation
                 Button::create('Pricing')->value('pricing')->additionalParameters([ 'redirect' => "pricing"]),
                 Button::create('What are coins')->value('coins'),
                 Button::create('demo Bakery shop')->value('demo_bakery')->additionalParameters([ 'url' => "{$this->cartUrl}demo"]),
-                Button::create('Demo Textile shop')->value('demo_textile')->additionalParameters([ 'url' => "{$this->cartUrl}mks"])
+                Button::create('Demo Textile shop')->value('demo_textile')->additionalParameters([ 'url' => "{$this->cartUrl}mks"]),
+                Button::create('Contact Us')->value('contact_us')->additionalParameters([ 'class' => "btn-info"])
             ]);
 
-            $this->ask($question, function(Answer $answer) {
-                if ($answer->isInteractiveMessageReply()) {
-                    $selected = $answer->getValue();
-                    switch($selected){
-                        case "coins":
-                            $message= BotManController::view('botMan/common/coins', [
+            $this->ask($question, [
+                [
+                    'pattern' => 'coins',
+                    'callback' => function () {
+                        $message= BotManController::view('botMan/common/coins', [
 
-                            ]);
+                        ]);
 
-                            $this->say("{$message}");
-                        break;
+                        $this->say("{$message}");
+
+
+                        $question = Question::create('')
+                        ->callbackId('select_service')
+                        ->addButtons([
+                            Button::create('Go Back')->value('go_back')->additionalParameters([ 'class' => "btn-info"])
+                        ]);
+                        $this->ask($question, [
+                            [
+                                'pattern' => 'go_back|back',
+                                'callback' => function () {
+                                    $this->goBack();
+                                }
+                            ],
+                        ]);
                     }
-                }
-                //$this->bot->startConversation(new NextConversation()); // Trigger the next conversation
-            });
+                ],
+                [
+                    'pattern' => 'contact_us|contact|us',
+                    'callback' => function(){
+                        $this->contactUsLink();
+                    }
+                ]
+
+            ]);
 
     }
 
 
+    public function goBack(){
+        if($this->shop){
+            $this->selectedShop();
+        }else{
+            $this->hasNotAccount();
+        }
+
+    }
 
 
 

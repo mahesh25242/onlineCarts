@@ -42,10 +42,11 @@
       mainColor:'<?php echo ($data["themeColor"] ?? '');?>',
       aboutText:'powered by onlinecarts.in',
       aboutLink:'https://onlinecarts.in',
-      bubbleBackground:'<?php echo ($data["themeColor"] ?? '');?>',
       headerTextColor: '#fff',
       shopId: '<?php echo ($data["shopKey"] ?? '');?>',
-      // userId: 'asas'
+      bubbleAvatarUrl: 'https://onlinecarts.in/front/assets/bot.svg',
+      bubbleBackground: 'none',
+      userId: window.crypto.getRandomValues(new Uint32Array(1))[0]
     };
   </script>
 

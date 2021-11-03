@@ -20,6 +20,8 @@
 
 
 <script type="text/javascript">
+
+
   var botmanWidget = {
     frameEndpoint: 'https://'+window.location.hostname+'/widget.php'  ,
     chatServer: 'https://api.onlinecarts.in/v1/bot',
@@ -29,10 +31,11 @@
     title:'Onlinecarts.in',
     mainColor:'#007bff',
     aboutText:'powered by onlinecarts.in',
-    bubbleBackground:'#007bff',
     headerTextColor: '#fff',
     aboutLink:'https://onlinecarts.in',
-    // userId: 'asas'
+    bubbleAvatarUrl: 'https://onlinecarts.in/front/assets/bot.svg',
+    bubbleBackground: 'none',
+    userId: window.crypto.getRandomValues(new Uint32Array(1))[0]
 };
   </script>
 

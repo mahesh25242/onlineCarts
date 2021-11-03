@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:osb="http://www.openswatchbook.org/uri/2009/osb"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="52mm"
+   height="58mm"
+   viewBox="0 0 52 58"
+   version="1.1"
+   id="svg63"
+   inkscape:export-filename="/home/mahesh/Downloads/aaaaa.png"
+   inkscape:export-xdpi="46.403847"
+   inkscape:export-ydpi="46.403847"
+   inkscape:version="1.0.2 (1.0.2+r75+1)"
+   sodipodi:docname="drawing.svg">
+  <defs
+     id="defs57">
+    <linearGradient
+       id="linearGradient2839"
+       osb:paint="solid">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop2837" />
+    </linearGradient>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4"
+     inkscape:cx="81.731847"
+     inkscape:cy="159.45759"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     inkscape:document-rotation="0"
+     showgrid="false"
+     inkscape:window-width="1366"
+     inkscape:window-height="685"
+     inkscape:window-x="1366"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata60">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <text
+       xml:space="preserve"
+       style="font-size:7.80791px;line-height:1.25;font-family:sans-serif;letter-spacing:0.00390397px;stroke-width:0.195198"
+       id="text81"
+       x="-0.17428635"
+       y="2.3937376"
+       transform="rotate(-13.715647,-44.118276,78.149274)"><textPath
+         xlink:href="#path83"
+         id="textPath85"><tspan
+           id="tspan79"
+           style="stroke-width:0.195198">Ask Ocia</tspan></textPath></text>
+    <path
+       style="fill:none;stroke:none;stroke-width:0.227456px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 14.701786,64.812289 c 0,0 29.245744,25.182947 46.277053,-9.394908"
+       id="path83" />
+    <image
+       sodipodi:absref="/home/mahesh/Downloads/403018_avatar_female_mic_support_user_icon.png"
+       xlink:href="403018_avatar_female_mic_support_user_icon.png"
+       y="1.5909009"
+       x="1.7394361"
+       id="image2877"
+       preserveAspectRatio="none"
+       height="47.000736"
+       width="47.598377" />
+  </g>
+</svg>
