@@ -21,5 +21,8 @@ export class PrefillMessageService {
     return this.http.post<any>(`/admin/preefillMessage/${postData.id}/save`, postData);
   }
 
+  sentOnWhatsapp(postData: any = null){
+    return this.http.post<any>(`/sentOnWhatsapp`, postData);
+  }
 
 }

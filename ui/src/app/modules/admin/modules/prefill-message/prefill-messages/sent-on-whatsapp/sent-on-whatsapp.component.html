@@ -1,4 +1,4 @@
-<form [formGroup]="saveFrm">
+<form [formGroup]="saveFrm" (submit)="sent()">
   <app-modal>
   <div header>
     {{ 'Sent '+pm.subject  }}
@@ -9,7 +9,7 @@
         <label for="mobile">Mobile</label>
         <input type="text" class="form-control" id="mobile"
         [ngClass]="{'is-invalid': (f.mobile.errors && f.mobile.errors.error)}"
-        placeholder="Mobile" formControlName="mobile">
+        placeholder="Mobile" formControlName="mobile" ngbAutofocus>
         <div *ngIf="f.mobile.errors && f.mobile.errors.error" class="invalid-feedback">
           {{f.mobile.errors.error}}
         </div>
@@ -20,9 +20,9 @@
   </div>
   <div footer>
     <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('Close click')">Cancel</button>
-    <a [href]="'https://web.whatsapp.com/send?phone='+f.mobile.value+'&text='+pm.message" class="btn btn-primary ml-3" *ngIf="f.mobile.value">Send</a>
+    <button type="submit"  class="btn btn-primary ml-3" [disabled]="!f.mobile.value">Send</button>
   </div>
-
+  <!-- [href]="'https://web.whatsapp.com/send?phone='+f.mobile.value+'&text='+pm.message" -->
 
   </app-modal>
 </form>

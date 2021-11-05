@@ -109,8 +109,11 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
 
 
         $router->group(['middleware' =>  'adminAndShop'], function () use ($router) {
+            $router->post('sentOnWhatsapp','WhatsupAddPhoneController@save');
+
             $router->get('authUser','UsersController@authUser');
             $router->post('setUserLogin','UsersController@setUserLogin');
+
             $router->get('signOut','UsersController@signOut');
 
             $router->group(['prefix' => 'idProof'], function () use ($router) {

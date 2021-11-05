@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Laravel\Lumen\Auth\Authorizable;
 use Laravel\Passport\HasApiTokens;
 
-class PrefillMessage extends Model implements AuthenticatableContract, AuthorizableContract
+class WhatsupAddPhone extends Model implements AuthenticatableContract, AuthorizableContract
 {
     use HasApiTokens, Authenticatable, Authorizable;
 
@@ -20,28 +20,17 @@ class PrefillMessage extends Model implements AuthenticatableContract, Authoriza
      * @var array
      */
     protected $fillable = [
-         'name', 'subject', 'message', 'is_default'
+        'phone', 'prefill_message_id'
     ];
 
 
     protected $casts = [
-        'shop_id' => 'integer',
-        'is_default' => 'integer'
+        'prefill_message_id' => 'integer'
     ];
 
-
-
-    public function shop()
+    public function prefillMessage()
     {
-        return $this->belongsTo('App\Models\Shop');
+        return $this->belongsTo('App\Models\PrefillMessage');
     }
 
-    public function shopMessage()
-    {
-        return $this->hasMany('App\Models\ShopMessage');
-    }
-    public function whatsupAddPhone()
-    {
-        return $this->hasMany('App\Models\WhatsupAddPhone');
-    }
 }
