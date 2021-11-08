@@ -14,6 +14,15 @@
           {{f.mobile.errors.error}}
         </div>
       </div>
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name"
+        [ngClass]="{'is-invalid': (f.name.errors && f.name.errors.error)}"
+        placeholder="Name" formControlName="name" ngbAutofocus>
+        <div *ngIf="f.name.errors && f.name.errors.error" class="invalid-feedback">
+          {{f.name.errors.error}}
+        </div>
+      </div>
 
 
 

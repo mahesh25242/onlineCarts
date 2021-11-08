@@ -31,19 +31,21 @@ onScroll(event) {
   this.lastScroll;
   if (event.target.scrollTop > this.lastScroll){
     this.lastScroll = event.target.scrollTop;
-    console.log('scrolling down');
-    document.getElementById('botmanWidgetRoot').style.display = 'none';
-    document.getElementById('page-cart-btn').style.display = 'none';
+    if(document.getElementById('botmanWidgetRoot'))
+      document.getElementById('botmanWidgetRoot').style.display = 'none';
+    if(document.getElementById('page-cart-btn'))
+      document.getElementById('page-cart-btn').style.display = 'none';
     // document.getElementById('cart-header').style.display = 'block';
     // document.getElementById('page-main').style.marginTop = '56px';
     // downscroll code
  } else {
     this.lastScroll = event.target.scrollTop;
-    document.getElementById('botmanWidgetRoot').style.display = 'block';
-    document.getElementById('page-cart-btn').style.display = 'block';
+    if(document.getElementById('botmanWidgetRoot'))
+      document.getElementById('botmanWidgetRoot').style.display = 'block';
+    if(document.getElementById('page-cart-btn'))
+      document.getElementById('page-cart-btn').style.display = 'block';
     // document.getElementById('cart-header').style.display = 'none';
     // document.getElementById('page-main').style.marginTop = '0px';
-   console.log('scrolling up');
     // upscroll code
  }
 }
@@ -98,6 +100,8 @@ onScroll(event) {
         case event instanceof NavigationError: {
           if(document.getElementById('botmanWidgetRoot')){
             document.getElementById('botmanWidgetRoot').style.display = 'block';
+          }
+          if(document.getElementById('page-cart-btn')){
             document.getElementById('page-cart-btn').style.display = 'block';
           }
           Notiflix.Loading.Remove();

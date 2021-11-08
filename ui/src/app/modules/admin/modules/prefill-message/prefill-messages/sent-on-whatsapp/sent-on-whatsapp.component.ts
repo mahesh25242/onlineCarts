@@ -28,6 +28,8 @@ export class SentOnWhatsappComponent implements OnInit {
       Breakpoints.Tablet
     ]).subscribe(res=>{
       let url:string = '';
+      const name = this.f.name.value;
+      const message = eval('`'+this.pm.message+'`');
       if(res.matches){
         url =  `https://api.whatsapp.com/send?phone=${this.f.mobile.value}&text=${this.pm.message}`
       }else{
@@ -52,7 +54,8 @@ export class SentOnWhatsappComponent implements OnInit {
 
   ngOnInit(): void {
     this.saveFrm = this.formBuilder.group({
-      mobile: ['+91', []]
+      mobile: ['+91', []],
+      name: [null, []]
     });
   }
 
