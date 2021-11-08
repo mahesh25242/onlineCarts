@@ -31,9 +31,9 @@ export class SentOnWhatsappComponent implements OnInit {
       const name = this.f.name.value;
       const message = eval('`'+this.pm.message+'`');
       if(res.matches){
-        url =  `https://api.whatsapp.com/send?phone=${this.f.mobile.value}&text=${this.pm.message}`
+        url =  `https://api.whatsapp.com/send?phone=${this.f.mobile.value}&text=${message}`
       }else{
-        url =  `https://web.whatsapp.com/send?phone=${this.f.mobile.value}&text=${this.pm.message}`
+        url =  `https://web.whatsapp.com/send?phone=${this.f.mobile.value}&text=${message}`
       }
 
       window.open(
