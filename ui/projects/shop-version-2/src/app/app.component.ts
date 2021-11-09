@@ -57,6 +57,8 @@ onScroll(event) {
   shop: Shop;
   shop$: Observable<Shop>;
 
+  isNotiflixBlock: boolean = false;
+
   private popupOpenSubscription: Subscription;
   private popupCloseSubscription: Subscription;
   private initializeSubscription: Subscription;
@@ -92,19 +94,21 @@ onScroll(event) {
     this.router.events.subscribe((event: Event) => {
       switch (true) {
         case event instanceof NavigationStart: {
-          Notiflix.Loading.Pulse();
+          this.isNotiflixBlock  = !!document.getElementById("page-main");
+          document.getElementById("page-main") && Notiflix.Block.Pulse('#page-main');
           break;
         }
         case event instanceof NavigationEnd:
         case event instanceof NavigationCancel:
         case event instanceof NavigationError: {
+
           if(document.getElementById('botmanWidgetRoot')){
             document.getElementById('botmanWidgetRoot').style.display = 'block';
           }
           if(document.getElementById('page-cart-btn')){
             document.getElementById('page-cart-btn').style.display = 'block';
           }
-          Notiflix.Loading.Remove();
+          this.isNotiflixBlock && Notiflix.Block.Remove('#page-main');
           break;
         }
         default: {

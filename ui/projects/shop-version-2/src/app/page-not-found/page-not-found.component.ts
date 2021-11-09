@@ -33,7 +33,7 @@ export class PageNotFoundComponent implements OnInit {
         const page = find(res, { url: path});
         this.generalService.bc$.next({
           siteName: environment.siteName,
-          title: page.name,
+          title: page?.name,
           url:'',
           backUrl: null
         });

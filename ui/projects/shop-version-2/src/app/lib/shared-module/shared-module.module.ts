@@ -57,6 +57,7 @@ import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {OverlayModule} from '@angular/cdk/overlay';
 import {ClipboardModule} from '@angular/cdk/clipboard';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 Notiflix.Confirm.Init({
   className: 'oc-confirm'
@@ -125,6 +126,7 @@ Notiflix.Block.Init({ className: 'oc-loading' });
     MatBottomSheetModule,
     MatProgressSpinnerModule,
     OverlayModule,
+    MatProgressBarModule,
     ClipboardModule
   ],
   exports:[
@@ -182,6 +184,7 @@ Notiflix.Block.Init({ className: 'oc-loading' });
     MatBottomSheetModule,
     MatProgressSpinnerModule,
     OverlayModule,
+    MatProgressBarModule,
     ClipboardModule
   ],
   providers:[
