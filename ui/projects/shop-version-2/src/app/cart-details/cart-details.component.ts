@@ -97,10 +97,10 @@ export class CartDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
           return throwError('shop may be inactive or deleted')
         }
 
-        if(!shop.is_mobile_verified){
-          Notiflix.Notify.Failure('Shop mobile is not verified so can\'t make any order.');
-          return throwError('mobile not active')
-        }
+        // if(!shop.is_mobile_verified){
+        //   Notiflix.Notify.Failure('Shop mobile is not verified so can\'t make any order.');
+        //   return throwError('mobile not active')
+        // }
 
         let  delivery_date = null;
         if(cartDetails?.detail?.delivery_date){
@@ -225,6 +225,8 @@ export class CartDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
 
 
 
+      }else{
+        Notiflix.Notify.Failure(error.error.message);
       }
 
     });

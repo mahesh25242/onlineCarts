@@ -48,6 +48,10 @@ class OnStartShopConversation extends Conversation
             $buttons[] = Button::create("Need Help In Admin Section")->value("admin_help");
         }
 
+        if(!$this->shop->is_mobile_verified){
+            array_unshift($buttons , Button::create("why it say Shop mobile is not verified so can't make any order.")->value("mobile_not_verified"));
+        }
+
         $welcomeMessage = "Hi, ";
 
         if(Auth::id()){
@@ -88,6 +92,17 @@ class OnStartShopConversation extends Conversation
                 'pattern' => 'admin_help',
                 'callback' => function () {
                     $this->adminHelp();
+                }
+            ],
+            [
+                'pattern' => 'mobile_not_verified',
+                'callback' => function () {
+                    $message= BotManController::view('botMan/shop/mobileNotVerified', [
+                        "shop" => $this->shop
+                    ]);
+
+                    $this->say("{$message}");
+                    $this->reStartFromBegin();
                 }
             ],
         ]);

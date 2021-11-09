@@ -5,6 +5,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Validator;
 use App\Http\Resources\ShopOrderResurce;
+use App\Mail\ShopMobileIsNotVerifiedNotification;
+use App\Mail\ShopHasNoDeliveryPointsNotification;
+use Mail;
+use Cache;
+use Carbon\Carbon;
 
 class ShopOrderController extends Controller
 {
@@ -33,7 +38,46 @@ class ShopOrderController extends Controller
             $validationArr["address"] = ["required"];
             $validationArr["pin"] = ["required"];
         }
+        $shop = null;
+        $shop = $request->input('x_shop', null);
 
+        if(!$shop){
+            $validationArr["x_shop"] = ["required"];
+        }
+
+
+
+        if(!$shop->is_mobile_verified){
+            $shopMobileNotVerifiedNoti = Cache::get('shopMobileNotVerifiedNoti');
+
+            if($shop->email && !$shopMobileNotVerifiedNoti){
+                try{
+                    $expiresAt = Carbon::now()->addDays(2);
+                    Cache::put('shopMobileNotVerifiedNoti', 1, $expiresAt);
+
+                    Mail::to($shop->email)->send(new ShopMobileIsNotVerifiedNotification($shop));
+                }catch (\Swift_TransportException $e) {
+                    return response(["message" => 'Caught exception: '.  $e->getMessage(), "status" => false], 500);
+                }
+            }
+            return response(['message' => sprintf('%s\'s mobile is not verified', $shop->name), "status" => false], 424);
+        }
+
+        if(!$shop->shopDelivery->count()){
+            $shopHasNoDeliveryPointsNoti = Cache::get('shopHasNoDeliveryPointsNoti');
+
+            if($shop->email && !$shopHasNoDeliveryPointsNoti){
+                try{
+                    $expiresAt = Carbon::now()->addDays(2);
+                    Cache::put('shopHasNoDeliveryPointsNoti', 1, $expiresAt);
+
+                    Mail::to($shop->email)->send(new ShopHasNoDeliveryPointsNotification($shop));
+                }catch (\Swift_TransportException $e) {
+                    return response(["message" => 'Caught exception: '.  $e->getMessage(), "status" => false], 500);
+                }
+            }
+            return response(['message' => sprintf('%s\'s has no delivery / pickup point', $shop->name), "status" => false], 424);
+        }
         $validator = Validator::make($request->all(), $validationArr,[],[
             'selectedLocation' => 'Delivery Location',
         ]);
@@ -48,8 +92,8 @@ class ShopOrderController extends Controller
         }
 
 
-        $shop = null;
-        $shop = $request->input('x_shop', null);
+
+
 
         //return response([$shop->country->phonecode], 422);
         if($shop){
