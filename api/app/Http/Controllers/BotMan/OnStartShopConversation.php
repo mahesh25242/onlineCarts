@@ -163,6 +163,7 @@ class OnStartShopConversation extends Conversation
 
         $message= BotManController::view('botMan/shop/deliveries', [
             "shopDelivery" => $shopDelivery,
+            "shop" => $this->shop,
             "isHome" => $isHome,
         ]);
 

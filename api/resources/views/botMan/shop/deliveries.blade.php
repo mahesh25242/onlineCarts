@@ -34,6 +34,11 @@
     </ol>
 
 @else
-    Sorry we are not offerring home delivery to your locality.
+    @if($isHome)
+        Sorry we are not offerring home delivery to your locality.
+    @else
+        we have only one branch that is located in  <br/>
+        <b>{{ $shop->address }}, {{ $shop->city->name }}, {{ $shop->state->name }}, {{ $shop->country->name }} - {{ $shop->pin }}.</b>
+    @endif
 @endif
 
