@@ -100,8 +100,7 @@ class Shop extends Model implements AuthenticatableContract, AuthorizableContrac
     }
 
     public function getFaviconAttribute($favicon){
-        $rndNo = ($this->updated_at) ? $this->updated_at->timestamp : $this->id;
-        return ($favicon) ?  url("/assets/shop/{$this->shop_key}/general/{$favicon}?rand={$rndNo}"): '';
+        return ($favicon) ?  url("/assets/shop/{$this->shop_key}/general/{$favicon}?rand={$this->updated_at->timestamp}"): '';
     }
 
     public function getStatusTextAttribute()
