@@ -100,10 +100,7 @@ export class ShopDetailsComponent implements OnInit, OnDestroy {
       });
     }
   updateShop(){
-    if(this.isDemoSite){
-      Notiflix.Notify.Failure('sorry its a demo site you can\'t change any info in demo site');
-      //throw 'sorry its a demo site you can\'t change any info in demo site';
-    }
+
     const postData = {
       name: this.f.name.value,
       short_name: this.f.short_name.value,
@@ -171,7 +168,18 @@ export class ShopDetailsComponent implements OnInit, OnDestroy {
 
 
     this.shop$ = this.shopService.aShop.pipe(tap(res=>{
-      const phone = (res?.phone) ? res?.phone.slice(2): '';
+      let phone;
+      if(res?.phone.length > 10){
+        if(res?.phone.charAt(0) == '+'){
+          phone = (res?.phone) ? res?.phone.slice(3): '';
+        }else{
+          phone = (res?.phone) ? res?.phone.slice(2): '';
+        }
+      }else{
+        phone = res?.phone;
+      }
+
+
 
       this.shopDetailsFrm.patchValue({
         name: res?.name,

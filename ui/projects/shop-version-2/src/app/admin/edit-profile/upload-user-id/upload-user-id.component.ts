@@ -44,8 +44,9 @@ export class UploadUserIdComponent implements OnInit {
             res && formData.append('idProof', res);
             return this.userService.uploadIdProof(formData);
           })).subscribe(res=>{
-
+            Notiflix.Notify.Success('successfully uploaded');
           }, err=>{
+            Notiflix.Notify.failure('unexpected error occur please try again later');
             console.log(err)
           })
 
@@ -62,6 +63,7 @@ export class UploadUserIdComponent implements OnInit {
 
   ngOnInit(): void {
     this.idProofTypes$ = this.userService.checkExists().pipe(mergeMap(res=>{
+      console.log(res)
       this.idProofType.setValue(res?.name);
       this.id.setValue(res?.id);
       this.status.setValue(res?.status);
