@@ -48,12 +48,13 @@ class ShopOrderController extends Controller
 
 
         if(!$shop->is_mobile_verified){
-            $shopMobileNotVerifiedNoti = Cache::get('shopMobileNotVerifiedNoti');
+            $shopMobileNotVerifiedNoti = Cache::get('shopMobileNotVerifiedNoti_'.$shop->id);
+
 
             if($shop->email && !$shopMobileNotVerifiedNoti){
                 try{
                     $expiresAt = Carbon::now()->addDays(2);
-                    Cache::put('shopMobileNotVerifiedNoti', 1, $expiresAt);
+                    Cache::put('shopMobileNotVerifiedNoti_'.$shop->id, 1, $expiresAt);
 
                     Mail::to($shop->email)->send(new ShopMobileIsNotVerifiedNotification($shop));
                 }catch (\Swift_TransportException $e) {
@@ -64,12 +65,12 @@ class ShopOrderController extends Controller
         }
 
         if(!$shop->shopDelivery->count()){
-            $shopHasNoDeliveryPointsNoti = Cache::get('shopHasNoDeliveryPointsNoti');
+            $shopHasNoDeliveryPointsNoti = Cache::get('shopHasNoDeliveryPointsNoti_'.$shop->id);
 
             if($shop->email && !$shopHasNoDeliveryPointsNoti){
                 try{
                     $expiresAt = Carbon::now()->addDays(2);
-                    Cache::put('shopHasNoDeliveryPointsNoti', 1, $expiresAt);
+                    Cache::put('shopHasNoDeliveryPointsNoti_'.$shop->id, 1, $expiresAt);
 
                     Mail::to($shop->email)->send(new ShopHasNoDeliveryPointsNotification($shop));
                 }catch (\Swift_TransportException $e) {
