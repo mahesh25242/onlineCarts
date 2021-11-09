@@ -158,7 +158,10 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
                         'middleware' => 'demoShopMiddleWare',
                         'uses' => 'ShopsController@updateDetails'
                     ]);
-                    $router->post('/changelogoFav','ShopsController@setFaviconOrLogo');
+                    $router->post('/changelogoFav',[
+                        'middleware' => 'demoShopMiddleWare',
+                        'uses' => 'ShopsController@setFaviconOrLogo'
+                    ]);
                     $router->post('/orders','ShopOrderController@orders');
                     $router->post('/orders/changeStatus', [
                         'middleware' => 'demoShopMiddleWare',
