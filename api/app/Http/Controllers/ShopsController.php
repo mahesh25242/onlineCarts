@@ -175,7 +175,7 @@ class ShopsController extends Controller
                     \App\Models\ShopMessage::create([
                         'shop_id' => $ShopPoint->shop_id,
                         'prefill_message_id' => 0,
-                        'message' => sprintf("%d was added to your account for reference", $refPoint)
+                        'message' => sprintf("%d coins was added to your account for reference", $refPoint)
                     ]);
 
                     //addpoint to registered shop
@@ -192,7 +192,7 @@ class ShopsController extends Controller
                     \App\Models\ShopMessage::create([
                         'shop_id' => $ShopPoint->shop_id,
                         'prefill_message_id' => 0,
-                        'message' => sprintf("%d was added to your account for reference", $refPoint)
+                        'message' => sprintf("%d coins was added to your account for reference", $refPoint)
                     ]);
 
                 }
@@ -214,7 +214,7 @@ class ShopsController extends Controller
                     \App\Models\ShopMessage::create([
                         'shop_id' => $ShopPoint->shop_id,
                         'prefill_message_id' => 0,
-                        'message' => sprintf("%d was added to your account", $refPoint)
+                        'message' => sprintf("%d coins was added to your account", $refPoint)
                     ]);
                 }
             }
