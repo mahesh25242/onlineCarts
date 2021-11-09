@@ -41,7 +41,7 @@
       title:'<?php echo ($data["siteName"] ?? '');?>',
       mainColor:'<?php echo ($data["themeColor"] ?? '');?>',
       aboutText:'powered by onlinecarts.in',
-      aboutLink:'https://onlinecarts.in',
+      aboutLink:'https://onlinecarts.in/front/?rf=<?php echo ($data["shopKey"] ?? '');?>',
       headerTextColor: '#fff',
       shopId: '<?php echo ($data["shopKey"] ?? '');?>',
       bubbleAvatarUrl: 'https://onlinecarts.in/front/assets/bot.svg',

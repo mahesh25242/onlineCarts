@@ -197,6 +197,26 @@ class ShopsController extends Controller
 
                 }
 
+            }else{
+                $regPoint = \App\Models\Setting::where("name", 'register_point')->get()->first();
+                $refPoint = ($regPoint) ? (int) $regPoint->value : 0;
+                if($refPoint){
+                    $ShopPoint = new \App\Models\ShopPoint;
+                    $ShopPoint->shop_id = $shop->id;
+                    $ShopPoint->points = $refPoint;
+                    $ShopPoint->save();
+
+                    $shopPointTran = new \App\Models\ShopPointTran;
+                    $shopPointTran->shop_point_id = $ShopPoint->id;
+                    $shopPointTran->point = $refPoint;
+                    $shopPointTran->is_reference = 0;
+                    $shopPointTran->save();
+                    \App\Models\ShopMessage::create([
+                        'shop_id' => $ShopPoint->shop_id,
+                        'prefill_message_id' => 0,
+                        'message' => sprintf("%d was added to your account", $refPoint)
+                    ]);
+                }
             }
 
             $toEMail = $email;

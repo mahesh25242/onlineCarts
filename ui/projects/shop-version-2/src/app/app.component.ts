@@ -31,16 +31,16 @@ onScroll(event) {
   this.lastScroll;
   if (event.target.scrollTop > this.lastScroll){
     this.lastScroll = event.target.scrollTop;
-    if(document.getElementById('botmanWidgetRoot'))
+    if(document.getElementById('botmanWidgetRoot') &&  !document.getElementById('opened'))
       document.getElementById('botmanWidgetRoot').style.display = 'none';
     if(document.getElementById('page-cart-btn'))
       document.getElementById('page-cart-btn').style.display = 'none';
     // document.getElementById('cart-header').style.display = 'block';
     // document.getElementById('page-main').style.marginTop = '56px';
     // downscroll code
- } else {
+ } else{
     this.lastScroll = event.target.scrollTop;
-    if(document.getElementById('botmanWidgetRoot'))
+    if(document.getElementById('botmanWidgetRoot') && !document.getElementById('opened'))
       document.getElementById('botmanWidgetRoot').style.display = 'block';
     if(document.getElementById('page-cart-btn'))
       document.getElementById('page-cart-btn').style.display = 'block';
