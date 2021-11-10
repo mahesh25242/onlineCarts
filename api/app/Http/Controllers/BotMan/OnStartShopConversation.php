@@ -295,7 +295,8 @@ class OnStartShopConversation extends Conversation
                 'pattern' => 'renew_subscription',
                 'callback' => function () {
                     $message= BotManController::view('botMan/shop/renewShopSubscription', [
-                        "auth" => Auth::user()
+                        "auth" => Auth::user(),
+                        "shop" => $this->shop
                     ]);
 
                     $this->say("{$message}");
