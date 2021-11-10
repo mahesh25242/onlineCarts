@@ -189,7 +189,7 @@ class OnStartShopConversation extends Conversation
 
     public function adminHelp($buttons = []){
         $buttons[] = Button::create("How can i change my shop theme")->value("change_shop_theme");
-        $buttons[] = Button::create("Home to change/add shop home page banner")->value("change_banner");
+        $buttons[] = Button::create("How to change/add shop home page banner")->value("change_banner");
         $buttons[] = Button::create("Can i add product without category")->value("product_without_category");
         $buttons[] = Button::create("How can i  add/change About us & terms page")->value("add_cms");
         $buttons[] = Button::create("Where i can found my orders")->value("my_orders");
@@ -197,6 +197,7 @@ class OnStartShopConversation extends Conversation
         $buttons[] = Button::create("Where i can apply my coupon code")->value("my_coupons");
         $buttons[] = Button::create("How can i change my shop information")->value("change_shop_info");
         $buttons[] = Button::create("How can i renew my subscription")->value("renew_subscription");
+        $buttons[] = Button::create("How can i  upload my id proof")->value("upload_id_proof");
 
         $question = Question::create("Please choose any of the options below")
         ->addButtons($buttons);
@@ -294,6 +295,17 @@ class OnStartShopConversation extends Conversation
                 'pattern' => 'renew_subscription',
                 'callback' => function () {
                     $message= BotManController::view('botMan/shop/renewShopSubscription', [
+                        "auth" => Auth::user()
+                    ]);
+
+                    $this->say("{$message}");
+                    $this->reStartFromBegin(true);
+                }
+            ],
+            [
+                'pattern' => 'upload_id_proof',
+                'callback' => function () {
+                    $message= BotManController::view('botMan/shop/uploadIdProof', [
                         "auth" => Auth::user()
                     ]);
 
