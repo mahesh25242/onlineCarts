@@ -18,17 +18,17 @@ class UsersController extends Controller
 {
 
 
-    public function test(){
+    public function test(){        
+       return response()->json(['success'=>'','message'=>'test'], 404);
+        // $user  = \App\Models\User::where("email", "mahesh25242@gmail.com")->get()->first();
 
-        $user  = \App\Models\User::where("email", "mahesh25242@gmail.com")->get()->first();
 
 
-
-        foreach($user->userRole as $userRole){
-            if($userRole->shop->phone == "+919995453566")
-                $shop = $userRole->shop;
-        }
-        return $shop->shopCurrentRenewal;
+        // foreach($user->userRole as $userRole){
+        //     if($userRole->shop->phone == "+919995453566")
+        //         $shop = $userRole->shop;
+        // }
+        // return $shop->shopCurrentRenewal;
 
         // $shopOrder = \App\Models\ShopOrder::find(6);
         // event(new \App\Events\OrderCreatedEvent($shopOrder));
@@ -132,8 +132,8 @@ class UsersController extends Controller
     public function signOut(Request $request){
         $request->user()->token()->revoke();
 
-    // Revoke all of the token's refresh tokens
-    // => Set public.oauth_refresh_tokens.revoked to TRUE (t)
+        // Revoke all of the token's refresh tokens
+        // => Set public.oauth_refresh_tokens.revoked to TRUE (t)
         $refreshTokenRepository = app('Laravel\Passport\RefreshTokenRepository');
         $refreshTokenRepository->revokeRefreshTokensByAccessTokenId($request->user()->token()->id);
 
@@ -299,77 +299,95 @@ class UsersController extends Controller
     }
 
     public function signIn(Request $request){
-        $http = new \GuzzleHttp\Client;
-
-        $oauth_clients = DB::table('oauth_clients')->where("password_client", 1)->get()->first();
-
-
-        $res = $http->post(url("v1/oauth/token"), [
-            'form_params' => [
-                'grant_type' => 'password',
-                'client_id' => '2',
-                'client_secret' => $oauth_clients->secret,
-                'username' => $request->input("username", ''),
-                'password' => $request->input("password", ''),
-                'scope' => '',
-            ],
+        $validator = Validator::make($request->all(), [
+            'username' => ['required', 'email'],
+            'password' => ['required', 'string',   'max:255'],
         ]);
 
-        $statusCode = $res->getStatusCode(); // 200
-        if($statusCode == 200){
-            return $res->getBody();
-        }else{
-            return response(["success" => false, "message"=> "user not found"], 401);
+        
+
+        if($validator->fails()){
+            return response(['message' => 'Validation errors', 'errors' =>  $validator->errors(), 'status' => false], 422);
         }
+        
+        
+        $oauthClient = \App\Models\OauthClient::where("password_client", 1)->get()->first();
+
+        $tokenRequest = $request->create(
+            url("v1/oauth/token"),
+            'POST'
+        );
+
+
+        $tokenRequest->request->add([
+            "grant_type" => "password",
+            "username" => $request->input("username", ''),
+            "password" => $request->input("password", ''),
+            "client_id" => $oauthClient->id,
+            "client_secret" => $oauthClient->secret,
+        ]);
+        try {
+           return $response= app()->handle($tokenRequest);
+        } catch (\Exception $e) {
+            return response(["success" => false, "message"=> "user not found"], 401);
+        }        
+
+                   
+
 
     }
 
     public function refreshToken(Request $request){
-        $http = new \GuzzleHttp\Client;
-
-        $oauth_clients = DB::table('oauth_clients')->where("password_client", 1)->get()->first();
-
-
-        $res = $http->post(url("v1/oauth/token"), [
-            'form_params' => [
-                'grant_type' => 'refresh_token',
-                'client_id' => '2',
-                'client_secret' => $oauth_clients->secret,
-                'refresh_token' => $request->input("refresh_token", ''),
-                'scope' => '',
-            ],
+        $validator = Validator::make($request->all(), [
+            'refresh_token' => ['required'],            
         ]);
 
-        $statusCode = $res->getStatusCode(); // 200
-        if($statusCode == 200){
-            return $res->getBody();
-        }else{
-            return response(["success" => false, "message"=> "user not found"], 401);
+        if($validator->fails()){
+            return response(['message' => 'Validation errors', 'errors' =>  $validator->errors(), 'status' => false], 422);
         }
+      
+        $oauthClient = \App\Models\OauthClient::where("password_client", 1)->get()->first();
+        $tokenRequest = $request->create(
+            url("v1/oauth/token"),
+            'POST'
+        );
 
+        $tokenRequest->request->add([
+            'grant_type' => 'refresh_token',
+            "client_id" => $oauthClient->id,
+            "client_secret" => $oauthClient->secret,
+            'refresh_token' => $request->input("refresh_token", ''),
+            'scope' => '',
+        ]);
+        try {
+           return $response= app()->handle($tokenRequest);
+        } catch (\Exception $e) {
+            return response(["success" => false, "message"=> "token expired"], 408);
+        }    
     }
 
-    public function demoSignIn(){
-        $http = new \GuzzleHttp\Client;
+    public function demoSignIn(Request $request){
+              
+      
+        $oauthClient = \App\Models\OauthClient::where("password_client", 1)->get()->first();
+        $tokenRequest = $request->create(
+            url("v1/oauth/token"),
+            'POST'
+        );
 
-        $oauth_clients = DB::table('oauth_clients')->where("password_client", 1)->get()->first();
-
-        $res = $http->post(url("v1/oauth/token"), [
-            'form_params' => [
-                'grant_type' => 'password',
-                'client_id' => '2',
-                'client_secret' => $oauth_clients->secret,
-                'username' => 'demo@cart.com',
-                'password' => '123456',
-                'scope' => '',
-            ],
+        $tokenRequest->request->add([
+            'grant_type' => 'password',
+            "client_id" => $oauthClient->id,
+            "client_secret" => $oauthClient->secret,
+            'username' => 'demo@cart.com',
+            'password' => '123456',
+            'scope' => '',
         ]);
-
-        $statusCode = $res->getStatusCode(); // 200
-        if($statusCode == 200){
-            return $res->getBody();
-        }else{
-            return response(["success" => false, "message"=> "user not found"], 401);
-        }
+        try {
+           return $response= app()->handle($tokenRequest);
+        } catch (\Exception $e) {
+            return response(["success" => false, "message"=> "token expired"], 408);
+        }    
+       
     }
 }

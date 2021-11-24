@@ -78,11 +78,6 @@ $app->singleton('filesystem', function ($app) {
 |
 */
 
-$app->configure('app');
-$app->configure('auth');
-$app->configure('mail');
-$app->configure('filesystems');
-$app->configure('dompdf');
 
 /*
 |--------------------------------------------------------------------------
@@ -165,6 +160,11 @@ $app->register(Kreait\Laravel\Firebase\ServiceProvider::class);
 |
 */
 
+$app->configure('app');
+$app->configure('auth');
+$app->configure('mail');
+$app->configure('filesystems');
+$app->configure('dompdf');
 
 
 \Dusterio\LumenPassport\LumenPassport::routes($app, ['prefix' => 'v1/oauth']);
