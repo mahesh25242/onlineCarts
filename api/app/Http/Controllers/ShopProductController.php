@@ -39,6 +39,7 @@ class ShopProductController extends Controller
         if($request->input("shop_product_category_id", 0)){
             $products = $products->where("shop_product_category_id", $request->input("shop_product_category_id", 0));
         }
+        
         $DBPrefix = env('DB_PREFIX', '');
         $orderBy = ["{$DBPrefix}shop_products.sortorder", "ASC"];
         if( $request->input("selectedItems", null)){
@@ -100,7 +101,7 @@ class ShopProductController extends Controller
             }
 
         }
-
+      
         if($request->input("cat_url", null)){
             $products = $products->whereHas("shopProductCategory", function($q) use($request){
                 $q->where("url", $request->input("cat_url", null));
@@ -118,8 +119,8 @@ class ShopProductController extends Controller
              });
         }
 
-        $products = $products->select("shop_products.*");
-        return response($products->groupBy("shop_products.id")->orderByRaw($orderBy[0], $orderBy[1])->paginate($perPage ));
+        $products = $products->select("shop_products.*");                
+        return response($products->groupBy("shop_products.id")->orderByRaw($orderBy[0]." ".$orderBy[1])->paginate($perPage ));
     }
 
     public function showProductsFilters(Request $request){

@@ -5,10 +5,10 @@
 export const environment = {
   production: false,
   tinyMceApi: 'n6mryrdzt1pclqabsvpbvw6mtym3kj9gpwjguof89d2sv52q',
-  baseUrl: 'http://localhost/onlineCart/api/public/v1',
+  baseUrl: 'http://localhost:8000/v1',
   //baseUrl: 'https://agoranature.com/api/public/v1', //test
   recaptchaKey: '6LcZDNQaAAAAAIieSLB3rZgoCSgxeh6cXJEF9pLH',
-  siteAddress: 'http://localhost/onlineCart/api/public',
+  siteAddress: 'http://localhost:8000',
   //siteAddress: 'https://agoranature.com/api/public', //test
   gMapUrl: `http://maps.google.com`,
   openstreetmap: `https://nominatim.openstreetmap.org`,
