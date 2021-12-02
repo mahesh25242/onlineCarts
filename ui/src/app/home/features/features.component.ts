@@ -46,7 +46,10 @@ export class FeaturesComponent implements OnInit {
       t: `Customise Design`,
       c: `Each shop admin can set the theme, banner, logo and favicon of their shop. It can also be changed once you set.`
     },
-
+    {
+      t: `Chat Bot`,
+      c: `Each shop has its own chat bot so using this bot a cutsomer can interact with your shop and also a shop admin will get a help from bot to manage your site.`
+    },
   ]
   constructor() { }
 
