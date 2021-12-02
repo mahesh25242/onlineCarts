@@ -211,7 +211,7 @@ class OnStartShopConversation extends Conversation
                     ]);
 
                     $this->say("{$message}");
-                    $this->reStartFromBegin(true);
+                    $this->backToAdminMenu(true);
                 }
             ],
             [
@@ -222,7 +222,7 @@ class OnStartShopConversation extends Conversation
                     ]);
 
                     $this->say("{$message}");
-                    $this->reStartFromBegin(true);
+                    $this->backToAdminMenu(true);
                 }
             ],
             [
@@ -233,7 +233,7 @@ class OnStartShopConversation extends Conversation
                     ]);
 
                     $this->say("{$message}");
-                    $this->reStartFromBegin(true);
+                    $this->backToAdminMenu(true);
                 }
             ],
             [
@@ -244,7 +244,7 @@ class OnStartShopConversation extends Conversation
                     ]);
 
                     $this->say("{$message}");
-                    $this->reStartFromBegin(true);
+                    $this->backToAdminMenu(true);
                 }
             ],
             [
@@ -255,7 +255,7 @@ class OnStartShopConversation extends Conversation
                     ]);
 
                     $this->say("{$message}");
-                    $this->reStartFromBegin(true);
+                    $this->backToAdminMenu(true);
                 }
             ],
             [
@@ -266,7 +266,7 @@ class OnStartShopConversation extends Conversation
                     ]);
 
                     $this->say("{$message}");
-                    $this->reStartFromBegin(true);
+                    $this->backToAdminMenu(true);
                 }
             ],
             [
@@ -277,7 +277,7 @@ class OnStartShopConversation extends Conversation
                     ]);
 
                     $this->say("{$message}");
-                    $this->reStartFromBegin(true);
+                    $this->backToAdminMenu(true);
                 }
             ],
             [
@@ -288,7 +288,7 @@ class OnStartShopConversation extends Conversation
                     ]);
 
                     $this->say("{$message}");
-                    $this->reStartFromBegin(true);
+                    $this->backToAdminMenu(true);
                 }
             ],
             [
@@ -300,7 +300,7 @@ class OnStartShopConversation extends Conversation
                     ]);
 
                     $this->say("{$message}");
-                    $this->reStartFromBegin(true);
+                    $this->backToAdminMenu(true);
                 }
             ],
             [
@@ -311,12 +311,42 @@ class OnStartShopConversation extends Conversation
                     ]);
 
                     $this->say("{$message}");
-                    $this->reStartFromBegin(true);
+                    $this->backToAdminMenu(true);
                 }
             ],
         ]);
+
+        $this->reStartFromBegin();
     }
 
+
+    public function backToAdminMenu($contactUs = false){
+        $buttons = [
+            Button::create('Go Back')->value('restart'),
+            Button::create('End Chat')->value('bye'),
+        ];
+        if($contactUs){
+            $buttons[] = Button::create('Contact Us')->value('contact_us');
+        }
+        $question = Question::create('Please choose an option')
+        ->addButtons($buttons);
+
+        $this->ask($question, [
+            [
+                'pattern' => 'restart',
+                'callback' => function () {
+                    $this->adminHelp();
+                }
+            ],
+            [
+                'pattern' => 'contact_us',
+                'callback' => function () {
+                    $this->contactUsLink();
+                }
+            ],
+        ]);
+
+    }
 
     public function reStartFromBegin($contactUs = false){
         $buttons = [

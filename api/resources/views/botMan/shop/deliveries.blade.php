@@ -27,6 +27,21 @@
                         @else
                             Witout any extra charge.
                         @endif
+                        @if($sd->description)
+                            <p>
+                                {{ $sd->description }}
+                            </p>
+                        @endif
+                        @if($sd->address)
+                            <address>
+                                {{ $sd->address }}
+                            </address>
+                        @endif
+                        @if($sd->map_url)
+                            <a href="{{ $sd->map_url }}" target="_blank" class="btn btn-sm btn-primary">                                
+                                Open in Map
+                            </a>
+                        @endif
                     @endif
                 </div>
            </li>
