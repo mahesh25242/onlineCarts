@@ -1,75 +1,63 @@
 <footer id="footer" *ngIf="footerData$ | async as footerData">
   <div class="footer-top">
-    <div class="container" >
-      <div class="row">
-        <div class="col-lg-3 col-md-6 footer-info">
-          <h3>
-            <img src="./assets/logo.png" alt="logo" class="logo">
-            {{ footerData.site_name}} </h3>
-            <a href="https://www.digitalocean.com/?refcode=195cf12b4ccd&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge" target="_blank"><img src="https://web-platforms.sfo2.digitaloceanspaces.com/WWW/Badge%203.svg" alt="DigitalOcean Referral Badge"  /></a>
-        </div>
-        <div class="col-lg-3 col-md-6 footer-links">
-          <h4 class="c-title">Useful Links</h4>
-          <ul>
-            <li>
-              <fa-icon [icon]="faAngleDoubleRight"></fa-icon>
-              &nbsp;<a routerLink="/" routerLinkActive="active" >Home</a>
-            </li>
-            <li>
-              <fa-icon [icon]="faAngleDoubleRight"></fa-icon>
-              &nbsp;
-              <a routerLink="/about-us" routerLinkActive="active" >About Us</a>
-            </li>
-            <li>
-              <fa-icon [icon]="faAngleDoubleRight"></fa-icon>
-              &nbsp;
-              <a routerLink="/how-it-works" routerLinkActive="active">How It Works</a>
-            </li>
-            <li>
-              <fa-icon [icon]="faAngleDoubleRight"></fa-icon>
-              &nbsp;
-              <a routerLink="/terms-and-condition" routerLinkActive="active">Terms and condition</a>
-            </li>
-            <li>
-              <fa-icon [icon]="faAngleDoubleRight"></fa-icon>
-              &nbsp;
-              <a routerLink="/privacy-policy" routerLinkActive="active">Privacy policy</a>
-            </li>
-            <li>
-              <fa-icon [icon]="faAngleDoubleRight"></fa-icon>
-              &nbsp;
-              <a routerLink="/refund-policy" routerLinkActive="active">Refund policy</a>
-            </li>
-          </ul>
-        </div>
-        <div class="col-lg-3 col-md-6 footer-contact">
-          <h4 class="c-title">
-            Contact Us
-            <a class="btn btn-outline-primary float-right btn-sm" routerLink="/contact-us" routerLinkActive="active">Contact Us</a>
-          </h4>
-          <address class="address" *ngIf="footerData.address">
-            {{footerData.address}}
-          </address>
-          <div>
-             <a [href]="'https://api.whatsapp.com/send?phone='+footerData.mobile+'&text=Hi'"
-              target="_blank" class="d-block d-md-none d-lg-none d-xl-none">{{ footerData.mobile  }} ( whatsapp Only )</a>
-              <a [href]="'https://web.whatsapp.com/send?phone='+footerData.mobile+'&text=Hi'"
-               target="_blank" class="d-none d-md-block d-lg-block d-xl-block">{{ footerData.mobile  }} ( whatsapp Only )</a>
-          </div>
 
-          <p *ngIf="footerData.email">
-            <strong>Email:</strong> {{ footerData.email }}<br>
-          </p>
-
-
-
-
-        </div>
-
+    <div fxLayout="row" fxLayoutGap="20%"  fxLayoutAlign="center center">
+      <div class="footer-info">
+        <h3>
+          <img src="./assets/logo.png" alt="logo" class="logo">
+          {{ footerData.site_name}} </h3>
+          <a href="https://www.digitalocean.com/?refcode=195cf12b4ccd&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge" target="_blank"><img src="https://web-platforms.sfo2.digitaloceanspaces.com/WWW/Badge%203.svg" alt="DigitalOcean Referral Badge"  /></a>
       </div>
-    </div>
-  </div>
-  <div class="container">
+      <div class="footer-links">
+        <ul>
+          <li>
+            <fa-icon [icon]="faAngleDoubleRight"></fa-icon>
+            &nbsp;<a routerLink="/" routerLinkActive="active" >Home</a>
+          </li>
+          <li>
+            <fa-icon [icon]="faAngleDoubleRight"></fa-icon>
+            &nbsp;
+            <a routerLink="/about-us" routerLinkActive="active" >About Us</a>
+          </li>
+          <li>
+            <fa-icon [icon]="faAngleDoubleRight"></fa-icon>
+            &nbsp;
+            <a routerLink="/how-it-works" routerLinkActive="active">How It Works</a>
+          </li>
+          <li>
+            <fa-icon [icon]="faAngleDoubleRight"></fa-icon>
+            &nbsp;
+            <a routerLink="/terms-and-condition" routerLinkActive="active">Terms and condition</a>
+          </li>
+          <li>
+            <fa-icon [icon]="faAngleDoubleRight"></fa-icon>
+            &nbsp;
+            <a routerLink="/privacy-policy" routerLinkActive="active">Privacy policy</a>
+          </li>
+          <li>
+            <fa-icon [icon]="faAngleDoubleRight"></fa-icon>
+            &nbsp;
+            <a routerLink="/refund-policy" routerLinkActive="active">Refund policy</a>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <button routerLink="/contact-us" routerLinkActive="active" mat-flat-button color="accent">Contact Us</button>
+        <br/>
+        <address class="address" *ngIf="footerData.address">
+          {{footerData.address}}
+        </address>
+        <a fxHide.gt-sm="true" [href]="'https://api.whatsapp.com/send?phone='+footerData.mobile+'&text=Hi'"
+        target="_blank">{{ footerData.mobile  }} ( whatsapp Only )</a>
+        <a fxHide.lt-sm="true" [href]="'https://web.whatsapp.com/send?phone='+footerData.mobile+'&text=Hi'"
+         target="_blank">{{ footerData.mobile  }} ( whatsapp Only )</a>
+
+         <p *ngIf="footerData.email">
+          <a [href]="'mailto:'+footerData.email+'?subject=Enquiry'">{{footerData.email}}</a>
+          </p>
+      </div>
+    </div>    
     <div class="copyright">© Copyright {{currentYear}}<strong> {{ footerData.site_name }}</strong>. All Rights Reserved</div>
-  </div>
+  </div>  
 </footer>

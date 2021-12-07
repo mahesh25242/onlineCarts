@@ -10,7 +10,8 @@
         </h4>
       </div>
     </div>
-
+    <mat-stepper>
+    </mat-stepper>
     <app-registration-step-one *ngIf="!(user$ | async)"></app-registration-step-one>
     <app-registration-step-two  *ngIf="(user$ | async)"></app-registration-step-two>
 

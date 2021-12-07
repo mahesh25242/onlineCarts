@@ -1,10 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Subscription, Observable } from 'rxjs';
+import { Subscription, Observable, interval, timer } from 'rxjs';
 import * as _ from 'lodash';
-import { map, mergeMap } from 'rxjs/operators';
+import { map, mergeMap, takeUntil, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { GeneralService } from 'src/app/lib/services';
+import { sample } from 'lodash';
 
 
 @Component({
@@ -13,24 +14,13 @@ import { GeneralService } from 'src/app/lib/services';
   styleUrls: ['./banner.component.scss']
 })
 export class BannerComponent implements OnInit, OnDestroy {
-  images: Array<{image: string}>;
+  
 
-  showBanner$: Observable<boolean>;
-  constructor(private _modalService: NgbModal,
-    private router: Router,
-    private generalService: GeneralService) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.images = [
-      {
-        image: 'assets/banner2.jpg'
-      },
-      {
-        image: 'assets/banner3.jpg'
-      }
-    ];
-
-    this.showBanner$ = this.generalService.showbanner$.asObservable();
+   
+    
 
   }
 

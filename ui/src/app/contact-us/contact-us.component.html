@@ -1,86 +1,88 @@
 <section class="page-section">
-  <div class="container page__container">
-    <div class="row">
-      <div class="col-md-5 col">
-        <h4 class="c-title">Contact Us</h4>
-      </div>
+  <div class="page__container">
+    <h1>Contact Us</h1>
+    <div fxLayout="row" fxLayoutAlign="start start">
+      <!-- <img src="./assets/contact-us.jpg" alt="contact onlinecarts.in"> -->
+      <mat-card class="left-block">
+        <h2 class="page-title">Get in Touch</h2>        
+        <ul *ngIf="footerData$ | async as footerData">
+          <li *ngIf="footerData.address">
+            <mat-icon>contact_mail</mat-icon> &nbsp;
+            {{footerData.address}}
+          </li>
+          <li>
+            <mat-icon>email</mat-icon> &nbsp;
+            <a [href]="'mailto:'+footerData.email+'?subject=Enquiry'">{{footerData.email}}</a>
+          </li>
+          <li>
+            <mat-icon>whatsapp</mat-icon> &nbsp;
+            <a fxHide.gt-sm="true" [href]="'https://api.whatsapp.com/send?phone='+footerData.mobile+'&text=Hi'"
+            target="_blank">{{ footerData.mobile  }} ( whatsapp Only )</a>
+            <a fxHide.lt-sm="true" [href]="'https://web.whatsapp.com/send?phone='+footerData.mobile+'&text=Hi'"
+            target="_blank">{{ footerData.mobile  }}   ( whatsapp Only )</a>
+          </li>          
+        </ul>
+
+        <ul class="inline">
+          <li>
+            <a href="https://www.facebook.com/" mat-mini-fab color="primary" >
+              <mat-icon>facebook</mat-icon>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.youtube.com/" mat-mini-fab color="primary" >
+              <mat-icon>smart_display</mat-icon>
+            </a>
+          </li>          
+        </ul>
+
+      </mat-card>
+      <mat-card class="right-block">        
+        <form [formGroup]="contactUsFrm"  (ngSubmit)="sentContact()">
+
+          <mat-form-field class="full-width-text" appearance="standard" fxFill>
+            <mat-label>Name</mat-label>
+            <input autocomplete="name" matInput formControlName="name" placeholder="John Doe" required maxlength="200">
+            <mat-hint align="end" *ngIf="f.name?.value?.length">{{f.name?.value?.length}} / 200</mat-hint>
+            <mat-error *ngIf="f.name.errors && f.name.errors.error">
+              {{f.name.errors.error}}
+            </mat-error>
+          </mat-form-field>
+
+
+          <mat-form-field class="full-width-text" appearance="standard" fxFill>
+            <mat-label>Email</mat-label>
+            <input autocomplete="email" type="email" matInput formControlName="email" placeholder="Johndoe@gmail.com" required maxlength="200">
+            <mat-hint align="end" *ngIf="f.name?.value?.length">{{f.email?.value?.length}} / 200</mat-hint>
+            <mat-error *ngIf="f.email.errors && f.email.errors.error">
+              {{f.email.errors.error}}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="full-width-text" appearance="standard" fxFill>
+            <mat-label>Phone</mat-label>
+            <input type="tel" autocomplete="phone" matInput formControlName="phone" placeholder="6548965464" required maxlength="12">
+            <mat-hint align="end" *ngIf="f.phone?.value?.length">{{f.phone?.value?.length}} / 12</mat-hint>
+            <mat-error *ngIf="f.phone.errors && f.phone.errors.error">
+              {{f.phone.errors.error}}
+            </mat-error>
+          </mat-form-field>
+          
+          <mat-form-field class="full-width-text" appearance="standard" fxFill>
+            <mat-label>Comment</mat-label>
+            <textarea  matInput formControlName="comment" placeholder="Queries" required maxlength="2000"></textarea>
+            <mat-hint align="end" *ngIf="f.comment?.value?.length">{{f.comment?.value?.length}} / 2000</mat-hint>
+            <mat-error *ngIf="f.comment.errors && f.comment.errors.error">
+              {{f.comment.errors.error}}
+            </mat-error>
+          </mat-form-field>
+
+          <button mat-raised-button color="primary" [disabled]="contactUsFrm.invalid">Sent</button>
+        </form>
+      </mat-card>
     </div>
-    <div class="page-content">
-
-      <form [formGroup]="contactUsFrm"  (ngSubmit)="sentContact()">
-      <div class="container contact">
-        <div class="row">
-          <div class="col-md-3">
-            <div class="contact-info">
-              <img src="https://image.ibb.co/kUASdV/contact-image.png" alt="image"/>
-              <h4>We would love to hear from you !</h4>
-            </div>
-          </div>
-          <div class="col-md-9">
-            <div class="contact-form">
-              <div class="form-group">
-                <label for="name">Name *</label>
-                <input type="email" class="form-control" id="name" placeholder="Name"
-                [ngClass]="{'is-invalid': f.name.invalid && ((f.name.dirty || f.name.touched))}"
-                formControlName="name">
-                <ng-container *ngIf="f.name.invalid && (f.name.dirty || f.name.touched)">
-                  <div *ngIf="f.name.errors.required" class="invalid-feedback">
-                    Name is required.
-                  </div>
-                </ng-container>
-              </div>
-              <div class="form-group">
-                <label for="email">Email address *</label>
-                <input type="email" class="form-control" id="email" aria-describedby="emailHelp"
-                [ngClass]="{'is-invalid': f.email.invalid && ((f.email.dirty || f.email.touched))}"
-                 placeholder="Email" formControlName="email">
-                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                <ng-container *ngIf="f.email.invalid && (f.email.dirty || f.email.touched)">
-                  <div *ngIf="f.email.errors.required" class="invalid-feedback">
-                    Email is required.
-                  </div>
-                  <div *ngIf="f.email.errors.email" class="invalid-feedback">
-                    Email is not valid.
-                  </div>
-                </ng-container>
-              </div>
-
-              <div class="form-group">
-                <label for="phone">Phone *</label>
-                <input type="text" class="form-control" id="phone" aria-describedby="phoneHelp"
-                [ngClass]="{'is-invalid': f.phone.invalid && ((f.phone.dirty || f.phone.touched))}"
-                 placeholder="Phone" formControlName="phone">
-                <small id="phoneHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                <ng-container *ngIf="f.phone.invalid && (f.phone.dirty || f.phone.touched)">
-                  <div *ngIf="f.phone.errors.required" class="invalid-feedback">
-                    Phone is required.
-                  </div>
-                </ng-container>
-              </div>
-              <div class="form-group">
-                <label for="comment">Comment *</label>
-                <textarea class="form-control" id="comment"  placeholder="Comment"
-                [ngClass]="{'is-invalid': f.comment.invalid && ((f.comment.dirty || f.comment.touched))}"
-                formControlName="comment"></textarea>
-                <ng-container *ngIf="f.comment.invalid && (f.comment.dirty || f.comment.touched)">
-                  <div *ngIf="f.comment.errors.required" class="invalid-feedback">
-                    Comment is required.
-                  </div>
-                </ng-container>
-              </div>
-
-              <div class="form-group">
-                  <button type="submit" class="btn btn-primary float-right" [disabled]="contactUsFrm.invalid">Sent</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </form>
-
-
-
-    </div>
+    
+  
   </div>
 </section>
 

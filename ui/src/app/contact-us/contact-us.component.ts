@@ -2,8 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ReCaptchaV3Service } from 'ngx-captcha';
 import { environment } from '../../environments/environment';
-import { Subscription } from 'rxjs';
-import {GeneralService} from '../lib/services';
+import { Observable, Subscription } from 'rxjs';
+import {GeneralService, SettingService} from '../lib/services';
 import Notiflix from "notiflix";
 
 @Component({
@@ -14,9 +14,12 @@ import Notiflix from "notiflix";
 export class ContactUsComponent implements OnInit, OnDestroy {
   contactUsFrm: FormGroup;
   contactUsSubscription: Subscription;
+  footerData$: Observable<any>;
+  
   constructor(private formBuilder: FormBuilder,
     private reCaptchaV3Service: ReCaptchaV3Service,
-    private generalService : GeneralService) { }
+    private generalService : GeneralService,
+    private settingService: SettingService) { }
 
   get f() { return this.contactUsFrm.controls; }
 
@@ -27,6 +30,8 @@ export class ContactUsComponent implements OnInit, OnDestroy {
       phone:['', [Validators.required]],
       comment: ['', [Validators.required]]
     });
+
+    this.footerData$ = this.settingService.footerData();
   }
   sentContact(){
     Notiflix.Loading.Pulse(`${this.f.name.value} your query was sendng.`);

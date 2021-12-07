@@ -47,10 +47,10 @@ const routes: Routes = [
     path: 'refund-policy',
     component: RefundAndCancellationComponent
   },
-  {
-    path: 'admin',
-    loadChildren: () => import('./modules/admin/admin.module').then(m => m.AdminModule)
-  },
+  // {
+  //   path: 'admin',
+  //   loadChildren: () => import('./modules/admin/admin.module').then(m => m.AdminModule)
+  // },
   {
     path: 'shop',
     loadChildren: () => import('./modules/shop-admin/shop-admin.module').then(m => m.ShopAdminModule)

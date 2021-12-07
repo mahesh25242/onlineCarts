@@ -1,0 +1,33 @@
+<svg
+   version="1.1"
+   id="svg2"
+   width="239.03999"
+   height="481.92001"
+   viewBox="0 0 239.03999 481.92001"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg" *ngIf="showBanner$ | async">
+  <defs
+     id="defs6" />
+  <g
+     id="g8">
+    <image
+       width="239.03999"
+       height="481.92001"
+       preserveAspectRatio="none"
+       xlink:href="./assets/banner/mobile-holder.png"
+       id="image10"
+       x="4"
+       y="0" />
+      <image
+       width="239.03999"
+       height="481.92001"
+       class="animate__animated"
+       [ngClass]="image.class"
+       preserveAspectRatio="none"
+       [attr.xlink:href]="image.image"
+       id="image20"
+       x="5"
+       y="2" />
+  </g>
+</svg>

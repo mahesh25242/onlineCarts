@@ -1,7 +1,34 @@
+<div fxLayout="row" fxLayoutAlign="space-between" class="container top-main-menu">            
+  <div>     
+    <a routerLink="/" *ngIf="footerData$  | async as footerData" class="head">{{footerData.site_name}}</a>
+  </div>
+  <div>
+    <ul>
+      <li>
+        <a routerLink="/about-us" routerLinkActive="active">About</a>    
+      </li>
+      <li>
+        <a routerLink="/pricing" routerLinkActive="active">Pricing</a>
+      </li>
+      <li>
+        <a routerLink="/how-it-works"  routerLinkActive="active">How It Works</a>
+      </li>
+      <li>
+        <a routerLink="/contact-us" routerLinkActive="active">Contact Us</a>
+      </li>
+      <li>
+        <button mat-stroked-button color="primary" routerLink="/">Demo</button>
+      </li>
+      <li>
+        <button mat-raised-button routerLink="/shop/register" color="primary">Register Your Shop</button>    
+      </li>
+    </ul>                        
+  </div>    
+</div>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <img src="./assets/logo.png" alt="logo" class="logo">
-  <a class="navbar-brand" routerLink="/" *ngIf="footerData$  | async as footerData">{{footerData.site_name}}</a>
+<!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  
+  
   <button class="navbar-toggler"  (click)="isNavbarCollapsed = !isNavbarCollapsed" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -80,5 +107,5 @@
   </div>
 </nav>
 
-
+ -->
 

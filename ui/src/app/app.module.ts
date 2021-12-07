@@ -12,7 +12,7 @@ import {  SharedModuleModule } from './shared-module/shared-module.module';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
+import {IvyCarouselModule} from 'angular-responsive-carousel';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
@@ -31,7 +31,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { PricingComponent } from './pricing/pricing.component';
 import { PackageResolver } from './pricing/package-resolver';
 import { WhoNeedThisComponent } from './home/who-need-this/who-need-this.component';
-
+import { HomeBannerSvgComponent } from './header/home-banner-svg/home-banner-svg.component';
+import { FeaturesSvgComponent } from './home/features/features-svg/features-svg.component';
 
 
 
@@ -55,7 +56,9 @@ import { WhoNeedThisComponent } from './home/who-need-this/who-need-this.compone
     OurClientsComponent,
     RefundAndCancellationComponent,
     PricingComponent,
-    WhoNeedThisComponent
+    WhoNeedThisComponent,
+    HomeBannerSvgComponent,
+    FeaturesSvgComponent
   ],
   imports: [
     BrowserModule,
@@ -63,6 +66,7 @@ import { WhoNeedThisComponent } from './home/who-need-this/who-need-this.compone
     AppRoutingModule,
     SharedModuleModule,
     HttpClientModule,
+    IvyCarouselModule,
     HttpClientXsrfModule.disable(),
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,

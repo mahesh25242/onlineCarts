@@ -1,43 +1,29 @@
 <section class="page-section">
-  <div class="container page__container">
-    <div class="row">
-      <div class="col-md-5 col">
-        <h4 class="c-title">Pricing</h4>
-      </div>
+  <div class="container page__container">    
+    <div class="banner">
+      <h1>Subscription Price</h1>
+      <p>
+        You can purchase below package once you register with us and also expire the trial period. So for new customer they should pay only after trial period expiry. If they didn't renew their subscription then our system fisrt make it as inactive and then  deleted all data related to that particular shop.
+      </p>      
     </div>
-    <div class="page-content">
-      <div *ngIf="packages$ | async as packages">
 
-        <div class="alert alert-warning" role="alert" *ngIf="!packages || !packages.length">
-          No package found
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="25px">  
+      <mat-card class="pricing-card" *ngFor="let package of packages$ | async">
+        <div class="pricing-card__header">
+          <h3>{{package.name}}</h3>
+          <p>
+            <span>$</span>
+            <span>{{package.price}}</span>
+            <span>/ {{ package.duration }} {{ package.duration > 1 ? 'Months': 'Month'}}</span>
+          </p>
         </div>
-
-
-        <div *ngIf="packages && packages.length > 0">
-            <p>We are mainly offering {{ packages.length }} packages. The first one is trial package.
-              which is for our new customers to test their product with our service and check is this is suilt for them.
-            </p>
-            <p>
-              You can purchase below package once you register with us and also expire the trial period. So for new customer they should pay only after trial period expiry. If they didn't renew their subscription then our system fisrt make it as inactive and then  deleted all data related to that particular shop.
-            </p>
-
-
-            <div class="row text-center">
-
-              <div class="col-md-4 mb-3" *ngFor="let package of packages">
-                <div class="wrap"  >
-                  <h2>{{ package.name }}</h2>
-                  <h5>{{ package.duration }} ( in Month(s) )</h5>
-                  <p>{{ package.description }}</p>
-                  <p class="price">{{ package.price | currency:'INR'}}</p>
-                </div>
-              </div>
-
-            </div>
-        </div>
-
-      </div>
+        <div class="pricing-card__body">
+             {{package.description}}
+        </div>        
+      </mat-card>
     </div>
+      
+  
   </div>
 </section>
 

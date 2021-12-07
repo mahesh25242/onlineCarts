@@ -46,11 +46,12 @@ import { EditMessageComponent } from './cart-details/edit-message/edit-message.c
 import { SearchComponent } from './components/search/search.component';
 import { SearchResultComponent } from './search-result/search-result.component';
 import { SearchFilterComponent } from './search-result/search-filter/search-filter.component';
-import { MatCarouselModule } from '@ngmodule/material-carousel';
 import { OrderFormComponent } from './cart-details/order-form/order-form.component';
 import { OrderTermsComponent } from './cart-details/order-terms/order-terms.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import {IvyCarouselModule} from 'angular-responsive-carousel';
+
 
 import { AngularFireModule } from "@angular/fire";
 import { MessagingService } from './lib/services';
@@ -154,12 +155,11 @@ function initializeAppFactory(shopService: ShopService) {
     BrowserAnimationsModule,
     SharedModuleModule,
     HammerModule,
-
+    IvyCarouselModule,
     MatToolbarModule,
 
     HttpClientModule,
-    HttpClientXsrfModule.disable(),
-    MatCarouselModule.forRoot(),
+    HttpClientXsrfModule.disable(),    
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAnalyticsModule,

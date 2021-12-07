@@ -1,18 +1,12 @@
 <div class="section-heading">
-  <h2>Registered shop will get following features</h2>
+  <h2>Top Features</h2>
+  <small>Top rated features </small>
 </div>
-
-<div class="row mbr-justify-content-center">
-  <div class="col-lg-6 mbr-col-md-10" *ngFor="let itm of item">
-      <div class="wrap">
-          <div class="ico-wrap">
-              <fa-icon class="mbr-iconfont" [icon]="faHandPointRight"></fa-icon>
-          </div>
-          <div class="text-wrap vcenter">
-              <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5" [innerHTML]="itm.t"></h2>
-              <p class="mbr-fonts-style text1 mbr-text display-6" [innerHTML]="itm.c"></p>
-          </div>
-      </div>
-  </div>
-
+<div class="features-wrap">
+  <carousel height="500" cellsToShow="4">
+    <div class="carousel-cell" *ngFor="let itm of item">      
+        <h3>{{itm.t}}</h3>
+        <app-features-svg [images]="itm.images" [svg]="itm.svg"></app-features-svg>      
+    </div>
+  </carousel>  
 </div>

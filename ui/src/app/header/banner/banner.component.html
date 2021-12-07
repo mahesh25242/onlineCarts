@@ -1,12 +1,15 @@
-<section class="home-banner" *ngIf="showBanner$ | async">
-  <ngb-carousel [showNavigationIndicators]="false">
-    <ng-template ngbSlide *ngFor="let image of images">
-      <div class="picsum-img-wrapper" [ngStyle]="{'background-image': 'url(' + image.image + ')'}"></div>
-      <div class="carousel-caption">
-        <p><a [routerLink]="['/shop/register']"  class="btn btn-primary btn-lg">Click here to register your shop with us</a></p>
-      </div>
-    </ng-template>
-  </ngb-carousel>
-
-</section>
-
+<div fxLayout="row" fxLayoutAlign="space-between center" class="container">
+   <app-home-banner-svg></app-home-banner-svg>   
+   <div class="banner-right animate__animated animate__fadeIn">      
+      <h2>
+         Ready To Create Your Shop Website?
+      </h2>
+      <p>
+         Design and style should constantly work to make your business appear and feel nice - without exerting too much effort - so you can focus on the important things.
+      </p>
+      <p>
+         <button mat-flat-button color="primary">Register your shop</button>
+         <button mat-flat-button color="accent" class="demo-btn">Check a Demo shop</button>
+      </p>
+   </div> 
+</div>

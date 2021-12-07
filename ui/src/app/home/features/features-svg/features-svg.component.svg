@@ -1,0 +1,24 @@
+<svg
+   version="1.1"
+   id="svg2"
+   [attr.width]="svg?.width"
+   [attr.height]="svg?.height"
+   [attr.viewBox]="svg?.viewBox"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg" *ngIf="obs$ | async">
+  <defs
+     id="defs6" />
+  <g
+     id="g8">
+    <image
+       [attr.width]="svg.images[idx].width"
+       [attr.height]="svg.images[idx].height"
+       preserveAspectRatio="none"
+       [attr.xlink:href]="svg.images[idx].src"
+       [ngClass]="svg.images[idx].class"
+       [attr.x]="svg.images[idx].x"
+       [attr.y]="svg.images[idx].y"
+       id="image10"/>    
+  </g>
+</svg>
