@@ -46,7 +46,6 @@
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "n2words": "^1.10.0",
-    "ngx-captcha": "^8.0.1",
     "ngx-cookieconsent": "^2.2.3",
     "ngx-image-compress": "^11.0.3",
     "ngx-infinite-scroll": "^9.1.0",
