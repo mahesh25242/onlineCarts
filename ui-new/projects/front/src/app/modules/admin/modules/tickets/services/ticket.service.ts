@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { find } from 'lodash';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { findIndex, tap } from 'rxjs/operators';
 import {  HelpTicket, HelpTicketWithPagination  } from '../../../../../lib/interfaces';
 @Injectable({
@@ -12,7 +12,7 @@ export class TicketService {
 
   constructor(private http: HttpClient) { }
 
-  get allTickets(){
+  get allTickets(): Observable<HelpTicketWithPagination | null>{
     return this.allTickets$.asObservable();
   }
   tickets(postData:any = null, page: number = 1){

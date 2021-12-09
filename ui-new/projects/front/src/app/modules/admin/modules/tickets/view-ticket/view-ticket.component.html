@@ -1,8 +1,18 @@
 <h1 mat-dialog-title>#{{ ticket.id }} - {{ ticket.subject }}</h1>
 <div mat-dialog-content>
   <div [innerHTML]="ticket.content"></div>
-  <textarea [(ngModel)]="comment" placeholder="Reply Comment" class="form-control"></textarea>
-  <button mat-raised-button color="primary" type="button"  [disabled]="!comment" (click)="sendReply()">Sent</button>
+
+  <mat-form-field class="full-width-text" appearance="standard" fxFill>
+    <mat-label>Comment</mat-label>
+    <textarea matInput [formControl]="comment" placeholder="Comment" required maxlength="2000"></textarea>
+    <mat-hint align="end" *ngIf="comment?.value?.length">{{comment?.value?.length}} / 2000</mat-hint>
+    <mat-error *ngIf="comment?.errors && comment?.errors?.['error']">
+      {{comment?.errors?.['error']}}
+    </mat-error>
+  </mat-form-field>
+  
+
+  <button mat-raised-button color="primary" type="button"  [disabled]="!comment?.value" (click)="sendReply()">Sent</button>
   <app-ticket-replies [id]="ticket.id"></app-ticket-replies>
 </div>
 <div mat-dialog-actions>

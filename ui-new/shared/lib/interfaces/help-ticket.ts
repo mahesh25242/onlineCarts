@@ -17,6 +17,7 @@ export interface HelpTicket {
   status_text?: string;
   help_ticket_type?: HelpTicketType;
   all_children_replies?: HelpTicket[];
+  updated_at?: string;
 }
 
 export interface HelpTicketWithPagination extends Pagination {
