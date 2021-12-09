@@ -1,0 +1,30 @@
+<mat-toolbar>
+    <div>
+        <button mat-button [matMenuTriggerFor]="shopMenu">Shop</button>
+        <mat-menu #shopMenu="matMenu">
+            <button mat-menu-item routerLink="/admin/tickets">Tickets</button>
+            <button mat-menu-item routerLink="/admin/reported-abuses">Report Abuses</button>
+            <button mat-menu-item routerLink="/admin/user-id-proof">Id Proofs</button>
+            <button mat-menu-item routerLink="/admin/shops">Shops</button>
+            <button mat-menu-item routerLink="/admin/shops/categories">Categories</button>
+            <button mat-menu-item routerLink="/admin/packages">Packages</button>
+        </mat-menu>
+    </div>
+    <div>
+        <button mat-button [matMenuTriggerFor]="manageMenu">Manage</button>
+        <mat-menu #manageMenu="matMenu">
+            <button mat-menu-item routerLink="/admin/point-coupons">Point Coupons</button>        
+        </mat-menu>
+    </div>
+    <div>
+        <button mat-button [matMenuTriggerFor]="settingsMenu">Settings</button>
+        <mat-menu #settingsMenu="matMenu">
+            <button mat-menu-item routerLink="/admin/settings">Settings</button>        
+            <button mat-menu-item routerLink="/admin/prefill-messages">Pre-Fill Messages</button>        
+        </mat-menu>
+    </div>
+    <div>
+        <button mat-button routerLink="/admin/trash">Trash</button>
+    </div>
+ </mat-toolbar>
+<router-outlet></router-outlet>

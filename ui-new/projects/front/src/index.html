@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Front</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <script type='text/javascript'>
+    window.smartlook||(function(d) {
+      var o=smartlook=function(){ o.api.push(arguments)},h=d.getElementsByTagName('head')[0];
+      var c=d.createElement('script');o.api=new Array();c.async=true;c.type='text/javascript';
+      c.charset='utf-8';c.src='https://rec.smartlook.com/recorder.js';h.appendChild(c);
+      })(document);
+      smartlook('init', 'df6649854dfe7af0a7af8d7dd14276614a58e67d');
+  </script>
+  <script type="text/javascript">
+
+
+    var botmanWidget = {
+      frameEndpoint: 'https://'+window.location.hostname+'/widget.php'  ,
+      chatServer: 'https://api.onlinecarts.in/v1/bot',
+      placeholderText: 'Ask Me Something',
+  
+      introMessage: "✋ Hi! I'm from onlinecarts.in, Please say hi to start chat.",
+      title:'Onlinecarts.in',
+      mainColor:'#007bff',
+      aboutText:'powered by onlinecarts.in',
+      headerTextColor: '#fff',
+      aboutLink:'https://onlinecarts.in',
+      bubbleAvatarUrl: 'https://onlinecarts.in/front/assets/bot.svg',
+      bubbleBackground: 'none',
+      userId: window.crypto.getRandomValues(new Uint32Array(1))[0]
+  };
+    </script>
+      <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-196634110-1">
+</script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-196634110-1');
+</script>
+</head>
+<body class="mat-typography">
+  <app-root></app-root>
+
+  <script src='https://api.onlinecarts.in/assets/botman/js/widget.js'></script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+h1{
+  color: #3f51b5;
+  font-weight: bold;
+  font-size: 2.5em;
+}
+
+.page__container{
+  text-align: center;
+  div{
+    text-align: left;
+  }
+  width:87%;
+  margin:0 auto;
+}
+.left-block{
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+  width: 350px;
+  height: 250px;
+  background-color: #3f51b5;
+  position: relative;
+  left: 9%;
+  z-index: 5;
+  top: 25px;
+  color: #fff;
+  a{
+    color: #fff;    
+  }
+}
+.right-block{
+  box-shadow: 0px 0px 10px rgba(63, 81, 181,0.6);
+  padding-left: 12%;
+}
+a{
+  text-decoration: none;
+}
+ul{
+  margin: 0;
+  padding: 0;
+  &.inline{
+    position: absolute;
+    bottom: 7px;    
+    li{
+      display: inline;
+      margin:7px
+    }
+  }
+  li{
+    list-style: none;
+  }
+}

@@ -1,0 +1,30 @@
+<form [formGroup]="saveFrm" (submit)="sent()">
+  <h1 mat-dialog-title>{{ 'Sent '+pm?.subject  }}</h1>
+  <div mat-dialog-content>
+
+    <mat-form-field class="full-width-text" appearance="standard" fxFill>
+      <mat-label>Mobile</mat-label>
+      <input type="tel" autocomplete="mobile" matInput formControlName="mobile" 
+      placeholder="Mobile" required maxlength="200">
+      <mat-hint align="end" *ngIf="f?.['mobile']?.value?.length">{{f?.['mobile']?.value?.length}} / 200</mat-hint>
+      <mat-error *ngIf="f?.['mobile']?.errors && f?.['mobile']?.errors?.['error']">
+        {{f?.['mobile']?.errors?.['error']}}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="full-width-text" appearance="standard" fxFill>
+      <mat-label>Name</mat-label>
+      <input type="text" autocomplete="name" matInput formControlName="name" 
+      placeholder="Name" required maxlength="200">
+      <mat-hint align="end" *ngIf="f?.['name']?.value?.length">{{f?.['name']?.value?.length}} / 200</mat-hint>
+      <mat-error *ngIf="f?.['name']?.errors && f?.['name']?.errors?.['error']">
+        {{f?.['name']?.errors?.['error']}}
+      </mat-error>
+    </mat-form-field>
+
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button mat-dialog-close type="button">Close</button>
+    <button mat-raised-button color="primary" cdkFocusInitial  [disabled]="!f?.['mobile']?.value">Sent</button>
+  </div>  
+</form>

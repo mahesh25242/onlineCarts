@@ -1,0 +1,29 @@
+<section class="page-section">
+  <div class="container page__container">    
+    <div class="banner">
+      <h1>Subscription Price</h1>
+      <p>
+        You can purchase below package once you register with us and also expire the trial period. So for new customer they should pay only after trial period expiry. If they didn't renew their subscription then our system fisrt make it as inactive and then  deleted all data related to that particular shop.
+      </p>      
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="25px">  
+      <mat-card class="pricing-card" *ngFor="let package of packages$ | async">
+        <div class="pricing-card__header">
+          <h3>{{package?.name}}</h3>
+          <p>
+            <span>$</span>
+            <span>{{package?.price}}</span>
+            <span *ngIf="package?.duration">/ {{ package?.duration }} {{  package?.duration_text  }}</span>
+          </p>
+        </div>
+        <div class="pricing-card__body">
+             {{package?.description}}
+        </div>        
+      </mat-card>
+    </div>
+      
+  
+  </div>
+</section>
+

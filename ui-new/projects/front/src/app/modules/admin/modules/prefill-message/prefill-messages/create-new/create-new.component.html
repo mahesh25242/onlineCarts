@@ -1,0 +1,41 @@
+<form [formGroup]="saveFrm" (submit)="save()">
+
+  <h1 mat-dialog-title>{{ (pm?.id) ? 'Edit '+pm.subject : 'Create New Message' }}</h1>
+  <div mat-dialog-content>
+
+    <mat-form-field class="full-width-text" appearance="standard" fxFill>
+      <mat-label>Name</mat-label>
+      <input type="text" autocomplete="name" matInput formControlName="name" 
+      placeholder="Name" required maxlength="200">
+      <mat-hint align="end" *ngIf="f?.['name']?.value?.length">{{f?.['name']?.value?.length}} / 200</mat-hint>
+      <mat-error *ngIf="f?.['name']?.errors && f?.['name']?.errors?.['error']">
+        {{f?.['name']?.errors?.['error']}}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="full-width-text" appearance="standard" fxFill>
+      <mat-label>Subject</mat-label>
+      <input type="text" autocomplete="subject" matInput formControlName="subject" 
+      placeholder="Subject" required maxlength="200">
+      <mat-hint align="end" *ngIf="f?.['subject']?.value?.length">{{f?.['subject']?.value?.length}} / 200</mat-hint>
+      <mat-error *ngIf="f?.['subject']?.errors && f?.['subject']?.errors?.['error']">
+        {{f?.['subject']?.errors?.['error']}}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="full-width-text" appearance="standard" fxFill>
+      <mat-label>Message</mat-label>
+      <textarea  matInput formControlName="message" 
+      placeholder="Message" required maxlength="200"></textarea>
+      <mat-hint align="end" *ngIf="f?.['message']?.value?.length">{{f?.['message']?.value?.length}} / 200</mat-hint>
+      <mat-error *ngIf="f?.['message']?.errors && f?.['message']?.errors?.['error']">
+        {{f?.['message']?.errors?.['error']}}
+      </mat-error>
+    </mat-form-field>
+
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button mat-dialog-close type="button">Close</button>
+    <button mat-raised-button color="primary" cdkFocusInitial>Save</button>
+  </div>   
+</form>

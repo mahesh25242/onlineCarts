@@ -1,0 +1,56 @@
+
+.logo{
+  width: 70px;
+}
+
+footer{  
+  color: #eee;
+  font-size: 14px;
+  .copyright{
+    text-align: center;
+    padding-top: 30px;
+  }
+
+  .footer-contact{
+    h4.c-title{
+      a{
+        margin-top: -11px;
+      }
+    }
+  }
+
+  .footer-info, .footer-links, .footer-contact, .footer-newsletter{
+    margin-bottom: 18px;
+  }
+}
+.footer-top{
+  padding: 15px;
+  background: #3f51b5;
+  border-top-right-radius: 61px;  
+  h3{
+    font-size: 28px;        
+    font-family: "Montserrat",sans-serif;        
+  }
+
+  p{
+    font-size: 14px;
+    line-height: 24px;;
+    margin-bottom: 0;
+    font-family: "Montserrat",sans-serif;
+    color: #eee;
+  }
+  ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    li{
+      padding:10px 0;
+      border-bottom: 1px solid #333;
+      
+    }
+  }
+}
+a{
+  color: #eee;
+  text-decoration: none;
+}

@@ -1,0 +1,157 @@
+<form [formGroup]="registerForm" (submit)="save()" id="registerForm">
+  <div class="page-content">
+    
+    <div fxLayout="row"  fxLayoutGap="20px">            
+      <div fxFlex="50%" fxFlex.xs="100%"> 
+        <div>
+          <mat-form-field  appearance="standard" fxFill>
+            <mat-label>Name</mat-label>
+            <input type="text" autocomplete="name" matInput formControlName="name" placeholder="Shop Name" required maxlength="200">
+            <mat-hint align="end" *ngIf="f?.['name']?.value?.length">{{f?.['name']?.value?.length}} / 200</mat-hint>
+            <mat-error *ngIf="f?.['name']?.errors && f?.['name']?.errors?.['error']">
+              {{f?.['name']?.errors?.['error']}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field  appearance="standard" fxFill>
+            <mat-label>Category</mat-label>
+            <mat-select formControlName="shop_category_id" required>       
+              <mat-option *ngFor="let cat of (shopCategories$ | async)" [value]="cat.id">{{cat.name}}</mat-option>
+            </mat-select>      
+            <mat-error *ngIf="f?.['shop_category_id']?.errors && f?.['shop_category_id']?.errors?.['error']">
+              {{f?.['shop_category_id']?.errors?.['error']}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field  appearance="standard" fxFill>
+            <mat-label>Mobile</mat-label>
+            <input type="tel" autocomplete="phone" matInput formControlName="phone" placeholder="Mobile" required maxlength="12">
+            <span matPrefix *ngIf="f?.['country_id']?.value">+{{ f?.['country_id']?.value?.phonecode }} &nbsp;</span>
+            <mat-hint>This mobile is used for whatsapp communication with shop especially for product order.
+              please enter whatsapp registered number with out country code</mat-hint>
+            <mat-hint align="end" *ngIf="f?.['phone']?.value?.length">{{f?.['phone']?.value?.length}} / 12</mat-hint>
+            <mat-error *ngIf="f?.['phone']?.errors && f?.['phone']?.errors?.['error']">
+              {{f?.['phone']?.errors?.['error']}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field  appearance="standard" fxFill>
+            <mat-label>City</mat-label>
+            <mat-select formControlName="city_id" required>       
+              <mat-option *ngFor="let city of (cities$ | async)" [value]="city.id">{{city.name}}</mat-option>
+            </mat-select>      
+            <mat-error *ngIf="f?.['city_id']?.errors && f?.['city_id']?.errors?.['error']">
+              {{f?.['city_id']?.errors?.['error']}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+      
+        <div>
+          <mat-form-field  appearance="standard" fxFill>
+            <mat-label>Local Place</mat-label>
+            <input type="tel" autocomplete="local" matInput formControlName="local" placeholder="Local Place" required maxlength="200">      
+            <mat-hint align="end" *ngIf="f?.['local']?.value?.length">{{f?.['local']?.value?.length}} / 200</mat-hint>
+            <mat-error *ngIf="f?.['local']?.errors && f?.['local']?.errors?.['error']">
+              {{f?.['local']?.errors?.['error']}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxFlex="50%" fxFlex.xs="100%"> 
+        <div>      
+          <mat-form-field  appearance="standard" fxFill>
+            <mat-label>Country</mat-label>
+            <mat-select formControlName="country_id" required>       
+              <mat-option *ngFor="let country of (countries$ | async)" [value]="country">{{country.name}}</mat-option>
+            </mat-select>      
+            <mat-error *ngIf="f?.['country_id']?.errors && f?.['country_id']?.errors?.['error']">
+              {{f?.['country_id']?.errors?.['error']}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field  appearance="standard" fxFill>
+            <mat-label>State</mat-label>
+            <mat-select formControlName="state_id" required>       
+              <mat-option *ngFor="let state of (states$ | async)" [value]="state.id">{{state.name}}</mat-option>
+            </mat-select>      
+            <mat-error *ngIf="f?.['state_id']?.errors && f?.['state_id']?.errors?.['error']">
+              {{f?.['state_id']?.errors?.['error']}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field  appearance="standard" fxFill>
+            <mat-label>Pin</mat-label>
+            <input type="tel" autocomplete="pin" matInput formControlName="pin" placeholder="Pin" required maxlength="10">      
+            <mat-hint align="end" *ngIf="f?.['pin']?.value?.length">{{f?.['pin']?.value?.length}} / 10</mat-hint>
+            <mat-error *ngIf="f?.['pin']?.errors && f?.['pin']?.errors?.['error']">
+              {{f?.['pin']?.errors?.['error']}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field  appearance="standard" fxFill>
+            <mat-label>Shop Url</mat-label>
+            <input type="url" autocomplete="base_path" matInput formControlName="base_path" placeholder="Shop Url" required maxlength="200">
+            <mat-hint>This will keep as shop url. Example:
+              https://www.onlinecarts.com/{{  f?.['base_path']?.value ?? 'shop-name' }}.
+              You can choose only available url
+            </mat-hint>
+            <mat-hint align="end" *ngIf="f?.['base_path']?.value?.length">{{f?.['base_path']?.value?.length}} / 200</mat-hint>
+            <mat-error *ngIf="f?.['base_path']?.errors && f?.['base_path']?.errors?.['error']">
+              {{f?.['base_path']?.errors?.['error']}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field  appearance="standard" fxFill>
+            <mat-label>Address</mat-label>
+            <input type="tel" autocomplete="address" matInput formControlName="address" placeholder="Address" required maxlength="12">      
+            <mat-hint align="end" *ngIf="f?.['address']?.value?.length">{{f?.['address']?.value?.length}} / 12</mat-hint>
+            <mat-error *ngIf="f?.['address']?.errors && f?.['address']?.errors?.['error']">
+              {{f?.['address']?.errors?.['error']}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+        
+    
+        
+
+        
+
+        
+
+        
+       
+        
+
+        
+
+        
+    
+        
+
+        
+     
+    
+
+    
+
+    
+
+    
+    <mat-checkbox class="example-margin"  formControlName="terms" color="primary">Checked</mat-checkbox>
+    
+    <button type="submit" mat-raised-button color="primary" [disabled]="!f?.['terms']?.value">Primary</button>
+
+  </div>
+</form>

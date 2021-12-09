@@ -1,0 +1,24 @@
+<ng-container *ngIf="shops$ | async as shops">
+<div *ngIf="shops.length" class="mb-3">
+
+  <div class="section-heading text-center">
+    <h2>Our Prime Clients</h2>
+  </div>
+
+  <div class="row">
+    <a class="col-lg-3 col-xs-6 text-center" target="_blank" [href]="shop.shop_url" *ngFor="let shop of shops">
+      <div class="box">
+        <div class="box-content">
+          <h3 class="tag-title">{{ shop.name }}</h3>
+        </div>
+        <address>
+          {{ shop.address }}
+        </address>
+      </div>
+    </a>
+
+  </div>
+</div>
+
+</ng-container>
+

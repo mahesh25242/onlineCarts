@@ -734,13 +734,13 @@ class ShopsController extends Controller
         return response()->download($zip_file)->deleteFileAfterSend(true);
     }
 
-    public function register(Request $request){
+    public function register(Request $request){       
         $recaptcha = new \ReCaptcha\ReCaptcha(env("RECAPTCHA_SECRET"));
         $resp = $recaptcha->setExpectedAction("SignUp")
                         //->setExpectedHostname(env("APP_URL"))
                         ->verify($request->input('recaptcha'), $request->ip());
         if (!$resp->isSuccess()) {
-           return response(['message' => 'Validation errors', 'errors' =>  $resp->getErrorCodes(), 'status' => false], 422);
+           return response(['message' => 'captcha validation error', 'errors' =>  $resp->getErrorCodes(), 'status' => false], 422);
         }
 
         $validator = Validator::make($request->all(), [

@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>#{{ ticket.id }} - {{ ticket.subject }}</h1>
+<div mat-dialog-content>
+  <div [innerHTML]="ticket.content"></div>
+  <textarea [(ngModel)]="comment" placeholder="Reply Comment" class="form-control"></textarea>
+  <button mat-raised-button color="primary" type="button"  [disabled]="!comment" (click)="sendReply()">Sent</button>
+  <app-ticket-replies [id]="ticket.id"></app-ticket-replies>
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close type="button" >Close</button>  
+</div>

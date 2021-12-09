@@ -1,0 +1,37 @@
+<form [formGroup]="editForm" (ngSubmit)="save()">  
+
+  <h1 mat-dialog-title> {{ (setting?.id) ? 'Edit '+setting.name : 'Create New Setting' }}</h1>
+  <div mat-dialog-content>
+
+    <mat-form-field class="full-width-text" appearance="standard" fxFill>
+      <mat-label>Name</mat-label>
+      <input type="text" autocomplete="name" matInput formControlName="name" 
+      placeholder="Name" required maxlength="200">        
+    </mat-form-field>
+
+    <mat-form-field class="full-width-text" appearance="standard" fxFill>
+      <mat-label>Value</mat-label>
+      <input type="text" autocomplete="value" matInput formControlName="value" 
+      placeholder="Value" required maxlength="200">
+      <mat-hint align="end" *ngIf="f?.['value']?.value?.length">{{f?.['value']?.value?.length}} / 200</mat-hint>
+      <mat-error *ngIf="f?.['value']?.errors && f?.['value']?.errors?.['error']">
+        {{f?.['value']?.errors?.['error']}}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="full-width-text" appearance="standard" fxFill>
+      <mat-label>Description</mat-label>
+      <textarea  matInput formControlName="description" 
+      placeholder="Description" required maxlength="200"></textarea>
+      <mat-hint align="end" *ngIf="f?.['description']?.value?.length">{{f?.['description']?.value?.length}} / 200</mat-hint>
+      <mat-error *ngIf="f?.['description']?.errors && f?.['description']?.errors?.['error']">
+        {{f?.['description']?.errors?.['error']}}
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button mat-dialog-close>Close</button>
+    <button mat-button type="submit" cdkFocusInitial>Save</button>
+  </div>
+  
+</form>

@@ -45,6 +45,7 @@ class PackageResurce extends JsonResource
             'status_text' => $this->status_text,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'duration_text' => $this->duration_text,
             $this->mergeWhen(
                 Auth::check()
             , [

@@ -1,0 +1,65 @@
+<form [formGroup]="pkgFrm" (ngSubmit)="save()">
+
+<h1 mat-dialog-title> {{ (pkg?.id) ? 'Edit '+pkg.name : 'Create New Package' }}</h1>
+<div mat-dialog-content>
+  <mat-form-field class="full-width-text" appearance="standard" fxFill>
+    <mat-label>Name</mat-label>
+    <input type="text" autocomplete="name" matInput formControlName="name" 
+    placeholder="Name" required maxlength="200">
+    <mat-hint align="end" *ngIf="f?.['name']?.value?.length">{{f?.['name']?.value?.length}} / 200</mat-hint>
+    <mat-error *ngIf="f?.['name']?.errors && f?.['name']?.errors?.['error']">
+      {{f?.['name']?.errors?.['error']}}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="full-width-text" appearance="standard" fxFill>
+    <mat-label>Description</mat-label>
+    <textarea  matInput formControlName="description" 
+    placeholder="Description" required maxlength="2000"></textarea>
+    <mat-hint align="end" *ngIf="f?.['description']?.value?.length">{{f?.['description']?.value?.length}} / 2000</mat-hint>
+    <mat-error *ngIf="f?.['description']?.errors && f?.['description']?.errors?.['error']">
+      {{f?.['description']?.errors?.['error']}}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="full-width-text" appearance="standard" fxFill>
+    <mat-label>Price</mat-label>
+    <input type="number" autocomplete="price" matInput formControlName="price" 
+    placeholder="Price" required maxlength="200">
+    <mat-hint align="end" *ngIf="f?.['price']?.value?.length">{{f?.['price']?.value?.length}} / 200</mat-hint>
+    <mat-error *ngIf="f?.['price']?.errors && f?.['price']?.errors?.['error']">
+      {{f?.['price']?.errors?.['error']}}
+    </mat-error>
+  </mat-form-field>
+
+
+  <mat-form-field class="full-width-text" appearance="standard" fxFill>
+    <mat-label>Duration</mat-label>
+    <input type="number" autocomplete="duration" matInput formControlName="duration" 
+    placeholder="Duration" required maxlength="200">
+    <mat-hint align="end" *ngIf="f?.['duration']?.value?.length">{{f?.['duration']?.value?.length}} / 200</mat-hint>
+    <mat-error *ngIf="f?.['duration']?.errors && f?.['duration']?.errors?.['error']">
+      {{f?.['duration']?.errors?.['error']}}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="full-width-text" appearance="standard" fxFill>
+    <mat-label>Status</mat-label>
+          
+    <mat-select formControlName="status" >        
+      <mat-option value="">Select</mat-option>
+      <mat-option value="1">Yes</mat-option>
+      <mat-option value="0">No</mat-option>
+    </mat-select>        
+    <mat-error *ngIf="f?.['status']?.errors && f?.['status']?.errors?.['error']">
+      {{f?.['status']?.errors?.['error']}}
+    </mat-error>
+  </mat-form-field>
+
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>Close</button>
+  <button mat-button type="submit" cdkFocusInitial>Save</button>
+</div>
+
+</form>

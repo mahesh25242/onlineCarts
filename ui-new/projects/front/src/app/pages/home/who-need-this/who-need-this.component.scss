@@ -1,0 +1,20 @@
+.wrapper{
+  padding:10px;
+  margin-top:10px;
+}
+h2{
+  text-align: center;
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  color: #fff;
+}
+p{
+  text-align: justify;
+  color: #fff;
+}
+p.desc::first-letter{  
+    font-size: 150%;        
+}

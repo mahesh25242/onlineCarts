@@ -1,0 +1,48 @@
+<button class="btn btn-primary" type="button" (click)="createOrEdit()">Create</button>
+<ng-container *ngIf="messages$ | async as messages">
+
+  <mat-card>
+
+    <div  [ngClass.lt-sm]="'has-mobile-cards'">
+      <table mat-table [dataSource]="messages">
+  
+        
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef> No. </th>
+          <td mat-cell *matCellDef="let element" data-label="No."> {{element.id}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element" data-label="Name"> 
+            <a href="javascript:{}" (click)="createOrEdit(element)">{{element.name}} </a>            
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="subject">
+          <th mat-header-cell *matHeaderCellDef> Subject </th>
+          <td mat-cell *matCellDef="let element" data-label="Subject"> {{element.subject}} </td>
+        </ng-container>        
+
+        <ng-container matColumnDef="default_text">
+          <th mat-header-cell *matHeaderCellDef> Is Default </th>
+          <td mat-cell *matCellDef="let element" data-label="Is Default"> {{element.default_text}} </td>
+        </ng-container>
+
+        
+        
+        <ng-container matColumnDef="options">
+          <th mat-header-cell *matHeaderCellDef> Options </th>
+          <td mat-cell *matCellDef="let element" data-label="Options">  
+            <button mat-raised-button color="primary" (click)="sentOnWhatsapp(element)">Whatsapp</button>
+          </td>
+        </ng-container>
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="5">No data found</td>
+      </tr>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+  </mat-card>
+</ng-container>

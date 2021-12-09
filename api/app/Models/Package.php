@@ -30,11 +30,16 @@ class Package extends Model implements AuthenticatableContract, AuthorizableCont
         'status' => 'integer',
     ];
 
-    protected $appends = array('status_text');
+    protected $appends = array('status_text', 'duration_text');
 
     public function getStatusTextAttribute()
     {
         return (($this->status) ? 'On' : 'Off');
+    }
+    
+    public function getDurationTextAttribute()
+    {
+        return (($this->duration > 1) ? 'Months' : 'Month');
     }
 
     public function shopRenewal()

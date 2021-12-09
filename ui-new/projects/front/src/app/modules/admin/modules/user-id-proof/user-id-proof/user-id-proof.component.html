@@ -1,0 +1,56 @@
+<ng-container *ngIf="idProofs$ | async as idProofs">
+  <mat-card>
+
+    <div  [ngClass.lt-sm]="'has-mobile-cards'" *ngIf="idProofs.data">
+      <table mat-table [dataSource]="idProofs.data">
+          
+        <ng-container matColumnDef="no">
+          <th mat-header-cell *matHeaderCellDef> No. </th>
+          <td mat-cell *matCellDef="let element" data-label="No.">             
+              {{ element.id }}            
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element" data-label="Name"> 
+            <a [href]="element.file_name" target="_blank">{{ (element.name) ? element.name : '-' }}</a>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef> Status </th>
+          <td mat-cell *matCellDef="let element" data-label="Status">
+            <a href="javascript:{}" (click)="changeStatus(element)">{{ element.status ? 'Active' : 'In-Active' }}</a>
+          </td>
+        </ng-container>    
+
+        <ng-container matColumnDef="shop">
+          <th mat-header-cell *matHeaderCellDef> Shop </th>
+          <td mat-cell *matCellDef="let element" data-label="Shop">
+            {{element.user_role?.shop?.name}}
+          </td>
+        </ng-container>        
+
+      
+        <ng-container matColumnDef="dated">
+          <th mat-header-cell *matHeaderCellDef> Dated </th>
+          <td mat-cell *matCellDef="let element" data-label="Dated">
+            {{element.created_at | date: 'medium'}}
+          </td>
+        </ng-container>     
+
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="5">No data found</td>
+      </tr>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+  </mat-card>
+    <mat-paginator *ngIf="idProofs.total" [length]="idProofs.total"
+    [pageSize]="20"
+    [pageSizeOptions]="[20, 50, 70, 100]"
+    (page)="goto($event)">
+</mat-paginator>  
+</ng-container>

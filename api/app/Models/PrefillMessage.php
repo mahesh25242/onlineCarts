@@ -29,7 +29,14 @@ class PrefillMessage extends Model implements AuthenticatableContract, Authoriza
         'is_default' => 'integer'
     ];
 
+    
+    protected $appends = array('default_text');
 
+    public function getDefaultTextAttribute()
+    {
+        return (($this->is_default) ? 'Yes' : 'No');
+    }
+    
 
     public function shop()
     {

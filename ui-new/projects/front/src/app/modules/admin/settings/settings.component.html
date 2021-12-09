@@ -1,0 +1,54 @@
+
+<div class="container-fluid">
+  
+      <ng-container *ngIf="settings$ | async as settings">
+
+        <mat-card>
+          <div  [ngClass.lt-sm]="'has-mobile-cards'">
+            <table mat-table [dataSource]="settings">              
+              <ng-container matColumnDef="no">
+                <th mat-header-cell *matHeaderCellDef> No. </th>
+                <td mat-cell *matCellDef="let element" data-label="No.">             
+                    {{ element.id }}            
+                </td>
+              </ng-container>
+      
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef> Name </th>
+                <td mat-cell *matCellDef="let element" data-label="Name"> 
+                  <a href="javascript:{}" (click)="edit(element)">{{element.name}}</a>
+                </td>
+              </ng-container>
+      
+              <ng-container matColumnDef="value">
+                <th mat-header-cell *matHeaderCellDef> Value </th>
+                <td mat-cell *matCellDef="let element" data-label="Value">
+                  {{ element.value }}
+                </td>
+              </ng-container>    
+      
+              <ng-container matColumnDef="description">
+                <th mat-header-cell *matHeaderCellDef> Description </th>
+                <td mat-cell *matCellDef="let element" data-label="Description">
+                  {{element.description}}
+                </td>
+              </ng-container>        
+      
+            
+              <ng-container matColumnDef="options">
+                <th mat-header-cell *matHeaderCellDef> Options </th>
+                <td mat-cell *matCellDef="let element" data-label="Options">
+                  <a href="javascript:{}" (click)="edit(element)">Edit</a>
+                </td>
+              </ng-container>     
+      
+            <tr class="mat-row" *matNoDataRow>
+              <td class="mat-cell" colspan="5">No data found</td>
+            </tr>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+          </div>
+        </mat-card>
+      </ng-container>    
+</div>

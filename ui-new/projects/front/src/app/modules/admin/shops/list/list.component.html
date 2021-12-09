@@ -1,0 +1,78 @@
+<div class="container-fluid">
+  <a routerLink="create" class="btn btn-primary float-right">Create Shop</a>
+<div class="clearfix mb-3 mt-2"></div>
+<app-filter-shops></app-filter-shops>
+<div class="clearfix mb-3 mt-2"></div>
+<ng-container *ngIf="(shops$ | async) as shops">
+<table class="table">
+  <thead>
+    <tr>
+      <th>
+        ID
+      </th>
+      <th>
+        Name
+      </th>
+      <th>
+        Status
+      </th>
+      <th>
+        Expiry
+      </th>
+      <th>
+        Points
+      </th>
+      <th>
+        Options
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr  *ngIf="!shops.total">
+        <td colspan="5">
+          <div class="alert alert-warning">
+            No shop found
+          </div>
+        </td>
+      </tr>
+      <tr *ngFor="let shop of shops.data">
+        <td>
+          {{ shop.id }}
+        </td>
+        <td>
+          <a [routerLink]="'shop/'+shop.shop_key">{{shop.name}}</a>
+        </td>
+        <td>
+          <a href="javascript:{}" (click)="changeStatus(shop)">{{ shop.status_text }}</a>
+        </td>
+        <td>
+          {{ shop?.shop_current_renewal?.to_date | date:'medium' }}
+          <span *ngIf="shop?.shop_current_renewal?.remaining_days">
+            ( {{ shop?.shop_current_renewal?.remaining_days }} )
+          </span>
+        </td>
+        <td>
+          {{ shop?.shop_point?.points }}
+        </td>
+        <td>
+
+          <div ngbDropdown class="d-inline-block">
+            <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Options</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <button ngbDropdownItem (click)="chooseSubScr(shop)" *ngIf="!shop.is_default">Choose Subscription</button>
+              <a ngbDropdownItem  [routerLink]="'edit/'+shop.shop_key"><fa-icon [icon]="faEdit"></fa-icon> Edit</a>
+              <button class="text-danger" ngbDropdownItem (click)="delete(shop)" *ngIf="!shop.is_default"><fa-icon [icon]="faTrash"></fa-icon> Delete</button>
+            </div>
+          </div>
+
+
+        </td>
+      </tr>
+
+
+  </tbody>
+</table>
+
+<ngb-pagination [collectionSize]="shops.total"  [pageSize]="shops.per_page" [(page)]="shops.current_page" (pageChange)="loadPage($event)" [maxSize]="5" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
+</ng-container>
+</div>

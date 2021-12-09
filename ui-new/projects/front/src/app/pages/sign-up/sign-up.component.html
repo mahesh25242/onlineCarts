@@ -1,0 +1,28 @@
+<section class="page-section">
+  <div class="container page__container">
+   
+    
+    <mat-stepper linear  #stepper *ngIf="steps$ | async as step" [selectedIndex]="selectedIndex">
+      <mat-step  [stepControl]="step1Frm" [editable]="false">
+        <form >
+          <ng-template matStepLabel>{{step }}</ng-template>
+          <mat-card *ngIf="step1Frm?.['controls']?.['isLogged']?.value">
+            <p>
+              You are already completed step 1. Please fill <button mat-stroked-button color="primary" (click)="stepper.next();">Shop Details ( Step 2 )</button> to continue.
+            </p>
+          </mat-card>
+          <app-registration-step-one *ngIf="!step1Frm?.['controls']?.['isLogged']?.value"></app-registration-step-one>
+        </form>
+      </mat-step>
+      <mat-step [editable]="false">
+        <form >
+          <ng-template matStepLabel>Shop Details</ng-template>
+         <app-registration-step-two ></app-registration-step-two> 
+        </form>
+      </mat-step>
+    
+    </mat-stepper>
+    
+       
+  </div>
+</section>

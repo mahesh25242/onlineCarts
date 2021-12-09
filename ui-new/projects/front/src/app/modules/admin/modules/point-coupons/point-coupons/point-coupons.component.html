@@ -1,0 +1,72 @@
+<button class="btn btn-primary" type="button" (click)="createOrEdit()">Create</button>
+<ng-container *ngIf="pointCoupons$ | async as pointCoupons">
+
+  <mat-card>
+
+    <div  [ngClass.lt-sm]="'has-mobile-cards'" *ngIf="pointCoupons.data">
+      <table mat-table [dataSource]="pointCoupons.data">
+  
+        
+        <ng-container matColumnDef="no">
+          <th mat-header-cell *matHeaderCellDef> No. </th>
+          <td mat-cell *matCellDef="let element" data-label="No."> {{element.id}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="code">
+          <th mat-header-cell *matHeaderCellDef> Code </th>
+          <td mat-cell *matCellDef="let element" data-label="Code"> 
+            <a href="javascript:{}" (click)="createOrEdit(element)">{{element.code}} </a>            
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="no_use">
+          <th mat-header-cell *matHeaderCellDef> No. Of Use </th>
+          <td mat-cell *matCellDef="let element" data-label="No. Of Use"> {{element.no_use}} </td>
+        </ng-container>        
+
+        <ng-container matColumnDef="point">
+          <th mat-header-cell *matHeaderCellDef> Points </th>
+          <td mat-cell *matCellDef="let element" data-label="Points"> {{element.point}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="shop">
+          <th mat-header-cell *matHeaderCellDef> Shop </th>
+          <td mat-cell *matCellDef="let element" data-label="Shop"> {{element.shop?.name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="start_date">
+          <th mat-header-cell *matHeaderCellDef> Start Date </th>
+          <td mat-cell *matCellDef="let element" data-label="Start Date">   {{ element?.start_date | date:'medium'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="end_date">
+          <th mat-header-cell *matHeaderCellDef> End Date </th>
+          <td mat-cell *matCellDef="let element" data-label="End Date">   {{ element?.end_date | date:'medium'}} </td>
+        </ng-container>
+        
+        <ng-container matColumnDef="options">
+          <th mat-header-cell *matHeaderCellDef> Options </th>
+          <td mat-cell *matCellDef="let element" data-label="Options">  
+            <button mat-button [matMenuTriggerFor]="menu">Options</button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="usedReport(element)">Used Report</button>
+              <button mat-menu-item  (click)="delete(element)">Delete</button>
+            </mat-menu>
+          </td>
+        </ng-container>
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="5">No data found</td>
+      </tr>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+  </mat-card>
+    <mat-paginator *ngIf="pointCoupons.total" [length]="pointCoupons.total"
+    [pageSize]="20"
+    [pageSizeOptions]="[20, 50, 70, 100]"
+    (page)="goto($event)">
+</mat-paginator>
+  
+
+</ng-container>

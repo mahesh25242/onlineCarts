@@ -1,0 +1,119 @@
+<div fxLayout="row" fxLayoutAlign="space-between" class="container top-main-menu">            
+  <div>     
+    <a routerLink="/" *ngIf="footerData$  | async as footerData" class="head">{{footerData.site_name}}</a>
+  </div>
+  <div>
+    <ul>
+      <li>
+        <a routerLink="/about-us" routerLinkActive="active">About</a>    
+      </li>
+      <li>
+        <a routerLink="/pricing" routerLinkActive="active">Pricing</a>
+      </li>
+      <li>
+        <a routerLink="/how-it-works"  routerLinkActive="active">How It Works</a>
+      </li>
+      <li>
+        <a routerLink="/contact-us" routerLinkActive="active">Contact Us</a>
+      </li>
+      <li>
+        <button mat-stroked-button color="primary" routerLink="/">Demo</button>
+      </li>
+      <li>
+        <button mat-raised-button routerLink="/sign-up" color="primary">Register Your Shop</button>    
+      </li>
+      <li *ngIf="(loggedUser$ | async) as loggedUser">
+        <button mat-raised-button color="accent" [matMenuTriggerFor]="loggedMenu">Admin</button>
+        <mat-menu #loggedMenu="matMenu">
+            <button mat-menu-item routerLink="/admin">Access</button>      
+              <button mat-menu-item routerLink="/admin/edit-profile">Edit Profile</button>      
+            <button mat-menu-item  (click)="signOut()">Sign Out</button>        
+        </mat-menu>                
+      </li>
+    </ul>                        
+  </div>    
+</div>
+
+<!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  
+  
+  <button class="navbar-toggler"  (click)="isNavbarCollapsed = !isNavbarCollapsed" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent" [ngbCollapse]="isNavbarCollapsed" >
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/" routerLinkActive="active" (click)="isNavbarCollapsed = true"   [routerLinkActiveOptions]="{exact:
+          true}">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/shop/register" (click)="isNavbarCollapsed = true"  routerLinkActive="active">Register</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/about-us" (click)="isNavbarCollapsed = true"  routerLinkActive="active">About Us</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/how-it-works" (click)="isNavbarCollapsed = true"  routerLinkActive="active">How It Works</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/pricing" (click)="isNavbarCollapsed = true" routerLinkActive="active">Pricing</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/contact-us" (click)="isNavbarCollapsed = true" routerLinkActive="active">Contact Us</a>
+      </li>
+
+
+      <ng-container *ngIf="(loggedUser$ | async) as loggedUser">
+        <li ngbDropdown class="nav-item">
+          <a href="javascript:{}" class="nav-link btn btn-link" id="dropdownBasic1" ngbDropdownToggle>Shop</a>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <a ngbDropdownItem routerLink="/admin/tickets" (click)="isNavbarCollapsed = true" routerLinkActive="active">Tickets</a>
+            <a ngbDropdownItem routerLink="/admin/reported-abuses" (click)="isNavbarCollapsed = true" routerLinkActive="active">Report Abuses</a>
+            <a ngbDropdownItem routerLink="/admin/user-id-proof" (click)="isNavbarCollapsed = true" routerLinkActive="active">User Id Proof</a>
+
+            <a ngbDropdownItem routerLink="/admin/shops" [routerLinkActiveOptions]="{exact:
+              true}" (click)="isNavbarCollapsed = true" routerLinkActive="active">Shops</a>
+            <a ngbDropdownItem routerLink="/admin/shops/categories" (click)="isNavbarCollapsed = true" routerLinkActive="active">Categories</a>
+            <a ngbDropdownItem routerLink="/admin/packages" (click)="isNavbarCollapsed = true" routerLinkActive="active">Packages</a>
+          </div>
+        </li>
+
+        <li ngbDropdown class="nav-item">
+          <a href="javascript:{}" class="nav-link btn btn-link" id="dropdownBasic1" ngbDropdownToggle>Manage</a>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <a ngbDropdownItem routerLink="/admin/point-coupons" [routerLinkActiveOptions]="{exact:
+              true}" (click)="isNavbarCollapsed = true" routerLinkActive="active">Point Coupons</a>
+          </div>
+        </li>
+
+        <li ngbDropdown class="nav-item">
+          <a href="javascript:{}" class="nav-link btn btn-link" id="dropdownBasic1" ngbDropdownToggle>settings</a>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <a ngbDropdownItem routerLink="/admin/settings" [routerLinkActiveOptions]="{exact:
+              true}" (click)="isNavbarCollapsed = true" routerLinkActive="active">General Settings</a>
+            <a ngbDropdownItem routerLink="/admin/prefill-messages" (click)="isNavbarCollapsed = true" routerLinkActive="active">Pre-Fill Messages</a>
+          </div>
+        </li>
+
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/admin/trash" (click)="isNavbarCollapsed = true" routerLinkActive="active">Trash</a>
+        </li>
+
+        <li class="nav-item">
+          <div ngbDropdown class="d-inline-block">
+            <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>{{loggedUser.fname}}</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <button ngbDropdownItem  routerLink="/admin/edit-profile" routerLinkActive="active">Edit Profile</button>
+              <button ngbDropdownItem  (click)="signOut()">Sign Out</button>
+            </div>
+          </div>
+        </li>
+      </ng-container>
+    </ul>
+  </div>
+</nav>
+
+ -->
+

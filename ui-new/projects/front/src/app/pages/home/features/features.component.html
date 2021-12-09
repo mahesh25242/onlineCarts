@@ -1,0 +1,12 @@
+<div class="section-heading">
+  <h2>Top Features</h2>
+  <small>Top rated features </small>
+</div>
+<div class="features-wrap">
+  <carousel [height]="500" [cellsToShow]="4">
+    <div class="carousel-cell" *ngFor="let itm of item">      
+        <h3>{{itm?.t}}</h3>
+        <app-features-svg  [svg]="itm?.svg"></app-features-svg>      
+    </div>
+  </carousel>  
+</div>

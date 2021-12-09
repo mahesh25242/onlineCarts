@@ -1,0 +1,107 @@
+<form [formGroup]="saveFrm" (submit)="save()">
+
+  <h1 mat-dialog-title>{{ (pc?.id) ? 'Edit '+pc?.code : 'Create New Coupon' }}</h1>
+  <div mat-dialog-content>
+    <mat-form-field class="full-width-text" appearance="standard" fxFill>
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description" placeholder="Description" required maxlength="2000"></textarea>
+      <mat-hint align="end" *ngIf="f?.['description']?.value?.length">{{f?.['description']?.value?.length}} / 200</mat-hint>
+      <mat-error *ngIf="f?.['description']?.errors && f?.['description']?.errors?.['error']">
+        {{f?.['description']?.errors?.['error']}}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="full-width-text" appearance="standard" fxFill>
+      <mat-label>No of use</mat-label>
+      <input type="number" autocomplete="no_use" matInput formControlName="no_use" 
+      placeholder="No of use" required maxlength="200">
+      <mat-hint align="end" *ngIf="f?.['no_use']?.value?.length">{{f?.['no_use']?.value?.length}} / 200</mat-hint>
+      <mat-error *ngIf="f?.['no_use']?.errors && f?.['no_use']?.errors?.['error']">
+        {{f?.['no_use']?.errors?.['error']}}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="full-width-text" appearance="standard" fxFill>
+      <mat-label>No of use</mat-label>
+      <input type="number" autocomplete="no_use" matInput formControlName="no_use" 
+      placeholder="No of use" required maxlength="10">
+      <mat-hint align="end" *ngIf="f?.['no_use']?.value?.length">{{f?.['no_use']?.value?.length}} / 10</mat-hint>
+      <mat-error *ngIf="f?.['no_use']?.errors && f?.['no_use']?.errors?.['error']">
+        {{f?.['no_use']?.errors?.['error']}}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="full-width-text" appearance="standard" fxFill>
+      <mat-label>How many points</mat-label>
+      <input type="number" autocomplete="point" matInput formControlName="point" 
+      placeholder="How many points" required maxlength="10">
+      <mat-hint align="end" *ngIf="f?.['point']?.value?.length">{{f?.['point']?.value?.length}} / 10</mat-hint>
+      <mat-error *ngIf="f?.['point']?.errors && f?.['point']?.errors?.['error']">
+        {{f?.['point']?.errors?.['error']}}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="full-width-text" appearance="standard" fxFill>
+      <mat-label>Fresh Use</mat-label>
+      <mat-select formControlName="fresh_use"  matInput>       
+        <mat-option value="">Select</mat-option>
+        <mat-option value="1">Yes</mat-option>
+        <mat-option value="0">No</mat-option>
+      </mat-select>
+      <mat-error *ngIf="f?.['fresh_use']?.errors && f?.['fresh_use']?.errors?.['error']">
+        {{f?.['fresh_use']?.errors?.['error']}}
+      </mat-error>
+    </mat-form-field>
+
+
+    <mat-form-field class="full-width-text" appearance="standard" fxFill>
+      <mat-label >No.of shop use</mat-label>
+      <input  type="number" autocomplete="per_shop_use" matInput formControlName="per_shop_use" 
+      placeholder="No.of shop use" required maxlength="10">
+      <mat-hint>How many time a shop can use this coupon</mat-hint> 
+      <mat-hint align="end" *ngIf="f?.['per_shop_use']?.value?.length">{{f?.['per_shop_use']?.value?.length}} / 10</mat-hint>
+      <mat-error *ngIf="f?.['per_shop_use']?.errors && f?.['per_shop_use']?.errors?.['error']">
+        {{f?.['per_shop_use']?.errors?.['error']}}
+      </mat-error>
+    </mat-form-field>
+
+
+    <mat-form-field class="full-width-text" appearance="standard" fxFill>
+      <mat-label>Start date</mat-label>
+      <input matInput [matDatepicker]="startDate" formControlName="start_date" placeholder="Start date">
+      <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+      <mat-datepicker #startDate></mat-datepicker>
+      <mat-error *ngIf="f?.['start_date']?.errors && f?.['start_date']?.errors?.['error']">
+        {{f?.['start_date']?.errors?.['error']}}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="full-width-text" appearance="standard" fxFill>
+      <mat-label>End date</mat-label>
+      <input matInput [matDatepicker]="endDate" formControlName="end_date" placeholder="End date">
+      <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+      <mat-datepicker #endDate></mat-datepicker>
+      <mat-error *ngIf="f?.['end_date']?.errors && f?.['end_date']?.errors?.['error']">
+        {{f?.['end_date']?.errors?.['error']}}
+      </mat-error>
+    </mat-form-field>
+
+
+    <mat-form-field class="full-width-text" appearance="standard" fxFill>
+      <mat-label>Status</mat-label>
+      <mat-select formControlName="status"  matInput>       
+        <mat-option value="">Select</mat-option>
+        <mat-option value="1">Yes</mat-option>
+        <mat-option value="0">No</mat-option>
+      </mat-select>
+      <mat-error *ngIf="f?.['status']?.errors && f?.['status']?.errors?.['error']">
+        {{f?.['status']?.errors?.['error']}}
+      </mat-error>
+    </mat-form-field>
+
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button type="button" mat-dialog-close>Close</button>
+    <button mat-button type="submit" cdkFocusInitial>Save</button>
+  </div>
+</form>
