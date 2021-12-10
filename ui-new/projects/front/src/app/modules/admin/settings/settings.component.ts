@@ -12,7 +12,7 @@ import { EditSettingComponent } from './edit-setting/edit-setting.component';
 })
 export class SettingsComponent implements OnInit {
   settings$!: Observable<Setting[] | null>;
-  displayedColumns: string[] = ['no', 'name', 'value', 'description', 'options'];
+  displayedColumns: string[] = ['no', 'name', 'value', 'description'];
 
 
   constructor(private settingService: SettingService,

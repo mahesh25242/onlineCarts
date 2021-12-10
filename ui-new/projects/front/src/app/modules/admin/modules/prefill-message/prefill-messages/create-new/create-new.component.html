@@ -26,8 +26,8 @@
     <mat-form-field class="full-width-text" appearance="standard" fxFill>
       <mat-label>Message</mat-label>
       <textarea  matInput formControlName="message" 
-      placeholder="Message" required maxlength="200"></textarea>
-      <mat-hint align="end" *ngIf="f?.['message']?.value?.length">{{f?.['message']?.value?.length}} / 200</mat-hint>
+      placeholder="Message" required maxlength="2000"></textarea>
+      <mat-hint align="end" *ngIf="f?.['message']?.value?.length">{{f?.['message']?.value?.length}} / 2000</mat-hint>
       <mat-error *ngIf="f?.['message']?.errors && f?.['message']?.errors?.['error']">
         {{f?.['message']?.errors?.['error']}}
       </mat-error>

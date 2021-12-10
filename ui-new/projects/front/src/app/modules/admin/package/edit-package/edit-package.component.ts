@@ -2,8 +2,9 @@ import { Component, Inject, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Package } from '../../../../lib/interfaces';
 import { PackageService } from '../../../../lib/services';
-import { mergeMap } from 'rxjs/operators';
+import { map, mergeMap } from 'rxjs/operators';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-edit-package',
@@ -16,12 +17,15 @@ export class EditPackageComponent implements OnInit {
     private formBuilder: FormBuilder,
     private packageService: PackageService,
     public dialogRef: MatDialogRef<EditPackageComponent>,
-    @Inject(MAT_DIALOG_DATA) public pkg: Package) { }
+    @Inject(MAT_DIALOG_DATA) public pkg: Package,
+    private _snackBar: MatSnackBar,
+    @Inject('NotiflixService') public notiflix: any,) { }
 
   get f(){
     return this.pkgFrm.controls;
   }
   save(){
+    this.notiflix.loading.standard();
     const postData = {
       id: this.f?.['id'].value ?? 0,
       name: this.f?.['name'].value,
@@ -31,10 +35,12 @@ export class EditPackageComponent implements OnInit {
       status: this.f?.['status'].value,
     };
     this.packageService.save(postData).pipe(mergeMap((res) =>{
-      return this.packageService.listAllPackages();
+      return this.packageService.listAllPackages().pipe(map(pkgs => res));
     })).subscribe(
       {
-        next: (res) => {
+        next: (res: any) => {          
+          this._snackBar.open(res?.message, 'Close');
+          this.dialogRef.close();
         },
         error: (err) => {
           if(err.status === 422){
@@ -46,9 +52,14 @@ export class EditPackageComponent implements OnInit {
               }
             }
           }
+        },
+        complete: () => {
+          
         }
       }
-    );
+    ).add(() => {
+      this.notiflix.loading.remove();
+    });
   }
   ngOnInit(): void {
     this.pkgFrm = this.formBuilder.group({

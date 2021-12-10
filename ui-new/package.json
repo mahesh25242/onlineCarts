@@ -27,6 +27,7 @@
     "animate.css": "^4.1.1",
     "lodash": "^4.17.21",
     "ng-recaptcha": "^9.0.0",
+    "notiflix": "^3.2.2",
     "rxjs": "~7.4.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

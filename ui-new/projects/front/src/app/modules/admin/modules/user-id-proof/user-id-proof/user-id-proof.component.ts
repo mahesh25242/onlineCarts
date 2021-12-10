@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 import { UserIdProof, UserIdProofWithPagination } from '../interfaces';
@@ -17,24 +18,28 @@ export class UserIdProofComponent implements OnInit {
   displayedColumns: string[] = ['no', 'name', 'status', 'shop', 'dated'];
 
 
-  constructor(private userIdProofService: UserIdProofService) { }
+  constructor(private userIdProofService: UserIdProofService,
+    @Inject('NotiflixService') public notiflix: any,
+    private _snackBar: MatSnackBar) { }
 
 
 
-  changeStatus(idprf: UserIdProof | null = null){
-    // Notiflix.Confirm.Show( 'Change Status?', `Do you want to change ${idprf.name} status?`, 'Yes', 'No', ()=>{
-    //   Notiflix.Loading.Arrows();
-    //   this.userIdProofService.changeStatus(idprf).subscribe(res=>{
-    //     this.page$.next(0)
-    //     Notiflix.Loading.Remove();
-    //     Notiflix.Notify.Success(`${idprf.name} Successfully chanegd status `);
-    //   }, error=>{
-    //     Notiflix.Loading.Remove();
-    //     Notiflix.Notify.Failure(`unexpected error`);
-    //   });
-    // }, ()=>{
-    //   // No button callback alert('If you say so...');
-    // } )
+  changeStatus(idprf: UserIdProof | null = null){    
+    this.notiflix.confirm( 'Change Status?', `Do you want to change ${idprf?.name} status?`, 'Yes', 'No', ()=>{
+      this.notiflix.Loading.Arrows();
+      this.userIdProofService.changeStatus(idprf).subscribe({
+        next: res => {
+          this._snackBar.open(res?.message, 'Close');
+          this.notiflix.Loading.Remove();
+          this.notiflix.Toast.Success(res.message);
+        },
+        error: err => {          
+          this.notiflix.Loading.Remove();     
+        }
+      });
+    }, ()=>{
+      // No button callback alert('If you say so...');
+    } )
   }
   goto(page: any){
     this.page$.next(page)
@@ -42,6 +47,9 @@ export class UserIdProofComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    
+    
+
     this.idProofs$ = this.page$.asObservable().pipe(mergeMap(res => this.userIdProofService.userids(res)))
   }
 

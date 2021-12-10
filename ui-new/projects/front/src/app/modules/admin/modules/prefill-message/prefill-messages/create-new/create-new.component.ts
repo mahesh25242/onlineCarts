@@ -1,6 +1,7 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { PrefillMessage } from '../../interfaces';
 import { PrefillMessageService } from '../../services';
 
@@ -16,10 +17,12 @@ export class CreateNewComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,    
     private prefillMessageService: PrefillMessageService,
     public dialogRef: MatDialogRef<CreateNewComponent>,
-    @Inject(MAT_DIALOG_DATA) public pm: PrefillMessage) { }
+    @Inject(MAT_DIALOG_DATA) public pm: PrefillMessage,
+    @Inject('NotiflixService') public notiflix: any,
+    private _snackBar: MatSnackBar) { }
 
   save(){
-    
+    this.notiflix.loading.standard();
     const postData = {
       id: (this.f['id'].value) ? this.f['id'].value : 0,
       name: this.f['name'].value,
@@ -30,6 +33,7 @@ export class CreateNewComponent implements OnInit {
     this.prefillMessageService.save(postData).subscribe(
       {
         next: (res) => {
+          this._snackBar.open(res?.message, 'Close');
         },
         error: (err) => {
           if(err.status === 422){
@@ -41,9 +45,14 @@ export class CreateNewComponent implements OnInit {
               }
             }
           }
+        },
+        complete: () => {
+          this.dialogRef.close();
         }
       }
-    )
+    ).add(() => {
+      this.notiflix.loading.remove();
+    });
   }
 
   get f(){ return this.saveFrm.controls}

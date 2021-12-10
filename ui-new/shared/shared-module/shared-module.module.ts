@@ -30,7 +30,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS} from '@angular/material/snack-bar';
-import {MatNativeDateModule} from '@angular/material/core';
+import {MatNativeDateModule, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {ScrollingModule} from '@angular/cdk/scrolling';
@@ -54,6 +54,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { HttpClientModule } from '@angular/common/http';
 import { environment } from 'shared/environments/environment';
+import { NotiflixService } from 'shared/providers/notiflix.service';
 
 @NgModule({
   declarations: [
@@ -169,8 +170,13 @@ import { environment } from 'shared/environments/environment';
   
   ],
   providers:[
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
     { provide: RECAPTCHA_V3_SITE_KEY, useValue:environment.recaptchaKey },
-    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500}}
+    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500}},
+    {
+      provide: 'NotiflixService',
+      useClass: NotiflixService
+    }
   ]
 })
 export class SharedModuleModule { }

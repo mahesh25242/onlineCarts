@@ -21,33 +21,36 @@ export class SentOnWhatsappComponent implements OnInit {
 
   get f(){ return this.saveFrm.controls}
 
-  sent(){
-    this.breakpointObserver.observe([
-      Breakpoints.Handset,
-      Breakpoints.Tablet
-    ]).subscribe(res=>{
-      let url:string = '';
-      const name = this.f['name'].value;
-      const message = eval('`'+this.pm.message+'`');
-      if(res.matches){
-        url =  `https://api.whatsapp.com/send?phone=${this.f['mobile'].value}&text=${message}`
-      }else{
-        url =  `https://web.whatsapp.com/send?phone=${this.f['mobile'].value}&text=${message}`
-      }
-
-      window.open(
-        url,
-        '_blank' // <- This is what makes it open in a new window.
-      );
-
-      const postData = {
-        phone: this.f['mobile'].value,
-        pm_id: this.pm.id
-      };
-      this.prefillMessageService.sentOnWhatsapp(postData).subscribe(res=>{
-      });
-      
-    })
+  sent(){    
+    if(this.saveFrm.valid) {
+      this.breakpointObserver.observe([
+        Breakpoints.Handset,
+        Breakpoints.Tablet
+      ]).subscribe(res=>{
+        let url:string = '';
+        const name = this.f['name'].value;
+        const message = eval('`'+this.pm.message+'`');
+        if(res.matches){
+          url =  `https://api.whatsapp.com/send?phone=${this.f['mobile'].value}&text=${message}`
+        }else{
+          url =  `https://web.whatsapp.com/send?phone=${this.f['mobile'].value}&text=${message}`
+        }
+  
+        window.open(
+          url,
+          '_blank' // <- This is what makes it open in a new window.
+        );
+  
+        const postData = {
+          phone: this.f['mobile'].value,
+          pm_id: this.pm.id
+        };
+        this.prefillMessageService.sentOnWhatsapp(postData).subscribe(res=>{
+        });
+        
+      })
+    }
+    
   }
 
   ngOnInit(): void {

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 import { PointCouponsWithPagination, PointCoupon } from '../interfaces';
@@ -22,25 +23,27 @@ export class PointCouponsComponent implements OnInit {
 
   
   constructor(private pointCouponService: PointCouponService,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog,
+    @Inject('NotiflixService') public notiflix: any,
+    private _snackBar: MatSnackBar) { }
 
   usedReport(pc: PointCoupon | null = null){
 
   }
   delete(pc: PointCoupon | null = null){
-    // Notiflix.Confirm.Show( 'delete?', `Do you want to delete ${pc.code}`, 'Yes', 'No', ()=>{
-    //   Notiflix.Loading.Arrows();
-    //   this.pointCouponService.delete(pc).subscribe(res=>{
-    //     this.recall$.next(true);
-    //     Notiflix.Loading.Remove();
-    //     Notiflix.Notify.Success(`${pc.code} Successfully deleted `);
-    //   }, error=>{
-    //     Notiflix.Loading.Remove();
-    //     Notiflix.Notify.Failure(`unexpected error`);
-    //   });
-    // }, ()=>{
-    //   // No button callback alert('If you say so...');
-    // } );
+    this.notiflix.confirm( 'delete?', `Do you want to delete ${pc?.code}`, 'Yes', 'No', ()=>{
+      this.notiflix.loading.standard();
+      this.pointCouponService.delete(pc).subscribe({
+        next: ()=>{
+          this._snackBar.open(`${pc?.code} Successfully deleted `, 'Close');          
+        },
+        complete: ()=>{
+          this.recall$.next(true);             
+        }
+      }).add(()=>{
+        this.notiflix.loading.Remove();       
+      });
+    });
   }
   createOrEdit(pc: PointCoupon | null = null){
     const dialogRef = this.dialog.open(CreateNewComponent,{

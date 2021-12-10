@@ -13,7 +13,7 @@ export class UserIdProofService {
     return this.http.get<UserIdProofWithPagination>(`/admin/userIdProof?page=${page}`);
   }
 
-  changeStatus(idprf: UserIdProof){
+  changeStatus(idprf: UserIdProof | null){
     return this.http.post<any>(`/admin/userIdProof/changeStatus`, idprf);
   }
 }

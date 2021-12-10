@@ -1,6 +1,7 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { PointCoupon } from '../../interfaces';
 import { PointCouponService } from '../../services';
 
@@ -19,7 +20,9 @@ export class CreateNewComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,    
     private pointCouponService: PointCouponService,
     public dialogRef: MatDialogRef<CreateNewComponent>,
-    @Inject(MAT_DIALOG_DATA) public pc: PointCoupon,) { }
+    @Inject(MAT_DIALOG_DATA) public pc: PointCoupon,
+    private _snackBar: MatSnackBar,
+    @Inject('NotiflixService') public notiflix: any,) { }
 
   save(){    
     const postData = {
@@ -30,11 +33,12 @@ export class CreateNewComponent implements OnInit {
       start_date: this.f['start_date'].value,
       end_date: this.f['end_date'].value,
       status: this.f['status'].value,
-    };
-
+    };    
+    this.notiflix.loading.standard();
     this.pointCouponService.save(postData).subscribe(
       {
         next: (res) => {
+          this._snackBar.open(res?.message, 'Close');
         },
         error: (error) => {
           if(error.status === 422){
@@ -51,7 +55,9 @@ export class CreateNewComponent implements OnInit {
           this.dialogRef.close();
         }
       }
-    );
+    ).add(() => {
+      this.notiflix.loading.remove();
+    });
   }
 
   get f(){ return this.saveFrm.controls}
@@ -74,16 +80,8 @@ export class CreateNewComponent implements OnInit {
 
       const endDate = (this.pc?.end_date) ? new Date(this.pc?.end_date) : null;
       this.saveFrm.patchValue({
-        start_date: {
-          year: startDate?.getFullYear(),
-          month: startDate?.getMonth() ? startDate?.getMonth() + 1 : null,
-          day: startDate?.getDate(),
-        },
-        end_date:{
-          year: endDate?.getFullYear(),
-          month: endDate?.getMonth() ? endDate?.getMonth() + 1 : null,
-          day: endDate?.getDate(),
-        }
+        start_date: startDate,
+        end_date:endDate
       });
 
     }
