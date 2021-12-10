@@ -1,0 +1,56 @@
+mat-card-title {
+  color: #821807;
+}
+
+.product-head{
+  margin: 0px;
+  font-size: 15px;
+}
+.mat-card-headerimage {
+  overflow: hidden;
+  width:100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+  min-height: 45em;
+}
+
+.relativePosition{
+  margin: 10px;
+  font-size: 18px;
+}
+
+
+.price{
+  font-weight: 500;
+  color: #821807;
+  del{
+    color: #d1c6c6;
+  }
+  span{
+    font-weight: 700;
+    font-size: 30px;
+  }
+  &.price-lt-sm{
+    span{
+      font-size: 25px;
+    }
+  }
+}
+
+.description{
+  padding: 0px 15px 0px 10px;
+  .product-head{
+    font-size: 20px;
+  }
+}
+
+.margin-top-14{
+  margin-top: 14px;
+}
+.full-width{
+  width: 100%;
+  border-radius: 0%;
+}
+

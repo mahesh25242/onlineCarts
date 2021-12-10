@@ -1,0 +1,38 @@
+mat-drawer {
+  padding:20px;
+  width: 60%;
+}
+.example-sidenav-content{
+  h1{
+    margin-left: 10px;
+  }
+}
+
+.w-90{
+  width: 90%;
+}
+
+.search-filter{
+  position: fixed;
+  z-index: 5;
+  left: 0px;
+  top: 4em;
+  width: 100%;
+
+  button{
+    border-radius: 0px;
+    width: 50%;
+  }
+}
+.fix-hight{
+  height: 30px;
+}
+.sp-h-10{
+  height: 32px;
+}
+mat-spinner{
+  margin: auto;
+}
+mat-menu{
+  width: 50%
+}

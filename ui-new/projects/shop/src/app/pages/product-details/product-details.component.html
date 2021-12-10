@@ -1,0 +1,145 @@
+<ng-container *ngIf="product">
+
+  <div >
+
+      <form [formGroup]="addToCartFrm" (ngSubmit)="addToCart()">
+        <mat-card>
+
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
+          <div fxFlex="35%" fxFlex.xs="100%">
+            <div fxLayout="column" fxLayoutAlign="space-between">
+              <div class="mat-card-headerimage" fxFlex="100%"
+                [ngStyle]="{'background-image': (product.shop_product_selected_variant?.shop_product_image?.image) ? 'url(' +  product.shop_product_selected_variant.shop_product_image.image_path + ')' : 'url(/assets/no-image.jpg)'}">
+                <!-- <div *ngIf="product.shop_product_selected_variant?.type.id"
+                [matTooltip]="(product?.shop_product_selected_variant?.type.id == 1) ? 'Veg' : ( (product?.shop_product_selected_variant?.type.id == 2) ? 'Non-Veg':'' )"
+                [ngClass]="{'veg': product.shop_product_selected_variant?.type.id == 1, 'nonveg': product.shop_product_selected_variant?.type.id == 2}"></div> -->
+                <!-- <img loading="lazy"  [src]="(product.shop_product_selected_variant?.shop_product_image?.image) ?  product.shop_product_selected_variant.shop_product_image.image_path : 'assets/no-image.jpg'" [alt]="product.name+' '+product.shop_product_selected_variant?.name"> -->
+              </div>
+
+
+            </div>
+
+
+
+
+
+
+          </div>
+
+
+          <div fxFlex="65%" fxFlex.xs="100%" [ngClass.gt-xs]="'description'">
+            <div>
+              <h1 class="primary-text-color product-head">{{ product.name }} [ {{ product.shop_product_selected_variant?.name }} ]</h1>
+              <small *ngIf="product?.shop_product_category?.name" fxLayout="row" fxLayoutAlign="space-between">
+                <h5 class="primary-text-color">{{ product?.shop_product_category?.name }}</h5>
+                <app-report-abuse [item]="product"></app-report-abuse>
+              </small>
+
+            </div>
+
+
+            <div fxLayout.gt-md="row" fxLayout="column" fxLayoutAlign="space-between">
+
+              <div fxLayout="row" fxFlex="50%" fxLayoutAlign="space-between">
+                <mat-form-field fxFlex="45%"  appearance="standard" *ngIf="(product.shop_product_variant.length > 1)">
+                  <mat-label>Choose Varient</mat-label>
+                  <mat-select formControlName="shop_product_variant_id" required (selectionChange)="chooseVarient()">
+                    <mat-option *ngFor="let shop_product_variant of product.shop_product_variant" [value]="shop_product_variant.id">
+                      {{shop_product_variant.name}} - {{shop_product_variant.price | currency:'INR'}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="f.shop_product_variant_id.errors && f.shop_product_variant_id.errors.error">
+                    {{f.shop_product_variant_id.errors.error}}
+                  </mat-error>
+                </mat-form-field>
+
+                <div
+                 [ngClass.lt-sm]="'price-lt-sm'"
+                class="price" fxFlex="50%"   *ngIf="product.shop_product_selected_variant?.price">
+                  <div [ngClass]="{'margin-top-14': product.shop_product_variant.length <= 1}">
+                    <del *ngIf="product.shop_product_selected_variant?.actual_price">{{ product.shop_product_selected_variant?.actual_price | currency:'INR' }}</del>
+                    &nbsp;&nbsp;<span class="weight-bold animate__animated animate__flipInX"> {{ product.shop_product_selected_variant?.price | currency:'INR'}} </span>
+                  </div>
+                </div>
+              </div>
+
+              <div fxLayout="row" fxFlex="50%" fxLayoutAlign="center center" >
+                <div>
+                  <button type="button" mat-icon-button color="primary" (click)="updateCart('-')" [disabled]="qty<2"
+                  matTooltip="Decrease the quantity" class="animate__animated"
+                  [ngClass]="{'animate__flipInY' : qty<2 }">
+                    <mat-icon>remove_circle_outline</mat-icon>
+                  </button>
+                  {{qty}}
+                  <button type="button" mat-icon-button color="primary" (click)="updateCart('+')"
+                  matTooltip="Increase the quantity">
+                    <mat-icon>add_circle_outline</mat-icon>
+                  </button>
+                </div>
+                <div>
+                  <button    mat-raised-button color="primary" type="submit">Add To Cart</button>
+                </div>
+              </div>
+            </div>
+
+
+
+          <div>
+            <br/>
+            <app-product-tag-chip [product]="product"></app-product-tag-chip>
+            <br/>
+
+
+            <p *ngIf="product.description" [innerHTML]="product.description"></p>
+
+            <p>{{product.shop_product_selected_variant?.description}}</p>
+
+
+
+
+            <button mat-icon-button type="button"
+                    shareButton="whatsapp"
+                    #fbBtn="shareButton"
+                    [title]="product.name"
+                    [description]="product.description"
+                    [image]="(product.shop_product_selected_variant?.shop_product_image?.image) ? 'url(' +  product.shop_product_selected_variant.shop_product_image.image_path + ')' : 'url(/assets/no-image.jpg)'"
+                    [matTooltip]="'share '+product.name+' in whatsapp'"
+                aria-label="share this product in whatsapp">
+              <fa-icon *ngIf="fbBtn" [icon]="fbBtn.icon" size="lg"></fa-icon>
+            </button>
+            <button mat-icon-button type="button"
+                    shareButton="facebook"
+                    #twtBtn="shareButton"
+                    [title]="product.name"
+                    [description]="product.description"
+                    [image]="(product.shop_product_selected_variant?.shop_product_image?.image) ? 'url(' +  product.shop_product_selected_variant.shop_product_image.image_path + ')' : 'url(/assets/no-image.jpg)'"
+                    [matTooltip]="'share '+product.name+' in facebook'"
+                    aria-label="share this product in facebook">
+              <fa-icon *ngIf="twtBtn" [icon]="twtBtn.icon" size="lg"></fa-icon>
+            </button>
+
+
+
+
+          </div>
+
+
+
+
+
+
+          </div>
+        </div>
+
+
+
+
+
+
+
+
+      </mat-card>
+    </form>
+
+  </div>
+</ng-container>

@@ -46,9 +46,9 @@ export class AuthInterceptor implements HttpInterceptor {
           return next.handle(request);
         } else if(error instanceof HttpErrorResponse && error.status === 410){
           this.settingService.isMaintanance$.next(true);
-          return throwError(error);
+          return throwError(() => error);          
         }else{
-          return throwError(error);
+          return throwError(() => error);
         }
       })
     );
@@ -73,9 +73,9 @@ export class AuthInterceptor implements HttpInterceptor {
           }
 
 
-        }), catchError(er=> {
+        }), catchError(error=> {
           this.isRefreshing = false;
-          return throwError(er);
+          return throwError(() => error);
           //return next.handle(request);
         }));
 

@@ -1,0 +1,63 @@
+
+<h2 mat-dialog-title>Filters</h2>
+<mat-dialog-content class="mat-typography">
+
+  <div *ngIf="filters$ | async else loading">
+    <ngx-slider *ngIf="options.ceil" [(value)]="selectedItems.priceFrom" [(highValue)]="selectedItems.priceTo"
+    [options]="options" (userChange)="changePrice()"></ngx-slider>
+  </div>
+
+  <ng-template #loading>
+    <mat-spinner></mat-spinner>
+  </ng-template>
+
+  <div class="w-90" *ngIf="categories$ | async as categories">
+    <mat-selection-list #productCats [(ngModel)]="selectedItems.categories" >
+      <mat-list-option *ngFor="let cat of categories"  [value]="cat.id">
+        {{cat.name}}
+      </mat-list-option>
+    </mat-selection-list>
+
+  </div>
+
+  <div *ngIf="varients && varients.length" class="w-90">
+    <h3>Varients</h3>
+    <mat-chip-list aria-label="Fish selection" [multiple]="true" >
+      <mat-chip *ngFor="let variant of varients"
+        [selected]="(selectedItems?.varients.includes(variant))" (click)="searchSelect(variant, 'varients')">{{variant}}</mat-chip>
+    </mat-chip-list>
+  </div>
+
+  <ng-container *ngIf="filters$ | async as filters">
+    <br/>
+    <div class="w-90" *ngIf="filters.shop_product_tags && filters.shop_product_tags.length">
+      <h3>Products Tags</h3>
+      <mat-selection-list #shopProductTag [(ngModel)]="selectedItems.productTags" >
+        <mat-list-option *ngFor="let shop_product_tag of filters.shop_product_tags"  [value]="shop_product_tag.id">
+          {{shop_product_tag.name}}
+        </mat-list-option>
+      </mat-selection-list>
+    </div>
+    <br/>
+    <div class="w-90" *ngIf="filters.shop_product_varient_tags && filters.shop_product_varient_tags.length">
+      <h3>Varients Tags</h3>
+      <mat-selection-list #shopProductTag [(ngModel)]="selectedItems.productVarientTags" >
+        <mat-list-option *ngFor="let shop_product_varient_tag of filters.shop_product_varient_tags"  [value]="shop_product_varient_tag.id">
+          {{shop_product_varient_tag.name}}
+        </mat-list-option>
+      </mat-selection-list>
+    </div>
+  </ng-container>
+
+
+
+
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="selectedItems" cdkFocusInitial>Search</button>
+</mat-dialog-actions>
+
+
+

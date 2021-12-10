@@ -50,6 +50,7 @@ export interface Shop {
   business_hours?: string;
   shop_current_renewal?: ShopRenewal
   shop_renewal?: ShopRenewal[];
+  map_url?: string;
 }
 
 

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
-import { Observable, of, throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { UserService, SettingService } from '../services';
-import { map, take, mergeMap, tap, catchError } from 'rxjs/operators';
+import { map, take, catchError } from 'rxjs/operators';
 import { User } from '../interfaces';
 
 
@@ -26,9 +26,9 @@ export class AdminAuthGuard implements CanActivate {
           // }
           return true;
         }),
-        catchError(x => {
+        catchError(error => {
           this.router.navigate([`/admin/login`]);
-          return throwError(x);
+          return throwError(() => error);
         })
       );
      // return this.userService.isAuth();

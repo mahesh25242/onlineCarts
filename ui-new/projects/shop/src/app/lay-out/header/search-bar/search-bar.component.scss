@@ -1,0 +1,24 @@
+.mat-form-field {
+    width: 100%;
+
+    button{
+      top: -6px;
+    }
+    input {
+        border-bottom: none!important;
+        box-shadow: none!important;
+        margin-bottom: 0px!important;
+        :focus {
+            border-bottom: none!important;
+            box-shadow: none!important;
+        }
+        :not(.browser-default) {
+             border-bottom: none!important;
+             box-shadow: none!important;
+        }
+    }
+
+
+}
+
+

@@ -1,0 +1,52 @@
+<mat-toolbar color="primary">
+  <ng-container *ngIf="(bc$ | async) as bc">
+    <div *ngIf="bc?.backUrl && !isSearch" fxHide.gt-xs="true"
+     class="animate__animated animate__slideInLeft">
+      <button mat-icon-button [routerLink]="bc?.backUrl">
+          <mat-icon>arrow_back_ios</mat-icon>
+      </button>
+    </div>
+
+
+    <div *ngIf="!isSearch && (shop$ | async) as shop">
+      <a class="shop-head main-menu-text-color" routerLink="/" matRipple >
+        <div class="logo" *ngIf="shop.logo" [style.background-image]="'url(' + shop.logo + ')'"></div>
+        <div  [ngClass.xs]="{'small-head': (bc.title && !isSearch)}">
+          {{shop.name | uppercase }}
+          <marquee fxHide.gt-xs="true" *ngIf="bc.title && !isSearch"  direction="left" scrolldelay="130" behavior="loop">
+            {{ bc.title }}
+          </marquee>
+        </div>
+      </a>
+    </div>
+  </ng-container>
+  <div fxHide.gt-xs="true" *ngIf="isSearch" class="search-block animate__animated animate__fadeIn animate__faster">
+    <app-search-bar [isHead]="true" (closeSearch)="isSearch = !isSearch"></app-search-bar>
+  </div>
+
+  <div class="spacer"></div>
+
+  <div class="flex-right" fxHide.gt-xs="true">
+      <button mat-icon-button matRipple (click)="showSearch()">
+          <mat-icon *ngIf="!isSearch">search</mat-icon>
+          <mat-icon *ngIf="isSearch">close</mat-icon>
+      </button>
+
+      <button mat-icon-button (click)="onToggleSidenav()" matRipple>
+          <mat-icon>menu</mat-icon>
+      </button>
+  </div>
+
+
+  <div class="flex-right navmenu" fxHide.xs="true">    
+    <ng-container *ngIf="pages$ | async as pages">
+      <a matRipple class="main-menu-text-color" *ngFor="let page of pages" [routerLink]="[page.url]" routerLinkActive="active">{{page.name}}</a>
+    </ng-container>    
+  </div>
+
+
+</mat-toolbar>
+<div *ngIf="(generalService.shopDisabled | async) as shopDisabled" class="alert alert-warning shop-message">
+  {{ shopDisabled.message }}
+</div>
+

@@ -1,0 +1,164 @@
+<div class="header-inner"></div>
+
+<div class="container" *ngIf="breakPointObsr$ | async as bp">
+  <ng-container *ngIf="(cartDetails$ | async) as cartDetails else loading">
+
+    <div fxLayout="row" fxLayoutAlign="space-between" *ngIf="cartDetails?.carts && cartDetails?.carts.length">
+        <mat-card fxFlex="100%">
+          <app-delivery-loaction></app-delivery-loaction>
+        </mat-card>
+    </div>
+
+  <div *ngIf="!cartDetails?.carts || !cartDetails?.carts.length" class="warning warn-color">Your cart is empty</div>
+  <form [formGroup]="customerFrm" (ngSubmit)="sendToShop(bp)">
+    <ng-container *ngIf="cartDetails?.carts && cartDetails?.carts.length">
+      <div >
+        <h1 mat-dialog-title>
+          My Cart ( {{cartDetails?.carts.length}} )
+        </h1>
+        <mat-card *ngFor="let item of cartDetails?.carts"
+        [ngClass.lt-md]="'grid-my-lt-md-list'"
+        [ngClass.gt-md]="'grid-my-gt-md-list'" class="full">
+
+          <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
+            <a href="javascript:{}" fxFlex.xs="20%" type="button"   class="del-item-bt"    color="warn" (click)="deleteItem(item)"
+              [matTooltip]="'Remove ' +item.product.name+ ' from cart'">
+               <mat-icon>delete</mat-icon>
+          </a>
+            <div fxFlex="15%" fxFlex.xs="100%">
+              <a [routerLink]="'/'+item.product.shop_product_category?.url+'/'+item.product.url">
+                <div class="product-img" [ngStyle]="{'background-image': 'url(' + ((item.product?.shop_product_selected_variant?.shop_product_image?.image) ?  item.product.shop_product_selected_variant.shop_product_image.image_path : 'assets/no-image.jpg') + ')'}">
+                  <!-- <div *ngIf="item.product?.shop_product_selected_variant?.type.id"
+                  [matTooltip]="(item.product?.shop_product_selected_variant?.type.id == 1) ? 'Veg' : ( (item.product?.shop_product_selected_variant?.type.id == 2) ? 'Non-Veg':'' )"
+                [ngClass]="{'veg': item.product?.shop_product_selected_variant?.type.id == 1, 'nonveg': item.product?.shop_product_selected_variant?.type.id == 2}"></div> -->
+                <div fxShow fxHide.gt-xs="true" class="inner-img"></div>
+                </div>
+              </a>
+            </div>
+            <div fxFlex="85%" fxFlex.xs="100%">
+              <div >
+                <h4 class="cart-item-header pl-1 container">
+                  <a class="primary-text-color" href="javascript:{}"
+                  [routerLink]="'/'+item.product.shop_product_category?.url+'/'+item.product.url"> {{item.product.name}}</a>
+                </h4>
+                <div class="container" fxLayout.xs="row" fxLayout.gt-xs="column" fxLayoutAlign="space-between">
+                  <small class="block pl-1">
+                    {{item.product.shop_product_selected_variant.name}}
+                    {{ item.qty}} {{ (item.qty > 1) ? 'packets': 'packet' }}
+                  </small>
+                  <b class="block pl-1">
+                    {{item.product.shop_product_selected_variant.price | currency:'INR' }} X {{item.qty}} =  {{item.price | currency:'INR'}}
+                  </b>
+                </div>
+
+
+                <div class="container">
+                  <small class="block pl-1" *ngIf="item.message"> {{item.message}}</small>
+
+                  <mat-chip-list  aria-label="varient tag" *ngIf="item.product.shop_product_selected_variant?.shop_product_variant_tag && item.product.shop_product_selected_variant?.shop_product_variant_tag.length">
+                    <mat-chip color="accent" selected class="animate__animated animate__flipInX" *ngFor="let shop_product_variant_tag of item.product.shop_product_selected_variant?.shop_product_variant_tag">{{shop_product_variant_tag.name}}</mat-chip>
+                  </mat-chip-list>
+
+                </div>
+
+
+
+                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between" fxFill="fill">
+                  <div class="qty-change"  fxFlex="50%" fxFlex.xs="100%" [ngClass.xs]="'text-center'" [ngClass.gt-xs]="'container'">
+                    <span fxHide.lt-md="true">Quantity:</span>
+                    <button  type="button" mat-icon-button color="primary" (click)="updateCart(item, '-')">
+                      <mat-icon>remove_circle_outline</mat-icon>
+                    </button>
+                    {{item.qty}}
+                    <button type="button" mat-icon-button color="primary" (click)="updateCart(item, '+')">
+                      <mat-icon>add_circle_outline</mat-icon>
+                    </button>
+                  </div>
+
+                  <div fxFlex="50%" fxFlex.xs="100%" fxLayoutAlign.xs="space-between" fxLayoutAlign.gt-xs="end">
+
+                    <button type="button" fxFlex.xs="100%"  class="itm-block-btn" mat-flat-button
+                      color="primary" (click)="editMessage(item)"
+                    [matTooltip]="'Add a custom message for '+item.product.name">
+                      <mat-icon>add_comment</mat-icon> <span> Custom Message</span>
+                    </button>
+                  </div>
+
+                </div>
+
+
+              </div>
+            </div>
+
+          </div>
+
+        </mat-card>
+        <div class="order-total">
+          <mat-card>
+            <div [ngClass.lt-md]="'text-center'" [ngClass.gt-sm]="'text-right'">
+              <h1>Total: {{ cartDetails.grandTotal | currency:'INR' }}</h1>
+              <small>( Inclusive of all taxes )</small>
+              <mat-error *ngIf="!cartDetails?.detail?.selectedLocation">
+                Please choose a pick up from shop or home delivery
+              </mat-error>
+
+              <!-- <div fxFlex="25%">
+                {{cart.length}}  {{ (cart.length > 1) ? 'items': 'item' }}
+              </div> -->
+            </div>
+
+            <section fxHide.lt-sm="true" class="right-section"  [matTooltip]="(!terms) ? 'Please accept terms' : ''"
+                fxLayout="row" fxLayoutAlign="space-between" fxLayout.xs="column">
+                <ng-container *ngTemplateOutlet="placeOrderSection">
+                </ng-container>
+            </section>
+
+          </mat-card>
+        </div>
+
+      </div>
+
+
+      <div class="bottom-fixed" fxHide.gt-xs="true" >
+        <mat-card fxLayout="column" fxLayoutAlign="space-between">
+          <ng-container *ngTemplateOutlet="placeOrderSection">
+          </ng-container>
+        </mat-card>
+
+      </div>
+    </ng-container>
+
+    <ng-template #placeOrderSection>
+      <div  fxFlex.xs="100%" class="terms">
+          <mat-checkbox color="primary" formControlName="terms"></mat-checkbox>
+          <a href="javascript:{}" (click)="triggerTerms()" class="accept-terms">Accept terms</a>
+      </div>
+      <div  fxFlex.xs="100%">
+        <button class="whatsapp-btn animate__animated" mat-raised-button color="primary"  type="submit"
+        [disabled]="!customerFrm.controls.terms.value" [ngClass]="{'animate__pulse': customerFrm.controls.terms.value}">
+          <!-- Generator: Adobe Illustrator 25.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+          <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+              viewBox="0 0 682 682" xml:space="preserve">
+          <path class="st0" d="M567.2,113.9C507.3,54,427.8,21,343,21C168.4,21,26.3,163.1,26.2,337.8c0,55.8,14.6,110.3,42.3,158.4
+            L23.6,660.4l168-44.1c46.3,25.2,98.4,38.5,151.4,38.6h0.1c174.6,0,316.8-142.1,316.8-316.8C659.9,253.4,627,173.8,567.2,113.9z
+              M343,601.4h-0.1c-47.3,0-93.6-12.7-134-36.7l-9.6-5.7l-99.7,26.1l26.6-97.2l-6.3-10C93.6,436,79.7,387.6,79.7,337.8
+            C79.8,192.6,197.9,74.5,343.2,74.5c70.3,0,136.5,27.4,186.2,77.2s77.1,115.9,77.1,186.3C606.3,483.2,488.2,601.4,343,601.4z
+              M487.5,404.1c-7.9-4-46.8-23.1-54.1-25.8c-7.3-2.6-12.5-4-17.8,4c-5.3,7.9-20.4,25.8-25.1,31c-4.6,5.3-9.2,5.9-17.2,2
+            c-7.9-4-33.4-12.3-63.7-39.3c-23.5-21-39.4-46.9-44-54.8c-4.6-7.9,0-11.8,3.5-16.2c8.6-10.6,17.2-21.8,19.8-27.1
+            c2.6-5.3,1.3-9.9-0.7-13.9c-2-4-17.8-42.9-24.4-58.8c-6.4-15.4-13-13.3-17.8-13.6c-4.6-0.2-9.9-0.3-15.2-0.3c-5.3,0-13.9,2-21.1,9.9
+            c-7.3,7.9-27.7,27.1-27.7,66s28.4,76.6,32.3,81.9c4,5.3,55.8,85.2,135.2,119.5c18.9,8.2,33.6,13,45.1,16.7c19,6,36.2,5.2,49.9,3.1
+            c15.2-2.3,46.8-19.2,53.4-37.6c6.6-18.5,6.6-34.3,4.6-37.6C500.7,410.1,495.4,408.1,487.5,404.1z"/>
+          </svg>
+            Send this to {{ (shop$ | async)?.short_name}}'s Whatsapp </button>
+      </div>
+    </ng-template>
+
+  </form>
+</ng-container>
+
+<ng-template #loading>
+    <mat-spinner></mat-spinner>
+</ng-template>
+</div>
+
+

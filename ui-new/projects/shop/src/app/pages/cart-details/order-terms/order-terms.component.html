@@ -1,0 +1,9 @@
+<h2 mat-dialog-title>Terms</h2>
+<mat-dialog-content class="mat-typography">
+  <div [innerHTML]="(page$ | async)?.content"></div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-raised-button color="primary" mat-dialog-close>Accept</button>
+</mat-dialog-actions>
+

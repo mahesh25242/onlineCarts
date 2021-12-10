@@ -3,8 +3,14 @@
 // The list of file replacements can be found in `angular.json`.
 
 import { environment as env } from 'shared/environments/environment';
+
+const shopName = document.querySelector("meta[name=shop-name]");
+const shopKey = document.querySelector("meta[name=shop-key]");
+
 export const environment = { ...env, ...{
-  
+  siteName: shopName?.getAttribute("content"),
+  shopKey: shopKey?.getAttribute("content"),
+  demoShopKey: '3d9f5a8eec71764c7c2df5a56496c8a1320dd921',
 }};
 
 /*
