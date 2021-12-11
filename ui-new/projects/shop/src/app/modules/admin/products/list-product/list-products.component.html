@@ -1,0 +1,85 @@
+<div class="header-inner"></div>
+<div class="container">
+
+  <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
+    <h1 fxFlex="80%" fxFlex.xs="100%">
+      Products
+    </h1>
+    <button fxFlex="20%" fxFlex.xs="100%"  mat-raised-button color="primary" type="button" class="float-right"  routerLink="add/0"><mat-icon class="add-icon-position">add</mat-icon>Create Product</button>
+  </div>
+
+
+
+<app-search-product  [pageEvent]="pageEvent"></app-search-product>
+<mat-card>
+<ng-container *ngIf="(products$ | async) as products">
+
+  <div  [ngClass.lt-sm]="'has-mobile-cards'" *ngIf="products.data">
+    <table mat-table [dataSource]="products.data">
+
+      <!-- id Column -->
+      <ng-container matColumnDef="no">
+        <th mat-header-cell *matHeaderCellDef> No. </th>
+        <td mat-cell *matCellDef="let element; let i = index;" data-label="No."> {{products.from + i}} </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="image">
+        <th mat-header-cell *matHeaderCellDef> Image </th>
+        <td mat-cell *matCellDef="let element" data-label="Image">
+          <span *ngIf="!element.shop_product_primary_variant?.shop_product_image?.image">--</span>
+          <div class="image-wrap" *ngIf="element.shop_product_primary_variant?.shop_product_image?.image">
+            <img  [src]="element.shop_product_primary_variant?.shop_product_image?.image_path" />
+          </div>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let element" data-label="Name">
+          <a href="javascript:{}" [routerLink]="'add/'+element.id" matTooltip="Click here to view or edit this product">{{element.name}}</a>
+        </td>
+      </ng-container>
+
+      <!-- total Column -->
+      <ng-container matColumnDef="category">
+        <th mat-header-cell *matHeaderCellDef> Category </th>
+        <td mat-cell *matCellDef="let element" data-label="Category">
+          {{ element.shop_product_category?.name}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef> Status </th>
+        <td mat-cell *matCellDef="let element" data-label="Status">
+          <a href="javascript:{}" (click)="changeStatus(element)"> {{element.status_text}} </a>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="options">
+        <th mat-header-cell *matHeaderCellDef> Delete </th>
+        <td mat-cell *matCellDef="let element" data-label="Delete">
+          <button  type="button" mat-icon-button  color="warn"
+              (click)="deleteProduct(element)">
+              <mat-icon>delete_forever</mat-icon>
+            </button>
+        </td>
+      </ng-container>
+
+      <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="6">No data found</td>
+      </tr>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+
+  <mat-paginator *ngIf="products.total" [length]="products.total"
+              [pageSize]="20"
+              [pageSizeOptions]="[20, 50, 70, 100]"
+              (page)="goto($event)">
+  </mat-paginator>
+
+</ng-container>
+</mat-card>
+</div>

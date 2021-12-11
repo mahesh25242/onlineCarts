@@ -1,4 +1,4 @@
-<ng-container *ngIf="shop$ | async">
+<ng-container *ngIf="currentTheme$ | async">
   <mat-sidenav-container [hasBackdrop]="true" fullscreen>
     <mat-sidenav #sidenav role="navigation" [mode]="'push'">
       <app-side-nav-list (sidenavClose)="sidenav.close()"></app-side-nav-list>      

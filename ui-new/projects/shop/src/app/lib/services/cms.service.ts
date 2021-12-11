@@ -19,10 +19,14 @@ export class CmsService {
 
   mainMenus(){
     return this.getPages.pipe(map(res=>{
-      let allPages = [...[{ name: 'Home', url : '/'}], ... res, ...[{ name: 'Contact Us', url : '/contact-us'}]];
-      if(environment.shopKey == environment.demoShopKey){
-        allPages = [ ...allPages, ...[{ name: 'Admin', url : '/admin', }]];
+      let allPages = null;
+      if(res){
+        allPages = [...[{ name: 'Home', url : '/'}], ... res, ...[{ name: 'Contact Us', url : '/contact-us'}]];
+        if(environment.shopKey == environment.demoShopKey){
+          allPages = [ ...allPages, ...[{ name: 'Admin', url : '/admin', }]];
+        }
       }
+      
       return allPages;
     }))
   }

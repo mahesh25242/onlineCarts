@@ -12,7 +12,7 @@ import {
 import { Observable, of, Subscription } from 'rxjs';
 import { map, mergeMap, tap } from 'rxjs/operators';
 import { Shop } from './lib/interfaces';
-import { ShopService, CmsService, CartService } from './lib/services';
+import { ShopService, CmsService, CartService, ThemeService } from './lib/services';
 import { GeneralService,  } from './lib/services'; //MessagingService
 
 declare const botmanChatWidget:any;
@@ -23,6 +23,7 @@ declare const botmanChatWidget:any;
 })
 export class AppComponent implements OnInit, OnDestroy{
   lastScroll:number = 0;
+  currentTheme$!: Observable<string | undefined>;
   @HostListener('window:scroll', ['$event']) // for window scroll events
 onScroll(event:any) {
 
@@ -84,6 +85,7 @@ onScroll(event:any) {
   shopUnsbScr: Subscription | undefined;
   constructor(public router: Router,
     private generalService: GeneralService,
+    private themeService: ThemeService,
     // private swUpdate: SwUpdate,
     // private messagingService: MessagingService,
     private matSnackBar: MatSnackBar,
@@ -137,6 +139,10 @@ onScroll(event:any) {
     });
   }
   ngOnInit(): void {
+    /*theme setting */
+    this.currentTheme$ = this.themeService.currentTheme;
+
+
 
     window.addEventListener("message", (event) => {
       if(event?.data?.redirect){
@@ -148,11 +154,13 @@ onScroll(event:any) {
 
     }, false);
 
-    this.shop$ = this.shopService.shopDetail().pipe(tap(res=>{
-      document.body.className += ` ${res?.shop_theme?.theme?.class}`;
-    }))
+    // this.shop$ = this.shopService.shopDetail().pipe(tap(res=>{
+    //   document.body.className += ` ${res?.shop_theme?.theme?.class}`;
+    // }))
 
-    this.shopUnsbScr = this.shopService.aShop.pipe(mergeMap(res=>{
+    this.shopUnsbScr = this.shopService.aShop.pipe(mergeMap(res=>{ 
+      console.log(res)  
+      this.themeService._currentTheme$.next(res?.shop_theme?.theme?.class);   
       return this.cmsService.pages().pipe(map(pgs => res));
     })).subscribe(res=>{
       this.shop = res;

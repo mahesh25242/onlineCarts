@@ -1,0 +1,44 @@
+
+<h1 mat-dialog-title>
+  {{ (this.data?.id) ? 'Edit '+this.data.name : 'Create New Delivery Slot' }}
+</h1>
+<form [formGroup]="createDeliveryFrm" (ngSubmit)="saveDelivery()">
+  <div mat-dialog-content>
+    <div class="grid-form-container">
+      <mat-form-field class="full-width-text" appearance="standard">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" placeholder="Ex. Kochi" required maxlength="200">
+        <mat-hint align="end" *ngIf="f?.['name']?.value?.length">{{f?.['name']?.value?.length}} / 200</mat-hint>
+        <mat-error *ngIf="f?.['name']?.errors && f?.['name']?.errors?.['error']">
+          {{f?.['name']?.errors?.['error']}}
+        </mat-error>
+      </mat-form-field>
+
+
+
+
+      <mat-form-field class="full-width-text" appearance="standard">
+        <mat-label>Sortorder</mat-label>
+        <input type="number" matInput formControlName="sortorder" placeholder="Ex. 1" >
+        <mat-error *ngIf="f?.['sortorder'].errors && f?.['sortorder']?.errors?.['error']">
+          {{f?.['sortorder']?.errors?.['error']}}
+        </mat-error>
+      </mat-form-field>
+
+
+      <mat-checkbox color="primary" class="example-margin" formControlName="is_default" matTooltip="If it checked then this will keep as default home delivery slot"
+      aria-label="Button that displays a tooltip when focused or hovered over">Default Slot?</mat-checkbox>
+
+
+
+
+    </div>
+
+
+  </div>
+  <div mat-dialog-actions align="end" >
+    <button mat-stroked-button type="button" (click)="dialogRef.close()">Close</button>
+    <button mat-raised-button color="primary" type="submit">Save changes</button>
+  </div>
+</form>
+

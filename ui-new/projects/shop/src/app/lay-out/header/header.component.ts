@@ -2,8 +2,9 @@ import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/cor
 import { environment } from '../../../environments/environment';
 import { Observable, tap } from 'rxjs';
 import { BC, Shop } from '../../lib/interfaces';
-import {  ShopService, CmsService } from '../../lib/services';
+import {  ShopService, CmsService, ThemeService } from '../../lib/services';
 import { GeneralService  } from '../../lib/services/index';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 
 
 @Component({
@@ -20,11 +21,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
   pages$: Observable<any> | null= null;
   isDemoSite: boolean = false;
   shop$!: Observable<Shop | null>;
+  currentTheme$!: Observable<string>;
 
   constructor(
     private shopService: ShopService,
     public generalService: GeneralService,    
-    private cmsService: CmsService
+    private cmsService: CmsService,
+    private themeService: ThemeService
     ) {
 
     }
@@ -42,8 +45,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.bc$ = this.generalService.bc;
 
 
+    
+
+  
   }
 
+  
+  
   onToggleSidenav = () => {
     this.sidenavToggle.emit();
   }

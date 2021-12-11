@@ -114,9 +114,7 @@ export class ShopService {
     }));
   }
 
-  shopDetail1(){
-    return this.shopDetail();
-  }
+
 
 
   validatedPhone(idToken: string | null = null){

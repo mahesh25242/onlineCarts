@@ -143,9 +143,28 @@
               "projects/shop/src/favicon.ico",
               "projects/shop/src/assets"
             ],
-            "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "projects/shop/src/styles.scss"
+            "styles": [              
+              "projects/shop/src/styles.scss",
+              {
+                "input": "projects/shop/src/themes/default-light-theme.scss",
+                "bundleName": "default-light-theme",
+                "inject": false                            
+              },
+              {
+                "input": "projects/shop/src/themes/pink-light-theme.scss",
+                "bundleName": "pink-light-theme",
+                "inject": false                            
+              },
+              {
+                "input": "projects/shop/src/themes/purple-light-theme.scss",
+                "bundleName": "pink-light-theme",
+                "inject": false                            
+              },
+              {
+                "input": "projects/shop/src/themes/deep-orange-theme.scss",
+                "bundleName": "deep-orange-theme",
+                "inject": false                            
+              }
             ],
             "scripts": []
           },

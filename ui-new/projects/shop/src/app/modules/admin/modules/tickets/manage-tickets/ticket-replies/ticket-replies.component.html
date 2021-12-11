@@ -1,0 +1,4 @@
+<mat-card *ngFor="let reply of replies">
+  {{reply?.content}}
+  <br/> @ {{reply?.created_at | date:'medium'}}
+</mat-card>

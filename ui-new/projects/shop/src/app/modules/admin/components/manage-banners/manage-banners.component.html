@@ -1,0 +1,14 @@
+<div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-between" *ngIf="img$ | async as img">
+  <mat-card [fxFlex.gt-sm]="(98/img.length)" [fxFlex.sm]="(98/img.length)" *ngFor="let image of img; let idx = index">
+    <button (click)="handleImageSelection(image, idx)" type="button" mat-stroked-button color="primary" [ngClass]="'upload-banner-btn-'+idx">
+      <span> {{ (image.url) ? 'Change Banner' : 'Choose banner'  }} {{ idx + 1}} </span>
+    </button>
+    <br/>
+    <br/>
+    <img mat-card-image [src]="image.url" alt="" *ngIf="image.url" />
+  </mat-card>
+
+
+
+
+</div>

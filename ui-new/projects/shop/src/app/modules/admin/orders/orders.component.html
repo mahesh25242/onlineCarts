@@ -1,0 +1,97 @@
+<div class="header-inner"></div>
+<div class="container">
+
+  <h1>
+    Orders
+  </h1>
+
+<app-order-search [pageEvent]="pageEvent"></app-order-search>
+<br/>
+<ng-container *ngIf="(orders$ | async) as orders">
+  <div *ngIf="!orders.total">No data found</div>
+  <mat-card>
+
+    <div  [ngClass.lt-sm]="'has-mobile-cards'" *ngIf="orders.data">
+      <table mat-table [dataSource]="orders.data">
+
+        <!-- id Column -->
+        <ng-container matColumnDef="no">
+          <th mat-header-cell *matHeaderCellDef> No. </th>
+          <td mat-cell *matCellDef="let element" data-label="No."> {{element.id}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element" data-label="Name">
+            <a href="javascript:{}" (click)="viewOrder(element)"
+            matTooltip="Click here to view details about this order">{{element.shop_customer?.name}}</a>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="phone">
+          <th mat-header-cell *matHeaderCellDef> Phone </th>
+          <td mat-cell *matCellDef="let element" data-label="Phone">
+            <a [href]="'https://web.whatsapp.com/send?phone='+element.shop_customer.phone" target="_blank" fxHide.lt-md="true" matTooltip="Click here to go to whatsapp">
+              {{element.shop_customer.phone}}
+            </a>
+            <a [href]="'https://api.whatsapp.com/send?phone='+element.shop_customer.phone" target="_blank" fxHide.gt-xs="true"
+            matTooltip="Click here to go to whatsapp">{{element.shop_customer.phone}}</a>
+          </td>
+        </ng-container>
+
+        <!-- total Column -->
+        <ng-container matColumnDef="total">
+          <th mat-header-cell *matHeaderCellDef> Total </th>
+          <td mat-cell *matCellDef="let element" data-label="Total">
+            {{element.total | currency:'INR'}}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="delivery_location">
+          <th mat-header-cell *matHeaderCellDef> Delivery </th>
+          <td mat-cell *matCellDef="let element" data-label="Delivery">
+            {{element.shop_delivery?.name}}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="delivery_date">
+          <th mat-header-cell *matHeaderCellDef> Delivery Date & Slot</th>
+          <td mat-cell *matCellDef="let element" data-label="Delivery Date & Slot">
+            {{ element.delivery_at | date: 'mediumDate'}}
+            -  {{ element.delivery_slot}}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="created_at">
+          <th mat-header-cell *matHeaderCellDef> Order Date </th>
+          <td mat-cell *matCellDef="let element" data-label="Order Date">
+            {{element.created_at | date:'medium'}}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef> Status </th>
+          <td mat-cell *matCellDef="let element" data-label="Status">
+            {{element.status_text}}
+          </td>
+        </ng-container>
+
+        <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="7">No data found</td>
+        </tr>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+
+
+
+  <mat-paginator *ngIf="orders.total" [length]="orders.total"
+              [pageSize]="20"
+              [pageSizeOptions]="[20, 50, 70, 100]"
+              (page)="goto($event)">
+  </mat-paginator>
+</mat-card>
+</ng-container>
+</div>

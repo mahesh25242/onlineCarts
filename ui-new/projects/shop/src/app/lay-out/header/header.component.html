@@ -1,3 +1,4 @@
+
 <mat-toolbar color="primary">
   <ng-container *ngIf="(bc$ | async) as bc">
     <div *ngIf="bc?.backUrl && !isSearch" fxHide.gt-xs="true"
@@ -44,7 +45,8 @@
     </ng-container>    
   </div>
 
-
+  
+  
 </mat-toolbar>
 <div *ngIf="(generalService.shopDisabled | async) as shopDisabled" class="alert alert-warning shop-message">
   {{ shopDisabled.message }}

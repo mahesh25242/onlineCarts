@@ -1,0 +1,37 @@
+<h1 mat-dialog-title>
+  {{data?.name}}
+</h1>
+<div mat-dialog-content>
+  You are selected the {{data?.name}}. its validaty is {{ data?.duration}} months.
+  For this subscription you should pay <span class="price">{{ data?.price  | currency:'INR'}}</span> ( {{ data?.price  | inWords}} INR). You can pay this amount with the following options
+  <ng-container *ngIf="paymentData$ | async as paymentData">
+    <ol >
+      <li>
+        Upi transaction
+        <div>upi: <b>{{ paymentData.payment_upi }}</b> (Name may be Swathi Raju or onlinecarts both are correct) </div>
+      </li>
+      <li>
+        Qrcode Scaning
+        <div>
+          <img [src]="paymentData.payment_qr_code" alt="QR Code" *ngIf="paymentData.payment_qr_code">
+        </div>
+
+      </li>
+      <li *ngIf="paymentData.payment_account_no">
+        Account Transfer
+        <div class="account-no" [innerHTML]="paymentData.payment_account_no"></div>
+      </li>
+    </ol>
+
+    After you transfer the amount to our account with any of the above method please whatsapp the screenshot or photo of receipt to {{paymentData.mobile}}
+  </ng-container>
+
+
+  <p>
+    If you want any help and support you can create ticket
+    <a [routerLink]="['/admin/account/help-desk']" (click)="dialogRef.close()">Help Support</a> inside manage account
+  </p>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-raised-button color="primary" cdkFocusInitial mat-dialog-close>Ok</button>
+</div>

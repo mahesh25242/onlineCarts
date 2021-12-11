@@ -1,0 +1,65 @@
+<ng-container *ngIf="shopRenew$ | async as shopRenew">
+
+  <div  [ngClass.lt-sm]="'has-mobile-cards'" *ngIf="shopRenew.data">
+    <table mat-table [dataSource]="shopRenew.data">
+
+      <!-- id Column -->
+      <ng-container matColumnDef="no">
+        <th mat-header-cell *matHeaderCellDef> No. </th>
+        <td mat-cell *matCellDef="let element; let i = index;" data-label="No."> {{shopRenew.from + i}} </td>
+      </ng-container>
+
+
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let element" data-label="Name">
+          {{ (element?.package?.name) ? element?.package?.name : '-' }}
+        </td>
+      </ng-container>
+
+      <!-- total Column -->
+      <ng-container matColumnDef="dated">
+        <th mat-header-cell *matHeaderCellDef> Dated </th>
+        <td mat-cell *matCellDef="let element" data-label="Dated">
+          {{ element?.created_at | date:'medium'}}
+        </td>
+      </ng-container>
+
+      <!-- total Column -->
+      <ng-container matColumnDef="start">
+        <th mat-header-cell *matHeaderCellDef> Start </th>
+        <td mat-cell *matCellDef="let element" data-label="Start">
+          {{ element?.from_date | date:'medium'}}
+        </td>
+      </ng-container>
+
+      <!-- total Column -->
+      <ng-container matColumnDef="end">
+        <th mat-header-cell *matHeaderCellDef> End </th>
+        <td mat-cell *matCellDef="let element" data-label="End">
+          {{ element?.to_date | date:'medium'}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="amount">
+        <th mat-header-cell *matHeaderCellDef> Amount </th>
+        <td mat-cell *matCellDef="let element" data-label="Amount">
+          {{ element.amount }}
+        </td>
+      </ng-container>
+
+      <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="6">No data found</td>
+      </tr>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+
+  <mat-paginator *ngIf="shopRenew.total" [length]="shopRenew.total"
+              [pageSize]="50"
+              [pageSizeOptions]="[ 50, 70, 100]"
+              (page)="goto($event)">
+  </mat-paginator>
+</ng-container>

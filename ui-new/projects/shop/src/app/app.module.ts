@@ -17,6 +17,7 @@ import { httpInterceptorProviders } from './lib/interceptors';
 
 import layoutComponents from  './lay-out';
 import pageComponents from './pages';
+import { LoadInitialConfigaration } from './lib/providers';
 
 @Injectable({providedIn: 'root'})
 export class MyHammerConfig extends HammerGestureConfig {
@@ -50,6 +51,7 @@ export class MyHammerConfig extends HammerGestureConfig {
     
   ],
   providers: [
+    LoadInitialConfigaration,
     {
       provide: HAMMER_GESTURE_CONFIG,
       useClass: MyHammerConfig,

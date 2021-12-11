@@ -1,0 +1,30 @@
+<ng-container *ngIf="tagsApi$ | async">
+  <mat-form-field appearance="standard">
+    <mat-label>Product Tags</mat-label>
+    <mat-chip-list #chipList aria-label="Product tag selection">
+      <mat-chip
+        *ngFor="let fruit of fruits"
+        [selectable]="selectable"
+        [removable]="removable"
+        (removed)="remove(fruit)">
+        {{fruit}}
+        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+      </mat-chip>
+      <input
+        placeholder="Product tag if any"
+        #fruitInput
+        [formControl]="fruitCtrl"
+        [matAutocomplete]="auto"
+        [matChipInputFor]="chipList"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        >
+    </mat-chip-list>
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+      <mat-option *ngFor="let tag of tags$ | async" [value]="tag">
+        {{tag.name}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  <button mat-mini-fab color="primary" type="button" (click)="createTag()"><mat-icon >add</mat-icon></button>
+
+</ng-container>

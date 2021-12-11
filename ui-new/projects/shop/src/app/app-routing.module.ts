@@ -18,10 +18,10 @@ const routes: Routes = [
   //     order: OrderDeatilResolver
   //   }
   // },
-  // {
-  //   path: 'admin',
-  //   loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
-  // },
+  {
+    path: 'admin',
+    loadChildren: () => import('./modules/index').then(m => m.AdminModule)
+  },
   // {
   //   path: '',
   //   component: LayoutComponent,

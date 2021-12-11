@@ -18,6 +18,7 @@ export interface HelpTicket {
   help_ticket_type?: HelpTicketType;
   all_children_replies?: HelpTicket[];
   updated_at?: string;
+  created_at?: string;
 }
 
 export interface HelpTicketWithPagination extends Pagination {
