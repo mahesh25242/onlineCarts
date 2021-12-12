@@ -1,14 +1,13 @@
 import { Routes } from '@angular/router';
 import { AdminAuthGuard, NegateAuthGuard } from '../../lib/guard';
-// import { AccountComponent } from './account/account.component';
+import { AccountComponent } from './account/account.component';
 import CategoryComponents, { CategoriesComponent, CategoriesResolver } from './categories';
 // import AdminComponents from './components';
 // import DeliveryComponents, { ShopDeliveryAndSlotResolver, ShopDeliveryPageComponent } from './delivery';
-// import EditProfileComponents, { EditProfileComponent } from './edit-profile';
+import EditProfileComponents, { EditProfileComponent } from './edit-profile';
 import { HomeComponent } from './home/home.component';
-// import { MyReportedAbusesComponent } from './modules/report-abuse/my-reported-abuses/my-reported-abuses.component';
-// import { ManageTicketsComponent } from './modules/tickets/manage-tickets/manage-tickets.component';
-// import { MyPaymentsComponent } from './my-payments/my-payments.component';
+
+import { MyPaymentsComponent } from './my-payments/my-payments.component';
 // import OrderComponents, { OrdersComponent, OrdersResolver } from './orders';
 // import ProductsComponents, { CreateProductComponent, CreateProductResolver, ListProductsComponent, ProductsComponent, ProductsResolver } from './products';
 import RenewPackageComponents, { RenewPackageComponent} from './renew-package';
@@ -17,17 +16,17 @@ import { SignInComponent } from './sign-in/sign-in.component';
 
 
 const AdminDeclarations =[
-    // AccountComponent,
+    AccountComponent,
     ...CategoryComponents,
     // ...AdminComponents,
     // ...DeliveryComponents,
-    // ...EditProfileComponents,
+    ...EditProfileComponents,
      HomeComponent,
-    // MyPaymentsComponent,
+    MyPaymentsComponent,
     // ...OrderComponents,
     // ...ProductsComponents,
     ...RenewPackageComponents,
-    // ShopDetailsComponent,
+    // ShopDetailsComponent,        
     SignInComponent
 ];
 
@@ -95,29 +94,29 @@ export const AdminRouts: Routes=[
     //     orders: OrdersResolver
     //   }
     // },
-    // {
-    //   path: 'account',
-    //   component: AccountComponent,
-    //   canActivate: [AdminAuthGuard],
-    //   children:[
-    //     {
-    //       path: '',
-    //       component: EditProfileComponent,
-    //     },
-    //     {
-    //       path: 'help-desk',
-    //       component: ManageTicketsComponent,
-    //     },
-    //     {
-    //       path: 'my-payments',
-    //       component: MyPaymentsComponent,
-    //     },
-    //     {
-    //       path: 'my-abuses',
-    //       component: MyReportedAbusesComponent,
-    //     },
-    //   ]
-    // },
+    {
+      path: 'account',
+      component: AccountComponent,
+      canActivate: [AdminAuthGuard],
+      children:[
+        {
+          path: '',
+          component: EditProfileComponent,
+        },
+        // {
+        //   path: 'help-desk',
+        //   component: ManageTicketsComponent,
+        // },
+        {
+          path: 'my-payments',
+          component: MyPaymentsComponent,
+        },
+        // {
+        //   path: 'my-abuses',
+        //   component: MyReportedAbusesComponent,
+        // },
+      ]
+    },
     {
       path: 'renew',
       component: RenewPackageComponent,

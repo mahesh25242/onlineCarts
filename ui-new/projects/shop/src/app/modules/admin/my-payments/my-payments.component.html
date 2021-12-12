@@ -1,6 +1,6 @@
 <ng-container *ngIf="shopRenew$ | async as shopRenew">
 
-  <div  [ngClass.lt-sm]="'has-mobile-cards'" *ngIf="shopRenew.data">
+  <div  [ngClass.lt-sm]="'has-mobile-cards'" *ngIf="shopRenew?.data">
     <table mat-table [dataSource]="shopRenew.data">
 
       <!-- id Column -->

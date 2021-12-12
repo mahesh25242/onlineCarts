@@ -10,9 +10,13 @@
       </mat-select>
     </mat-form-field>
 
-    <button (click)="handleImageSelection()" type="button" mat-stroked-button color="primary" *ngIf="idProofType.value && status.value !== 1">
-      <span>{{ (idProof) ? 'Change' : 'Upload a scanned copy of' }} {{ idProofType.value }}</span>
+    <button (click)="fileInput.click()" type="button" mat-stroked-button color="primary" *ngIf="idProofType.value && status.value !== 1">
+      <span>Choose Photo</span>
+      <input #fileInput type="file" (change)="handleImageSelection($event)"
+       style="display:none;"  accept="image/*" />
     </button>
+
+    
 
   </div>
   <div fxFlex="50%">

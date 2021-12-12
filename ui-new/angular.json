@@ -26,6 +26,9 @@
             "polyfills": "projects/front/src/polyfills.ts",
             "tsConfig": "projects/front/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
+            "allowedCommonJsDependencies": [
+              "to-words"
+            ],
             "assets": [
               "projects/front/src/favicon.ico",
               "projects/front/src/assets"
@@ -139,6 +142,9 @@
             "polyfills": "projects/shop/src/polyfills.ts",
             "tsConfig": "projects/shop/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
+            "allowedCommonJsDependencies": [
+              "to-words"
+            ],
             "assets": [
               "projects/shop/src/favicon.ico",
               "projects/shop/src/assets"

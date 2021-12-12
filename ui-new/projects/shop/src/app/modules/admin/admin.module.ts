@@ -5,8 +5,13 @@ import { CommonModule } from '@angular/common';
 
 
 import { SharedModuleModule } from 'shared/shared-module/shared-module.module';
-// import { TagModule, TicketModule, ReportAbuseModule, ShopPointsModule } from './modules';
-// import {NgxImageCompressService} from 'ngx-image-compress';
+// import { 
+//   // TagModule, 
+//   // TicketModule, 
+//   // ReportAbuseModule,
+//   //  ShopPointsModule 
+//   } from './modules';
+
 
 
 import {  AdminRoutingModule } from './admin-routing.module';
@@ -33,8 +38,7 @@ import AdminDeclarations from './';
     // TagModule,
     // TicketModule,
     // ReportAbuseModule,
-    // ShopPointsModule,
-    // NgxImageCompressService
+    // ShopPointsModule,    
   ],
   providers:[
     CategoriesResolver,

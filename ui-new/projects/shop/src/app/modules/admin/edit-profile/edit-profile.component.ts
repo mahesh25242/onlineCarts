@@ -70,20 +70,20 @@ export class EditProfileComponent implements OnInit {
     }));
   }
 
-  onFileInput(files: FileList){
-    this.notiflix.loading.standard();
+  // onFileInput(files: FileList){
+  //   this.notiflix.loading.standard();
 
-    const formData:any = new FormData();
-    formData.append('avatharImg', files.item(0));
-    //avatar-img
-    this.userService.updateAvatar(formData).pipe(mergeMap(()=>{
-      return this.userService.authUser();
-    })).subscribe({
-      complete: () =>{
-        this._snackBar.open(`Successfully changed `, 'Close');
-      }
-    }).add(() => this.notiflix.loading.remove());
-  }
+  //   const formData:any = new FormData();
+  //   formData.append('avatharImg', files.item(0));
+  //   //avatar-img
+  //   this.userService.updateAvatar(formData).pipe(mergeMap(()=>{
+  //     return this.userService.authUser();
+  //   })).subscribe({
+  //     complete: () =>{
+  //       this._snackBar.open(`Successfully changed `, 'Close');
+  //     }
+  //   }).add(() => this.notiflix.loading.remove());
+  // }
   updateProfile(){
     if(environment.demoShopKey == environment.shopKey){
       this._snackBar.open(`Sorry demo site can't be changed `, 'Close');      

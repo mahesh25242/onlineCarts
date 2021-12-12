@@ -1,7 +1,7 @@
 <ng-container *ngIf="abuses$ | async as abuses">
 
-  <div  [ngClass.lt-sm]="'has-mobile-cards'" *ngIf="abuses.data">
-    <table mat-table [dataSource]="abuses.data">
+  <div  [ngClass.lt-sm]="'has-mobile-cards'" *ngIf="abuses?.data">
+    <table mat-table [dataSource]="abuses?.data!">
 
       <!-- id Column -->
       <ng-container matColumnDef="no">

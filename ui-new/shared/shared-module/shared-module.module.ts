@@ -55,6 +55,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { HttpClientModule } from '@angular/common/http';
 import { environment } from 'shared/environments/environment';
 import { NotiflixService } from 'shared/providers/notiflix.service';
+import { UploadImageService } from 'shared/providers/upload-image-compress.service';
 
 @NgModule({
   declarations: [
@@ -178,7 +179,11 @@ import { NotiflixService } from 'shared/providers/notiflix.service';
     {
       provide: 'NotiflixService',
       useClass: NotiflixService
-    }
+    },
+    {
+      provide: 'UploadImageService',
+      useClass: UploadImageService
+    },
   ]
 })
 export class SharedModuleModule { }

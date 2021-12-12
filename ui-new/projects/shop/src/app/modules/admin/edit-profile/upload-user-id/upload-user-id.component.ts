@@ -1,7 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { mergeMap, tap } from 'rxjs/operators';
-import { NgxImageCompressService } from 'ngx-image-compress';
-import { from, Observable } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { UserService } from '../../../../lib/services';
 import { FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -17,52 +16,33 @@ export class UploadUserIdComponent implements OnInit {
   status:FormControl = new FormControl(0);
   idProof!: string;
   idProofTypes$!: Observable<[{name?: string}]>;
-  constructor(private imageCompress: NgxImageCompressService,
+  
+  constructor(
     private userService: UserService,
     private _snackBar: MatSnackBar,
-    @Inject('NotiflixService') public notiflix: any) { }
+    @Inject('NotiflixService') public notiflix: any,
+    @Inject('UploadImageService') public uploadImage: any) { }
 
-  handleImageSelection(){
+   
 
-    this.imageCompress.uploadFile().then(({image, orientation}) => {
-      //this.imgResultBeforeCompress = image;
-//      console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
+    
+  handleImageSelection(event: Event){
+    this.notiflix.loading.standard();
+    this.uploadImage.handleImageUpload(event).pipe(mergeMap(res=>{
+      const formData:any = new FormData();
 
-
-      this.imageCompress.compressFile(image, -1).then(
-        result => {
-         // this.imgResultAfterCompress = result;
-
-  //        console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
-
-          this.idProof = result;
-
-
-          from(fetch(result)
-          .then(res => res.blob())).pipe(mergeMap(res=>{
-            this.notiflix.loading.standard();
-            const formData = new FormData();
-            formData.append('idProofType', this.idProofType.value)
-            formData.append('id', `${(this.id.value) ? this.id.value : 0}`)
-            res && formData.append('idProof', res);
-            return this.userService.uploadIdProof(formData);
-          })).subscribe({
-            complete: ()=>{
-              this._snackBar.open(`Successfully uploaded `, 'Close');
-            }
-          }).add(() => {
-            this.notiflix.loading.remove();
-          })
-
-
-
-
-        }
-      );
-
-    });
-
-
+      formData.append('idProofType', this.idProofType.value)
+      formData.append('id', `${(this.id.value) ? this.id.value : 0}`)
+      res && formData.append('idProof', res);
+      return this.userService.uploadIdProof(formData);      
+    })).subscribe({
+      complete: () => this._snackBar.open(`Successfully uploaded `, 'Close'),
+      error: (err: Error) => {        
+        this._snackBar.open(`Error while uploading`, 'Close')
+      }
+    }).add(() => {
+      this.notiflix.loading.remove();
+    });    
   }
 
   ngOnInit(): void {
