@@ -68,27 +68,27 @@
               <mat-form-field fxFlex="33%" fxFlex.xs="100%" class="full-width-text" appearance="standard">
                 <mat-label>Name</mat-label>
                 <input matInput formControlName="name" placeholder="Ex. Kentucky Fried Chicken" required maxlength="200">
-                <mat-hint align="end" *ngIf="f.name?.value?.length">{{f.name?.value?.length}} / 200</mat-hint>
-                <mat-error *ngIf="f.name.errors && f.name.errors.error">
-                  {{ f.name.errors.error }}
+                <mat-hint align="end" *ngIf="f?.['name']?.value?.length">{{f?.['name']?.value?.length}} / 200</mat-hint>
+                <mat-error *ngIf="f?.['name']?.errors && f?.['name']?.errors?.['error']">
+                  {{ f?.['name']?.errors?.['error'] }}
                 </mat-error>
               </mat-form-field>
 
               <mat-form-field fxFlex="33%" fxFlex.xs="100%" class="full-width-text" appearance="standard">
                 <mat-label>Sort Name</mat-label>
                 <input matInput formControlName="short_name" placeholder="Ex. KFC" required maxlength="200">
-                <mat-hint align="end" *ngIf="f.short_name?.value?.length">{{f.short_name?.value?.length}} / 200</mat-hint>
-                <mat-error *ngIf="f.short_name.errors && f.short_name.errors.error">
-                  {{ f.short_name.errors.error }}
+                <mat-hint align="end" *ngIf="f?.['short_name']?.value?.length">{{f?.['short_name']?.value?.length}} / 200</mat-hint>
+                <mat-error *ngIf="f?.['short_name']?.errors && f?.['short_name']?.errors?.['error']">
+                  {{ f?.['short_name']?.errors?.['error'] }}
                 </mat-error>
               </mat-form-field>
 
               <mat-form-field fxFlex="33%" fxFlex.xs="100%" class="full-width-text" appearance="standard">
                 <mat-label>Email</mat-label>
                 <input matInput formControlName="email" placeholder="Ex. kfc@gmail.com" maxlength="200">
-                <mat-hint align="end" *ngIf="f.email?.value?.length">{{f.email?.value?.length}} / 200</mat-hint>
-                <mat-error *ngIf="f.email.errors && f.email.errors.error">
-                  {{ f.email.errors.error }}
+                <mat-hint align="end" *ngIf="f?.['email']?.value?.length">{{f?.['email']?.value?.length}} / 200</mat-hint>
+                <mat-error *ngIf="f?.['email']?.errors && f?.['email']?.errors?.['error']">
+                  {{ f?.['email']?.errors?.['error'] }}
                 </mat-error>
               </mat-form-field>
 
@@ -97,65 +97,65 @@
 
             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
               <div fxFlex="33%" fxFlex.xs="100%">
-                <ng-select [items]="(countries$ | async)"
+                <!-- <ng-select [items]="(countries$ | async)"
                 [ngClass]="{'is-invalid': ( f.country_id.errors && f.country_id.errors.error)}"
                 bindLabel="name"
                 id="country_id"
                 placeholder="Select Country"
                 formControlName="country_id">
-                </ng-select>
-                <mat-error *ngIf="f.country_id.errors && f.country_id.errors.error">
-                  {{ f.country_id.errors.error }}
+                </ng-select> -->
+                <mat-error *ngIf="f?.['country_id']?.errors && f?.['country_id']?.errors?.['error']">
+                  {{ f?.['country_id']?.errors?.['error'] }}
                 </mat-error>
               </div>
 
               <div fxFlex="33%" fxFlex.xs="100%">
-                <ng-select [items]="(states$ | async)"
+                <!-- <ng-select [items]="(states$ | async)"
                 [ngClass]="{'is-invalid': ( f.state_id.errors && f.state_id.errors.error)}"
                 bindLabel="name"
                 id="state_id"
                 placeholder="Select State"
                 formControlName="state_id">
-                </ng-select>
+                </ng-select> -->
               </div>
 
               <div fxFlex="33%" fxFlex.xs="100%">
-                <ng-select [items]="(cities$ | async)"
+                <!-- <ng-select [items]="(cities$ | async)"
                 [ngClass]="{'is-invalid': ( f.city_id.errors && f.city_id.errors.error)}"
                 bindLabel="name"
                 id="city_id"
                 placeholder="Select City"
                 formControlName="city_id">
-                </ng-select>
+                </ng-select> -->
               </div>
             </div>
 
             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
               <mat-form-field fxFlex="33%" fxFlex.xs="100%" class="full-width-text" appearance="standard">
-                <mat-label>Phone {{ (f.country_id.value?.phonecode) ? '+'+f.country_id.value?.phonecode: '' }}</mat-label>
+                <mat-label>Phone {{ (f?.['country_id']?.value?.phonecode) ? '+'+f?.['country_id']?.value?.phonecode: '' }}</mat-label>
                 <input matInput type="tel" formControlName="phone" placeholder="Ex. 1234567890" required
                 maxlength="10">
-                <mat-hint align="end" *ngIf="f.pin?.value?.length">{{f.phone?.value?.length}} / 10</mat-hint>
-                <mat-error *ngIf="f.phone.errors && f.phone.errors.error">
-                  {{ f.phone.errors.error }}
+                <mat-hint align="end" *ngIf="f?.['pin']?.value?.length">{{f?.['phone']?.value?.length}} / 10</mat-hint>
+                <mat-error *ngIf="f?.['phone']?.errors && f?.['phone']?.errors?.['error']">
+                  {{ f?.['phone']?.errors?.['error'] }}
                 </mat-error>
               </mat-form-field>
 
               <mat-form-field fxFlex="33%" fxFlex.xs="100%" class="full-width-text" appearance="standard">
                 <mat-label>Address</mat-label>
                 <input matInput formControlName="address" placeholder="Ex. Kochi" required maxlength="200">
-                <mat-hint align="end" *ngIf="f.address?.value?.length">{{f.address?.value?.length}} / 200</mat-hint>
-                <mat-error *ngIf="f.address.errors && f.address.errors.error">
-                  {{ f.address.errors.error }}
+                <mat-hint align="end" *ngIf="f?.['address']?.value?.length">{{f?.['address']?.value?.length}} / 200</mat-hint>
+                <mat-error *ngIf="f?.['address']?.errors && f?.['address']?.errors?.['error']">
+                  {{ f?.['address']?.errors?.['error'] }}
                 </mat-error>
               </mat-form-field>
 
               <mat-form-field fxFlex="33%" fxFlex.xs="100%" class="full-width-text" appearance="standard">
                 <mat-label>Pin</mat-label>
                 <input matInput formControlName="pin" placeholder="Ex. 566456" required maxlength="6">
-                <mat-hint align="end" *ngIf="f.pin?.value?.length">{{f.pin?.value?.length}} / 6</mat-hint>
-                <mat-error *ngIf="f.pin.errors && f.pin.errors.error">
-                  {{ f.pin.errors.error }}
+                <mat-hint align="end" *ngIf="f?.['pin']?.value?.length">{{f?.['pin']?.value?.length}} / 6</mat-hint>
+                <mat-error *ngIf="f?.['pin']?.errors && f?.['pin']?.errors?.['error']">
+                  {{ f?.['pin']?.errors?.['error'] }}
                 </mat-error>
               </mat-form-field>
             </div>
@@ -164,17 +164,17 @@
               <mat-form-field fxFlex="50%"  class="full-width-text" appearance="standard">
                 <mat-label>Map Url</mat-label>
                 <input matInput formControlName="map" placeholder="Ex. http://googlemap.com" maxlength="200">
-                <mat-hint align="end" *ngIf="f.map?.value?.length">{{f.map?.value?.length}} / 200</mat-hint>
-                <mat-error *ngIf="f.map.errors && f.map.errors.error">
-                  {{ f.map.errors.error }}
+                <mat-hint align="end" *ngIf="f?.['map']?.value?.length">{{f?.['map']?.value?.length}} / 200</mat-hint>
+                <mat-error *ngIf="f?.['map']?.errors && f?.['map']?.errors?.['error']">
+                  {{ f?.['map']?.errors?.['error'] }}
                 </mat-error>
               </mat-form-field>
 
               <mat-form-field fxFlex="50%" fxFlex.xs="100%" class="full-width-text" appearance="standard">
                 <mat-label>Business Hours</mat-label>
                 <textarea matInput formControlName="business_hours" placeholder="Business Hours / Opening hours"></textarea>
-                <mat-error *ngIf="f.business_hours.errors && f.business_hours.errors.error">
-                  {{ f.business_hours.errors.error }}
+                <mat-error *ngIf="f?.['business_hours']?.errors && f?.['business_hours']?.errors?.['error']">
+                  {{ f?.['business_hours']?.errors?.['error'] }}
                 </mat-error>
               </mat-form-field>
             </div>
@@ -225,7 +225,7 @@
 
 
       </mat-expansion-panel>
-      <app-manage-cms></app-manage-cms>
+      <!-- <app-manage-cms></app-manage-cms> -->
     </mat-accordion>
   </ng-container>
 </div>

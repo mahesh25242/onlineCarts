@@ -5,12 +5,12 @@ import { CommonModule } from '@angular/common';
 
 
 import { SharedModuleModule } from 'shared/shared-module/shared-module.module';
-// import { 
-//   // TagModule, 
-//   // TicketModule, 
-//   // ReportAbuseModule,
-//   //  ShopPointsModule 
-//   } from './modules';
+import { 
+  // TagModule, 
+  // TicketModule, 
+  // ReportAbuseModule,
+   ShopPointsModule 
+  } from './modules';
 
 
 
@@ -38,7 +38,7 @@ import AdminDeclarations from './';
     // TagModule,
     // TicketModule,
     // ReportAbuseModule,
-    // ShopPointsModule,    
+    ShopPointsModule,    
   ],
   providers:[
     CategoriesResolver,

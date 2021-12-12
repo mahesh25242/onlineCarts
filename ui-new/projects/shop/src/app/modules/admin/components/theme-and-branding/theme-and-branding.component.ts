@@ -3,7 +3,6 @@ import { from, Observable, Subscription } from 'rxjs';
 import { Shop, Theme } from '../../../../lib/interfaces';
 import { ShopService, ThemeService } from '../../../../lib/services';
 import { mergeMap, tap } from 'rxjs/operators';
-import { NgxImageCompressService } from 'ngx-image-compress';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -21,8 +20,7 @@ export class ThemeAndBrandingComponent implements OnInit {
 
   saveThemeSubscription!: Subscription;
   constructor(private themeService: ThemeService,
-    private shopService: ShopService,
-    private imageCompress: NgxImageCompressService,
+    private shopService: ShopService,    
     private _snackBar: MatSnackBar,
     @Inject('NotiflixService') public notiflix: any) { }
 
@@ -41,44 +39,44 @@ export class ThemeAndBrandingComponent implements OnInit {
 
   handleImageSelection(type: string){
 
-    this.imageCompress.uploadFile().then(({image, orientation}) => {
-      //this.imgResultBeforeCompress = image;
-//      console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
+//     this.imageCompress.uploadFile().then(({image, orientation}) => {
+//       //this.imgResultBeforeCompress = image;
+// //      console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
 
 
-      this.imageCompress.compressFile(image, -1).then(
-        result => {
-         // this.imgResultAfterCompress = result;
+//       this.imageCompress.compressFile(image, -1).then(
+//         result => {
+//          // this.imgResultAfterCompress = result;
 
-  //        console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
+//   //        console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
 
-          if(type == 'logo'){
-            this.logo = result;
-          }else{
-            this.favicon = result;
-          }
-
-
-          from(fetch(result)
-          .then(res => res.blob())).pipe(mergeMap(res=>{
-            const formData = new FormData();
-            res && formData.append(type, res);
-            return this.shopService.changeLogoFavicon(formData).pipe(mergeMap(res=>{
-              return this.shopService.shopDetail();
-            }))
-          })).subscribe(res=>{
-
-          }, err=>{
-            console.log(err)
-          })
+//           if(type == 'logo'){
+//             this.logo = result;
+//           }else{
+//             this.favicon = result;
+//           }
 
 
+//           from(fetch(result)
+//           .then(res => res.blob())).pipe(mergeMap(res=>{
+//             const formData = new FormData();
+//             res && formData.append(type, res);
+//             return this.shopService.changeLogoFavicon(formData).pipe(mergeMap(res=>{
+//               return this.shopService.shopDetail();
+//             }))
+//           })).subscribe(res=>{
+
+//           }, err=>{
+//             console.log(err)
+//           })
 
 
-        }
-      );
 
-    });
+
+//         }
+//       );
+
+//     });
 
 
   }

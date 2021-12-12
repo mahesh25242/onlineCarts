@@ -152,8 +152,78 @@
             "styles": [              
               "projects/shop/src/styles.scss",
               {
-                "input": "projects/shop/src/themes/default-light-theme.scss",
-                "bundleName": "default-light-theme",
+                "input": "projects/shop/src/themes/amber-theme.scss",
+                "bundleName": "amber-theme",
+                "inject": false                            
+              },
+              {
+                "input": "projects/shop/src/themes/blue-gray-theme.scss",
+                "bundleName": "blue-gray-theme",
+                "inject": false                            
+              },
+              {
+                "input": "projects/shop/src/themes/blue-light-theme.scss",
+                "bundleName": "blue-light-theme",
+                "inject": false                            
+              },
+              {
+                "input": "projects/shop/src/themes/brown-theme.scss",
+                "bundleName": "brown-theme",
+                "inject": false                            
+              },
+              {
+                "input": "projects/shop/src/themes/cyan-light-theme.scss",
+                "bundleName": "cyan-light-theme",
+                "inject": false                            
+              },
+              {
+                "input": "projects/shop/src/themes/deep-orange-theme.scss",
+                "bundleName": "deep-orange-theme",
+                "inject": false                            
+              },
+              {
+                "input": "projects/shop/src/themes/deep-purple-light-theme.scss",
+                "bundleName": "deep-purple-light-theme",
+                "inject": false                            
+              },
+              {
+                "input": "projects/shop/src/themes/light-theme.scss",
+                "bundleName": "light-theme",
+                "inject": false                            
+              },
+              {
+                "input": "projects/shop/src/themes/green-light-theme.scss",
+                "bundleName": "green-light-theme",
+                "inject": false                            
+              },
+              {
+                "input": "projects/shop/src/themes/grey-theme.scss",
+                "bundleName": "grey-theme",
+                "inject": false                            
+              },
+              {
+                "input": "projects/shop/src/themes/indigo-light-theme.scss",
+                "bundleName": "indigo-light-theme",
+                "inject": false                            
+              },
+              {
+                "input": "projects/shop/src/themes/light-blue-light-theme.scss",
+                "bundleName": "light-blue-light-theme",
+                "inject": false                            
+              },
+              {
+                "input": "projects/shop/src/themes/light-green-light-theme.scss",
+                "bundleName": "light-green-light-theme",
+                "inject": false                            
+              },
+              {
+                "input": "projects/shop/src/themes/lime-light-theme.scss",
+                "bundleName": "lime-light-theme",
+                "inject": false                            
+              },
+              {
+                "input": "projects/shop/src/themes/orange-theme.scss",
+                "bundleName": "orange-theme",
                 "inject": false                            
               },
               {
@@ -163,12 +233,17 @@
               },
               {
                 "input": "projects/shop/src/themes/purple-light-theme.scss",
-                "bundleName": "pink-light-theme",
+                "bundleName": "purple-light-theme",
                 "inject": false                            
               },
               {
-                "input": "projects/shop/src/themes/deep-orange-theme.scss",
-                "bundleName": "deep-orange-theme",
+                "input": "projects/shop/src/themes/teal-light-theme.scss",
+                "bundleName": "teal-light-theme",
+                "inject": false                            
+              },
+              {
+                "input": "projects/shop/src/themes/yellow-theme.scss",
+                "bundleName": "yellow-theme",
                 "inject": false                            
               }
             ],

@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { AdminAuthGuard, NegateAuthGuard } from '../../lib/guard';
 import { AccountComponent } from './account/account.component';
 import CategoryComponents, { CategoriesComponent, CategoriesResolver } from './categories';
-// import AdminComponents from './components';
+import AdminComponents from './components';
 // import DeliveryComponents, { ShopDeliveryAndSlotResolver, ShopDeliveryPageComponent } from './delivery';
 import EditProfileComponents, { EditProfileComponent } from './edit-profile';
 import { HomeComponent } from './home/home.component';
@@ -11,14 +11,14 @@ import { MyPaymentsComponent } from './my-payments/my-payments.component';
 import OrderComponents, { OrdersComponent, OrdersResolver } from './orders';
 // import ProductsComponents, { CreateProductComponent, CreateProductResolver, ListProductsComponent, ProductsComponent, ProductsResolver } from './products';
 import RenewPackageComponents, { RenewPackageComponent} from './renew-package';
-// import { ShopDetailsComponent } from './shop-details/shop-details.component';
+import { ShopDetailsComponent } from './shop-details/shop-details.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 
 
 const AdminDeclarations =[
     AccountComponent,
     ...CategoryComponents,
-    // ...AdminComponents,
+    ...AdminComponents,
     // ...DeliveryComponents,
     ...EditProfileComponents,
      HomeComponent,
@@ -26,7 +26,7 @@ const AdminDeclarations =[
     ...OrderComponents,
     // ...ProductsComponents,
     ...RenewPackageComponents,
-    // ShopDetailsComponent,        
+    ShopDetailsComponent,        
     SignInComponent
 ];
 
@@ -81,11 +81,11 @@ export const AdminRouts: Routes=[
     //     deliveries: ShopDeliveryAndSlotResolver
     //   }
     // },
-    // {
-    //   path: 'details',
-    //   component: ShopDetailsComponent,
-    //   canActivate: [AdminAuthGuard],
-    // },
+    {
+      path: 'details',
+      component: ShopDetailsComponent,
+      canActivate: [AdminAuthGuard],
+    },
     {
       path: 'orders',
       component: OrdersComponent,

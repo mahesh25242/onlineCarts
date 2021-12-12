@@ -1,6 +1,6 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { NgxImageCompressService } from 'ngx-image-compress';
+// import { NgxImageCompressService } from 'ngx-image-compress';
 import { from, Observable, of } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import { Shop } from '../../../../lib/interfaces';
@@ -14,7 +14,7 @@ import { GeneralService } from '../../../../lib/services';
 export class ManageBannersComponent implements OnInit {
   @Input() shop!: Shop;
   img$!: Observable<any[]>;
-  constructor(private imageCompress: NgxImageCompressService,
+  constructor(
     private generalService: GeneralService,
     private _snackBar: MatSnackBar,
     @Inject('NotiflixService') public notiflix: any) { }
@@ -22,40 +22,40 @@ export class ManageBannersComponent implements OnInit {
   handleImageSelection(img: any, idx: number){
 
 
-    this.imageCompress.uploadFile().then(({image, orientation}) => {
-      this.notiflix.loading.standard();    
-      //this.imgResultBeforeCompress = image;
-//      console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
+//     this.imageCompress.uploadFile().then(({image, orientation}) => {
+//       this.notiflix.loading.standard();    
+//       //this.imgResultBeforeCompress = image;
+// //      console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
 
 
-      this.imageCompress.compressFile(image, -1).then(
-        result => {
-         // this.imgResultAfterCompress = result;
+//       this.imageCompress.compressFile(image, -1).then(
+//         result => {
+//          // this.imgResultAfterCompress = result;
 
-  //        console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
-
-
-          img.url = result
-
-          from(fetch(result)
-          .then(res => res.blob())).pipe(mergeMap(res=>{
-            const formData = new FormData();
-            res && formData.append(`image`, res);
-            res && formData.append(`idx`, `${idx}`);
-            return this.generalService.saveBanner(formData)
-          })).subscribe({
-            complete: () =>{
-              this._snackBar.open(`Successfully uploaded `, 'Close'); 
-            }
-          })
+//   //        console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
 
 
+//           img.url = result
+
+//           from(fetch(result)
+//           .then(res => res.blob())).pipe(mergeMap(res=>{
+//             const formData = new FormData();
+//             res && formData.append(`image`, res);
+//             res && formData.append(`idx`, `${idx}`);
+//             return this.generalService.saveBanner(formData)
+//           })).subscribe({
+//             complete: () =>{
+//               this._snackBar.open(`Successfully uploaded `, 'Close'); 
+//             }
+//           })
 
 
-        }
-      );
 
-    });
+
+//         }
+//       );
+
+//     });
   }
   ngOnInit(): void {
     const max_banner = this.shop?.max_banner ?? 0

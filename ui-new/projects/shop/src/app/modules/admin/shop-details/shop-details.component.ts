@@ -5,7 +5,7 @@ import { mergeMap, tap } from 'rxjs/operators';
 import { City, Country, Shop, State } from '../../../lib/interfaces';
 import { CityService, CountryService, GeneralService, ShopService, StateService } from '../../../lib/services';
 import { environment } from '../../../../environments/environment';
-import {NgxImageCompressService} from 'ngx-image-compress';
+
 // import { AngularFireAuth } from '@angular/fire/auth';
 // import { auth } from 'firebase/app';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -35,8 +35,7 @@ export class ShopDetailsComponent implements OnInit, OnDestroy {
     private countryServive: CountryService,
     private stateService: StateService,
     private cityService: CityService,
-    private generalService: GeneralService,
-    private imageCompress: NgxImageCompressService,
+    private generalService: GeneralService,    
     // public afAuth: AngularFireAuth,
     private _snackBar: MatSnackBar,
     @Inject('NotiflixService') public notiflix: any) { }
@@ -46,30 +45,30 @@ export class ShopDetailsComponent implements OnInit, OnDestroy {
     handleImageSelection(stat:FormGroup) {
 
 
-      this.imageCompress.uploadFile().then(({image, orientation}) => {
-        //this.imgResultBeforeCompress = image;
-  //      console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
+  //     this.imageCompress.uploadFile().then(({image, orientation}) => {
+  //       //this.imgResultBeforeCompress = image;
+  // //      console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
 
 
-        this.imageCompress.compressFile(image, -1).then(
-          result => {
-           // this.imgResultAfterCompress = result;
+  //       this.imageCompress.compressFile(image, -1).then(
+  //         result => {
+  //          // this.imgResultAfterCompress = result;
 
-    //        console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
-
-
-            this.f?.['logo'].setValue(result)
-            fetch(result)
-            .then(res => res.blob())
-            .then(img=>{
-              this.f?.['up_logo'].setValue(img);
-            })
+  //   //        console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
 
 
-          }
-        );
+  //           this.f?.['logo'].setValue(result)
+  //           fetch(result)
+  //           .then(res => res.blob())
+  //           .then(img=>{
+  //             this.f?.['up_logo'].setValue(img);
+  //           })
 
-      });
+
+  //         }
+  //       );
+
+  //     });
 
     }
 

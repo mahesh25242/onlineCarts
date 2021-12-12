@@ -1,10 +1,7 @@
 import { Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { NgxImageCompressService } from 'ngx-image-compress';
-import { from, Observable, of, Subscription, throwError } from 'rxjs';
-import { catchError, map, mergeMap, tap } from 'rxjs/operators';
-import { Shop } from '../../../../../lib/interfaces';
+import { Subscription } from 'rxjs';
 import { CmsService } from '../../../../../lib/services';
 
 
