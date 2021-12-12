@@ -11,7 +11,7 @@ import { HomeComponent } from './home/home.component';
 // import { MyPaymentsComponent } from './my-payments/my-payments.component';
 // import OrderComponents, { OrdersComponent, OrdersResolver } from './orders';
 // import ProductsComponents, { CreateProductComponent, CreateProductResolver, ListProductsComponent, ProductsComponent, ProductsResolver } from './products';
-// import RenewPackageComponents, { RenewPackageComponent} from './renew-package';
+import RenewPackageComponents, { RenewPackageComponent} from './renew-package';
 // import { ShopDetailsComponent } from './shop-details/shop-details.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 
@@ -26,7 +26,7 @@ const AdminDeclarations =[
     // MyPaymentsComponent,
     // ...OrderComponents,
     // ...ProductsComponents,
-    // ...RenewPackageComponents,
+    ...RenewPackageComponents,
     // ShopDetailsComponent,
     SignInComponent
 ];
@@ -118,11 +118,11 @@ export const AdminRouts: Routes=[
     //     },
     //   ]
     // },
-    // {
-    //   path: 'renew',
-    //   component: RenewPackageComponent,
-    //   canActivate: [AdminAuthGuard],
-    // },
+    {
+      path: 'renew',
+      component: RenewPackageComponent,
+      canActivate: [AdminAuthGuard],
+    },
   ];
 
 export default AdminDeclarations;

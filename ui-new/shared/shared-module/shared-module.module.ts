@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 
-import { SafeHtmlPipe } from '../lib/pipes/safe-html.pipe';
+import { SafeHtmlPipe, NumToWordPipe } from '../lib/pipes';
 
 import { NgxMatDatetimePickerModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -58,7 +58,8 @@ import { NotiflixService } from 'shared/providers/notiflix.service';
 
 @NgModule({
   declarations: [
-    SafeHtmlPipe
+    SafeHtmlPipe,
+    NumToWordPipe
   ],
   imports: [
     CommonModule,
@@ -118,7 +119,8 @@ import { NotiflixService } from 'shared/providers/notiflix.service';
   exports: [
     
     SafeHtmlPipe,
-
+    NumToWordPipe,
+    
     RecaptchaV3Module,
     HttpClientModule,
     FormsModule,

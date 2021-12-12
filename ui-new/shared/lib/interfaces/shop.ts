@@ -51,6 +51,7 @@ export interface Shop {
   shop_current_renewal?: ShopRenewal
   shop_renewal?: ShopRenewal[];
   map_url?: string;
+  is_default?: boolean;
 }
 
 

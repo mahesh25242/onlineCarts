@@ -3,7 +3,7 @@
 </h1>
 <div mat-dialog-content>
   You are selected the {{data?.name}}. its validaty is {{ data?.duration}} months.
-  For this subscription you should pay <span class="price">{{ data?.price  | currency:'INR'}}</span> ( {{ data?.price  | inWords}} INR). You can pay this amount with the following options
+  For this subscription you should pay <span class="price" *ngIf="data?.price">{{ data?.price  | currency:'INR'}}</span> <span *ngIf="data?.price">( {{ data.price  | toWord}} INR)</span>. You can pay this amount with the following options
   <ng-container *ngIf="paymentData$ | async as paymentData">
     <ol >
       <li>
