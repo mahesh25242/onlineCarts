@@ -3,7 +3,7 @@ import { AdminAuthGuard, NegateAuthGuard } from '../../lib/guard';
 import { AccountComponent } from './account/account.component';
 import CategoryComponents, { CategoriesComponent, CategoriesResolver } from './categories';
 import AdminComponents from './components';
-// import DeliveryComponents, { ShopDeliveryAndSlotResolver, ShopDeliveryPageComponent } from './delivery';
+import DeliveryComponents, { ShopDeliveryAndSlotResolver, ShopDeliveryPageComponent } from './delivery';
 import EditProfileComponents, { EditProfileComponent } from './edit-profile';
 import { HomeComponent } from './home/home.component';
 
@@ -19,7 +19,7 @@ const AdminDeclarations =[
     AccountComponent,
     ...CategoryComponents,
     ...AdminComponents,
-    // ...DeliveryComponents,
+    ...DeliveryComponents,
     ...EditProfileComponents,
      HomeComponent,
     MyPaymentsComponent,
@@ -73,14 +73,14 @@ export const AdminRouts: Routes=[
     //   runGuardsAndResolvers: 'always',
     // },
 
-    // {
-    //   path: 'deliveries',
-    //   component: ShopDeliveryPageComponent,
-    //   canActivate: [AdminAuthGuard],
-    //   resolve:{
-    //     deliveries: ShopDeliveryAndSlotResolver
-    //   }
-    // },
+    {
+      path: 'deliveries',
+      component: ShopDeliveryPageComponent,
+      canActivate: [AdminAuthGuard],
+      resolve:{
+        deliveries: ShopDeliveryAndSlotResolver
+      }
+    },
     {
       path: 'details',
       component: ShopDetailsComponent,

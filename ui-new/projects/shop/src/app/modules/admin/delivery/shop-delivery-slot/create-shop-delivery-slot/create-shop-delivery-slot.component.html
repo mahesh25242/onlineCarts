@@ -20,7 +20,7 @@
       <mat-form-field class="full-width-text" appearance="standard">
         <mat-label>Sortorder</mat-label>
         <input type="number" matInput formControlName="sortorder" placeholder="Ex. 1" >
-        <mat-error *ngIf="f?.['sortorder'].errors && f?.['sortorder']?.errors?.['error']">
+        <mat-error *ngIf="f?.['sortorder']?.errors && f?.['sortorder']?.errors?.['error']">
           {{f?.['sortorder']?.errors?.['error']}}
         </mat-error>
       </mat-form-field>
