@@ -3,8 +3,8 @@
     <mat-form-field fxFlex="100%" class="full-width-text" appearance="standard" >
       <mat-label>Code</mat-label>
       <input matInput formControlName="code" placeholder="Coupon Code" required>
-      <mat-error *ngIf="f.['code']?.errors?.['error']">
-        {{ f.['code']?.errors?.['error'] }}
+      <mat-error *ngIf="f?.['code']?.errors?.['error']">
+        {{ f?.['code']?.errors?.['error'] }}
       </mat-error>
     </mat-form-field>
   </div>

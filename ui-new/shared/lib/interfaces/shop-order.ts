@@ -17,7 +17,7 @@ export interface ShopOrder {
   created_at?: string;
   shop?: Shop
   shop_customer?:  ShopCustomer;
-  shop_order_item?: ShopOrderItem;
+  shop_order_item?: ShopOrderItem[];
   shop_delivery?: ShopDelivery;
   delivery_at?: string;
   status_text?: string;

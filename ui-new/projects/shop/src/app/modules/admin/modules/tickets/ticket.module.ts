@@ -7,16 +7,15 @@ import { ManageTicketsComponent } from './manage-tickets/manage-tickets.componen
 import { TicketRepliesComponent } from './manage-tickets/ticket-replies/ticket-replies.component';
 import { CreateTicketComponent } from './create-ticket/create-ticket.component';
 import { TicketReplyComponent } from './ticket-reply/ticket-reply.component';
+import { TicketRoutingModule } from './ticket-routing.module';
 
 @NgModule({
   declarations: [ManageTicketsComponent, TicketRepliesComponent,
     CreateTicketComponent, TicketReplyComponent],
   imports: [
     CommonModule,
-    SharedModuleModule
-  ],
-  exports:[
-    ManageTicketsComponent
-  ]
+    SharedModuleModule,
+    TicketRoutingModule
+  ]  
 })
 export class TicketModule { }

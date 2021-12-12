@@ -11,13 +11,13 @@
     <li>
       Phone:&nbsp;&nbsp;<a [href]="whastAppUrl" target="_blank" matTooltip="Click here to chat with customer in Whatsapp"> {{ data?.shop_customer?.phone}}</a>
     </li>
-    <li *ngIf="data.shop_customer.email">
+    <li *ngIf="data.shop_customer?.email">
       Email:&nbsp;&nbsp;{{ data?.shop_customer?.email}}
     </li>
     <li>
       Delivery At:&nbsp;&nbsp;{{ data?.delivery_at | date: 'mediumDate'}} - {{ data?.delivery_slot }}
     </li>
-    <li *ngIf="data.shop_delivery.need_cust_loc">
+    <li *ngIf="data.shop_delivery?.need_cust_loc">
       Address:&nbsp;&nbsp;{{ data?.address}} &nbsp;&nbsp;{{ data?.pin}}
     </li>
     <li *ngIf="data.loc">
@@ -61,7 +61,7 @@
           <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef> Name </th>
             <td mat-cell *matCellDef="let element" data-label="Name">
-              {{element.shop_product_variant.shop_product.name}} {{element.shop_product_variant.name}}
+              {{element.shop_product_variant?.shop_product?.name}} {{element.shop_product_variant?.name}}
             </td>
           </ng-container>
 

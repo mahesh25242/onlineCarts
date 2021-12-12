@@ -8,7 +8,7 @@ import EditProfileComponents, { EditProfileComponent } from './edit-profile';
 import { HomeComponent } from './home/home.component';
 
 import { MyPaymentsComponent } from './my-payments/my-payments.component';
-// import OrderComponents, { OrdersComponent, OrdersResolver } from './orders';
+import OrderComponents, { OrdersComponent, OrdersResolver } from './orders';
 // import ProductsComponents, { CreateProductComponent, CreateProductResolver, ListProductsComponent, ProductsComponent, ProductsResolver } from './products';
 import RenewPackageComponents, { RenewPackageComponent} from './renew-package';
 // import { ShopDetailsComponent } from './shop-details/shop-details.component';
@@ -23,7 +23,7 @@ const AdminDeclarations =[
     ...EditProfileComponents,
      HomeComponent,
     MyPaymentsComponent,
-    // ...OrderComponents,
+    ...OrderComponents,
     // ...ProductsComponents,
     ...RenewPackageComponents,
     // ShopDetailsComponent,        
@@ -86,14 +86,14 @@ export const AdminRouts: Routes=[
     //   component: ShopDetailsComponent,
     //   canActivate: [AdminAuthGuard],
     // },
-    // {
-    //   path: 'orders',
-    //   component: OrdersComponent,
-    //   canActivate: [AdminAuthGuard],
-    //   resolve:{
-    //     orders: OrdersResolver
-    //   }
-    // },
+    {
+      path: 'orders',
+      component: OrdersComponent,
+      canActivate: [AdminAuthGuard],
+      resolve:{
+        orders: OrdersResolver
+      }
+    },
     {
       path: 'account',
       component: AccountComponent,
@@ -103,18 +103,18 @@ export const AdminRouts: Routes=[
           path: '',
           component: EditProfileComponent,
         },
-        // {
-        //   path: 'help-desk',
-        //   component: ManageTicketsComponent,
-        // },
+        {
+          path: 'help-desk',
+          loadChildren: () => import('./modules').then(m => m.TicketModule)          
+        },
         {
           path: 'my-payments',
           component: MyPaymentsComponent,
         },
-        // {
-        //   path: 'my-abuses',
-        //   component: MyReportedAbusesComponent,
-        // },
+        {
+          path: 'my-abuses',
+          loadChildren: () => import('./modules').then(m => m.ReportAbuseModule)          
+        },        
       ]
     },
     {

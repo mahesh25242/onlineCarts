@@ -8,7 +8,8 @@ import { CartService } from '../../../../lib/services';
 @Component({
   selector: 'app-order-search',
   templateUrl: './order-search.component.html',
-  styleUrls: ['./order-search.component.scss']
+  styleUrls: ['./order-search.component.scss'],
+  providers:[ DatePipe ]
 })
 export class OrderSearchComponent implements OnInit {
   searchFrm!: FormGroup;

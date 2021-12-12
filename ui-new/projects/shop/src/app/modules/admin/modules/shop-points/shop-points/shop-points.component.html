@@ -17,20 +17,20 @@
   <button mat-icon-button
         shareButton="whatsapp"
         [url]="orgin+'/front/?rf='+shop?.shop_key"
-        #fbBtn="shareButton"
+        
         matTooltip="share referring url in whatsapp"
         title="Please register on onlinecart.in"
         description="You can create your custom shopping site in onlinecarts. If you using this link then you will get a promotional offer"
         aria-label="share this product in whatsapp">
-  <fa-icon *ngIf="fbBtn" [icon]="fbBtn.icon" size="lg"></fa-icon>
+  whatsapp
 </button>
 <button mat-icon-button
 [url]="orgin+'/front/?rf='+shop?.shop_key"
         shareButton="facebook"
-        #twtBtn="shareButton" matTooltip="share referring url in facebook"
+        matTooltip="share referring url in facebook"
         title="Please register on onlinecart.in"
         description="You can create your custom shopping site in onlinecarts. If you using this link then you will get a promotional offer"
         aria-label="share this product in facebook">
-  <fa-icon *ngIf="twtBtn" [icon]="twtBtn.icon" size="lg"></fa-icon>
+  fb
 </button>
 </p>

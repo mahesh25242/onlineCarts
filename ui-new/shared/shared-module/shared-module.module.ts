@@ -10,6 +10,7 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 
 import { RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module } from "ng-recaptcha";
 
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 import {MatIconModule} from '@angular/material/icon';
@@ -69,7 +70,8 @@ import { UploadImageService } from 'shared/providers/upload-image-compress.servi
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    
+
+    FontAwesomeModule,
 
     MatIconModule,
     MatButtonModule,
@@ -126,6 +128,8 @@ import { UploadImageService } from 'shared/providers/upload-image-compress.servi
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+
+    FontAwesomeModule,
 
     MatIconModule,
     MatButtonModule,
