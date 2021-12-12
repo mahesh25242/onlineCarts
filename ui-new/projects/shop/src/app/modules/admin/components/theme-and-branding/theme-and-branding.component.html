@@ -12,16 +12,23 @@
 
   <div fxFlex="33%" fxFlex.xs="100%">
     <img mat-card-image [src]="logo" alt="" *ngIf="logo" />
-    <button (click)="handleImageSelection('logo')" type="button" mat-stroked-button color="primary">
+
+    <button (click)="logoInput.click()" type="button" mat-stroked-button color="primary" >
       <span>Choose Logo</span>
-    </button>
+      <input #logoInput type="file" (change)="handleImageSelection('logo',$event)"
+       style="display:none;"  accept="image/*" />
+    </button>    
   </div>
 
   <div fxFlex="33%" fxFlex.xs="100%">
     <img mat-card-image [src]="favicon" alt="" *ngIf="favicon" />
-    <button (click)="handleImageSelection('favicon')" type="button" mat-stroked-button color="primary">
+
+    <button (click)="faviconInput.click()" type="button" mat-stroked-button color="primary" >
       <span>Choose Favicon</span>
+      <input #faviconInput type="file" (change)="handleImageSelection('favicon',$event)"
+       style="display:none;"  accept="image/*" />
     </button>
+    
   </div>
 
 </div>

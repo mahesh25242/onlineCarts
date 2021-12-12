@@ -15,14 +15,15 @@ export class ThemeAndBrandingComponent implements OnInit {
   @Input() shop!: Shop;
   theme_id!: number;
   thems$!: Observable<Theme[]>;
-  favicon!: string;
-  logo!: string;
+  favicon!: string | ArrayBuffer | null | undefined;
+  logo!: string | ArrayBuffer | null | undefined;
 
   saveThemeSubscription!: Subscription;
   constructor(private themeService: ThemeService,
     private shopService: ShopService,    
     private _snackBar: MatSnackBar,
-    @Inject('NotiflixService') public notiflix: any) { }
+    @Inject('NotiflixService') public notiflix: any,
+    @Inject('UploadImageService') public uploadImage: any) { }
 
   chooseTheme(){
     this.notiflix.loading.standard();    
@@ -37,46 +38,36 @@ export class ThemeAndBrandingComponent implements OnInit {
     })
   }
 
-  handleImageSelection(type: string){
+  handleImageSelection(type: string, event: Event){
+    console.log(type)
+    this.uploadImage.handleImageUpload(event).pipe(mergeMap((res: Blob)=>{
+      const reader = new FileReader();      
+      reader.onload = (e) =>  {
+        switch(type){
+          case 'favicon':
+            this.favicon = reader.result;
+          break;
+          case 'logo':
+            this.logo = reader.result;
+          break;
+        }          
+      };      
+      reader.readAsDataURL(res);
+      const formData:any = new FormData();
+      
+      res && formData.append(type, res);
 
-//     this.imageCompress.uploadFile().then(({image, orientation}) => {
-//       //this.imgResultBeforeCompress = image;
-// //      console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
-
-
-//       this.imageCompress.compressFile(image, -1).then(
-//         result => {
-//          // this.imgResultAfterCompress = result;
-
-//   //        console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
-
-//           if(type == 'logo'){
-//             this.logo = result;
-//           }else{
-//             this.favicon = result;
-//           }
-
-
-//           from(fetch(result)
-//           .then(res => res.blob())).pipe(mergeMap(res=>{
-//             const formData = new FormData();
-//             res && formData.append(type, res);
-//             return this.shopService.changeLogoFavicon(formData).pipe(mergeMap(res=>{
-//               return this.shopService.shopDetail();
-//             }))
-//           })).subscribe(res=>{
-
-//           }, err=>{
-//             console.log(err)
-//           })
-
-
-
-
-//         }
-//       );
-
-//     });
+      return this.shopService.changeLogoFavicon(formData).pipe(mergeMap(res=>{
+        return this.shopService.shopDetail();
+      }))
+    })).subscribe({
+      complete: () => this._snackBar.open(`Successfully uploaded `, 'Close'),
+      error: (err: Error) => {        
+        this._snackBar.open(`Error while uploading`, 'Close')
+      }
+    }).add(() => {
+      this.notiflix.loading.remove();
+    });  
 
 
   }
