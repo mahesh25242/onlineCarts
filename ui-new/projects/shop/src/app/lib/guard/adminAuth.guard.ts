@@ -14,12 +14,11 @@ export class AdminAuthGuard implements CanActivate {
     private settingService: SettingService) { }
   canActivate(
     next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-
+    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {      
       return this.userService.authUser().pipe(
         take(1),
         map((user: User) => {
-
+          
           // if (user.role_url !== 'admin') {
           //   this.router.navigate([`/${user.role_url}`]);
           //   return false;

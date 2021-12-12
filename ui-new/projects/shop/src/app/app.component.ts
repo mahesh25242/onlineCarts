@@ -158,8 +158,7 @@ onScroll(event:any) {
     //   document.body.className += ` ${res?.shop_theme?.theme?.class}`;
     // }))
 
-    this.shopUnsbScr = this.shopService.aShop.pipe(mergeMap(res=>{ 
-      console.log(res)  
+    this.shopUnsbScr = this.shopService.aShop.pipe(mergeMap(res=>{       
       this.themeService._currentTheme$.next(res?.shop_theme?.theme?.class);   
       return this.cmsService.pages().pipe(map(pgs => res));
     })).subscribe(res=>{

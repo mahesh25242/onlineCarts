@@ -43,7 +43,7 @@ export class SignInComponent implements OnInit {
 
   ngOnInit(): void {
 
-
+    
     this.generalService.bc$.next({
       siteName: environment.siteName ?? '',
       title: 'Admin Login',
@@ -70,7 +70,11 @@ export class SignInComponent implements OnInit {
     }else{
       const auth = getAuth().currentUser;
       if(auth) {
-        this.iDToken$ =  from(auth.getIdToken()).pipe(switchMap(token => this.userService.signInWith({idToken: token})));
+        this.iDToken$ =  from(auth.getIdToken()).pipe(mergeMap(token => this.userService.signInWith({idToken: token})), tap(res=>{
+          if(res){
+            this.router.navigate(['/admin/home']);
+          }
+        }));
       }
 
 

@@ -41,7 +41,7 @@
 
 
   <mat-card class="table-wrapper">
-    <div  [ngClass.lt-sm]="'has-mobile-cards'">
+    <div  [ngClass.lt-sm]="'has-mobile-cards'" *ngIf="stat.latest_orders">
       <table mat-table [dataSource]="stat.latest_orders">
 
         <!-- id Column -->
