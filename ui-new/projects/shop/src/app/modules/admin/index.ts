@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { AdminAuthGuard, NegateAuthGuard } from '../../lib/guard';
 // import { AccountComponent } from './account/account.component';
-// import CategoryComponents, { CategoriesComponent, CategoriesResolver } from './categories';
+import CategoryComponents, { CategoriesComponent, CategoriesResolver } from './categories';
 // import AdminComponents from './components';
 // import DeliveryComponents, { ShopDeliveryAndSlotResolver, ShopDeliveryPageComponent } from './delivery';
 // import EditProfileComponents, { EditProfileComponent } from './edit-profile';
@@ -18,7 +18,7 @@ import { SignInComponent } from './sign-in/sign-in.component';
 
 const AdminDeclarations =[
     // AccountComponent,
-    // ...CategoryComponents,
+    ...CategoryComponents,
     // ...AdminComponents,
     // ...DeliveryComponents,
     // ...EditProfileComponents,
@@ -42,14 +42,14 @@ export const AdminRouts: Routes=[
       component: HomeComponent,
       canActivate: [AdminAuthGuard],
     },
-    // {
-    //   path: 'categories',
-    //   component: CategoriesComponent,
-    //   canActivate: [AdminAuthGuard],
-    //   resolve:{
-    //     cats: CategoriesResolver
-    //   }
-    // },
+    {
+      path: 'categories',
+      component: CategoriesComponent,
+      canActivate: [AdminAuthGuard],
+      resolve:{
+        cats: CategoriesResolver
+      }
+    },
     // {
     //   path: 'products/:page',
     //   component: ProductsComponent,

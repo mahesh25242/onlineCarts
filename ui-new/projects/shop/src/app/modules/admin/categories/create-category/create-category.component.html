@@ -9,9 +9,9 @@
         <mat-form-field class="full-width-text" appearance="standard" fxFill>
           <mat-label>Name</mat-label>
           <input matInput formControlName="name" placeholder="Ex. Cake" required maxlength="200">
-          <mat-hint align="end" *ngIf="f?.['name'].value?.length">{{f?.['name']?.value?.length}} / 200</mat-hint>
-          <mat-error *ngIf="f?.['name'].errors && f?.['name'].errors?.['error']">
-            {{f?.['name'].errors?.['error']}}
+          <mat-hint align="end" *ngIf="f?.['name']?.value?.length">{{f?.['name']?.value?.length}} / 200</mat-hint>
+          <mat-error *ngIf="f?.['name']?.errors && f?.['name']?.errors?.['error']">
+            {{f?.['name']?.errors?.['error']}}
           </mat-error>
         </mat-form-field>
       </div>
@@ -59,19 +59,19 @@
         </mat-radio-group>
       </div>
       <div fxFlex.xs="100%" fxFlex.gt-xs="49%">
-        <button (click)="fileInput.click()" type="button" mat-stroked-button color="primary" *ngIf="!f.is_maticon.value">
+        <button (click)="fileInput.click()" type="button" mat-stroked-button color="primary" *ngIf="!f?.['is_maticon']?.value">
           <span>Choose Icon</span>
-          <input #fileInput type="file" (change)="handleIconSelection($event.target.files)"
+          <input #fileInput type="file" (change)="handleIconSelection($event)"
           style="display:none;"  accept="image/*" />
         </button>
-        <mat-error *ngIf="f?.['icon'].errors && f?.['icon']?.errors?.['error']">
+        <mat-error *ngIf="f?.['icon']?.errors && f?.['icon']?.errors?.['error']">
           {{f?.['icon']?.errors?.['error']}}
         </mat-error>
 
         <mat-form-field *ngIf="f?.['is_maticon']?.value" class="col-item2" fxFill>
           <mat-select placeholder="Select icon" formControlName="icon">
             <mat-select-trigger>
-              <mat-icon>{{f.['icon']?.value?.icon}}</mat-icon> {{f?.['icon'].value?.name}}
+              <mat-icon>{{f?.['icon']?.value?.icon}}</mat-icon> {{f?.['icon']?.value?.name}}
             </mat-select-trigger>
             <mat-option *ngFor="let cat_icon of catIcon" [value]="cat_icon">
               <mat-icon matSuffix>{{cat_icon?.icon}}</mat-icon>

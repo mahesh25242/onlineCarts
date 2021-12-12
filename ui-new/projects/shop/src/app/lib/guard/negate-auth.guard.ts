@@ -17,7 +17,7 @@ export class NegateAuthGuard implements CanActivate {
         map((user) => {
 
           if (user) {
-            this.router.navigate(['/home']);
+            this.router.navigate(['/admin/home']);
             return false;
           }
           return true;

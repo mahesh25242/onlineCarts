@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import {
   HttpRequest,
   HttpHandler,
@@ -14,7 +14,8 @@ import { GeneralService } from '../services';
 @Injectable()
 export class ShopInterceptor implements HttpInterceptor {
 
-  constructor(private generalService :GeneralService) {}
+  constructor(private generalService :GeneralService,
+    @Inject('NotiflixService') public notiflix: any) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
 
@@ -34,7 +35,7 @@ export class ShopInterceptor implements HttpInterceptor {
         }
 
         if (error instanceof HttpErrorResponse && error.status === 423 ) {
-          alert(error.error.message)
+          this.notiflix.report.warning('Sorry', error.error.message);          
         }
         return throwError(() => error);
 

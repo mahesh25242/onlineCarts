@@ -4,7 +4,7 @@
 $primary: mat-palette($mat-purple, 500);
 $accent:  mat-palette($mat-amber, A200, A100, A400);
 $warn:    mat-palette($mat-red, 600);
-$theme:   mat-dark-theme($primary, $accent, $warn);
+$theme:   mat-light-theme($primary, $accent, $warn);
 
 $custom-typography: mat-typography-config(
   $font-family: 'Roboto, monospace',

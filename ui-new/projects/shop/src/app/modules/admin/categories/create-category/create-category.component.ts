@@ -43,7 +43,7 @@ export class CreateCategoryComponent implements OnInit, OnDestroy {
 
   get f() { return this.createCatFrm.controls}
 
-  saveCategory(){
+  saveCategory(){    
     this.notiflix.loading.standard();
     const formData = new FormData();
     formData.append('id', `${(this.f?.['id'].value) ? this.f?.['id'].value : 0}`);
@@ -80,8 +80,10 @@ export class CreateCategoryComponent implements OnInit, OnDestroy {
     
   }
 
-  handleIconSelection( files: FileList) {
-    this.f?.['icon'].setValue(files.item(0));
+  handleIconSelection( evt: Event) {
+    const files = (evt.target as HTMLInputElement) ?? undefined;    
+    if(files && files?.files?.[0])
+      this.f?.['icon'].setValue(files?.files[0]);
   }
 
   ngOnInit(): void {

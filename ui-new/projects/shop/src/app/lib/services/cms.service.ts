@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { BehaviorSubject, of } from 'rxjs';
+import { map, mergeMap, tap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
+import { GeneralService } from '../../lib/services';
 
 
 @Injectable({
@@ -11,23 +12,37 @@ import { environment } from '../../../environments/environment';
 export class CmsService {
   private pages$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private generalService: GeneralService) { }
 
   get getPages(){
     return this.pages$.asObservable();
   }
 
   mainMenus(){
-    return this.getPages.pipe(map(res=>{
-      let allPages = null;
-      if(res){
-        allPages = [...[{ name: 'Home', url : '/'}], ... res, ...[{ name: 'Contact Us', url : '/contact-us'}]];
-        if(environment.shopKey == environment.demoShopKey){
-          allPages = [ ...allPages, ...[{ name: 'Admin', url : '/admin', }]];
-        }
+    return this.generalService.isAdmin$.asObservable().pipe(mergeMap(isAdmin=>{      
+      if(isAdmin){        
+        return  of([
+                  { name: 'Categories', url : '/admin/categories'},
+                  { name: 'Products', url : '/admin/products/0'},
+                  { name: 'Delivery', url : '/admin/deliveries'},
+                  { name: 'Orders', url : '/admin/orders'},
+                  { name: 'Shop Settings', url : '/admin/details'},
+                  { name: 'My Account', url : '/admin/account'},
+                  { name: 'Re-new', url : '/admin/renew'},
+                  { name: 'Back To Site', url : '../'},
+                ]);
       }
-      
-      return allPages;
+      return this.getPages.pipe(map(res=>{
+        let allPages = null;
+        if(res){        
+          allPages = [...[{ name: 'Home', url : '/'}], ... res, ...[{ name: 'Contact Us', url : '/contact-us'}]];
+          if(environment.shopKey == environment.demoShopKey){
+            allPages = [ ...allPages, ...[{ name: 'Admin', url : '/admin', }]];
+          }
+        }
+        
+        return allPages;
+      }))
     }))
   }
   pages(){
