@@ -152,6 +152,7 @@ class ShopProductController extends Controller
         $validationField = [
             'name' => ['required'],
             'status' => ['required'],
+            'shop_product_category_id' => ['required', 'numeric'],
             'variants.*.name' => ['required', 'string'],
             'variants.*.price' => ['required', 'numeric'],
         ];
@@ -160,6 +161,7 @@ class ShopProductController extends Controller
 
         $validator = Validator::make($request->all(), $validationField, [], [
             'variants.*.name' => 'variant name',
+            'shop_product_category_id' => 'product category',
             'variants.*.price' => 'variant price',
         ]);
 
@@ -170,10 +172,10 @@ class ShopProductController extends Controller
 
         $shop_product_category_id = 0;
         if( $request->input("shop_product_category_id", 0) && $request->input("shop_product_category_id", 0)!= 'null'){
-            $shop_product_category_id = $request->input("shop_product_category_id", null);
+            $shop_product_category_id = $request->input("shop_product_category_id", 0);
             if($shop_product_category_id){
 //                $shop_product_category_id = json_decode($shop_product_category_id);
-                $shop_product_category_id = $shop_product_category_id;
+              $shop_product_category_id = $shop_product_category_id;
             }
         }
         $productIns = [

@@ -42,12 +42,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.shop$ = this.shopService.aShop;
 
     this.pages$ = this.cmsService.mainMenus();
-    this.bc$ = this.generalService.bc;
-
-
-    
-
-  
+    this.bc$ = this.generalService.bc; 
   }
 
   

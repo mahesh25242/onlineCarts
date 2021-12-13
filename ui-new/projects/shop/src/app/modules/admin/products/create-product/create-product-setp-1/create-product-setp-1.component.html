@@ -1,4 +1,4 @@
-<form [formGroup]="createProductFrmStep1">
+<form [formGroup]="createProductFrm">
   <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start">
     <div fxFlex="50%" fxFlex.xs="100%">
       <div fxLayout="row" fxLayoutAlign="start">
@@ -22,8 +22,7 @@
           <a href="javascript:{}" (click)="createCategory()" matTooltip="Add new category if it not exists in select box">Add New Category</a>
         </div>
       </div>
-    </div>
-
+    </div>    
     <mat-form-field fxFlex="50%" fxFlex.xs="100%" class="full-width-text" appearance="standard">
       <mat-label>Name</mat-label>
       <input matInput formControlName="name" placeholder="Ex. Black Forest" required maxlength="200">

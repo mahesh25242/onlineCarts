@@ -1,16 +1,14 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Observable, Subscription } from 'rxjs';
-import { ShopProductService, ShopProductCategoryService, GeneralService } from '../../../../../lib/services';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { ShopProductCategoryService } from '../../../../../lib/services';
 import { ShopProduct, ShopProductCategory } from '../../../../../lib/interfaces';
 
-import { environment } from '../../../../../../environments/environment';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
 import { CreateCategoryComponent } from '../../../categories/create-category/create-category.component';
 
 import { ProductTag } from '../../../modules/tag/interfaces';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -18,7 +16,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './create-product-setp-1.component.html',
   styleUrls: ['./create-product-setp-1.component.scss']
 })
-export class CreateProductStep1Component implements OnInit, OnDestroy {
+export class CreateProductStep1Component implements OnInit {
 
 
   quillStyle = {
@@ -38,7 +36,7 @@ export class CreateProductStep1Component implements OnInit, OnDestroy {
     ]
   }
   product!: ShopProduct & { shop_product_tag?: ProductTag[]};
-  createProductFrmStep1!: FormGroup;
+  createProductFrm!: FormGroup;
   statuses = [
     {
       name:'Active',
@@ -51,22 +49,18 @@ export class CreateProductStep1Component implements OnInit, OnDestroy {
   ];  
   categories$!: Observable<ShopProductCategory[]>;
 
-  saveProdSubScr!: Subscription;
-  formPathSubScr!: Subscription;
-  productSubScr!: Subscription;
+  
+  
+  
   constructor(private formBuilder: FormBuilder,
-    private shopProductService: ShopProductService,
     private shopProductCategoryService: ShopProductCategoryService,
     private route:ActivatedRoute,
-    private generalService: GeneralService,
-    private router: Router,
     public dialog: MatDialog,
     
-    private _snackBar: MatSnackBar,
     @Inject('NotiflixService') public notiflix: any
     ) { }
 
-  get f() { return this.createProductFrmStep1.controls }
+  get f() { return this.createProductFrm.controls }
 
   
 
@@ -96,13 +90,13 @@ export class CreateProductStep1Component implements OnInit, OnDestroy {
 
     
 
-    this.createProductFrmStep1= this.formBuilder.group({
+    this.createProductFrm= this.formBuilder.group({
       id: [0, []],
-      name: [null, [Validators.required]],
-      description: [null, []],
+      name: ['', [Validators.required]],
+      description: ['', []],
       status: [1, []],
       sortorder: [1, []],
-      shop_product_category_id: [0, [Validators.required]],
+      shop_product_category_id: [null, [Validators.required]],
       shop_product_tags: [null, []],
       varients:this.formBuilder.array([]),
     });
@@ -117,7 +111,7 @@ export class CreateProductStep1Component implements OnInit, OnDestroy {
       
 
       if(this.product){
-        this.createProductFrmStep1.patchValue({
+        this.createProductFrm.patchValue({
           id: (this.product?.id) ? this.product?.id : 0,
           name: (this.product?.name) ? this.product?.name : '',
           description: (this.product?.description) ? this.product?.description : '',
@@ -131,7 +125,7 @@ export class CreateProductStep1Component implements OnInit, OnDestroy {
 
 
       if(this.product?.shop_product_tag && this.product?.shop_product_tag?.length){
-        this.createProductFrmStep1.controls?.['shop_product_tags'].setValue(this.product.shop_product_tag);
+        this.createProductFrm.controls?.['shop_product_tags'].setValue(this.product.shop_product_tag);
       }
 
 
@@ -139,15 +133,5 @@ export class CreateProductStep1Component implements OnInit, OnDestroy {
 
   
 
-  ngOnDestroy(){
-    if(this.saveProdSubScr){
-      this.saveProdSubScr.unsubscribe();
-    }
-    if(this.formPathSubScr){
-      this.formPathSubScr.unsubscribe();
-    }
-    if(this.productSubScr){
-      this.productSubScr.unsubscribe();
-    }
-  }
+  
 }

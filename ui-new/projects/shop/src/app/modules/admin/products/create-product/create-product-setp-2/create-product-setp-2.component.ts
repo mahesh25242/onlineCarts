@@ -1,13 +1,10 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { map, mergeMap, Observable, Subscription } from 'rxjs';
-import { ShopProductService, ShopProductCategoryService, GeneralService } from '../../../../../lib/services';
+import { Component, Inject, OnInit } from '@angular/core';
+import { AbstractControl, FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { map, Observable } from 'rxjs';
 import { ShopProduct, ShopProductCategory } from '../../../../../lib/interfaces';
 
-import { environment } from '../../../../../../environments/environment';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
-import { CreateCategoryComponent } from '../../../categories/create-category/create-category.component';
 
 import { ProductTag } from '../../../modules/tag/interfaces';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -18,20 +15,15 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './create-product-setp-2.component.html',
   styleUrls: ['./create-product-setp-2.component.scss']
 })
-export class CreateProductStep2Component implements OnInit, OnDestroy {   
+export class CreateProductStep2Component implements OnInit {   
   product!: ShopProduct & { shop_product_tag?: ProductTag[]};
-  createProductFrmStep2!: FormGroup;
+  createProductFrm!: FormGroup;
   
   categories$!: Observable<ShopProductCategory[]>;
 
-  saveProdSubScr!: Subscription;
-  formPathSubScr!: Subscription;
-  productSubScr!: Subscription;
+  
   constructor(private formBuilder: FormBuilder,
-    private shopProductService: ShopProductService,    
     private route:ActivatedRoute,
-    private generalService: GeneralService,
-    private router: Router,
     public dialog: MatDialog,    
     private _snackBar: MatSnackBar,
     @Inject('NotiflixService') public notiflix: any,
@@ -41,7 +33,7 @@ export class CreateProductStep2Component implements OnInit, OnDestroy {
   
 
   get varients() {    
-    return this.createProductFrmStep2.get('varients') as FormArray;
+    return this.createProductFrm.get('varients') as FormArray;
   }
 
  
@@ -54,13 +46,12 @@ export class CreateProductStep2Component implements OnInit, OnDestroy {
         stat?.get('currImage')?.setValue(e?.target?.result);        
       };      
       reader.readAsDataURL(res);
-      const formData:any = new FormData();
       
       stat?.get('image')?.setValue(res);   
       return res;       
     })).subscribe({
       complete: () => this._snackBar.open(`Successfully uploaded `, 'Close'),
-      error: (err: Error) => {        
+      error: () => {        
         this._snackBar.open(`Error while uploading`, 'Close')
       }
     }).add(() => {
@@ -146,7 +137,7 @@ export class CreateProductStep2Component implements OnInit, OnDestroy {
 
   
 
-    this.createProductFrmStep2= this.formBuilder.group({      
+    this.createProductFrm= this.formBuilder.group({      
       varients:this.formBuilder.array([]),
     });
     
@@ -192,15 +183,5 @@ export class CreateProductStep2Component implements OnInit, OnDestroy {
     stat?.get('is_primary')?.setValue(1);
   }
 
-  ngOnDestroy(){
-    if(this.saveProdSubScr){
-      this.saveProdSubScr.unsubscribe();
-    }
-    if(this.formPathSubScr){
-      this.formPathSubScr.unsubscribe();
-    }
-    if(this.productSubScr){
-      this.productSubScr.unsubscribe();
-    }
-  }
+  
 }

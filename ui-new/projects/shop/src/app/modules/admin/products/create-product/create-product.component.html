@@ -16,8 +16,8 @@
     <mat-card class="p-20">
 
 
-      <mat-stepper [linear]="true" #stepper>
-        <mat-step [stepControl]="step1.createProductFrmStep1">          
+      <mat-stepper [linear]="true" #stepper [selectedIndex]="selectedIndex">
+        <mat-step [stepControl]="step1.createProductFrm">          
             <ng-template matStepLabel>              
               {{ (product?.name) ? product?.name+' Detail' : 'Product Detail' }}
             </ng-template>          
@@ -29,7 +29,7 @@
             </div>          
         </mat-step>
      
-        <mat-step [stepControl]="step2.createProductFrmStep2">
+        <mat-step [stepControl]="step2.createProductFrm">
           <ng-template matStepLabel>            
             {{ product?.name }} Varients
           </ng-template>

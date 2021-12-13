@@ -30,6 +30,7 @@ export class CmsService {
                   { name: 'My Account', url : '/admin/account'},
                   { name: 'Re-new', url : '/admin/renew'},
                   { name: 'Back To Site', url : '../'},
+                  { name: 'Sign Out', url : 'admin/sign-out'},
                 ]);
       }
       return this.getPages.pipe(map(res=>{

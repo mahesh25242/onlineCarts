@@ -13,6 +13,7 @@ import ProductsComponents, { CreateProductComponent, CreateProductResolver, List
 import RenewPackageComponents, { RenewPackageComponent} from './renew-package';
 import { ShopDetailsComponent } from './shop-details/shop-details.component';
 import { SignInComponent } from './sign-in/sign-in.component';
+import { SignOutComponent } from './sign-out/sign-out.component';
 
 
 const AdminDeclarations =[
@@ -27,7 +28,8 @@ const AdminDeclarations =[
     ...ProductsComponents,
     ...RenewPackageComponents,
     ShopDetailsComponent,        
-    SignInComponent
+    SignInComponent,
+    SignOutComponent
 ];
 
 export const AdminRouts: Routes=[
@@ -35,6 +37,11 @@ export const AdminRouts: Routes=[
       path: '',
       component: SignInComponent,
       canActivate: [NegateAuthGuard],
+    },
+    {
+      path: 'sign-out',
+      component: SignOutComponent,
+      canActivate: [AdminAuthGuard],
     },
     {
       path: 'home',

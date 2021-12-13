@@ -1,13 +1,12 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ShopProductService, ShopProductCategoryService, GeneralService } from '../../../../lib/services';
 import { ShopProduct, ShopProductCategory } from '../../../../lib/interfaces';
 
 import { environment } from '../../../../../environments/environment';
 import { ActivatedRoute, Router } from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
-import { CreateCategoryComponent } from '../../categories/create-category/create-category.component';
 
 import { ProductTag } from '../../modules/tag/interfaces';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -20,8 +19,8 @@ import { CreateProductStep2Component } from './create-product-setp-2/create-prod
   templateUrl: './create-product.component.html',
   styleUrls: ['./create-product.component.scss']
 })
-export class CreateProductComponent implements OnInit, OnDestroy {
-
+export class CreateProductComponent implements OnInit {
+  selectedIndex:number = 0;
   selectedTab = new FormControl(0);
 
   quillModules = {
@@ -65,9 +64,7 @@ export class CreateProductComponent implements OnInit, OnDestroy {
   ];
   categories$!: Observable<ShopProductCategory[]>;
 
-  saveProdSubScr!: Subscription;
-  formPathSubScr!: Subscription;
-  productSubScr!: Subscription;
+  
   constructor(private formBuilder: FormBuilder,
     private shopProductService: ShopProductService,
     private shopProductCategoryService: ShopProductCategoryService,
@@ -126,7 +123,8 @@ export class CreateProductComponent implements OnInit, OnDestroy {
     formData.append('description', step1.f?.['description'].value);
     formData.append('status', (step1.f?.['status'].value) ? '1' : '0');
     formData.append('sortorder', (step1.f?.['sortorder'].value) ? step1.f?.['sortorder'].value : 0);
-    formData.append('shop_product_category_id', JSON.stringify(step1.f?.['shop_product_category_id'].value));
+    if(step1.f?.['shop_product_category_id']?.value > 0)
+      formData.append('shop_product_category_id', step1.f?.['shop_product_category_id'].value);
     if(step1.f?.['shop_product_tags'].value)
       formData.append('shop_product_tags', JSON.stringify(step1.f?.['shop_product_tags'].value));
 
@@ -139,35 +137,37 @@ export class CreateProductComponent implements OnInit, OnDestroy {
       },
       error: (err) =>{
         if(err.status == 422){
-          for(let result in this.createProductFrm.controls){
-            if(result == 'varients'){
-              for(let varient in (this.createProductFrm.controls['varients'] as FormArray).controls){
-                for(let variantFrm in ((this.createProductFrm.controls['varients'] as FormArray).controls[varient] as FormGroup).controls){
-                  if(err.error.errors[`variants.${varient}.${variantFrm}`]){
-                    // isShiftTab = true;
-                    ((this.createProductFrm.controls['varients'] as FormArray).controls[varient] as FormGroup).controls[variantFrm].setErrors({ error: err.error.errors[`variants.${varient}.${variantFrm}`] });
-                  }else{
-                    ((this.createProductFrm.controls['varients'] as FormArray).controls[varient] as FormGroup).controls[variantFrm].setErrors(null);
+          let step: number | null = null;
+          for(let [i, stp] of [step1, step2].entries()){               
+            stp['createProductFrm'].markAllAsTouched();                  
+            for(let result in stp['createProductFrm'].controls){
+              if(result == 'varients'){
+                for(let varient in (stp['createProductFrm'].controls['varients'] as FormArray).controls){
+                  for(let variantFrm in ((stp['createProductFrm'].controls['varients'] as FormArray).controls[varient] as FormGroup).controls){
+                    if(err.error?.errors[`variants.${varient}.${variantFrm}`]){                      
+                      ((stp['createProductFrm']?.controls['varients'] as FormArray).controls[varient] as FormGroup).controls[variantFrm]?.setErrors({ error: err.error.errors[`variants.${varient}.${variantFrm}`] });
+                    }else{
+                      ((stp['createProductFrm']?.controls['varients'] as FormArray).controls[varient] as FormGroup).controls[variantFrm]?.setErrors(null);
+                    }
+    
                   }
-  
                 }
-              }
-  
-  
-            }
-  
-  
-            if(err.error.errors[result]){
-              // isShiftTab = false;
-              this.createProductFrm.controls[result].setErrors({ error: err.error.errors[result] });
-            }else{
-              this.createProductFrm.controls[result].setErrors(null);
-            }
-          }
-          if(/*isShiftTab && */ this.createProductFrm.controls?.['name'].valid){
-            this.selectedTab.setValue(1);
-          }
-  
+    
+    
+              }else{
+                if(err.error?.errors[result]){                
+                  stp['createProductFrm'].controls[result]?.setErrors({ error: err.error.errors[result] });
+                }else{
+                  // stp['createProductFrm'].controls[result]?.setErrors(null);
+                }
+              }                                          
+            }            
+            if(stp['createProductFrm'].invalid && step === null)
+              step = i;              
+            
+          }    
+          this.selectedIndex = step ?? 0;      
+                    
         }
       }
     }).add(() => {
@@ -194,15 +194,5 @@ export class CreateProductComponent implements OnInit, OnDestroy {
   }
 
   
-  ngOnDestroy(){
-    if(this.saveProdSubScr){
-      this.saveProdSubScr.unsubscribe();
-    }
-    if(this.formPathSubScr){
-      this.formPathSubScr.unsubscribe();
-    }
-    if(this.productSubScr){
-      this.productSubScr.unsubscribe();
-    }
-  }
+  
 }

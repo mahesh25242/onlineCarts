@@ -1,4 +1,4 @@
-<div [formGroup]="createProductFrmStep2">
+<div [formGroup]="createProductFrm">
   <div formArrayName="varients" fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="start" >        
     <ng-container  *ngFor="let stat of varients.controls; let i=index; let last = last">
       <div fxFlex="31%" fxFlex.xs="100%"  [formGroupName]="i" class="varient-block mt"
