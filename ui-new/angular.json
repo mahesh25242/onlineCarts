@@ -150,7 +150,7 @@
               "projects/shop/src/assets"
             ],
             "styles": [              
-              "projects/shop/src/styles.scss",
+              "projects/shop/src/styles.scss",              
               {
                 "input": "projects/shop/src/themes/amber-theme.scss",
                 "bundleName": "amber-theme",
@@ -247,7 +247,9 @@
                 "inject": false                            
               }
             ],
-            "scripts": []
+            "scripts": [
+            
+            ]
           },
           "configurations": {
             "production": {

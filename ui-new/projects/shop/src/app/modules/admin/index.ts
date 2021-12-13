@@ -9,7 +9,7 @@ import { HomeComponent } from './home/home.component';
 
 import { MyPaymentsComponent } from './my-payments/my-payments.component';
 import OrderComponents, { OrdersComponent, OrdersResolver } from './orders';
-// import ProductsComponents, { CreateProductComponent, CreateProductResolver, ListProductsComponent, ProductsComponent, ProductsResolver } from './products';
+import ProductsComponents, { CreateProductComponent, CreateProductResolver, ListProductsComponent, ProductsComponent, ProductsResolver } from './products';
 import RenewPackageComponents, { RenewPackageComponent} from './renew-package';
 import { ShopDetailsComponent } from './shop-details/shop-details.component';
 import { SignInComponent } from './sign-in/sign-in.component';
@@ -24,7 +24,7 @@ const AdminDeclarations =[
      HomeComponent,
     MyPaymentsComponent,
     ...OrderComponents,
-    // ...ProductsComponents,
+    ...ProductsComponents,
     ...RenewPackageComponents,
     ShopDetailsComponent,        
     SignInComponent
@@ -49,29 +49,29 @@ export const AdminRouts: Routes=[
         cats: CategoriesResolver
       }
     },
-    // {
-    //   path: 'products/:page',
-    //   component: ProductsComponent,
-    //   canActivate: [AdminAuthGuard],
-    //   children:[
-    //     {
-    //       path: '',
-    //       component: ListProductsComponent,
-    //       resolve:{
-    //         products: ProductsResolver
-    //       },
-    //     },
-    //     {
-    //       path: 'add/:id',
-    //       component: CreateProductComponent,
-    //       resolve: {
-    //         product: CreateProductResolver
-    //       }
-    //     },
-    //   ],
+    {
+      path: 'products/:page',
+      component: ProductsComponent,
+      canActivate: [AdminAuthGuard],
+      children:[
+        {
+          path: '',
+          component: ListProductsComponent,
+          resolve:{
+            products: ProductsResolver
+          },
+        },
+        {
+          path: 'add/:id',
+          component: CreateProductComponent,
+          resolve: {
+            product: CreateProductResolver
+          }
+        },
+      ],
 
-    //   runGuardsAndResolvers: 'always',
-    // },
+      runGuardsAndResolvers: 'always',
+    },
 
     {
       path: 'deliveries',

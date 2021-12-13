@@ -38,6 +38,7 @@ export class CreateProductTagComponent implements OnInit {
       return service.tags();
     })).subscribe({
       complete: () =>{
+        this.dialogRef.close();
         this._snackBar.open(`Successfully saved `, 'Close');
       },
       error: (err : any) =>{

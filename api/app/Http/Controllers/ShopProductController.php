@@ -172,8 +172,8 @@ class ShopProductController extends Controller
         if( $request->input("shop_product_category_id", 0) && $request->input("shop_product_category_id", 0)!= 'null'){
             $shop_product_category_id = $request->input("shop_product_category_id", null);
             if($shop_product_category_id){
-                $shop_product_category_id = json_decode($shop_product_category_id);
-                $shop_product_category_id = $shop_product_category_id->id;
+//                $shop_product_category_id = json_decode($shop_product_category_id);
+                $shop_product_category_id = $shop_product_category_id;
             }
         }
         $productIns = [

@@ -1,0 +1,73 @@
+<form [formGroup]="createProductFrmStep1">
+  <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start">
+    <div fxFlex="50%" fxFlex.xs="100%">
+      <div fxLayout="row" fxLayoutAlign="start">
+        <div fxFlex="70%">
+
+          <mat-form-field class="full-width-text" appearance="standard">
+            <mat-label>Categories</mat-label>
+            <mat-select matInput formControlName="shop_product_category_id">
+              <mat-option [value]="0">Please Choose</mat-option>
+              <mat-option *ngFor="let cat of (categories$ | async)" [value]="cat.id">
+                {{cat.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        
+          <mat-error *ngIf="f?.['shop_product_category_id']?.errors && f?.['shop_product_category_id']?.errors?.['error']">
+            {{f?.['shop_product_category_id']?.errors?.['error']}}
+          </mat-error>
+        </div>
+        <div fxFlex="30%" fxLayoutAlign="start center">
+          <a href="javascript:{}" (click)="createCategory()" matTooltip="Add new category if it not exists in select box">Add New Category</a>
+        </div>
+      </div>
+    </div>
+
+    <mat-form-field fxFlex="50%" fxFlex.xs="100%" class="full-width-text" appearance="standard">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" placeholder="Ex. Black Forest" required maxlength="200">
+      <mat-hint align="end" *ngIf="f?.['name']?.value?.length">{{f?.['name']?.value?.length}} / 200</mat-hint>
+      <mat-error *ngIf="f?.['name']?.errors && f?.['name']?.errors?.['error']">
+        {{f?.['name']?.errors?.['error']}}
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+
+  <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start">
+    <app-product-tag-selection fxFlex="33%" fxFlex.xs="100%" [shop_product_tags]="f?.['shop_product_tags']"></app-product-tag-selection>
+    <mat-form-field fxFlex="33%" fxFlex.xs="100%" appearance="standard">
+      <mat-label>Status</mat-label>
+      <mat-select formControlName="status" required>
+        <mat-option *ngFor="let status of statuses" [value]="status.id">
+          {{status.name}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="f?.['status']?.errors && f?.['status']?.errors?.['error']">
+        {{f?.['status']?.errors?.['error']}}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field fxFlex="33%" fxFlex.xs="100%"  class="full-width-text" appearance="standard">
+      <mat-label>Sortorder</mat-label>
+      <input type="number" matInput formControlName="sortorder" placeholder="Ex. Cake" >
+      <mat-error *ngIf="f?.['sortorder']?.errors && f?.['sortorder']?.errors?.['error']">
+        {{f?.['sortorder']?.errors?.['error']}}
+      </mat-error>
+    </mat-form-field>
+
+  </div>
+
+  <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start">
+    <div fxFlex="100%" class="quill-editor" >
+      <mat-label>Description /  Ingredients</mat-label>
+      <quill-editor [styles]="quillStyle"  [modules]="quillModules" formControlName="description"></quill-editor>                               
+      <mat-hint align="end" *ngIf="f?.['description']?.value?.length">{{f?.['description']?.value?.length}} / 4000</mat-hint>
+      <mat-error *ngIf="f?.['description']?.errors && f?.['description']?.errors?.['error']">
+        {{f?.['description']?.errors?.['error']}}
+      </mat-error>
+    </div>
+  </div> 
+
+</form>

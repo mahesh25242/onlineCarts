@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-// import { QuillModule } from 'ngx-quill'
+import { QuillModule } from 'ngx-quill'
 
 
 
 import { SharedModuleModule } from 'shared/shared-module/shared-module.module';
 import { 
-  // TagModule, 
+  TagModule, 
   // TicketModule, 
   // ReportAbuseModule,
    ShopPointsModule 
@@ -34,8 +34,8 @@ import AdminDeclarations from './';
     CommonModule,
     AdminRoutingModule,
     SharedModuleModule,
-    // QuillModule.forRoot(),
-    // TagModule,
+    QuillModule.forRoot(),
+    TagModule,
     // TicketModule,
     // ReportAbuseModule,
     ShopPointsModule,    
