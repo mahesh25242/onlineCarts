@@ -9,7 +9,7 @@
           <div fxFlex="35%" fxFlex.xs="100%">
             <div fxLayout="column" fxLayoutAlign="space-between">
               <div class="mat-card-headerimage" fxFlex="100%"
-                [ngStyle]="{'background-image': (product.shop_product_selected_variant?.shop_product_image?.image) ? 'url(' +  product.shop_product_selected_variant.shop_product_image.image_path + ')' : 'url(/assets/no-image.jpg)'}">
+                [ngStyle]="{'background-image': (product?.shop_product_selected_variant?.shop_product_image?.image) ? 'url(' +  product?.shop_product_selected_variant?.shop_product_image?.image_path + ')' : 'url(/assets/no-image.jpg)'}">
                 <!-- <div *ngIf="product.shop_product_selected_variant?.type.id"
                 [matTooltip]="(product?.shop_product_selected_variant?.type.id == 1) ? 'Veg' : ( (product?.shop_product_selected_variant?.type.id == 2) ? 'Non-Veg':'' )"
                 [ngClass]="{'veg': product.shop_product_selected_variant?.type.id == 1, 'nonveg': product.shop_product_selected_variant?.type.id == 2}"></div> -->
@@ -32,7 +32,7 @@
               <h1 class="primary-text-color product-head">{{ product.name }} [ {{ product.shop_product_selected_variant?.name }} ]</h1>
               <small *ngIf="product?.shop_product_category?.name" fxLayout="row" fxLayoutAlign="space-between">
                 <h5 class="primary-text-color">{{ product?.shop_product_category?.name }}</h5>
-                <app-report-abuse [item]="product"></app-report-abuse>
+                <!-- <app-report-abuse [item]="product"></app-report-abuse> -->
               </small>
 
             </div>
@@ -41,22 +41,22 @@
             <div fxLayout.gt-md="row" fxLayout="column" fxLayoutAlign="space-between">
 
               <div fxLayout="row" fxFlex="50%" fxLayoutAlign="space-between">
-                <mat-form-field fxFlex="45%"  appearance="standard" *ngIf="(product.shop_product_variant.length > 1)">
+                <mat-form-field fxFlex="45%"  appearance="standard" *ngIf="(product?.shop_product_variant!.length > 1)">
                   <mat-label>Choose Varient</mat-label>
                   <mat-select formControlName="shop_product_variant_id" required (selectionChange)="chooseVarient()">
                     <mat-option *ngFor="let shop_product_variant of product.shop_product_variant" [value]="shop_product_variant.id">
                       {{shop_product_variant.name}} - {{shop_product_variant.price | currency:'INR'}}
                     </mat-option>
                   </mat-select>
-                  <mat-error *ngIf="f.shop_product_variant_id.errors && f.shop_product_variant_id.errors.error">
-                    {{f.shop_product_variant_id.errors.error}}
+                  <mat-error *ngIf="f?.['shop_product_variant_id']?.errors && f?.['shop_product_variant_id']?.errors?.['error']">
+                    {{f?.['shop_product_variant_id']?.errors?.['error']}}
                   </mat-error>
                 </mat-form-field>
 
                 <div
                  [ngClass.lt-sm]="'price-lt-sm'"
                 class="price" fxFlex="50%"   *ngIf="product.shop_product_selected_variant?.price">
-                  <div [ngClass]="{'margin-top-14': product.shop_product_variant.length <= 1}">
+                  <div [ngClass]="{'margin-top-14': product?.shop_product_variant!.length <= 1}">
                     <del *ngIf="product.shop_product_selected_variant?.actual_price">{{ product.shop_product_selected_variant?.actual_price | currency:'INR' }}</del>
                     &nbsp;&nbsp;<span class="weight-bold animate__animated animate__flipInX"> {{ product.shop_product_selected_variant?.price | currency:'INR'}} </span>
                   </div>
@@ -86,7 +86,7 @@
 
           <div>
             <br/>
-            <app-product-tag-chip [product]="product"></app-product-tag-chip>
+            <!-- <app-product-tag-chip [product]="product"></app-product-tag-chip> -->
             <br/>
 
 
@@ -97,7 +97,7 @@
 
 
 
-            <button mat-icon-button type="button"
+            <!-- <button mat-icon-button type="button"
                     shareButton="whatsapp"
                     #fbBtn="shareButton"
                     [title]="product.name"
@@ -116,7 +116,7 @@
                     [matTooltip]="'share '+product.name+' in facebook'"
                     aria-label="share this product in facebook">
               <fa-icon *ngIf="twtBtn" [icon]="twtBtn.icon" size="lg"></fa-icon>
-            </button>
+            </button> -->
 
 
 

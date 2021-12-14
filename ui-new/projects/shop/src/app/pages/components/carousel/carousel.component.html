@@ -1,0 +1,7 @@
+<div class="carousel-wrap" *ngIf="(slides$ | async) as slides">
+  <carousel>
+    <div class="carousel-cell" *ngFor="let slide of slides; let i = index">
+      <img [src]="slide.image">
+    </div>
+</carousel>
+</div>

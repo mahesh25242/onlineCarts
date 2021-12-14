@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot, Router  } from '@angular/router';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { ShopProductCategoryService, ShopProductService } from '../../../../../src/app/lib/services';
+import { ShopProductCategoryService, ShopProductService } from '../../lib/services';
 
 @Injectable()
 export class ProductDetailsResolver implements Resolve<any> {
@@ -14,7 +14,7 @@ export class ProductDetailsResolver implements Resolve<any> {
 
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
     return this.shopProductService.showProductDetails({
-      url: route.params?.productUrl
+      url: route.params?.['productUrl']
     }).pipe(tap(res=>{
       if(!res){
         this.router.navigate([`/404`]);

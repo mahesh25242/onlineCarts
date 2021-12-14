@@ -1,10 +1,10 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { ShopProduct, Cart } from 'src/app/lib/interfaces';
-import { ShopProductService, CartService, GeneralService, ShopProductCategoryService }  from 'src/app/lib/services';
+import { ShopProduct, Cart } from '../../lib/interfaces';
+import { ShopProductService, CartService, GeneralService, ShopProductCategoryService }  from '../../lib/services';
 import { find } from 'lodash';
-import {environment} from '../../environments/environment';
+import {environment} from '../../../environments/environment';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
@@ -16,12 +16,12 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class ProductDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   environment = environment;
-  addToCartFrm: FormGroup;
-  cartSubScr: Subscription;
-  cart: Cart;
+  addToCartFrm!: FormGroup;
+  cartSubScr!: Subscription;
+  cart!: Cart;
   qty: number = 1;
 
-  product: ShopProduct;
+  product!: ShopProduct;
   constructor(private shopProductService: ShopProductService,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
@@ -34,7 +34,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy, AfterViewInit
 
   chooseVarient(){
     this.qty = 1;
-    this.product.shop_product_selected_variant =  find(this.product.shop_product_variant, (spv)=> (spv.id == this.f.shop_product_variant_id.value));
+    this.product.shop_product_selected_variant =  find(this.product.shop_product_variant, (spv)=> (spv.id == this.f?.['shop_product_variant_id']?.value));
   }
 
   updateCart(type: string  ='+'){
@@ -52,16 +52,21 @@ export class ProductDetailsComponent implements OnInit, OnDestroy, AfterViewInit
   }
 
   addToCart(){
+    let price =0;
+    if(this.product?.shop_product_selected_variant?.price){
+      price = this.product?.shop_product_selected_variant?.price * this.qty;
+    }
+
     this.cart ={
       product: this.product,
       qty: this.qty,
-      price: (this.product.shop_product_selected_variant.price * this.qty),
-      message: this.f.message.value
+      price: price,
+      message: this.f?.['message']?.value
     };
     if(this.cartSubScr) this.cartSubScr.unsubscribe();
     this.cartSubScr = this.cartService.updateCart(this.cart, '++').subscribe(res =>{
 //      console.log(res)
-      this.matSnackBar.open(`${this.cart.product.name} - ${this.cart.product.shop_product_selected_variant.name} ( ${this.cart.qty} ) is added`, 'close');
+      this.matSnackBar.open(`${this.cart?.product?.name} - ${this.cart?.product?.shop_product_selected_variant?.name} ( ${this.cart.qty} ) is added`, 'close');
 
     });
   }
@@ -76,10 +81,10 @@ export class ProductDetailsComponent implements OnInit, OnDestroy, AfterViewInit
 
       this.product.shop_product_selected_variant = this.product?.shop_product_primary_variant;
       this.generalService.bc$.next({
-        siteName: environment.siteName,
+        siteName: environment.siteName ?? '',
         title: `${this.product.name}`,
         url:'',
-        backUrl: `/${this.product.shop_product_category.url}/varities`
+        backUrl: `/${this?.product?.shop_product_category?.url}/varities`
       });
     }
 
@@ -100,7 +105,10 @@ export class ProductDetailsComponent implements OnInit, OnDestroy, AfterViewInit
   }
 
   ngAfterViewInit(){
-    document.querySelector('mat-sidenav-content').scrollTop = 0;
+    const matSideNav = document.querySelector('mat-sidenav-content');
+    if(matSideNav){
+      matSideNav.scrollTop = 0;
+    }    
 
   }
 }

@@ -1,0 +1,18 @@
+<ng-container class="category-menu" *ngIf="!(hideTopCat$  | async)">
+<ng-container  *ngIf="(categories$  | async) as categories">
+  <div class="category-menu animate__animated"  *ngIf="categories && categories.length > 1"
+    (swipeleft)="onSwipeLeft()"
+    (swiperight)="onSwipeRight()" [ngClass]="{'animate__headShake': this.noSwipeCat}">
+    <nav mat-tab-nav-bar>
+      <a mat-tab-link *ngFor="let category of categories"
+      [routerLink]="'/'+category.url+'/varities'"
+      [active]=" (selectedCategory$ | async)?.id == category.id">
+      <mat-icon *ngIf="category.icon && category.is_maticon">{{category.icon}}</mat-icon>
+      <img class="img-thumbnail" [src]="environment.siteAddress+'/assets/shop/'+environment.shopKey+'/category/'+category.icon" *ngIf="category.icon && !category.is_maticon"/>
+      {{category.name}}
+      </a>
+    </nav>
+  </div>
+</ng-container>
+<ng-content></ng-content>
+</ng-container>

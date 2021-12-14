@@ -14,7 +14,7 @@ export class CartService {
   private isUpdated$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   hideCartComponent$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  shopKey: string | null = null;
+  shopKey: string | null | undefined = null;
   constructor(private http: HttpClient) { }
 
   get isUpdated(){

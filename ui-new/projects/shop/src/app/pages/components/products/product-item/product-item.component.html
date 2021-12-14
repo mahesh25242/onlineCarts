@@ -1,0 +1,53 @@
+<mat-card     (swipeleft)="onSwipeLeft($event)"
+(swiperight)="onSwipeRight($event)" *ngIf="product$ | async as product" class="animate__animated ">
+  <ul  *ngIf="product?.shop_product_variant?.length" class="multiple-varient ">
+    <li *ngFor="let shop_product_variant of product.shop_product_variant">
+      <a href="javascript:{}" (click)="changeVarient(shop_product_variant)"
+       [ngClass]="{'primary-bg': shop_product_variant?.id == product?.shop_product_primary_variant?.id}"></a>
+    </li>
+  </ul>
+  <div class="mat-card-headerimage" matRipple [matRippleCentered]="true"
+  [ngStyle]="{'background-image': (product?.shop_product_primary_variant?.shop_product_image?.image) ? 'url(' +  product?.shop_product_primary_variant?.shop_product_image?.image_path + ')' : 'url(/assets/no-image.jpg)'}"
+  [routerLink]="'/'+product?.shop_product_category?.url+'/'+product?.url">
+  <!-- <div *ngIf="product.shop_product_primary_variant?.type.id"
+  [matTooltip]="(product?.shop_product_selected_variant?.type.id == 1) ? 'Veg' : ( (product?.shop_product_selected_variant?.type.id == 2) ? 'Non-Veg':'' )"
+   [ngClass]="{'veg': product.shop_product_primary_variant?.type.id == 1, 'nonveg': product.shop_product_primary_variant?.type.id == 2}"></div> -->
+    <!-- <img mat-card-image *ngIf="product.shop_product_primary_variant?.shop_product_image?.image" [src]="environment.siteAddress+'/assets/shop/'+environment.shopKey+'/products/'+ product.shop_product_primary_variant.shop_product_image.image" [alt]="product.shop_product_primary_variant.name"> -->
+  </div>
+
+  <div class="product-header">
+
+    <mat-card-title class="primary-text-color" matRipple [matRippleCentered]="true" [routerLink]="'/'+product.shop_product_category?.url+'/'+product.url"> {{ product.name }}</mat-card-title>
+    <mat-card-subtitle>{{ product.shop_product_primary_variant?.name}}
+      <span *ngIf="product?.shop_product_variant?.length">
+      | {{ product?.shop_product_variant?.length }} Varients </span> </mat-card-subtitle>
+  </div>
+
+  <mat-chip-list  [ngClass.gt-xs]="'desk'" aria-label="varient tag" *ngIf="product.shop_product_primary_variant?.shop_product_variant_tag && product.shop_product_primary_variant?.shop_product_variant_tag.length">
+    <mat-chip color="accent" selected class="animate__animated animate__flipInX" *ngFor="let shop_product_variant_tag of product?.shop_product_primary_variant?.shop_product_variant_tag  ">{{shop_product_variant_tag?.name}}</mat-chip>
+  </mat-chip-list>
+
+  <!--<mat-card-content>
+    <p [innerHTML]="product.description"></p>
+  </mat-card-content>-->
+  <mat-card-actions>
+
+    <div fxLayout="row" fxLayoutAlign="space-between">
+      <div fxFlex="30%" class="price" fxLayoutAlign="center center">
+        {{ product.shop_product_primary_variant?.price | currency:'INR'}}
+      </div>
+      <div fxFlex="30%" fxLayoutAlign="center center">
+        <s *ngIf="product.shop_product_primary_variant?.actual_price">
+          {{ product.shop_product_primary_variant?.actual_price | currency:'INR'}}
+        </s>
+      </div>
+      <div fxFlex="30%" fxLayoutAlign="center end" *ngIf="breakPointObsr$ | async as bp">
+        <button [matBadge]="qty"  matBadgeColor="warn" mat-mini-fab [color]="(product.incart) ? 'warn': 'primary'" 
+        class="animate__animated addCart-btn" [ngClass]="{'animate__flipInY': product.incart}"
+       [matTooltip]="(product.incart) ? product.name+' is already added' : 'Click here for add this item to cart'"
+       (click)="addToCart(product, bp)"><mat-icon aria-hidden="false" aria-label="Add Icon">add</mat-icon></button>
+
+      </div>
+    </div>
+  </mat-card-actions>
+</mat-card>

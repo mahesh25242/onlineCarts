@@ -1,0 +1,63 @@
+
+mat-card{
+  margin: 5px
+}
+.mat-card-headerimage {
+  overflow: hidden;
+  width:100%;
+  border-radius: 9px 9px 0 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+  min-height: 140px;
+}
+strike{
+  color: #adacac;
+}
+.price{
+  font-weight: 700;
+  font-size: 16px;
+}
+.product-header{
+  margin-top: 7px;
+  mat-card-title{
+    font-size: 17px;
+    cursor: pointer;
+  }
+}
+
+button.active{
+  background: red !important;
+}
+
+
+.multiple-varient{
+  position: absolute;
+  top: 19px;
+  right: 1.4em;
+  list-style: none;
+  margin-left: 25%;
+  z-index: 2;
+  li{
+    width: 15px;
+    height: 15px;
+    margin: 4px;
+    border: 1px solid #000000;
+    display: inline-block;
+    a{
+      display: block;
+      width: 100%;
+      height: 100%;
+
+    }
+  }
+}
+mat-chip-list.desk{
+  position: absolute;
+  top: 129px;
+  mat-chip{
+    border-radius: 0px !important;
+    border-top-right-radius: 10px !important;
+  }
+}

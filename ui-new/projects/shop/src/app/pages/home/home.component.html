@@ -1,18 +1,12 @@
 
 <app-carousel></app-carousel>
 <div>
-  <!-- <div class="swipe" (swipe)="onSwipe($event)">
-    <h1>Swipe Gesture</h1>
-    <p>Works with both mouse and touch.</p>
-    <h5 [innerHTML]="direction"></h5>
-  </div> -->
-
   <div class="container" fxHide.xs="true">
-    <app-search></app-search>
+    <app-search-bar></app-search-bar>
   </div>
   <app-categories>
     <div [ngClass.gt-sm]="'container'">
-      <app-product></app-product>
+      <app-products></app-products>
     </div>
   </app-categories>
 

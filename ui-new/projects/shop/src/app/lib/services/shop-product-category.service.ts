@@ -11,7 +11,7 @@ export class ShopProductCategoryService {
   public hideTopCat$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private categories$: BehaviorSubject<ShopProductCategory[] | null> = new BehaviorSubject<ShopProductCategory[] | null>(null);
 
-  selectedCategory$: BehaviorSubject<ShopProductCategory | null> = new BehaviorSubject<ShopProductCategory | null>(null);
+  selectedCategory$: BehaviorSubject<ShopProductCategory | null | undefined> = new BehaviorSubject<ShopProductCategory | null | undefined>(null);
   constructor(private http: HttpClient) { }
 
   get categories(){

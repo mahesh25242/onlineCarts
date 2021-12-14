@@ -1,8 +1,30 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ContactUsComponent, PageNotFoundComponent } from './pages';
+import { ContactUsComponent, HomeComponent, HomeProductsResolver, PageNotFoundComponent, ProductDetailsComponent, ProductDetailsResolver } from './pages';
+
 
 const routes: Routes = [
+  {
+    path: '',
+    component: HomeComponent, 
+    resolve: {
+      product: HomeProductsResolver
+    }         
+  },
+  {
+    path: ':catUrl/varities',
+    component: HomeComponent, 
+    resolve: {
+      product: HomeProductsResolver
+    }         
+  },
+  {
+    path: ':catUrl/:productUrl',
+    component: ProductDetailsComponent,
+    resolve:{
+      product: ProductDetailsResolver
+    }
+  },
   {
     path: 'contact-us',
     component: ContactUsComponent
@@ -60,6 +82,10 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [
+    HomeProductsResolver,
+    ProductDetailsResolver
+  ]
 })
 export class AppRoutingModule { }

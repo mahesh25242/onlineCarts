@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
     ) { }
 
 
-  onSwipe(event) {
+  onSwipe(event: any) {
     const x =
       Math.abs(
    event.deltaX) > 40 ? (event.deltaX > 0 ? "Right" : "Left") : "";
