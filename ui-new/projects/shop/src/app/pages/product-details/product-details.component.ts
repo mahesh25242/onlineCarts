@@ -7,6 +7,7 @@ import { find } from 'lodash';
 import {environment} from '../../../environments/environment';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { faWhatsapp, faFacebook, IconDefinition } from '@fortawesome/free-brands-svg-icons';
 
 @Component({
   selector: 'app-product-details',
@@ -14,13 +15,16 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./product-details.component.scss']
 })
 export class ProductDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
+  faWhatsapp = faWhatsapp;
+  faFacebook = faFacebook;
+  icons: { fb: IconDefinition, wa: IconDefinition} = {fb: faFacebook, wa: faWhatsapp};  
 
   environment = environment;
   addToCartFrm!: FormGroup;
   cartSubScr!: Subscription;
   cart!: Cart;
   qty: number = 1;
-
+  
   product!: ShopProduct;
   constructor(private shopProductService: ShopProductService,
     private route: ActivatedRoute,
@@ -111,4 +115,6 @@ export class ProductDetailsComponent implements OnInit, OnDestroy, AfterViewInit
     }    
 
   }
-}
+  dd(a: any){
+    console.log(a)
+  }}

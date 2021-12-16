@@ -4,6 +4,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { SharedModuleModule } from 'shared/shared-module/shared-module.module';
 import {IvyCarouselModule} from 'angular-responsive-carousel';
+import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
+
 
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 
@@ -14,10 +16,12 @@ import { getAuth, provideAuth } from '@angular/fire/auth';
 import * as Hammer from 'hammerjs';
 import { httpInterceptorProviders } from './lib/interceptors';
 
+import { ReportAbuseModule, TagModule } from './modules';
 
 import layoutComponents from  './lay-out';
 import pageComponents from './pages';
 import { LoadInitialConfigaration } from './lib/providers';
+import { ShopSharedModule } from './modules/admin/modules/shared-shop/shared-shop.module';
 
 @Injectable({providedIn: 'root'})
 export class MyHammerConfig extends HammerGestureConfig {
@@ -43,12 +47,16 @@ export class MyHammerConfig extends HammerGestureConfig {
     AppRoutingModule,
     BrowserAnimationsModule,
     HammerModule,
+    NgxQRCodeModule,
+    ShopSharedModule,
     
     SharedModuleModule,
     IvyCarouselModule,
     provideFirebaseApp(() => initializeApp(  environment.firebaseConfig )),
     provideAuth(() => getAuth()),
     
+    ReportAbuseModule,
+    TagModule
   ],
   providers: [
     LoadInitialConfigaration,

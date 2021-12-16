@@ -3,9 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { Shop, ShopOrder } from 'src/app/lib/interfaces';
-import { GeneralService, ShopService } from 'src/app/lib/services';
-import { environment } from '../../environments/environment';
+import { Shop, ShopOrder } from '../../lib/interfaces';
+import { GeneralService, ShopService } from '../../lib/services';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-order-deatil',
@@ -13,9 +13,9 @@ import { environment } from '../../environments/environment';
   styleUrls: ['./order-deatil.component.scss']
 })
 export class OrderDeatilComponent implements OnInit {
-  order:ShopOrder;
-  shop$: Observable<Shop>;
-  mapUrl: string = null;
+  order!:ShopOrder;
+  shop$!: Observable<Shop | null>;
+  mapUrl: string | null = null;
   qrUrl: string = '';
 
   displayedColumns = ["no", "name", "qty", "message", "price"];
@@ -37,10 +37,10 @@ export class OrderDeatilComponent implements OnInit {
     this.qrUrl = (this.platformLocation as any).location.href;
 
     this.generalService.bc$.next({
-      siteName: environment.siteName,
+      siteName: environment.siteName ?? '',
       title: 'Order Details',
       url:'',
-      backUrl: null
+      backUrl: ''
     });
 
   }

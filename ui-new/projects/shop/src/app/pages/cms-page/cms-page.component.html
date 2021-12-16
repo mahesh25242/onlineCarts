@@ -1,0 +1,16 @@
+<div class="header-inner"></div>
+<div class="container">
+  <ng-container *ngIf="page$ | async as page">
+    <br/>
+    <mat-card >
+      <mat-card-header>
+        <mat-card-title>{{ page?.name }}</mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <div [innerHTML]="page.content"></div>
+      </mat-card-content>
+    </mat-card>
+
+  </ng-container>
+</div>

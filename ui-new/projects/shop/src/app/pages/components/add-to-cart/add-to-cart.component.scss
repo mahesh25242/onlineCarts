@@ -1,0 +1,54 @@
+form{
+  &.gt-xs {
+    min-width:17rem;
+  }
+
+  h1 {
+      margin-bottom: 0px;
+      font-size: 15px;
+  }
+  h2 {
+    color: #821807;
+    margin-bottom: 0px;
+    font-size: 15px;
+  }
+
+
+  mat-card-subtitle{
+    margin-bottom: 3px;
+  }
+  .mat-form-field {
+      width: 100%;
+  }
+  .mat-primary_yellow {
+      margin-left: auto!important;
+      background-color: #fdc913;
+      min-width: 125px;
+      border-radius: 50px;
+  }
+
+  .mat-stroked-button {
+      border-radius: 50px;
+      min-width: 100px;
+  }
+  .mat-dialog-actions {
+      margin-bottom: -8px!important;
+  }
+
+  .weight-bold {
+      font-weight: bold;
+      font-size: 19px;
+  }
+  .product-image {
+      text-align: center;
+      background-position: center;
+      background-size: cover;
+      min-height: 177px;
+
+  }
+  .nonveg, .veg{ position: absolute}
+}
+
+.varient-name{
+  margin-top: 10px;
+}

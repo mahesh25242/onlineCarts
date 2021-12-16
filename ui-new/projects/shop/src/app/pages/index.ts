@@ -6,7 +6,9 @@ import { HomeProductsResolver } from './home/home-products-resolver';
 import PageBlockComponents from './components';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { ProductDetailsResolver } from './product-details/product-details-resolver';
-
+import { CmsPageComponent } from './cms-page/cms-page.component';
+import { OrderDeatilComponent } from './order-deatil/order-deatil.component';
+import { OrderDeatilResolver } from './order-deatil/order-deatil-resolver';
 
 const pageComponents = [
     HomeComponent,
@@ -14,7 +16,9 @@ const pageComponents = [
     MobileContactComponent,
     PageNotFoundComponent,
     ...PageBlockComponents,
-    ProductDetailsComponent
+    ProductDetailsComponent,
+    CmsPageComponent,
+    OrderDeatilComponent
 ];
 
 export {
@@ -23,7 +27,10 @@ export {
     PageNotFoundComponent,
     HomeProductsResolver,
     ProductDetailsComponent,
-    ProductDetailsResolver
+    ProductDetailsResolver,
+    CmsPageComponent,
+    OrderDeatilComponent,
+    OrderDeatilResolver
 }
 
 export default pageComponents;

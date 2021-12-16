@@ -6,6 +6,8 @@ import { mergeMap } from 'rxjs/operators';
 import { ShopService } from '../../../../../lib/services';
 import { Shop } from '../../../../../lib/interfaces';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faFacebook, faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 
 
 @Component({
@@ -14,6 +16,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./shop-points.component.scss']
 })
 export class ShopPointsComponent implements OnInit {
+  icons: { fb: IconDefinition, wa: IconDefinition} = {fb: faFacebook, wa: faWhatsapp};  
+
+  
   shop$!: Observable<Shop | null>;
   shopPoint$!: Observable<ShopPoint>;
   orgin: string = window.location.origin;

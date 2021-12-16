@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ShopProduct, ShopProductVariant } from '../../../../lib/interfaces';
 import { CartService } from '../../../../lib/services';
+import { AddToCartComponent } from '../../add-to-cart/add-to-cart.component';
 // import { AddToCartComponent } from '../../../add-to-cart/add-to-cart.component';
 
 @Component({
@@ -26,14 +27,14 @@ export class ProductItemComponent implements OnInit {
 
   addToCart(product: ShopProduct, bp: BreakpointState){
 
-    // let dialogRef = this.dialog.open(AddToCartComponent, {
-    //   data: product,
-    //   width: (bp.matches) ? '100%' : 'auto'
-    // });
+    let dialogRef = this.dialog.open(AddToCartComponent, {
+      data: product,
+      width: (bp.matches) ? '100%' : 'auto'
+    });
 
-    // dialogRef.afterClosed().subscribe(result => {
-    //   console.log(result , product.incart)
-    // });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result , product.incart)
+    });
 
     /*  this.cartService.cart$.next(cart);*/
   }

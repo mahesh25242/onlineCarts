@@ -1,62 +1,62 @@
 <div class="header-inner"></div>
 <div class="container">
-  <h1>Order Details #{{ order.id }}</h1>
+  <h1>Order Details #{{ order?.id }}</h1>
 
 
   <div *ngIf="shop$ | async as shop" class="qr-code">
-    <ngx-qrcode
+    <!-- <ngx-qrcode
   elementType="url"
   [value]="qrUrl"
-  errorCorrectionLevel="L"></ngx-qrcode>
+  errorCorrectionLevel="L"></ngx-qrcode> -->
   </div>
 
 
   <mat-list role="list">
     <mat-list-item role="listitem">
-      Status:&nbsp;&nbsp;{{ order.status_text}}
+      Status:&nbsp;&nbsp;{{ order?.status_text}}
     </mat-list-item>
     <mat-list-item role="listitem">
-      Name:&nbsp;&nbsp;{{ order.shop_customer.name}}
+      Name:&nbsp;&nbsp;{{ order?.shop_customer?.name}}
     </mat-list-item>
     <mat-list-item role="listitem">
-      Phone:&nbsp;&nbsp; {{ order.shop_customer.phone}}
+      Phone:&nbsp;&nbsp; {{ order?.shop_customer?.phone}}
     </mat-list-item>
-    <mat-list-item role="listitem" *ngIf="order.shop_customer.email">
-      CEmail:&nbsp;&nbsp;{{ order.shop_customer.email}}
+    <mat-list-item role="listitem" *ngIf="order?.shop_customer?.email">
+      CEmail:&nbsp;&nbsp;{{ order?.shop_customer?.email}}
     </mat-list-item>
-    <mat-list-item role="listitem" *ngIf="order.delivery_at">
-      Delivery At:&nbsp;&nbsp;{{ order.delivery_at | date: 'mediumDate'}} @ {{ order.delivery_slot}}
+    <mat-list-item role="listitem" *ngIf="order?.delivery_at">
+      Delivery At:&nbsp;&nbsp;{{ order?.delivery_at | date: 'mediumDate'}} @ {{ order.delivery_slot}}
     </mat-list-item>
 
-    <ng-container *ngIf="order.shop_delivery.need_cust_loc">
+    <ng-container *ngIf="order?.shop_delivery?.need_cust_loc">
       <mat-list-item role="listitem">
-        Address:&nbsp;&nbsp;{{ order.address}}
+        Address:&nbsp;&nbsp;{{ order?.address}}
       </mat-list-item>
       <mat-list-item role="listitem">
-        Pin:&nbsp;&nbsp;{{ order.pin}}
+        Pin:&nbsp;&nbsp;{{ order?.pin}}
       </mat-list-item>
-      <mat-list-item role="listitem" *ngIf="order.loc">
+      <mat-list-item role="listitem" *ngIf="order?.loc">
         <a *ngIf="mapUrl" [href]="mapUrl" target="_blank" matTooltip="Click here to view custoimer location in google map">Google Map</a>
       </mat-list-item>
     </ng-container>
 
     <mat-list-item role="listitem">
-      Delivery:&nbsp;&nbsp;{{ order.shop_delivery.name}}
-      {{ (order.delivery_chage) ? ' @ '+(order.delivery_chage | currency:'INR'): '' }}
+      Delivery:&nbsp;&nbsp;{{ order?.shop_delivery?.name}}
+      {{ (order?.delivery_chage) ? ' @ '+(order?.delivery_chage | currency:'INR'): '' }}
     </mat-list-item>
     <mat-list-item role="listitem">
     <h2>Total:&nbsp;&nbsp;{{ order.total | currency:'INR'}}</h2>
     </mat-list-item>
 
     <mat-list-item role="listitem" *ngIf="order.note">
-      Order Note:&nbsp;&nbsp;{{ order.note}}
+      Order Note:&nbsp;&nbsp;{{ order?.note}}
     </mat-list-item>
   </mat-list>
 
 
 
   <mat-card>
-    <div  [ngClass.lt-sm]="'has-mobile-cards'">
+    <div  [ngClass.lt-sm]="'has-mobile-cards'" *ngIf="order.shop_order_item">
       <table mat-table [dataSource]="order.shop_order_item" >
 
         <!--- Note that these columns can be defined in any order.

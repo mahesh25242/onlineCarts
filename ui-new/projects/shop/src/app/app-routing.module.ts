@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ContactUsComponent, HomeComponent, HomeProductsResolver, PageNotFoundComponent, ProductDetailsComponent, ProductDetailsResolver } from './pages';
+import { CmsPageComponent, ContactUsComponent, HomeComponent, HomeProductsResolver, OrderDeatilComponent, OrderDeatilResolver, PageNotFoundComponent, ProductDetailsComponent, ProductDetailsResolver } from './pages';
 
 
 const routes: Routes = [
@@ -10,21 +10,7 @@ const routes: Routes = [
     resolve: {
       product: HomeProductsResolver
     }         
-  },
-  {
-    path: ':catUrl/varities',
-    component: HomeComponent, 
-    resolve: {
-      product: HomeProductsResolver
-    }         
-  },
-  {
-    path: ':catUrl/:productUrl',
-    component: ProductDetailsComponent,
-    resolve:{
-      product: ProductDetailsResolver
-    }
-  },
+  },  
   {
     path: 'contact-us',
     component: ContactUsComponent
@@ -33,17 +19,41 @@ const routes: Routes = [
   //   path: 'bag',
   //   component: CartDetailsComponent
   // },
-  // {
-  //   path: 'order/:id',
-  //   component: OrderDeatilComponent,
-  //   resolve:{
-  //     order: OrderDeatilResolver
-  //   }
-  // },
+  {
+    path: 'order/:id',
+    component: OrderDeatilComponent,
+    resolve:{
+      order: OrderDeatilResolver
+    }
+  },
   {
     path: 'admin',
     loadChildren: () => import('./modules/index').then(m => m.AdminModule)
   },
+  { path: '404', component: PageNotFoundComponent },
+  {
+    path: ':catUrl',
+    children:[
+      { path: '', component: CmsPageComponent },
+      {
+        path: 'varities',
+        component: HomeComponent, 
+        resolve: {
+          product: HomeProductsResolver
+        }  
+      },
+      {
+        path: ':productUrl',
+        component: ProductDetailsComponent,
+        resolve:{
+          product: ProductDetailsResolver
+        }
+      },      
+    ]
+    
+           
+  },  
+
   // {
   //   path: '',
   //   component: LayoutComponent,
@@ -77,7 +87,7 @@ const routes: Routes = [
   // },
 
 
-  { path: '**', component: PageNotFoundComponent }
+  
 ];
 
 @NgModule({

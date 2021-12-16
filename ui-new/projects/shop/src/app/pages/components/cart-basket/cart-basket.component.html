@@ -1,0 +1,17 @@
+<ng-container class="example-button-container" *ngIf="(cart$ | async) as cart">
+  <ng-container *ngIf="cart && cart.length && !(hideCartComponent$ | async) " >
+    <a (swiperight)="onSwipeRight($event)" *ngIf="displayDiv"   mat-fab [matBadge]="cart.length" matBadgePosition="above after"
+
+     color="primary" class="extended-fab-button animate__animated "
+     [ngClass]="{'animate__slideInUp animate__faster': classExists}" routerLink="/bag">
+      <div  class="extend-btn-cart" [ngClass]="!isChanged ? 'animate__animated animate__headShake animate__faster' : ''">
+        <div><mat-icon>shopping_cart</mat-icon></div>
+
+        <span class="d-block">{{ total | currency:'INR'}}</span>
+
+      </div>
+
+
+    </a>
+  </ng-container>
+</ng-container>
