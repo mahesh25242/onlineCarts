@@ -7,7 +7,7 @@
   <div class="fix-hight" fxHide.gt-xs="true" ></div>
 
   <div class="container" fxHide.xs="true">
-    <app-search></app-search>
+    <app-search-bar></app-search-bar>
 
     <div fxLayout="row" fxLayoutAlign="space-between">
       <ng-container *ngTemplateOutlet="sortTemplate; context: {$implicit: selectedItems}">
@@ -15,7 +15,7 @@
     </div>
   </div>
   <div class="container" >
-    <app-product [isSearch]="true"></app-product>
+    <app-products [isSearch]="true"></app-products>
   </div>
 </ng-container>
 <ng-template #loading>

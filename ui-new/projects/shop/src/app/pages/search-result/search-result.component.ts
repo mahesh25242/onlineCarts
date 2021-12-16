@@ -1,14 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BehaviorSubject, Observable, timer } from 'rxjs';
-import { debounce, mergeMap, tap } from 'rxjs/operators';
-import { ShopProductCategory, ShopProductWithPagination } from 'src/app/lib/interfaces';
-import { GeneralService, ShopProductCategoryService, ShopProductService } from 'src/app/lib/services';
-import { environment } from '../../environments/environment';
-import Notiflix from "notiflix";
+import { BehaviorSubject, Observable } from 'rxjs';
+import { mergeMap, tap } from 'rxjs/operators';
+import { ShopProductCategory, ShopProductWithPagination } from '../../lib/interfaces';
+import { GeneralService, ShopProductCategoryService, ShopProductService } from '../../lib/services';
+import { environment } from '../.././../environments/environment';
 import { uniq } from 'lodash';
-import { LabelType, Options } from '@angular-slider/ngx-slider';
-import { MatDrawer } from '@angular/material/sidenav';
 import { MatDialog } from '@angular/material/dialog';
 import { SearchFilterComponent } from './search-filter/search-filter.component';
 
@@ -19,10 +16,10 @@ import { SearchFilterComponent } from './search-filter/search-filter.component';
   styleUrls: ['./search-result.component.scss']
 })
 export class SearchResultComponent implements OnInit {
-  private fitered$: BehaviorSubject<string[]> = new BehaviorSubject<string[]>(null);
+  private fitered$: BehaviorSubject<string[] | null> = new BehaviorSubject<string[] | null>(null);
 
-  products$: Observable<ShopProductWithPagination>;
-  categories$: Observable<ShopProductCategory[]>;
+  products$!: Observable<ShopProductWithPagination>;
+  categories$!: Observable<ShopProductCategory[]>;
   varients: string[] = [];
 
   selectedItems: {varients?: string[],  categories?: number[],
@@ -35,7 +32,8 @@ export class SearchResultComponent implements OnInit {
     private route: ActivatedRoute,
     private shopProductCategoryService: ShopProductCategoryService,
     public dialog: MatDialog,
-    private generalService: GeneralService,) { }
+    private generalService: GeneralService,
+    @Inject('NotiflixService') public notiflix: any) { }
 
 
 
@@ -58,24 +56,24 @@ export class SearchResultComponent implements OnInit {
 
 
     sortIt(name: string = 'name', type: string = 'ASC'){
-      this.selectedItems.sort.name= name;
-      this.selectedItems.sort.type= type;
+      this.selectedItems.sort!.name= name;
+      this.selectedItems.sort!.type= type;
       this.ngOnInit();
     }
 
   ngOnInit(): void {
 
     this.products$ = this.route.params.pipe(mergeMap(res=>{
-        Notiflix.Loading.Arrows();
+        this.notiflix.loading.standard();
         const postData = {
-          q: res?.q,
-          pageSize : environment.productListPerPage,
+          q: res?.['q'],
+          pageSize : 50,
           selectedItems: this.selectedItems
         }
 
         this.generalService.bc$.next({
-          siteName: environment.siteName,
-          title: `${res?.q}`,
+          siteName: environment.siteName ?? '',
+          title: `${res?.['q']}`,
           url:'',
           backUrl: `/`,
           other: res
@@ -83,15 +81,14 @@ export class SearchResultComponent implements OnInit {
 
         return this.shopProductService.showProducts(1, postData);
       }), tap(res=> {
-        res?.data.map(pdt =>{
-          pdt.shop_product_variant.map(spv=>{
-            this.varients.push(spv?.name.toLowerCase());
+        res?.data?.map(pdt =>{
+          pdt?.shop_product_variant?.map(spv=>{
+            this.varients.push(spv?.name!.toLowerCase());
           })
         })
         this.varients = uniq(this.varients);
 
-
-        Notiflix.Loading.Remove();
+        this.notiflix.loading.remove();
       }));
 
       this.categories$ = this.shopProductCategoryService.categories;

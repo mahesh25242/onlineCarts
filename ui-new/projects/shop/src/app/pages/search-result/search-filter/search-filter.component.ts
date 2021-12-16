@@ -1,14 +1,9 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { mergeMap, tap } from 'rxjs/operators';
-import { ShopProductCategory, ShopProductWithPagination } from 'src/app/lib/interfaces';
-import { ShopProductCategoryService, ShopProductService } from 'src/app/lib/services';
-import { environment } from '../../../environments/environment';
-import Notiflix from "notiflix";
-import { uniq } from 'lodash';
+import { tap } from 'rxjs/operators';
+import { ShopProductCategory, ShopProductWithPagination } from '../../../lib/interfaces';
+import { ShopProductCategoryService, ShopProductService } from '../../../lib/services';
 import { LabelType, Options } from '@angular-slider/ngx-slider';
-import { MatDrawer } from '@angular/material/sidenav';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CurrencyPipe } from '@angular/common';
 
@@ -16,22 +11,25 @@ import { CurrencyPipe } from '@angular/common';
 @Component({
   selector: 'app-search-filter',
   templateUrl: './search-filter.component.html',
-  styleUrls: ['./search-filter.component.scss']
+  styleUrls: ['./search-filter.component.scss'],
+  providers:[
+    CurrencyPipe
+  ]
 })
 export class SearchFilterComponent implements OnInit {
-  private fitered$: BehaviorSubject<string[]> = new BehaviorSubject<string[]>(null);
+  private fitered$: BehaviorSubject<string[] | null> = new BehaviorSubject<string[] | null>(null);
 
   @ViewChild('productCats') productCats: any;
 
 
-  filters$: Observable<any>;
-  products$: Observable<ShopProductWithPagination>;
-  categories$: Observable<ShopProductCategory[]>;
+  filters$!: Observable<any>;
+  products$!: Observable<ShopProductWithPagination>;
+  categories$!: Observable<ShopProductCategory[]>;
   varients: string[] = [];
 
-  selectedItems: {varients?: string[],  categories?: number[],
+  selectedItems: any; /*{varients?: string[],  categories?: number[],
     priceFrom?: number, priceTo?: number, productTags?: number[], productVarientTags?: number[]} = {varients : [],  categories: [],
-      priceFrom: 0, priceTo: 0, productTags: [], productVarientTags: []};
+      priceFrom: 0, priceTo: 0, productTags: [], productVarientTags: []};*/
 
 
 
@@ -39,13 +37,12 @@ export class SearchFilterComponent implements OnInit {
     floor: 0,
     ceil: 0,
     translate: (value: number, label: LabelType): string => {
-      return this.currencyPipe.transform(value, 'INR');
+      return this.currencyPipe?.transform(value, 'INR') ?? '';
     }
   };
 
 
   constructor(private shopProductService: ShopProductService,
-    private route: ActivatedRoute,
     private shopProductCategoryService: ShopProductCategoryService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<SearchFilterComponent>,
@@ -60,7 +57,7 @@ export class SearchFilterComponent implements OnInit {
     changePrice(){
 
       console.log(this.selectedItems)
-      let filtered = this.fitered$.getValue() ?? [];
+      let filtered:string[] | null = this.fitered$.getValue() ?? [];
       if(filtered.includes("price") &&
       (this.selectedItems.priceFrom == this.options.floor && this.selectedItems.priceTo == this.options.ceil) ){
         filtered.splice(filtered.indexOf("price"), 1);
@@ -72,14 +69,14 @@ export class SearchFilterComponent implements OnInit {
       }
     }
 
-    searchSelect(data: string = null, idx: string = null){
-      if(this.selectedItems[idx].includes(data)){
-        this.selectedItems[idx].splice(this.selectedItems[idx].indexOf(data), 1);
-        let filtered = this.fitered$.getValue() ?? [];
+    searchSelect(data: string | null = null, idx: string | null = null){      
+      if(idx !== null && data &&  this.selectedItems[idx].includes(data)){
+        this.selectedItems?[idx].splice(this.selectedItems?.[idx].indexOf(data), 1): null;
+        let filtered: string[] | null = this.fitered$.getValue() ?? [];
         filtered.splice(filtered.indexOf(data), 1);
         filtered = (filtered.length) ? filtered : null;
         this.fitered$.next(filtered);
-      }else{
+      }else if(idx !== null && data){
         this.selectedItems[idx].push(data);
         let filtered = this.fitered$.getValue() ?? [];
         filtered.push(data);

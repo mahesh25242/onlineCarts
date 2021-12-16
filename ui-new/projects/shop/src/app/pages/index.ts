@@ -9,6 +9,8 @@ import { ProductDetailsResolver } from './product-details/product-details-resolv
 import { CmsPageComponent } from './cms-page/cms-page.component';
 import { OrderDeatilComponent } from './order-deatil/order-deatil.component';
 import { OrderDeatilResolver } from './order-deatil/order-deatil-resolver';
+import { SearchResultComponent } from './search-result/search-result.component';
+import { SearchFilterComponent } from './search-result/search-filter/search-filter.component';
 
 const pageComponents = [
     HomeComponent,
@@ -18,7 +20,9 @@ const pageComponents = [
     ...PageBlockComponents,
     ProductDetailsComponent,
     CmsPageComponent,
-    OrderDeatilComponent
+    OrderDeatilComponent,
+    SearchResultComponent,
+    SearchFilterComponent
 ];
 
 export {
@@ -30,7 +34,8 @@ export {
     ProductDetailsResolver,
     CmsPageComponent,
     OrderDeatilComponent,
-    OrderDeatilResolver
+    OrderDeatilResolver,
+    SearchResultComponent
 }
 
 export default pageComponents;

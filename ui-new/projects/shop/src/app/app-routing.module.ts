@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CmsPageComponent, ContactUsComponent, HomeComponent, HomeProductsResolver, OrderDeatilComponent, OrderDeatilResolver, PageNotFoundComponent, ProductDetailsComponent, ProductDetailsResolver } from './pages';
+import { CmsPageComponent, ContactUsComponent, HomeComponent, HomeProductsResolver, OrderDeatilComponent, OrderDeatilResolver, PageNotFoundComponent, ProductDetailsComponent, ProductDetailsResolver, SearchResultComponent } from './pages';
 
 
 const routes: Routes = [
@@ -25,6 +25,10 @@ const routes: Routes = [
     resolve:{
       order: OrderDeatilResolver
     }
+  },
+  {
+    path: 'search/:q',
+    component: SearchResultComponent,
   },
   {
     path: 'admin',
