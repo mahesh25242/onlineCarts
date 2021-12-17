@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable, timer } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { sample } from 'lodash';
+import sample from 'lodash/sample';
+
 
 
 @Component({

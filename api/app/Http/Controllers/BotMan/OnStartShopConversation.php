@@ -316,7 +316,7 @@ class OnStartShopConversation extends Conversation
             ],
         ]);
 
-        $this->reStartFromBegin();
+        //$this->reStartFromBegin();
     }
 
 

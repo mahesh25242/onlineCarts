@@ -15,3 +15,4 @@ export * from './cart.service';
 export * from './shop-product.service';
 export * from './theme.service';
 export * from './shop-product-category.service';
+export * from './messaging.service';

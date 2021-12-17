@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { find } from 'lodash';
+import find from 'lodash/find';
 import { Observable, of } from 'rxjs';
 import { map, mergeMap, switchMap, take } from 'rxjs/operators';
 import { HelpTicket, HelpTicketWithPagination } from '../../../../../../lib/interfaces';

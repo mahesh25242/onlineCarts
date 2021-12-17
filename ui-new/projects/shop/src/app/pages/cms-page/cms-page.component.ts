@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { find } from 'lodash';
+import find from 'lodash/find';
 import { Observable } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
 import { GeneralService, CmsService } from '../../lib/services';

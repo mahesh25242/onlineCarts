@@ -2,7 +2,7 @@
 
 
 <div fxLayout.gt-xs="row" fxLayout.xs="column" fxLayoutAlign="space-between">
-  <div [fxFlex.gt-xs]="(f.selectedLocation.value?.map_url) ? '80%' : '100%'" fxLayout.xs="100%">
+  <div [fxFlex.gt-xs]="(f?.['selectedLocation']?.value?.map_url) ? '80%' : '100%'" fxLayout.xs="100%">
 
     <ng-template #orderForm let-flag="bp">
 
@@ -14,8 +14,8 @@
           <mat-label>Full Name</mat-label>
           <input matInput formControlName="name"
           placeholder="Ex. John Doe" maxlength="200" id="fullName" cdkFocusInitial>
-          <mat-error *ngIf="f.name.errors && f.name.errors.error">
-            {{f.name.errors.error}}
+          <mat-error *ngIf="f?.['name']?.errors && f?.['name']?.errors?.['error']">
+            {{f?.['name']?.errors?.['error']}}
           </mat-error>
         </mat-form-field>
 
@@ -30,13 +30,13 @@
         <mat-form-field class="full-width-text" appearance="standard">
           <mat-label>Phone</mat-label>
           <input type="tel" matInput formControlName="phone" placeholder="Ex. 91546542465" maxlength="200">
-          <mat-error *ngIf="f.phone.errors && f.phone.errors.error">
-            {{f.phone.errors.error}}
+          <mat-error *ngIf="f?.['phone']?.errors && f?.['phone']?.errors?.['error']">
+            {{f?.['phone']?.errors?.['error']}}
           </mat-error>
-          <mat-error *ngIf="f.phone.invalid && ((f.phone.dirty || f.phone.touched)) && f.phone.errors.required">
+          <mat-error *ngIf="f?.['phone']?.invalid && ((f?.['phone']?.dirty || f?.['phone']?.touched)) && f?.['phone']?.errors?.['required']">
             Phone is required.
           </mat-error>
-          <mat-error *ngIf="f.phone.invalid && ((f.phone.dirty || f.phone.touched)) && f.phone.errors.pattern">
+          <mat-error *ngIf="f?.['phone']?.invalid && ((f?.['phone']?.dirty || f?.['phone']?.touched)) && f?.['phone']?.errors?.['pattern']">
             In valid phone number.
           </mat-error>
         </mat-form-field>
@@ -48,14 +48,14 @@
 
           <mat-select matInput name="selectedLocation" formControlName="selectedLocation">
             <mat-option value="">None</mat-option>
-            <mat-option *ngFor="let loc of shop?.shop_delivery_filtered[lp]" [value]="loc">
+            <!-- <mat-option *ngFor="let loc of shop?.shop_delivery_filtered.[lp]" [value]="loc">
               {{loc.name}}
-            </mat-option>
+            </mat-option> -->
           </mat-select>
-          <mat-error *ngIf="f.selectedLocation.errors && f.selectedLocation.errors.error">
-            {{f.selectedLocation.errors.error}}
+          <mat-error *ngIf="f?.['selectedLocation']?.errors && f?.['selectedLocation']?.errors?.['error']">
+            {{f?.['selectedLocation']?.errors?.['error']}}
           </mat-error>
-          <mat-error *ngIf="f.selectedLocation.invalid && ((f.selectedLocation.dirty || f.selectedLocation.touched)) && f.selectedLocation.errors.required">
+          <mat-error *ngIf="f?.['selectedLocation']?.invalid && ((f?.['selectedLocation']?.dirty || f?.['selectedLocation']?.touched)) && f?.['selectedLocation']?.errors?.['required']">
             Local place is required.
           </mat-error>
 
@@ -66,10 +66,10 @@
           <mat-form-field class="full-width-text" appearance="standard">
             <mat-label>Address</mat-label>
             <textarea matInput formControlName="address" placeholder="Ex. House Name/ Number" required maxlength="200"></textarea>
-            <mat-error *ngIf="f.address.errors && f.address.errors.error">
-              {{f.address.errors.error}}
+            <mat-error *ngIf="f?.['address']?.errors && f?.['address']?.errors?.['error']">
+              {{f?.['address']?.errors?.['error']}}
             </mat-error>
-            <mat-error *ngIf="f.address.invalid && ((f.address.dirty || f.address.touched)) && f.address.errors.required">
+            <mat-error *ngIf="f?.['address']?.invalid && ((f?.['address']?.dirty || f?.['address']?.touched)) && f?.['address']?.errors?.['required']">
               Address is required.
             </mat-error>
           </mat-form-field>
@@ -77,10 +77,10 @@
           <mat-form-field class="full-width-text" appearance="standard">
             <mat-label>Pin Code</mat-label>
             <input type="number" matInput formControlName="pin" placeholder="Ex. 658956" required maxlength="200">
-            <mat-error *ngIf="f.pin.errors && f.pin.errors.error">
-              {{f.pin.errors.error}}
+            <mat-error *ngIf="f?.['pin']?.errors && f?.['pin']?.errors?.['error']">
+              {{f?.['pin']?.errors?.['error']}}
             </mat-error>
-            <mat-error *ngIf="f.pin.invalid && ((f.pin.dirty || f.pin.touched)) && f.pin.errors.required">
+            <mat-error *ngIf="f?.['pin']?.invalid && ((f?.['pin']?.dirty || f?.['pin']?.touched)) && f?.['pin']?.errors?.['required']">
               Pin is required.
             </mat-error>
 
@@ -94,9 +94,9 @@
             {{ lp == 'free' ? 'Order Note / Table Number' : 'Order Note'}}
             </mat-label>
           <textarea matInput formControlName="note" [placeholder]="lp == 'free' ? 'Any additional note / Table number' : 'Order Note'" maxlength="200"></textarea>
-          <mat-hint align="end" *ngIf="f.note?.value?.length">{{f.note?.value?.length}} / 200</mat-hint>
-          <mat-error *ngIf="f.note.errors && f.note.errors.error">
-            {{f.note.errors.error}}
+          <mat-hint align="end" *ngIf="f?.['note']?.value?.length">{{f?.['note']?.value?.length}} / 200</mat-hint>
+          <mat-error *ngIf="f?.['note']?.errors && f?.['note']?.errors?.['error']">
+            {{f?.['note']?.errors?.['error']}}
           </mat-error>
         </mat-form-field>
 
@@ -106,7 +106,7 @@
           formControlName="is_delivery_date"
             name="Delivery Date" (change)="triggerPicker(picker)">
             {{
-              (f.delivery_date.value) ? 'This order will deleviered on '+(f.delivery_date.value |  date:'mediumDate') : 'Do you want to pick delivery Date & Time?'
+              (f?.['delivery_date']?.value) ? 'This order will deleviered on '+(f?.['delivery_date']?.value |  date:'mediumDate') : 'Do you want to pick delivery Date & Time?'
             }}
 
           </mat-slide-toggle>
@@ -119,27 +119,27 @@
          </ngx-mat-datetime-picker>
 
 
-          <mat-error *ngIf="f.delivery_date.invalid && ((f.delivery_date.dirty || f.delivery_date.touched)) && f.delivery_date.errors.required">
+          <mat-error *ngIf="f?.['delivery_date']?.invalid && ((f?.['delivery_date']?.dirty || f?.['delivery_date']?.touched)) && f?.['delivery_date']?.errors?.['required']">
             Delivery Date & Time is required.
           </mat-error>
 
         </mat-form-field>
 
-        <mat-form-field class="full-width-text" appearance="standard" *ngIf="shop?.shop_delivery_slot && f.is_delivery_date.value ">
+        <mat-form-field class="full-width-text" appearance="standard" *ngIf="shop?.shop_delivery_slot && f?.['is_delivery_date']?.value ">
           <mat-label>
             Delivery Slot
           </mat-label>
 
           <mat-select matInput name="delivery_slot" formControlName="delivery_slot">
             <mat-option value="">None</mat-option>
-            <mat-option *ngFor="let sds of shop?.shop_delivery_slot" [value]="sds.name">
-              {{sds.name}}
+            <mat-option *ngFor="let sds of shop?.shop_delivery_slot" [value]="sds?.name">
+              {{sds?.name}}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="f.delivery_slot.errors && f.delivery_slot.errors.error">
-            {{f.delivery_slot.errors.error}}
+          <mat-error *ngIf="f?.['delivery_slot']?.errors && f?.['delivery_slot']?.errors?.['error']">
+            {{f?.['delivery_slot']?.errors?.['error']}}
           </mat-error>
-          <mat-error *ngIf="f.delivery_slot.invalid && ((f.delivery_slot.dirty || f.delivery_slot.touched)) && f.delivery_slot.errors.required">
+          <mat-error *ngIf="f?.['delivery_slot']?.invalid && ((f?.['delivery_slot']?.dirty || f?.['delivery_slot']?.touched)) && f?.['delivery_slot']?.errors?.['required']">
             Slot is required.
           </mat-error>
 
@@ -160,9 +160,9 @@
 
 
   </div>
-  <div fxFlex.gt-xs="20%" fxFlex.xs="100%" *ngIf="f.selectedLocation.value?.map_url" fxLayoutAlign="center center">
+  <div fxFlex.gt-xs="20%" fxFlex.xs="100%" *ngIf="f?.['selectedLocation']?.value?.map_url" fxLayoutAlign="center center">
     <!-- {{f.selectedLocation.value | json}} -->
-    <a *ngIf="f.selectedLocation.value" [href]="f.selectedLocation.value.map_url" target="_blank">Map</a>
+    <a *ngIf="f?.['selectedLocation']?.value" [href]="f?.['selectedLocation']?.value?.map_url" target="_blank">Map</a>
   </div>
 </div>
 

@@ -4,8 +4,8 @@ import { ControlContainer, FormBuilder, FormGroup, Validators } from '@angular/f
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { Observable, of } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
-import { Shop, ShopDelivery } from 'src/app/lib/interfaces';
-import { GeneralService, ShopService } from 'src/app/lib/services';
+import { Shop, ShopDelivery } from '../../../lib/interfaces';
+import { GeneralService, ShopService } from '../../../lib/services';
 
 
 @Component({
@@ -14,12 +14,12 @@ import { GeneralService, ShopService } from 'src/app/lib/services';
   styleUrls: ['./order-form.component.scss']
 })
 export class OrderFormComponent implements OnInit {
-  customerFrm: FormGroup;
-  shop$: Observable<Shop>;
-  @Input() lp: string;
+  customerFrm!: FormGroup;
+  shop$!: Observable<Shop | null>;
+  @Input() lp!: string;
   todayDate:Date = new Date();
   isSlideChecked: boolean = false;
-  breakPointObsr$: Observable<any>;
+  breakPointObsr$!: Observable<any>;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -34,10 +34,10 @@ export class OrderFormComponent implements OnInit {
   }
 
   triggerPicker(picker: any){
-    if(this.f.is_delivery_date.value){
+    if(this.f?.['is_delivery_date']?.value){
       picker.open();
     }else{
-      this.f.delivery_date.setValue(null);
+      this.f?.['delivery_date']?.setValue(null);
     }
   }
 
@@ -58,12 +58,12 @@ export class OrderFormComponent implements OnInit {
 
             return this.generalService.reverseLatLngAddress(loc).pipe(map(mAddress=>{
               console.log(mAddress)
-              if(this.f.pin && !this.f.pin.value && mAddress?.address?.postcode){
-                this.f.pin.setValue(mAddress?.address?.postcode)
+              if(this.f?.['pin'] && !this.f?.['pin'].value && mAddress?.address?.postcode){
+                this.f?.['pin'].setValue(mAddress?.address?.postcode)
               }
 
-              if(this.f.address && !this.f.address.value && mAddress?.display_name){
-                this.f.address.setValue(mAddress?.display_name)
+              if(this.f?.['address'] && !this.f?.['address'].value && mAddress?.display_name){
+                this.f?.['address'].setValue(mAddress?.display_name)
               }
               return brakPoints
             }));
@@ -85,7 +85,7 @@ export class OrderFormComponent implements OnInit {
   ngOnInit(): void {
 
     this.customerFrm = <FormGroup>this.controlContainer.control;
-    this.f.selectedLocation.setValue(null);
+    this.f?.['selectedLocation'].setValue(null);
     this.shop$ = this.shopService.aShop.pipe(mergeMap(res=>{
       return this.generalService.orderFormError$.asObservable().pipe(map(ferr => {
         if(ferr){

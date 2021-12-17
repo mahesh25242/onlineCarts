@@ -16,12 +16,6 @@ import {
 
 import {  AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin.component';
-import { CategoriesResolver } from './categories/categories-resolver';
-import { ProductsResolver } from './products/products-resolver';
-import { CreateProductResolver } from './products/create-product/create-product-resolver';
-import { OrdersResolver } from './orders/orders-resolver';
-
-import { ShopDeliveryAndSlotResolver } from './delivery/shop-delivery-and-slot-resolver';
 
 
 import AdminDeclarations from './';
@@ -41,11 +35,7 @@ import AdminDeclarations from './';
     ShopPointsModule,    
   ],
   providers:[
-    CategoriesResolver,
-    ProductsResolver,
-    ShopDeliveryAndSlotResolver,
-    OrdersResolver,
-    CreateProductResolver
+    
   ]
 })
 export class AdminModule { }

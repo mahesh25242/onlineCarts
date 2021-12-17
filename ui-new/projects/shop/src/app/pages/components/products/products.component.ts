@@ -6,7 +6,7 @@ import { environment } from '../../../../environments/environment';
 import Notiflix from "notiflix";
 import { ActivatedRoute } from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
-import { first } from 'lodash';
+import first from 'lodash/first';
 import { map, mergeMap, tap } from 'rxjs/operators';
 
 @Component({

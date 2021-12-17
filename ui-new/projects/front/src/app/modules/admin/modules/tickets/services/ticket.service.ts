@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { find } from 'lodash';
+import find from 'lodash/find';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { findIndex, tap } from 'rxjs/operators';
 import {  HelpTicket, HelpTicketWithPagination  } from '../../../../../lib/interfaces';

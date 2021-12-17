@@ -5,7 +5,7 @@ import { mergeMap, tap } from 'rxjs/operators';
 import { ShopProductCategory, ShopProductWithPagination } from '../../lib/interfaces';
 import { GeneralService, ShopProductCategoryService, ShopProductService } from '../../lib/services';
 import { environment } from '../.././../environments/environment';
-import { uniq } from 'lodash';
+import uniq from 'lodash/uniq';
 import { MatDialog } from '@angular/material/dialog';
 import { SearchFilterComponent } from './search-filter/search-filter.component';
 

@@ -3,18 +3,18 @@
 <div class="container" *ngIf="breakPointObsr$ | async as bp">
   <ng-container *ngIf="(cartDetails$ | async) as cartDetails else loading">
 
-    <div fxLayout="row" fxLayoutAlign="space-between" *ngIf="cartDetails?.carts && cartDetails?.carts.length">
+    <div fxLayout="row" fxLayoutAlign="space-between" *ngIf="cartDetails?.carts && cartDetails?.carts!.length">
         <mat-card fxFlex="100%">
           <app-delivery-loaction></app-delivery-loaction>
         </mat-card>
     </div>
 
-  <div *ngIf="!cartDetails?.carts || !cartDetails?.carts.length" class="warning warn-color">Your cart is empty</div>
+  <div *ngIf="!cartDetails?.carts || !cartDetails?.carts!.length" class="warning warn-color">Your cart is empty</div>
   <form [formGroup]="customerFrm" (ngSubmit)="sendToShop(bp)">
-    <ng-container *ngIf="cartDetails?.carts && cartDetails?.carts.length">
+    <ng-container *ngIf="cartDetails?.carts && cartDetails?.carts!.length">
       <div >
         <h1 mat-dialog-title>
-          My Cart ( {{cartDetails?.carts.length}} )
+          My Cart ( {{cartDetails?.carts!.length}} )
         </h1>
         <mat-card *ngFor="let item of cartDetails?.carts"
         [ngClass.lt-md]="'grid-my-lt-md-list'"
@@ -22,12 +22,12 @@
 
           <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
             <a href="javascript:{}" fxFlex.xs="20%" type="button"   class="del-item-bt"    color="warn" (click)="deleteItem(item)"
-              [matTooltip]="'Remove ' +item.product.name+ ' from cart'">
+              [matTooltip]="'Remove ' +item?.product?.name+ ' from cart'">
                <mat-icon>delete</mat-icon>
           </a>
             <div fxFlex="15%" fxFlex.xs="100%">
-              <a [routerLink]="'/'+item.product.shop_product_category?.url+'/'+item.product.url">
-                <div class="product-img" [ngStyle]="{'background-image': 'url(' + ((item.product?.shop_product_selected_variant?.shop_product_image?.image) ?  item.product.shop_product_selected_variant.shop_product_image.image_path : 'assets/no-image.jpg') + ')'}">
+              <a [routerLink]="'/'+item?.product?.shop_product_category?.url+'/'+item?.product?.url">
+                <div class="product-img" [ngStyle]="{'background-image': 'url(' + ((item?.product?.shop_product_selected_variant?.shop_product_image?.image) ?  item?.product?.shop_product_selected_variant?.shop_product_image?.image_path : 'assets/no-image.jpg') + ')'}">
                   <!-- <div *ngIf="item.product?.shop_product_selected_variant?.type.id"
                   [matTooltip]="(item.product?.shop_product_selected_variant?.type.id == 1) ? 'Veg' : ( (item.product?.shop_product_selected_variant?.type.id == 2) ? 'Non-Veg':'' )"
                 [ngClass]="{'veg': item.product?.shop_product_selected_variant?.type.id == 1, 'nonveg': item.product?.shop_product_selected_variant?.type.id == 2}"></div> -->
@@ -39,24 +39,24 @@
               <div >
                 <h4 class="cart-item-header pl-1 container">
                   <a class="primary-text-color" href="javascript:{}"
-                  [routerLink]="'/'+item.product.shop_product_category?.url+'/'+item.product.url"> {{item.product.name}}</a>
+                  [routerLink]="'/'+item?.product?.shop_product_category?.url+'/'+item?.product?.url"> {{item?.product?.name}}</a>
                 </h4>
                 <div class="container" fxLayout.xs="row" fxLayout.gt-xs="column" fxLayoutAlign="space-between">
                   <small class="block pl-1">
-                    {{item.product.shop_product_selected_variant.name}}
-                    {{ item.qty}} {{ (item.qty > 1) ? 'packets': 'packet' }}
+                    {{item?.product?.shop_product_selected_variant?.name}}
+                    {{ item!.qty}} {{ (item!.qty! > 1) ? 'packets': 'packet' }}
                   </small>
                   <b class="block pl-1">
-                    {{item.product.shop_product_selected_variant.price | currency:'INR' }} X {{item.qty}} =  {{item.price | currency:'INR'}}
+                    {{item?.product?.shop_product_selected_variant?.price | currency:'INR' }} X {{item!.qty}} =  {{item!.price | currency:'INR'}}
                   </b>
                 </div>
 
 
                 <div class="container">
-                  <small class="block pl-1" *ngIf="item.message"> {{item.message}}</small>
+                  <small class="block pl-1" *ngIf="item.message"> {{item?.message}}</small>
 
-                  <mat-chip-list  aria-label="varient tag" *ngIf="item.product.shop_product_selected_variant?.shop_product_variant_tag && item.product.shop_product_selected_variant?.shop_product_variant_tag.length">
-                    <mat-chip color="accent" selected class="animate__animated animate__flipInX" *ngFor="let shop_product_variant_tag of item.product.shop_product_selected_variant?.shop_product_variant_tag">{{shop_product_variant_tag.name}}</mat-chip>
+                  <mat-chip-list  aria-label="varient tag" *ngIf="item?.product?.shop_product_selected_variant?.shop_product_variant_tag && item?.product?.shop_product_selected_variant?.shop_product_variant_tag!.length">
+                    <mat-chip color="accent" selected class="animate__animated animate__flipInX" *ngFor="let shop_product_variant_tag of item?.product?.shop_product_selected_variant?.shop_product_variant_tag">{{shop_product_variant_tag.name}}</mat-chip>
                   </mat-chip-list>
 
                 </div>
@@ -79,7 +79,7 @@
 
                     <button type="button" fxFlex.xs="100%"  class="itm-block-btn" mat-flat-button
                       color="primary" (click)="editMessage(item)"
-                    [matTooltip]="'Add a custom message for '+item.product.name">
+                    [matTooltip]="'Add a custom message for '+item?.product?.name">
                       <mat-icon>add_comment</mat-icon> <span> Custom Message</span>
                     </button>
                   </div>
@@ -107,7 +107,7 @@
               </div> -->
             </div>
 
-            <section fxHide.lt-sm="true" class="right-section"  [matTooltip]="(!terms) ? 'Please accept terms' : ''"
+            <section fxHide.lt-sm="true" class="right-section"  [matTooltip]="(!customerFrm.controls?.['terms']?.value) ? 'Please accept terms' : ''"
                 fxLayout="row" fxLayoutAlign="space-between" fxLayout.xs="column">
                 <ng-container *ngTemplateOutlet="placeOrderSection">
                 </ng-container>
@@ -135,7 +135,7 @@
       </div>
       <div  fxFlex.xs="100%">
         <button class="whatsapp-btn animate__animated" mat-raised-button color="primary"  type="submit"
-        [disabled]="!customerFrm.controls.terms.value" [ngClass]="{'animate__pulse': customerFrm.controls.terms.value}">
+        [disabled]="!customerFrm?.controls?.['terms']?.value" [ngClass]="{'animate__pulse': customerFrm?.controls?.['terms']?.value}">
           <!-- Generator: Adobe Illustrator 25.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
           <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
               viewBox="0 0 682 682" xml:space="preserve">

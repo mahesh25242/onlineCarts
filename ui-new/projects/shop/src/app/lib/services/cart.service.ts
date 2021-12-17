@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Cart, CartDetail, ShopOrder, ShopOrderWithPagination } from '../interfaces';
 import { BehaviorSubject, from, Observable, of, throwError } from 'rxjs';
 import { map, tap, toArray } from 'rxjs/operators';
-import { compact } from 'lodash';
+import compact from 'lodash/compact';
 
 @Injectable({
   providedIn: 'root'

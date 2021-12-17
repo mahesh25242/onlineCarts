@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { find } from 'lodash';
+import find from 'lodash/find';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { CmsService } from 'src/app/lib/services';
+import { CmsService } from '../../../lib/services';
 
 @Component({
   selector: 'app-order-terms',
@@ -10,7 +10,7 @@ import { CmsService } from 'src/app/lib/services';
   styleUrls: ['./order-terms.component.scss']
 })
 export class OrderTermsComponent implements OnInit {
-  page$: Observable<any>;
+  page$!: Observable<any>;
   constructor(
     private cmsService: CmsService) { }
 

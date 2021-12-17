@@ -1,11 +1,11 @@
-import { Component, EventEmitter, Inject, OnDestroy, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Cart, Shop, ShopDeliverySlot } from 'src/app/lib/interfaces';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Shop } from '../../../lib/interfaces';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { Observable, Subscription } from 'rxjs';
-import { CartService, ShopService } from 'src/app/lib/services';
-import { map, tap } from 'rxjs/operators';
-import { find } from 'lodash';
+import { CartService, ShopService } from '../../../lib/services';
+import { tap } from 'rxjs/operators';
+import find from 'lodash/find';
 
 @Component({
   selector: 'app-delivery-loaction',
@@ -13,9 +13,9 @@ import { find } from 'lodash';
   styleUrls: ['./delivery-loaction.component.scss']
 })
 export class DeliveryLocationComponent implements OnInit, OnDestroy {
-  cartSubScr: Subscription;
-  shop$:Observable<Shop>;
-  customerFrm: FormGroup;
+  cartSubScr!: Subscription;
+  shop$!:Observable<Shop | null>;
+  customerFrm!: FormGroup;
   selected:number = 0;
 
   constructor(private formBuilder: FormBuilder,
@@ -25,20 +25,20 @@ export class DeliveryLocationComponent implements OnInit, OnDestroy {
 
   get f(){ return this.customerFrm.controls}
 
-  onSwipeLeft(evt){
+  onSwipeLeft(evt: any){
     if(this.selected == 0){
       this.selected = 1;
     }
   }
 
 
-  onSwipeRight(evt){
+  onSwipeRight(evt: any){
     if(this.selected == 1){
       this.selected = 0;
     }
   }
 
-  onTabChanged(evt){
+  onTabChanged(evt: any){
     this.customerFrm.patchValue({
       selectedLocation: null
     });
@@ -60,7 +60,7 @@ export class DeliveryLocationComponent implements OnInit, OnDestroy {
     });
     this.shop$ = this.shopService.aShop.pipe(tap(res=>{
       if(res?.shop_delivery_slot){
-        const shopDeliverySlot = find(res?.shop_delivery_slot, (dslot) => ( dslot.is_default));
+        const shopDeliverySlot:any = find(res?.shop_delivery_slot, (dslot) => ( dslot.is_default));
 
         this.customerFrm.patchValue({
           delivery_slot: shopDeliverySlot?.name
@@ -74,8 +74,8 @@ export class DeliveryLocationComponent implements OnInit, OnDestroy {
       this.cartService.cartDetails$.next(cartDetails);
 
 
-      if(this.f.selectedLocation.value &&  cartDetails.grandTotal < this.f.selectedLocation.value.min_amount){
-        this.customerFrm.controls.selectedLocation.setErrors({error: `${this.f.selectedLocation.value.name} has atleast ${this.f.selectedLocation.value.min_amount} amount order`});
+      if(this.f?.['selectedLocation']?.value &&  cartDetails.grandTotal! < this.f?.['selectedLocation'].value.min_amount){
+        this.customerFrm.controls?.['selectedLocation'].setErrors({error: `${this.f?.['selectedLocation'].value.name} has atleast ${this.f?.['selectedLocation'].value.min_amount} amount order`});
       }
 
     })

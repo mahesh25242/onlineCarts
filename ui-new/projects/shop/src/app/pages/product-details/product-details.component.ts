@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ShopProduct, Cart } from '../../lib/interfaces';
 import { ShopProductService, CartService, GeneralService, ShopProductCategoryService }  from '../../lib/services';
-import { find } from 'lodash';
+import find from 'lodash/find';
 import {environment} from '../../../environments/environment';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { FormBuilder, FormGroup } from '@angular/forms';

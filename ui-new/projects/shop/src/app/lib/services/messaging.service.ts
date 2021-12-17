@@ -9,7 +9,8 @@ export class MessagingService {
 
 currentMessage = new BehaviorSubject(null);
 
-constructor(private angularFireMessaging: AngularFireMessaging,  
+constructor(
+  private angularFireMessaging: AngularFireMessaging,  
   ) {
 
      this.angularFireMessaging.messages.subscribe(
@@ -32,16 +33,16 @@ constructor(private angularFireMessaging: AngularFireMessaging,
   }
 
   receiveMessage() {
-    return this.angularFireMessaging.messages.pipe(tap(msg=> this.currentMessage.next(msg)))
+    // return this.angularFireMessaging.messages.pipe(tap(msg=> this.currentMessage.next(msg)))
   }
 
   deleteToken() {
-    this.angularFireMessaging.getToken
-      .pipe(tap((token:string) => {
-        if(token)
-          return this.angularFireMessaging.deleteToken(token)
-        else of(null);
-      }));
+    // this.angularFireMessaging.getToken
+    //   .pipe(tap((token:string) => {
+    //     if(token)
+    //       return this.angularFireMessaging.deleteToken(token)
+    //     else of(null);
+    //   }));
       // .subscribe(
       //   (token) => { console.log('Token deleted!'); },
       // );

@@ -12,6 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 export class HomeComponent implements OnInit {
   direction = "";
 
+
   constructor(private route: ActivatedRoute,
     ) { }
 

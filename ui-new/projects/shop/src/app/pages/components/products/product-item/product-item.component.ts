@@ -1,7 +1,8 @@
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { find, findIndex } from 'lodash';
+import find from 'lodash/find';
+import findIndex from 'lodash/findIndex';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ShopProduct, ShopProductVariant } from '../../../../lib/interfaces';

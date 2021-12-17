@@ -1,13 +1,14 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UserService, GeneralService } from '../../lib/services';
 import { Observable } from 'rxjs';
 import { User } from '../../lib/interfaces';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit {
   loggedUser$: Observable<User | null> | undefined;
   constructor(private userService: UserService,
     private generalService: GeneralService) { }
@@ -21,4 +22,5 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnDestroy(){
     this.generalService.showbanner$.next(false);
   }
+
 }

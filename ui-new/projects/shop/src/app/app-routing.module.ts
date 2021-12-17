@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CmsPageComponent, ContactUsComponent, HomeComponent, HomeProductsResolver, OrderDeatilComponent, OrderDeatilResolver, PageNotFoundComponent, ProductDetailsComponent, ProductDetailsResolver, SearchResultComponent } from './pages';
+import { CartDetailsComponent, CmsPageComponent, ContactUsComponent, HomeComponent, HomeProductsResolver, OrderDeatilComponent, OrderDeatilResolver, PageNotFoundComponent, ProductDetailsComponent, ProductDetailsResolver, SearchResultComponent } from './pages';
 
 
 const routes: Routes = [
@@ -15,10 +15,10 @@ const routes: Routes = [
     path: 'contact-us',
     component: ContactUsComponent
   },
-  // {
-  //   path: 'bag',
-  //   component: CartDetailsComponent
-  // },
+  {
+    path: 'bag',
+    component: CartDetailsComponent
+  },
   {
     path: 'order/:id',
     component: OrderDeatilComponent,

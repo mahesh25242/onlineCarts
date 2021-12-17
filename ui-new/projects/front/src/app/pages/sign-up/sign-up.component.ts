@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { UserService } from '../..//lib/services';
-import { first as _First} from 'lodash';
+import _First from 'lodash/first';
 import {
   Auth,
   signOut,

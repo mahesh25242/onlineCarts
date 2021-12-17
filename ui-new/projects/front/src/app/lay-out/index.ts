@@ -1,9 +1,9 @@
-import { HeaderComponent } from './header/header.component';
-import { FooterComponent }  from './footer/footer.component';
+import { HeaderModule } from './header/header.module';
+import { FooterModule }  from './footer/footer.module';
 
-const LayOutComponents = [
-    HeaderComponent,
-    FooterComponent
+const LayOutModules = [
+    HeaderModule,
+    FooterModule
 ];
 
-export default LayOutComponents;
+export default LayOutModules;

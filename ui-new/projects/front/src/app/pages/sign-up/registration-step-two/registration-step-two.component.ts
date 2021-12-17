@@ -1,17 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { from, Observable, of, Subscription, throwError } from 'rxjs';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { from, Observable, Subscription } from 'rxjs';
 import { City, Country, ShopCategory, State } from '../../../lib/interfaces';
 import { CityService, CountryService, ShopCategoryService, ShopService, StateService } from '../../../lib/services';
-import { environment } from '../../../../environments/environment';
-import { map, mergeMap, switchMap } from 'rxjs/operators';
-import { uniqueId } from 'lodash';
+import { mergeMap, switchMap } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import {
   Auth,
-  signOut,
-  signInWithPopup,
-  GoogleAuthProvider,
   user,
   User,
   getAuth

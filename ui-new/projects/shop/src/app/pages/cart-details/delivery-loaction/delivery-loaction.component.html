@@ -5,7 +5,7 @@
     <mat-tab-group mat-align-tabs="start" *ngIf="(shop$ | async) as shop" dynamicHeight
     (selectedTabChange)="onTabChanged($event);" (swipeleft)="onSwipeLeft($event)"
     (swiperight)="onSwipeRight($event)" [selectedIndex]="selected" >
-      <mat-tab label="Pickup From Shop"   *ngIf="shop?.shop_delivery_filtered?.free && shop?.shop_delivery_filtered?.free.length">
+      <mat-tab label="Pickup From Shop"   *ngIf="shop?.shop_delivery_filtered?.free && shop?.shop_delivery_filtered?.free!.length">
         <!-- <ng-template matTabContent> -->
           <ng-container *ngTemplateOutlet="deliveryCharge"></ng-container>
           <app-order-form
@@ -14,7 +14,7 @@
           ></app-order-form>
         <!-- </ng-template> -->
       </mat-tab>
-      <mat-tab label="Home Delivery" *ngIf="shop?.shop_delivery_filtered?.paid && shop?.shop_delivery_filtered.paid.length">
+      <mat-tab label="Home Delivery" *ngIf="shop?.shop_delivery_filtered?.paid && shop?.shop_delivery_filtered?.paid!.length">
         <!-- <ng-template matTabContent> -->
           <ng-container *ngTemplateOutlet="deliveryCharge"></ng-container>
           <app-order-form
@@ -26,14 +26,14 @@
 
   </div>
   <ng-template #deliveryCharge>
-    <ng-container *ngIf="f.selectedLocation.value">
+    <ng-container *ngIf="f?.['selectedLocation']?.value">
 
       <div fxLayout="row" fxLayoutAlign="space-between">
-        <p *ngIf="f.selectedLocation.value?.charge">
-          {{ (f.selectedLocation.value?.need_cust_loc) ? 'Delivery': 'Packing' }} Cost: {{ f.selectedLocation.value?.charge }}</p>
-        <p *ngIf="f.selectedLocation.value?.min_amount">Minimum Order Amount: {{ f.selectedLocation.value?.min_amount }}</p>
+        <p *ngIf="f?.['selectedLocation']?.value?.charge">
+          {{ (f?.['selectedLocation']?.value?.need_cust_loc) ? 'Delivery': 'Packing' }} Cost: {{ f?.['selectedLocation']?.value?.charge }}</p>
+        <p *ngIf="f?.['selectedLocation']?.value?.min_amount">Minimum Order Amount: {{ f?.['selectedLocation']?.value?.min_amount }}</p>
       </div>
-      <p [innerHTML]="f.selectedLocation.value?.description"></p>
+      <p [innerHTML]="f?.['selectedLocation']?.value?.description"></p>
     </ng-container>
   </ng-template>
 </form>

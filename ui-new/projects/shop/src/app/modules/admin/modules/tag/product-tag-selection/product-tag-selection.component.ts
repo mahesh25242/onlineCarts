@@ -8,7 +8,10 @@ import {map, mergeMap} from 'rxjs/operators';
 import { CreateProductTagComponent } from '../create-product-tag/create-product-tag.component';
 import { ProductTagService } from '../services';
 import { ProductTag } from '../interfaces';
-import { filter, map as loadshMap } from 'lodash';
+import filter from 'lodash/filter';
+import loadshMap from 'lodash/map';
+
+
 
 @Component({
   selector: 'app-product-tag-selection',

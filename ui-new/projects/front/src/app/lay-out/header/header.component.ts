@@ -3,7 +3,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SettingService, UserService } from '../../lib/services';
 import { Subscription, Observable } from 'rxjs';
 import { User } from '../../lib/interfaces';
-import { map, mergeMap } from 'rxjs/operators';
+import { mergeMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 

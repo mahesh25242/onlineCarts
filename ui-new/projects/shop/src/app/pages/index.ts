@@ -11,6 +11,7 @@ import { OrderDeatilComponent } from './order-deatil/order-deatil.component';
 import { OrderDeatilResolver } from './order-deatil/order-deatil-resolver';
 import { SearchResultComponent } from './search-result/search-result.component';
 import { SearchFilterComponent } from './search-result/search-filter/search-filter.component';
+import ShopCartComponents, { CartDetailsComponent } from './cart-details';
 
 const pageComponents = [
     HomeComponent,
@@ -22,7 +23,8 @@ const pageComponents = [
     CmsPageComponent,
     OrderDeatilComponent,
     SearchResultComponent,
-    SearchFilterComponent
+    SearchFilterComponent,
+    ...ShopCartComponents
 ];
 
 export {
@@ -35,7 +37,8 @@ export {
     CmsPageComponent,
     OrderDeatilComponent,
     OrderDeatilResolver,
-    SearchResultComponent
+    SearchResultComponent,
+    CartDetailsComponent
 }
 
 export default pageComponents;

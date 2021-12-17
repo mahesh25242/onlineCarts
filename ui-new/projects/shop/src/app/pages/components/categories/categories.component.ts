@@ -5,7 +5,7 @@ import { ShopProductCategoryService } from '../../../lib/services';
 import { environment } from '../../../../environments/environment';
 import { Router } from '@angular/router';
 import { map, mergeMap, take } from 'rxjs/operators';
-import { findIndex } from 'lodash';
+import findIndex from 'lodash/findIndex';
 
 
 @Component({

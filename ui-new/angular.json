@@ -19,7 +19,7 @@
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
-          "options": {
+          "options": {            
             "outputPath": "dist/front",
             "index": "projects/front/src/index.html",
             "main": "projects/front/src/main.ts",
@@ -27,11 +27,15 @@
             "tsConfig": "projects/front/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "allowedCommonJsDependencies": [
-              "to-words"
+              "to-words",
+              "qrcode",
+              "lodash",
+              "browser-image-compression/dist/browser-image-compression.mjs"
             ],
             "assets": [
               "projects/front/src/favicon.ico",
-              "projects/front/src/assets"
+              "projects/front/src/assets",
+              "projects/front/src/manifest.webmanifest"
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
@@ -41,7 +45,9 @@
             ],
             "scripts": [
               "./node_modules/cookieconsent/build/cookieconsent.min.js"
-            ]
+            ],
+            "serviceWorker": true,
+            "ngswConfigPath": "projects/front/ngsw-config.json"
           },
           "configurations": {
             "production": {
@@ -104,7 +110,8 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "projects/front/src/favicon.ico",
-              "projects/front/src/assets"
+              "projects/front/src/assets",
+              "projects/front/src/manifest.webmanifest"
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
@@ -144,11 +151,14 @@
             "inlineStyleLanguage": "scss",
             "allowedCommonJsDependencies": [
               "to-words",
-              "qrcode"
+              "qrcode",
+              "lodash",
+              "browser-image-compression/dist/browser-image-compression.mjs"
             ],
             "assets": [
               "projects/shop/src/favicon.ico",
-              "projects/shop/src/assets"
+              "projects/shop/src/assets",
+              "projects/shop/src/manifest.webmanifest"
             ],
             "styles": [              
               "projects/shop/src/styles.scss",              
@@ -250,7 +260,9 @@
             ],
             "scripts": [
             
-            ]
+            ],
+            "serviceWorker": true,
+            "ngswConfigPath": "projects/shop/ngsw-config.json"
           },
           "configurations": {
             "production": {
@@ -313,7 +325,8 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "projects/shop/src/favicon.ico",
-              "projects/shop/src/assets"
+              "projects/shop/src/assets",
+              "projects/shop/src/manifest.webmanifest"
             ],
             "styles": [
               "projects/shop/src/styles.scss"

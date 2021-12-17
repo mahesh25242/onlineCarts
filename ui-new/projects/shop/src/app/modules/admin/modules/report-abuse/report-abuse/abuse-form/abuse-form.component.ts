@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { ReportAbuseType } from '../../interfaces';
 import { ReportAbuseService } from '../../services';
-import { first } from 'lodash';
+import first from 'lodash/first';
 import { Router } from '@angular/router';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot  } from '@angular/router';
-import { first } from 'lodash';
+import first from 'lodash/first';
 import { Observable, of } from 'rxjs';
 import { mergeMap, take } from 'rxjs/operators';
 import { ShopProductCategory } from '../../lib/interfaces';

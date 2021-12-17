@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Inject, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { Cart } from 'src/app/lib/interfaces';
+import { Cart } from '../../../lib/interfaces';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
-import { CartService } from 'src/app/lib/services';
+import { CartService } from '../../../lib/services';
 
 @Component({
   selector: 'app-edit-message',
@@ -12,8 +12,8 @@ import { CartService } from 'src/app/lib/services';
   styleUrls: ['./edit-message.component.scss']
 })
 export class EditMessageComponent implements OnInit, OnDestroy {
-  editMessageFrm: FormGroup;
-  cartSubScr: Subscription;
+  editMessageFrm!: FormGroup;
+  cartSubScr!: Subscription;
   //@Output() onUpdated = new EventEmitter();
 
   constructor(private formBuilder: FormBuilder,
@@ -25,7 +25,7 @@ export class EditMessageComponent implements OnInit, OnDestroy {
   get f(){ return this.editMessageFrm.controls}
 
   updateMessage(){
-    this.data.message = this.f.message.value;
+    this.data.message = this.f?.['message']?.value;
     this.cartSubScr = this.cartService.updateCart(this.data, '++').subscribe(res=>{
       if(this.data.message)
         this.matSnackBar.open('Message updated successfully.', 'close');
