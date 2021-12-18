@@ -7,7 +7,7 @@ $warn:    mat-palette($mat-red, 600);
 $theme:   mat-light-theme($primary, $accent, $warn);
 
 $custom-typography: mat-typography-config(
-  $font-family: 'Roboto, monospace',
+  $font-family: 'Roboto, monospace',  
   $headline: mat-typography-level(26px, 40px, 700),
   $title: mat-typography-level(24px, 40px, 600),
   $body-1: mat-typography-level(16px, 24px, 500),

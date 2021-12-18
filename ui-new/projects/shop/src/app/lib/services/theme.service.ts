@@ -19,8 +19,12 @@ export class ThemeService {
     return this._currentTheme$.asObservable().pipe(tap(async theme => {
       theme = theme?.replace("shop-default-", "");
       theme = `${theme}.css`
-      if(theme)
+      if(theme){
         await this.loadCss(theme);      
+        if (this.themeLinks.length == 2){              
+          this._renderer.removeChild(this.head, this.themeLinks.shift());      
+        }  
+      }
     }));
   };
   // theme$: Observable<[string, boolean]>;
