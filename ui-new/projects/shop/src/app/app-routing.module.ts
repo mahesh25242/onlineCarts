@@ -9,19 +9,13 @@ const routes: Routes = [
   { path: 'bag', loadChildren: () => import('./pages/cart-details/cart-details.module').then(m => m.CartDetailsModule) }, 
   { path: 'search/:q', loadChildren: () => import('./pages/search-result/search-result.module').then(m => m.SearchResultModule)   },
   { path: 'order/:id', loadChildren: () => import('./pages/order-deatil/order-details.module').then(m => m.OrderDetailsModule)   }, 
-  { path: 'admin', loadChildren: () => import('./modules/index').then(m => m.AdminModule) }, 
+  { path: 'admin', loadChildren: () => import('./modules/admin/admin.module').then(m => m.AdminModule) }, 
   { path: '404', loadChildren: () => import('./pages/page-not-found/page-not-found.module').then(m => m.PageNotFoundModule) },
   {
     path: ':catUrl',
     children:[
       { path: '', loadChildren: () => import('./pages/cms-page/cms-page.module').then(m => m.CmsPageModule) },             
-      // {
-      //   path: 'varities',
-      //   component: HomeComponent, 
-      //   resolve: {
-      //     product: HomeProductsResolver
-      //   }  
-      // },
+      { path: 'varities', loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule) },
       { path: ':productUrl', loadChildren: () => import('./pages/product-details/product-details.module').then(m => m.ProductDetailsModule) },                   
     ]
     

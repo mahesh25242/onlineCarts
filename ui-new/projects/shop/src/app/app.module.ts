@@ -15,10 +15,10 @@ import { httpInterceptorProviders } from './lib/interceptors';
 import {  FirebaseModule } from './modules';
 
 import layoutComponents from  './lay-out';
-import { PageComponentsModule } from './pages/components/page.components.module';
+import { SearchBarModule } from './pages/components/search-bar/search-bar.module';
 
 import { LoadInitialConfigaration } from './lib/providers';
-import { ShopSharedModule } from './modules/admin/modules/shared-shop/shared-shop.module';
+
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -27,6 +27,7 @@ import {  MatIconModule } from '@angular/material/icon';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatListModule } from '@angular/material/list';
 import { MatBadgeModule } from '@angular/material/badge';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Injectable({providedIn: 'root'})
 export class MyHammerConfig extends HammerGestureConfig {
@@ -50,17 +51,16 @@ export class MyHammerConfig extends HammerGestureConfig {
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    HammerModule,    
-    ShopSharedModule,
+    HammerModule,        
     MatSidenavModule,
     MatToolbarModule,
     MatIconModule,
     FlexLayoutModule,
     MatListModule,
     MatBadgeModule,
-    
+    MatSnackBarModule,
     // SharedModuleModule,    
-    PageComponentsModule,
+    SearchBarModule,
     
             
     FirebaseModule,

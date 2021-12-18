@@ -15,7 +15,8 @@ import { GeneralService } from '../services';
 export class ShopInterceptor implements HttpInterceptor {
 
   constructor(private generalService :GeneralService,
-    @Inject('NotiflixService') public notiflix: any) {}
+    // @Inject('NotiflixService') public notiflix: any
+    ) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
 
@@ -35,7 +36,8 @@ export class ShopInterceptor implements HttpInterceptor {
         }
 
         if (error instanceof HttpErrorResponse && error.status === 423 ) {
-          this.notiflix.report.warning('Sorry', error.error.message);          
+          alert(error.error.message)
+          // this.notiflix.report.warning('Sorry', error.error.message);          
         }
         return throwError(() => error);
 
