@@ -12,7 +12,7 @@ import { AppComponent } from './app.component';
 import * as Hammer from 'hammerjs';
 import { httpInterceptorProviders } from './lib/interceptors';
 
-import {  FirebaseModule } from './modules';
+// import {  FirebaseModule } from './modules';
 
 import layoutComponents from  './lay-out';
 import { SearchBarModule } from './pages/components/search-bar/search-bar.module';
@@ -63,7 +63,7 @@ export class MyHammerConfig extends HammerGestureConfig {
     SearchBarModule,
     
             
-    FirebaseModule,
+    // FirebaseModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable

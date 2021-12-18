@@ -8,7 +8,9 @@ import { GeneralService } from '../../lib/services';
 })
 export class AdminComponent implements OnInit, OnDestroy {
 
-  constructor(    private generalService: GeneralService ) {
+  constructor(    
+    private generalService: GeneralService 
+    ) {
     generalService.isAdmin$.next(true);
    }
 

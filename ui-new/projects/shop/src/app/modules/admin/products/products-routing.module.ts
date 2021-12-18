@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AdminAuthGuard } from '@shop/app/lib/guard';
 import { CreateProductResolver } from './create-product/create-product-resolver';
 import { CreateProductComponent } from './create-product/create-product.component';
 import { ListProductsComponent } from './list-product/list-products.component';
@@ -8,7 +9,9 @@ import { ProductsComponent } from './products.component';
 
 const routes: Routes = [
   { 
-    path: '', component: ProductsComponent, resolve: { prducts: ProductsResolver},
+    path: '', component: ProductsComponent, 
+    canActivate: [AdminAuthGuard],      
+    resolve: { prducts: ProductsResolver},
     children: [
       {
         path: '',

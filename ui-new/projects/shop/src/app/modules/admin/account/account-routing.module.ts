@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AdminAuthGuard } from '@shop/app/lib/guard';
 import { AccountComponent } from './account.component';
 
 const routes: Routes = [
     { path: '', component: AccountComponent,
+    canActivate: [AdminAuthGuard], 
     children:[
       {
         path: '',
