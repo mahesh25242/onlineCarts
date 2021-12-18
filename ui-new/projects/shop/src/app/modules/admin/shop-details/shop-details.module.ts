@@ -10,6 +10,7 @@ import { ManageBannersComponent } from './manage-banners/manage-banners.componen
 import { ManageCmsComponent } from './manage-cms/manage-cms.component';
 import { ManageCmsPageComponent } from './manage-cms/manage-cms-page/manage-cms-page.component';
 import { ShopPointsModule } from '../modules/shop-points/shop-points.module';
+import { QuillModule } from 'ngx-quill'
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ShopPointsModule } from '../modules/shop-points/shop-points.module';
     ShopDetailsRoutingModule,
     SharedModuleModule,
     UploadImageModule,
-    ShopPointsModule
+    ShopPointsModule,
+    QuillModule.forRoot()
   ]
 })
 export class ShopDetailsModule { }

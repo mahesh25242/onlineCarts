@@ -14,6 +14,21 @@ export class ManageCmsPageComponent implements OnInit, OnDestroy {
   cmsForm!: FormGroup;
   @Input() page: any;
   @Output() reload = new EventEmitter();
+  quillStyle = {
+    height: '200px'
+  };
+  quillModules = {
+    toolbar: [
+      ['bold', 'italic', 'underline', 'strike'],        // toggled buttons     
+      [{'list': 'ordered'}, {'list': 'bullet'}],          
+      [{'color': []}, {'background': []}],          // dropdown with defaults from theme    
+      [{'align': []}],
+
+      ['clean'],                                       // remove formatting button
+
+      ['link', 'video',]                   // link
+    ]
+  }
 
   saveSubScr!: Subscription;
   constructor(private cmsService: CmsService,

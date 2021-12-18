@@ -14,7 +14,7 @@
 
     <div fxFlex="100%" class="full-width-text">
       <mat-label>Content</mat-label>
-      <quill-editor matInput     
+      <quill-editor [styles]="quillStyle"  [modules]="quillModules"     
         formControlName="content"
       ></quill-editor>
 
