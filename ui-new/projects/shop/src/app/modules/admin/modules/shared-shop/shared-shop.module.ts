@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
 import { ShareIconsModule } from 'ngx-sharebuttons/icons';
-import { NgxSliderModule } from '@angular-slider/ngx-slider';
+
 
 @NgModule({
   declarations: [    
@@ -14,12 +14,11 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
       debug: false
     }),
     ShareIconsModule,
-    NgxSliderModule    
+    
   ],
   exports: [    
     ShareButtonsModule,
-    ShareIconsModule,
-    NgxSliderModule
+    ShareIconsModule,    
   ],
   providers:[   
   ]

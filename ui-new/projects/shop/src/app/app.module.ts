@@ -2,9 +2,9 @@ import { Injectable, NgModule } from '@angular/core';
 import { BrowserModule, HammerGestureConfig, HammerModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { SharedModuleModule } from 'shared/shared-module/shared-module.module';
-import {IvyCarouselModule} from 'angular-responsive-carousel';
-import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
+// import { SharedModuleModule } from 'shared/shared-module/shared-module.module';
+
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,14 +12,21 @@ import { AppComponent } from './app.component';
 import * as Hammer from 'hammerjs';
 import { httpInterceptorProviders } from './lib/interceptors';
 
-import { ReportAbuseModule, TagModule, FirebaseModule } from './modules';
+import {  FirebaseModule } from './modules';
 
 import layoutComponents from  './lay-out';
-import pageComponents from './pages';
+import { PageComponentsModule } from './pages/components/page.components.module';
+
 import { LoadInitialConfigaration } from './lib/providers';
 import { ShopSharedModule } from './modules/admin/modules/shared-shop/shared-shop.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import {  MatIconModule } from '@angular/material/icon';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatListModule } from '@angular/material/list';
+import { MatBadgeModule } from '@angular/material/badge';
 
 @Injectable({providedIn: 'root'})
 export class MyHammerConfig extends HammerGestureConfig {
@@ -37,23 +44,25 @@ export class MyHammerConfig extends HammerGestureConfig {
 @NgModule({
   declarations: [
     AppComponent,
-    ...layoutComponents,
-    ...pageComponents
+    ...layoutComponents,       
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    HammerModule,
-    NgxQRCodeModule,
+    HammerModule,    
     ShopSharedModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatIconModule,
+    FlexLayoutModule,
+    MatListModule,
+    MatBadgeModule,
     
-    SharedModuleModule,
-    IvyCarouselModule,
+    // SharedModuleModule,    
+    PageComponentsModule,
     
-    
-    ReportAbuseModule,
-    TagModule,
+            
     FirebaseModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,

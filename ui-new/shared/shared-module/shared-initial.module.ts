@@ -8,8 +8,9 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
-
-
+import {MatInputModule} from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @NgModule({
   declarations: [    
@@ -22,8 +23,13 @@ import { RouterModule } from '@angular/router';
     ReactiveFormsModule,
     MatMenuModule,
     MatButtonModule,
+    MatInputModule,
+    MatFormFieldModule,    
+    MatToolbarModule,
+
     FlexLayoutModule,
     RouterModule,
+    
 
   ],
   exports: [    
@@ -33,7 +39,13 @@ import { RouterModule } from '@angular/router';
 
     MatMenuModule,
     MatButtonModule,  
+    MatInputModule,
+    MatFormFieldModule,    
+    MatToolbarModule,
+
     FlexLayoutModule,
+    
+    
     RouterModule
   
   ],
