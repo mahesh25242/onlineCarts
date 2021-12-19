@@ -42,36 +42,6 @@ export class ShopDetailsComponent implements OnInit, OnDestroy {
 
 
 
-    handleImageSelection(stat:FormGroup) {
-
-
-  //     this.imageCompress.uploadFile().then(({image, orientation}) => {
-  //       //this.imgResultBeforeCompress = image;
-  // //      console.warn('Size in bytes was:', this.imageCompress.byteCount(image));
-
-
-  //       this.imageCompress.compressFile(image, -1).then(
-  //         result => {
-  //          // this.imgResultAfterCompress = result;
-
-  //   //        console.warn('Size in bytes is now:', this.imageCompress.byteCount(result));
-
-
-  //           this.f?.['logo'].setValue(result)
-  //           fetch(result)
-  //           .then(res => res.blob())
-  //           .then(img=>{
-  //             this.f?.['up_logo'].setValue(img);
-  //           })
-
-
-  //         }
-  //       );
-
-  //     });
-
-    }
-
     verifyMobile(shop: Shop){
       // if(!shop.phone){
       //   throw 'No phone found with shop';

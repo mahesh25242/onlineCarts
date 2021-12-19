@@ -1,36 +1,37 @@
 import { Injectable } from '@angular/core';
 import { AngularFireMessaging } from '@angular/fire/compat/messaging';
-import { BehaviorSubject, empty, of } from 'rxjs'
+import { BehaviorSubject, empty, Observable, of } from 'rxjs'
 import { catchError, mergeMap, tap } from 'rxjs/operators';
+import { trace } from '@angular/fire/compat/performance';
 
-
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class MessagingService {
 
 currentMessage = new BehaviorSubject(null);
 
-constructor(
-  private angularFireMessaging: AngularFireMessaging,  
-  ) {
+token$: Observable<any>;
+message$: Observable<any>;
+showRequest = false;
 
-     this.angularFireMessaging.messages.subscribe(
-     (msgings: any) => {
-        if(msgings.onMessage)
-          msgings.onMessage = msgings.onMessage.bind(msgings);
-        if(msgings.onTokenRefresh)
-          msgings.onTokenRefresh=msgings.onTokenRefresh.bind(msgings);
-    })
+
+constructor(
+  public readonly angularFireMessaging: AngularFireMessaging,  
+  ) {
+    angularFireMessaging.getToken.subscribe(console.log)
+    this.message$ = angularFireMessaging.messages;
+    this.token$ = angularFireMessaging.tokenChanges.pipe(
+      trace('token'),
+      tap(token => this.showRequest = !token)
+    );
   }
 
   requestPermission() {
     return this.angularFireMessaging.requestToken;
   }
 
-  getToken(){
-    return this.angularFireMessaging.getToken.pipe(catchError(err=>{
-      return of(null);
-    }));
-  }
+
 
   receiveMessage() {
     // return this.angularFireMessaging.messages.pipe(tap(msg=> this.currentMessage.next(msg)))

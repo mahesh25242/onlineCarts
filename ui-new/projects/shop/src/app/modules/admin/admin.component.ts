@@ -11,16 +11,17 @@ export class AdminComponent implements OnInit, OnDestroy {
   constructor(    
     private generalService: GeneralService 
     ) {
-    generalService.isAdmin$.next(true);
+    
    }
 
-  ngOnInit(): void {    
+  ngOnInit(): void {   
     
+    this.generalService.isAdmin$.next(true);
   }
 
 
 
   ngOnDestroy(){
-    this.generalService.isAdmin$.next(null);
+    this.generalService.isAdmin$.next(false);
   }
 }

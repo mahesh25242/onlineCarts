@@ -126,7 +126,7 @@ export class CartDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
           token: ''
         }
 
-        return this.messagingService.getToken().pipe(mergeMap(tkn=>{
+        return this.messagingService.token$.pipe(mergeMap(tkn=>{
           postData.token = (tkn) ? tkn : '';
           return this.cartService.createOrder(postData).pipe(map((orderRes : ShopOrder)=>{
             if(!orderRes) throwError(() => 'no response from server');
@@ -265,6 +265,8 @@ export class CartDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
   ngOnInit(): void {
 
+    console.log(this.messagingService.token$)
+    
     this.cartService.hideCartComponent$.next(true);
 
     this.generalService.bc$.next({

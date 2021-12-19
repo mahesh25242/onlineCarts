@@ -67,8 +67,7 @@ onScroll(event:any) {
 
   title = '';
   showPushNoti!: Subscription;
-  receiveMessageSubScr!: Subscription;
-  isAdmin$!: Observable<boolean | null>;
+  receiveMessageSubScr!: Subscription;  
   shop!: Shop | null;
   shop$!: Observable<Shop>;
 

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import {Title} from "@angular/platform-browser";
-import { delay, tap } from 'rxjs/operators';
+import { catchError, delay, tap } from 'rxjs/operators';
 import { BC } from '../interfaces';
 
 
@@ -17,16 +17,17 @@ export class GeneralService {
   customerLoc$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
   shopDisabled$: BehaviorSubject<{subject?: string, message?: string} | null> = new BehaviorSubject<{subject?: string, message?: string} | null>(null);
-  isAdmin$: BehaviorSubject<boolean | null> = new BehaviorSubject<boolean | null>(null);
+  isAdmin$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   banners$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
 
   constructor(private http: HttpClient,
     private titleService:Title,    
-    ) { }
+    ) {       
+    }
 
   get bc(){
-    return this.bc$.asObservable().pipe(delay(1000), tap(res=>{
+    return this.bc$.asObservable().pipe( tap(res=>{
       this.titleService.setTitle(`${(res?.siteName) ? res?.siteName : ''} ${ (res?.siteName && res?.title) ? ':': '' } ${(res?.title) ? res?.title : ''}`);
     }));
   }
@@ -79,6 +80,9 @@ export class GeneralService {
     }else{
       return this.http.get<[{image: string}]>(`/shop/banner`).pipe(tap(res=>{
         this.banners$.next(res);
+      }), catchError(err=>{
+        this.banners$.next(null);
+        return throwError(() => err);
       }));
     }
 

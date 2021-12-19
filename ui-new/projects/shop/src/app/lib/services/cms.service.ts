@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, of } from 'rxjs';
-import { map, mergeMap, tap } from 'rxjs/operators';
+import { map, mergeMap, share, shareReplay, tap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { GeneralService } from '../../lib/services';
 
@@ -18,22 +18,22 @@ export class CmsService {
     return this.pages$.asObservable();
   }
 
-  mainMenus(){
-    return this.generalService.isAdmin$.asObservable().pipe(mergeMap(isAdmin=>{      
-      if(isAdmin){        
-        return  of([
-                  { name: 'Categories', url : '/admin/categories'},
-                  { name: 'Products', url : '/admin/products/0'},
-                  { name: 'Delivery', url : '/admin/deliveries'},
-                  { name: 'Orders', url : '/admin/orders'},
-                  { name: 'Shop Settings', url : '/admin/details'},
-                  { name: 'My Account', url : '/admin/account'},
-                  { name: 'Re-new', url : '/admin/renew'},
-                  { name: 'Back To Site', url : '../'},
-                  { name: 'Sign Out', url : 'admin/sign-out'},
-                ]);
-      }
-      return this.getPages.pipe(map(res=>{
+  mainMenus(){       
+    return this.getPages.pipe(mergeMap(res=>{
+      return this.generalService.isAdmin$.pipe(map(isAdmin=>{
+        if(isAdmin){        
+          return  [
+                    { name: 'Categories', url : '/admin/categories'},
+                    { name: 'Products', url : '/admin/products/0'},
+                    { name: 'Delivery', url : '/admin/deliveries'},
+                    { name: 'Orders', url : '/admin/orders'},
+                    { name: 'Shop Settings', url : '/admin/details'},
+                    { name: 'My Account', url : '/admin/account'},
+                    { name: 'Re-new', url : '/admin/renew'},
+                    { name: 'Back To Site', url : '../'},
+                    { name: 'Sign Out', url : 'admin/sign-out'},
+                ];
+        }   
         let allPages = null;
         if(res){        
           allPages = [...[{ name: 'Home', url : '/'}], ... res, ...[{ name: 'Contact Us', url : '/contact-us'}]];
@@ -41,10 +41,10 @@ export class CmsService {
             allPages = [ ...allPages, ...[{ name: 'Admin', url : '/admin', }]];
           }
         }
-        
         return allPages;
-      }))
-    }))
+      }));
+    }));
+    
   }
   pages(){
     return this.http.get<any>(`/shop/cms`).pipe(tap( res=> this.pages$.next(res)));

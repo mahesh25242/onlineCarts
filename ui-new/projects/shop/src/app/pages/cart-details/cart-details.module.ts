@@ -9,6 +9,14 @@ import { DeliveryLocationComponent } from './delivery-loaction/delivery-loaction
 import { EditMessageComponent } from './edit-message/edit-message.component';
 import { OrderFormComponent } from './order-form/order-form.component';
 import { OrderTermsComponent } from './order-terms/order-terms.component';
+import { AngularFireModule } from '@angular/fire/compat';
+import { environment } from '@app/environments/environment';
+import { AngularFireAuthGuardModule } from '@angular/fire/compat/auth-guard';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AngularFireMessagingModule } from '@angular/fire/compat/messaging';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import {MatNativeDateModule} from '@angular/material/core';
+
 
 @NgModule({
   declarations: [
@@ -22,7 +30,12 @@ import { OrderTermsComponent } from './order-terms/order-terms.component';
   imports: [
     CommonModule,
     CartDetailsRoutingModule,
-    SharedModuleModule
+    SharedModuleModule,
+    MatNativeDateModule,    
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule,
+    AngularFireMessagingModule,
+    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
   ]
 })
 export class CartDetailsModule { }

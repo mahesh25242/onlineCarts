@@ -18,7 +18,7 @@ export class AdminPushTokenInterceptor implements HttpInterceptor {
     if(request.url.includes('authUser')){
 
 
-      return this.messagingService.getToken().pipe(mergeMap(res=>{
+      return this.messagingService.token$.pipe(mergeMap(res=>{
         if(res){
           request = request.clone({
             setHeaders: {

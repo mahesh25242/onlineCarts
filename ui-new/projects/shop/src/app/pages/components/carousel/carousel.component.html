@@ -1,5 +1,5 @@
 <div class="carousel-wrap" *ngIf="(slides$ | async) as slides">
-  <carousel>
+  <carousel [cellsToShow]="1" cellWidth="100%">
     <div class="carousel-cell" *ngFor="let slide of slides; let i = index">
       <img [src]="slide.image">
     </div>
