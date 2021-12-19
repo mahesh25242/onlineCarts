@@ -1,8 +1,7 @@
-import { Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Subscription } from 'rxjs';
-import { CmsService } from '../../../../../lib/services';
+import { CmsService } from '@shop/app/lib/services';
 
 
 @Component({
@@ -10,7 +9,7 @@ import { CmsService } from '../../../../../lib/services';
   templateUrl: './manage-cms-page.component.html',
   styleUrls: ['./manage-cms-page.component.scss']
 })
-export class ManageCmsPageComponent implements OnInit, OnDestroy {
+export class ManageCmsPageComponent implements OnInit {
   cmsForm!: FormGroup;
   @Input() page: any;
   @Output() reload = new EventEmitter();
@@ -30,7 +29,7 @@ export class ManageCmsPageComponent implements OnInit, OnDestroy {
     ]
   }
 
-  saveSubScr!: Subscription;
+  
   constructor(private cmsService: CmsService,
     private formBuilder: FormBuilder,
     private _snackBar: MatSnackBar,
@@ -50,12 +49,12 @@ export class ManageCmsPageComponent implements OnInit, OnDestroy {
     }
 
     
-    this.saveSubScr = this.cmsService.save(postData).subscribe({
+    this.cmsService.save(postData).subscribe({
       complete: ()=> {
         this._snackBar.open(`Successfully saved`, 'Close'); 
         this.reload.emit();
       }
-    });
+    }).add(() =>     this.notiflix.loading.remove());
   }
 
   ngOnInit(): void {
@@ -69,10 +68,6 @@ export class ManageCmsPageComponent implements OnInit, OnDestroy {
     });
 
     this.cmsForm.patchValue(this.page);
-  }
-
-  ngOnDestroy(){
-    this.saveSubScr && this.saveSubScr.unsubscribe();
   }
 
 }

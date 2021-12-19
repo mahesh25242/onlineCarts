@@ -1,6 +1,6 @@
 <ng-container class="example-button-container" *ngIf="(cart$ | async) as cart">
   <ng-container *ngIf="cart && cart.length && !(hideCartComponent$ | async) " >
-    <a (swiperight)="onSwipeRight($event)" *ngIf="displayDiv"   mat-fab [matBadge]="cart.length" matBadgePosition="above after"
+    <a  (swiperight)="onSwipeRight($event)" *ngIf="displayDiv"   mat-fab [matBadge]="cart.length" matBadgePosition="above after"
 
      color="primary" class="extended-fab-button animate__animated "
      [ngClass]="{'animate__slideInUp animate__faster': classExists}" routerLink="/bag">

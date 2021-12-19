@@ -10,17 +10,17 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import * as Hammer from 'hammerjs';
-import { httpInterceptorProviders } from './lib/interceptors';
+import { httpInterceptorProviders } from '@shop/app/lib/interceptors';
 
 // import {  FirebaseModule } from './modules';
 
 import layoutComponents from  './lay-out';
 import { SearchBarModule } from './pages/components/search-bar/search-bar.module';
 
-import { LoadInitialConfigaration } from './lib/providers';
+import { LoadInitialConfigaration } from '@shop/app/lib/providers';
 
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment';
+import { environment } from '@shop/environments/environment';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import {  MatIconModule } from '@angular/material/icon';
@@ -28,6 +28,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatListModule } from '@angular/material/list';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatButtonModule } from '@angular/material/button';
 
 @Injectable({providedIn: 'root'})
 export class MyHammerConfig extends HammerGestureConfig {
@@ -61,7 +62,7 @@ export class MyHammerConfig extends HammerGestureConfig {
     MatSnackBarModule,
     // SharedModuleModule,    
     SearchBarModule,
-    
+    MatButtonModule,
             
     // FirebaseModule,
     ServiceWorkerModule.register('ngsw-worker.js', {

@@ -110,7 +110,9 @@ export class ProductComponent implements OnInit, OnDestroy {
     }));
   }
 
-
+  handler(evt:any){
+    console.log(evt);
+  }
   ngOnDestroy(){
     if(this.productFetchUnsbscr){
       this.productFetchUnsbscr.unsubscribe();

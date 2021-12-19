@@ -12,7 +12,7 @@ import { environment } from '../../../environments/environment';
 export class FooterComponent implements OnInit {
   orgin: string = window.location.origin;
   environment = environment;
-  isAdmin$!: Observable<boolean>;
+  isAdmin$!: Observable<boolean | null>;
   currentYear: number = new Date().getFullYear();
   shop$!: Observable<Shop | null>;
 
@@ -21,7 +21,7 @@ export class FooterComponent implements OnInit {
 
   ngOnInit(): void {
     this.shop$ = this.shopService.aShop;
-    // this.isAdmin$ = this.generalService.isAdmin$.asObservable()
+    this.isAdmin$ = this.generalService.isAdmin$.asObservable()
 
   }
 

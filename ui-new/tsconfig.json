@@ -5,7 +5,7 @@
     "baseUrl": "./",
     "paths": {
       "@shop/*": ["projects/shop/src/*"],
-      "@front/*": ["projects/shop/src/*"],
+      "@front/*": ["projects/front/src/*"],
       "@app/*": ["shared/*"]
     },
     "outDir": "./dist/out-tsc",
