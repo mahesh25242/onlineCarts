@@ -161,7 +161,9 @@
               "projects/shop/src/manifest.webmanifest"
             ],
             "styles": [              
-              "projects/shop/src/styles.scss",              
+              "projects/shop/src/styles.scss", 
+              "./node_modules/animate.css/animate.min.css",
+              "./node_modules/cookieconsent/build/cookieconsent.min.css",             
               {
                 "input": "projects/shop/src/themes/amber-theme.scss",
                 "bundleName": "amber-theme",
@@ -270,7 +272,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumError": "2mb"
                 },
                 {
                   "type": "anyComponentStyle",

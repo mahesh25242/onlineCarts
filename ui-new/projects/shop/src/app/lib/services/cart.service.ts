@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Cart, CartDetail, ShopOrder, ShopOrderWithPagination } from '../interfaces';
-import { BehaviorSubject, from, Observable, of, throwError } from 'rxjs';
-import { map, tap, toArray } from 'rxjs/operators';
+import { BehaviorSubject, EMPTY, from, Observable, of, throwError } from 'rxjs';
+import { filter, map, tap, toArray } from 'rxjs/operators';
 import compact from 'lodash/compact';
 
 @Injectable({
@@ -78,7 +78,7 @@ export class CartService {
     }));
   }
 
-  updateCart(item: Cart | null = null, action: string='+'): Observable<Cart[]>{
+  updateCart(item: Cart | null = null, action: string='+'): Observable<(Cart | null)[]>{
     if(!this.shopKey){
       return throwError(() => new Error('shop Key not exists'));      
     }
@@ -91,29 +91,34 @@ export class CartService {
     }
 
     let cart: Cart[] = this.getCart();
-
+    
     let cartUpdated= false;
+    
     if(!cart.length && action !== '-'){
+      
       cart = [...[item]];
       localStorage.setItem(`${this.shopKey}-cart`, JSON.stringify(cart));
       this.isUpdated$.next(true);
       return of(cart);
     }else{
+      
       return from(cart).pipe(map(cItem =>{
         if(cItem?.product?.id == item?.product?.id
           && cItem?.product?.shop_product_selected_variant?.id == item?.product?.shop_product_selected_variant?.id){
             switch(action){
               case '+':
-                if(item?.qty && cItem.qty)
+                if(item.qty && cItem.qty){
                   cItem.qty += item?.qty;
-                cartUpdated = true;
+                  cartUpdated = true;
+                }                                  
               break;
               case '-':
-                if(cItem.qty && item.qty)
+                if(cItem.qty && item.qty){
                   cItem.qty -= item.qty;
-                cartUpdated = true;
+                  cartUpdated = true;
+                }
               break;
-              default:
+              default:                
                 cItem.qty = item.qty;
                 cItem.message = item.message;
                 cartUpdated = true;
@@ -124,11 +129,12 @@ export class CartService {
 
         if(cItem.qty && cItem.qty >0){
           if(cItem?.product?.shop_product_selected_variant?.price)
-            cItem.price = (cItem.qty * cItem?.product?.shop_product_selected_variant?.price);          
+            cItem.price = (cItem.qty * cItem?.product?.shop_product_selected_variant?.price);  
+            return cItem;        
         }
+        return null;      
         
-        return cItem;
-      }), toArray(), tap(cartArr=> {
+      }),  toArray(), tap(cartArr=> {
         cartArr = compact(cartArr);
         if(!cartUpdated && action !== '-'){
           cartArr.push(item);

@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 
 const routes: Routes = [
+  // { path: '', loadChildren: () => import('./pages/test/test.module').then(m => m.TestModule) },  
   { path: '', loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule) },            
   { path: 'contact-us', loadChildren: () => import('./pages/contact-us/contact-us.module').then(m => m.ContactUsModule) },         
   { path: 'bag', loadChildren: () => import('./pages/cart-details/cart-details.module').then(m => m.CartDetailsModule) }, 
@@ -20,40 +21,10 @@ const routes: Routes = [
     ]
     
            
-  },  
+  },
+  
 
-  // {
-  //   path: '',
-  //   component: LayoutComponent,
-  //   children:[
-  //     {
-  //       path: '',
-  //       component: HomeComponent,
-  //       resolve:{
-  //         product: ProductResolver
-  //       }
-  //     },
-  //     {
-  //       path: 'search/:q',
-  //       component: SearchResultComponent,
-  //     },
-  //     {
-  //       path: ':catUrl/varities',
-  //       component: HomeComponent,
-  //       resolve:{
-  //         product: ProductResolver
-  //       }
-  //     },
-  //     {
-  //       path: ':catUrl/:productUrl',
-  //       component: ProductDetailsComponent,
-  //       resolve:{
-  //         product: ProductDetailsResolver
-  //       }
-  //     },
-  //   ]
-  // },
-
+  
 
   
 ];

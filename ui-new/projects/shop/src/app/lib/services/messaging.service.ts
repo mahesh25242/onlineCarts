@@ -1,8 +1,10 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Optional } from '@angular/core';
 import { AngularFireMessaging } from '@angular/fire/compat/messaging';
-import { BehaviorSubject, empty, Observable, of } from 'rxjs'
-import { catchError, mergeMap, tap } from 'rxjs/operators';
+import { BehaviorSubject, EMPTY, empty, from, Observable, of } from 'rxjs'
+import { catchError, mergeMap, share, tap } from 'rxjs/operators';
 import { trace } from '@angular/fire/compat/performance';
+import { Messaging, getToken, onMessage,  } from '@angular/fire/messaging';
+import { environment } from '@shop/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,24 +13,35 @@ export class MessagingService {
 
 currentMessage = new BehaviorSubject(null);
 
-token$: Observable<any>;
-message$: Observable<any>;
+token$: Observable<any> = EMPTY;
+message$: Observable<any> = EMPTY;
 showRequest = false;
 
 
 constructor(
-  public readonly angularFireMessaging: AngularFireMessaging,  
+  @Optional() messaging: Messaging, 
   ) {
-    angularFireMessaging.getToken.subscribe(console.log)
-    this.message$ = angularFireMessaging.messages;
-    this.token$ = angularFireMessaging.tokenChanges.pipe(
-      trace('token'),
-      tap(token => this.showRequest = !token)
-    );
+    if (messaging) {
+      this.token$ = from(
+        navigator.serviceWorker.register('firebase-messaging-sw.js', { type: 'module', scope: '__' }).
+          then(serviceWorkerRegistration =>
+            getToken(messaging, {
+              serviceWorkerRegistration,
+              vapidKey: environment.vapidKey,
+            })
+          )).pipe(
+            tap(token => console.log('FCM', {token})),
+            share(),
+          );
+      this.message$ = new Observable(sub => onMessage(messaging, it => sub.next(it))).pipe(
+        tap(token => console.log('FCM', {token})),
+      );
+    }
   }
 
   requestPermission() {
-    return this.angularFireMessaging.requestToken;
+    Notification.requestPermission();
+    // return this.angularFireMessaging.requestToken;
   }
 
 

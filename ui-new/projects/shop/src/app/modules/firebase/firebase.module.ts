@@ -7,21 +7,23 @@ import { getMessaging, provideMessaging } from '@angular/fire/messaging';
 import { FirebaseApps, getApp, initializeApp, provideFirebaseApp } from '@angular/fire/app';
 
 import { getAuth, provideAuth } from '@angular/fire/auth';
-import { BrowserTransferStateModule } from '@angular/platform-browser';
 
 import { FireMessagingComponent } from './fire-messaging/fire-messaging.component';
 import { initializeAuth, browserPopupRedirectResolver, indexedDBLocalPersistence } from '@angular/fire/auth';
 import {  environment }  from '../../../environments/environment';
+import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
   declarations: [  
     FireMessagingComponent
   ],
   imports: [
-    CommonModule,
-    BrowserTransferStateModule     ,
-    provideFirebaseApp(() => initializeApp(  environment.firebaseConfig )),    
-    provideAuth(() => getAuth()),        
+    CommonModule,              
+    
+    // provideAuth(() => getAuth()),  
+    // provideFirebaseApp(() => {
+    //   return initializeApp(  environment.firebaseConfig )
+    // }),    
     // provideMessaging(() => getMessaging()),
   ],
   exports:[

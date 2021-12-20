@@ -1,0 +1,15 @@
+<br/><br/><br/><br/><p>
+  Messaging!
+  <code>{{ token$ | async | slice:0:12 }}<ng-container *ngIf="(token$ | async) !== null">&hellip;</ng-container></code>
+  &nbsp;<code>{{ message$ | async | json }}</code>
+  <button (click)="request()" *ngIf="showRequest">Request FCM token</button>
+</p>
+
+
+<p>
+  Auth!
+  <code>{{ (user | async)?.uid }}</code>
+  <button (click)="login()" *ngIf="showLoginButton">Log in with Google</button>
+  <button (click)="loginAnonymously()" *ngIf="showLoginButton">Log in anonymously</button>
+  <button (click)="logout()" *ngIf="showLogoutButton">Log out</button>
+</p>

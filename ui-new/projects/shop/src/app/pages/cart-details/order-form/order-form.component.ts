@@ -15,12 +15,12 @@ import { GeneralService, ShopService } from '../../../lib/services';
 })
 export class OrderFormComponent implements OnInit {
   customerFrm!: FormGroup;
-  shop$!: Observable<Shop | null>;
+  shop$!: Observable<Shop & {deliveries: ShopDelivery[]}  | null>;
   @Input() lp!: string;
   todayDate:Date = new Date();
   isSlideChecked: boolean = false;
   breakPointObsr$!: Observable<any>;
-
+  
   constructor(
     private formBuilder: FormBuilder,
     private controlContainer: ControlContainer,
@@ -86,7 +86,12 @@ export class OrderFormComponent implements OnInit {
 
     this.customerFrm = <FormGroup>this.controlContainer.control;
     this.f?.['selectedLocation'].setValue(null);
-    this.shop$ = this.shopService.aShop.pipe(mergeMap(res=>{
+    this.shop$ = this.shopService.aShop.pipe(mergeMap((res: any)=>{      
+      if(res?.shop_delivery_filtered){
+        const lp = this.lp as keyof typeof res.shop_delivery_filtered;
+        res = { ...res, ...{deliveries: res?.shop_delivery_filtered?.[lp] }};        
+      }
+          
       return this.generalService.orderFormError$.asObservable().pipe(map(ferr => {
         if(ferr){
           for(let result in this.customerFrm.controls){
@@ -106,6 +111,7 @@ export class OrderFormComponent implements OnInit {
     }));
     this.breakPointObsr$ = this.checkBreakPoint();
 
+    
   }
 
 

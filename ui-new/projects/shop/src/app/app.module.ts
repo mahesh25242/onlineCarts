@@ -2,17 +2,12 @@ import { Injectable, NgModule } from '@angular/core';
 import { BrowserModule, HammerGestureConfig, HammerModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-// import { SharedModuleModule } from 'shared/shared-module/shared-module.module';
-
-
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import * as Hammer from 'hammerjs';
 import { httpInterceptorProviders } from '@shop/app/lib/interceptors';
 
-// import {  FirebaseModule } from './modules';
 
 import layoutComponents from  './lay-out';
 import { SearchBarModule } from './pages/components/search-bar/search-bar.module';
@@ -29,6 +24,9 @@ import { MatListModule } from '@angular/material/list';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { getAuth, provideAuth } from '@angular/fire/auth';
+import { getMessaging, provideMessaging } from '@angular/fire/messaging';
 
 @Injectable({providedIn: 'root'})
 export class MyHammerConfig extends HammerGestureConfig {
@@ -59,12 +57,13 @@ export class MyHammerConfig extends HammerGestureConfig {
     FlexLayoutModule,
     MatListModule,
     MatBadgeModule,
-    MatSnackBarModule,
-    // SharedModuleModule,    
+    MatSnackBarModule,     
     SearchBarModule,
     MatButtonModule,
-            
-    // FirebaseModule,
+
+    provideFirebaseApp(() => initializeApp(  environment.firebaseConfig )),
+    provideAuth(() => getAuth()),
+    provideMessaging(() => getMessaging()),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable

@@ -1,6 +1,6 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { BehaviorSubject, combineLatest, forkJoin, interval, Observable,of,race,Subscription, throwError, zip } from 'rxjs';
-import { mergeMap, map, catchError, delay, withLatestFrom, mergeAll, tap, takeUntil } from 'rxjs/operators';
+import { BehaviorSubject, Observable,Subscription, throwError } from 'rxjs';
+import { mergeMap, map, delay } from 'rxjs/operators';
 import { Cart, CartDetail, Shop, ShopDelivery, ShopOrder } from '../../lib/interfaces';
 import { CartService, GeneralService, ShopService, MessagingService } from '../../lib/services';
 import { environment } from '../../../environments/environment';
@@ -10,13 +10,11 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Router } from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
 import { EditMessageComponent } from './edit-message/edit-message.component';
-import Notiflix from "notiflix";
 import { CurrencyPipe, DatePipe } from '@angular/common'
 import { OrderTermsComponent } from './order-terms/order-terms.component';
 
 // import { AngularFireAnalytics } from '@angular/fire/analytics';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
-import { DeleteConfirmationComponent } from './delete-confirmation/delete-confirmation.component';
 
 @Component({
   selector: 'app-cart-details',
@@ -265,7 +263,7 @@ export class CartDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
   ngOnInit(): void {
 
-    console.log(this.messagingService.token$)
+   
     
     this.cartService.hideCartComponent$.next(true);
 

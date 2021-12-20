@@ -4,8 +4,8 @@
 
      color="primary" class="extended-fab-button animate__animated "
      [ngClass]="{'animate__slideInUp animate__faster': classExists}" routerLink="/bag">
-      <div  class="extend-btn-cart" [ngClass]="!isChanged ? 'animate__animated animate__headShake animate__faster' : ''">
-        <div><mat-icon matBadgeColor="warn" [matBadgeOverlap]="true" matBadgePosition="above after" [matBadge]="cart.length" >shopping_cart</mat-icon></div>
+      <div  class="extend-btn-cart">
+        <div><mat-icon [ngClass]="!isChanged ? 'animate__animated animate__headShake animate__faster' : ''" matBadgeColor="warn" [matBadgeOverlap]="true" matBadgePosition="above after" [matBadge]="cart.length" >shopping_cart</mat-icon></div>
 
         <span class="d-block">{{ total | currency:'INR'}}</span>
 
