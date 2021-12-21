@@ -1,8 +1,8 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
-import { debounceTime, takeUntil, tap } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { GeneralService,  ShopProductService } from '../../../lib/services';
 // import { RecognizedTextAction } from '../../lib/interface/voices';
 // import { SenseService } from '../../lib/services';
@@ -24,7 +24,6 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   constructor(private formBuilder : FormBuilder,    
     private shopProductService: ShopProductService,
     private router: Router,
-    private route: ActivatedRoute,
     private generalService: GeneralService,
     //private senseService: SenseService
     ) {
