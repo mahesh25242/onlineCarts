@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
 
 @Component({
@@ -7,13 +7,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./mobile-search-pop.component.scss']
 })
 export class MobileSearchPopComponent implements OnInit {
-
+  @ViewChild('searchBox') searchBox!: ElementRef;
   constructor(    
   ) {    
   }
 
   ngOnInit(): void {
-    
+    setTimeout(()=>{
+      this.searchBox.nativeElement.focus();
+    },100)
   }
+
+  
+
+  
 
 }

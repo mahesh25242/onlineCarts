@@ -14,7 +14,7 @@ import { TestRoutingModule } from './mobile-search-pop-routing.module';
   imports: [
     CommonModule,
     TestRoutingModule,
-    SharedModuleModule,      
+    SharedModuleModule,    
   ]
 })
 export class MobileSearchPopModule { }

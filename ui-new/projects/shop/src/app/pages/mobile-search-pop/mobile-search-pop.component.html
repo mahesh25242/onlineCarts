@@ -1,14 +1,16 @@
-<div class="full-pg">
+<div class="full-pg" >
   <mat-toolbar>
-    <mat-form-field class="searchBox" appearance="legacy">
+    <mat-form-field class="searchBox" appearance="outline" style="font-size: 12px" fxFill>
       <mat-label>Search Keyword</mat-label>
-      <input matInput autofocus type="search"  placeholder="Ex. Black Forest">
+      <input #searchBox matInput autofocus type="search"  placeholder="Ex. Black Forest" >
       <!-- <button mat-icon-button matSuffix (click)="voice()" *ngIf="(micAccess$ | async)">
         <mat-icon>mic</mat-icon>
       </button> -->
-      <!-- <button mat-icon-button matSuffix type="submit">
+      <button mat-icon-button matSuffix type="submit">
         <mat-icon>search</mat-icon>
-      </button> -->
+      </button>
     </mat-form-field>
   </mat-toolbar>
+
+  
 </div>
