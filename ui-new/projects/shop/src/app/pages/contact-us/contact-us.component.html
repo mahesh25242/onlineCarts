@@ -13,7 +13,7 @@
       <div fxLayout="row wrap"  fxLayout.lt-md="column"  fxLayoutAlign="space-between" class="main-details">
             <div [fxFlex]="(100/3)">
               <h1><mat-icon>mail</mat-icon></h1>
-              <a [href]="'mailto:'+shop?.email+'?subject='+shop?.name+' Enquiry'"  color="primary"
+              <a mat-flat-button color="primary" [href]="'mailto:'+shop?.email+'?subject='+shop?.name+' Enquiry'"  color="primary"
                aria-label="Whatsapp message" >
                 {{shop?.email}}
               </a>
@@ -21,11 +21,11 @@
             </div>
             <div [fxFlex]="(100/3)">
               <h1><mat-icon>call</mat-icon></h1>
-              <a href="javascript:{}"  (click)="openBottomSheet()">
+              <a mat-flat-button color="primary" href="javascript:{}"  (click)="openBottomSheet()">
                 {{ shop?.phone }}
               </a>
 
-              <a [href]="'https://api.whatsapp.com/send?phone='+shop?.phone" mat-mini-fab
+              <a mat-flat-button color="primary" [href]="'https://api.whatsapp.com/send?phone='+shop?.phone" mat-mini-fab
               color="primary" aria-label="Whatsapp message" fxShow fxHide.gt-xs="true" *ngIf="!shop?.isDemoSite">
                 <mat-icon>question_answer</mat-icon>
               </a>
@@ -38,7 +38,7 @@
 
             <div [fxFlex]="(100/3)">
               <h1><mat-icon>place</mat-icon></h1>
-              <a target="_blank" [href]="(shop?.map_url) ? shop?.map_url : 'https://www.google.com/maps/place/'+shop?.address ">
+              <a mat-flat-button color="primary" target="_blank" [href]="(shop?.map_url) ? shop?.map_url : 'https://www.google.com/maps/place/'+shop?.address ">
                 <address>{{ shop?.address }}</address>
                 {{shop?.country?.name}}, {{shop?.state?.name}}, {{shop?.city?.name}} - {{shop?.pin}}
               </a>
@@ -58,7 +58,7 @@
         <div  fxLayout="row wrap"  fxLayout.lt-md="column"  fxLayoutAlign="space-between">
           <div *ngFor="let branch of shop?.branches" [fxFlex]="(100/3)">
             <h3><mat-icon>place</mat-icon> {{ branch.name }}</h3>
-            <a target="_blank" *ngIf="branch.address" [href]="(branch?.map_url) ? branch?.map_url : 'https://www.google.com/maps/place/'+branch.address ">
+            <a mat-flat-button color="primary" target="_blank" *ngIf="branch.address" [href]="(branch?.map_url) ? branch?.map_url : 'https://www.google.com/maps/place/'+branch.address ">
               <address>{{ branch.address }}</address>
             </a>
 

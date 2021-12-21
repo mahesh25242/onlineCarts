@@ -1,5 +1,5 @@
 <div class="carousel-wrap" *ngIf="(slides$ | async) as slides">
-  <carousel [cellsToShow]="1" cellWidth="100%">
+  <carousel [cellsToShow]="1" [arrowsOutside]="true" cellWidth="100%" [autoplay]="true" transitionTimingFunction="ease-in">
     <div class="carousel-cell" *ngFor="let slide of slides; let i = index">
       <img [src]="slide.image">
     </div>

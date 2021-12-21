@@ -1,6 +1,6 @@
 @import '~@angular/material/theming';
-
 @include mat-core();
+
 
 @mixin theming($theme, $typography: null) {
     @include angular-material-theme($theme);
@@ -9,3 +9,4 @@
     }
     /* include mixin from component, if desired*/
 }
+

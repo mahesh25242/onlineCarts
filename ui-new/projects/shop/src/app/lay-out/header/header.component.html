@@ -41,7 +41,7 @@
 
   <div class="flex-right navmenu" fxHide.xs="true">    
     <ng-container *ngIf="pages$ | async as pages">
-      <a matRipple class="main-menu-text-color" *ngFor="let page of pages" [routerLink]="[page.url]" routerLinkActive="active">{{page.name}}</a>
+      <a matRipple class="main-menu-text-color"  [routerLinkActiveOptions]="{exact: true}" *ngFor="let page of pages" [routerLink]="[page.url]" routerLinkActive="active">{{page.name}}</a>
     </ng-container>    
   </div>
 

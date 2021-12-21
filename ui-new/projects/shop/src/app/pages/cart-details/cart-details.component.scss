@@ -42,6 +42,7 @@ mat-card{
 
 
 mat-card{
+  padding: 0;
   &.grid-my-lt-md-list{
     padding: 0px;
     button.itm-block-btn{
@@ -112,5 +113,6 @@ mat-spinner{
 .del-item-bt{
   position: absolute;
   left: 0px;
-  top: 0px;   
+  top: 0px;  
+  background-color: rgba($color: rgb(68, 33, 33), $alpha: 0.5);  
 }

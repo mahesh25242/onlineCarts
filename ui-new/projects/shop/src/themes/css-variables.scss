@@ -1,0 +1,11 @@
+@use '@angular/material' as mat;
+
+:root {
+    --primary: #{mat-color($primary)};
+    --accent: #{mat-color($accent)};
+    --warn: #{mat-color($warn)};
+    --primary-contrast: #{mat.get-color-from-palette($primary, 500)};
+
+  }
+  
+ 

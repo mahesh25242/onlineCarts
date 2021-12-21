@@ -1,7 +1,7 @@
 @import '~@angular/material/theming';
 @import './theme-base';
 
-$primary: mat-palette($mat-amber, 500);
+$primary: mat-palette($mat-amber);
 $accent:  mat-palette($mat-amber, A200, A100, A400);
 $warn:    mat-palette($mat-red, 600);
 $theme:   mat-light-theme($primary, $accent, $warn);
@@ -14,3 +14,5 @@ $custom-typography: mat-typography-config(
 );
 
 @include theming($theme, $custom-typography);
+
+@import './css-variables.scss';

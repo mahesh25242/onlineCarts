@@ -6,6 +6,7 @@ import { Shop } from '../../../lib/interfaces';
 import { GeneralService, ShopService } from '../../../lib/services';
 import { environment } from '../../../../environments/environment';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { faWhatsapp, IconDefinition } from '@fortawesome/free-brands-svg-icons';
 
 @Component({
   selector: 'app-mobile-contact',
@@ -14,6 +15,10 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 })
 export class MobileContactComponent implements OnInit {
   shop$!: Observable<Shop & { isDemoSite?: boolean, whatsappUrl?: string}>;
+  
+  icons: {  wa: IconDefinition} = { wa: faWhatsapp};  
+
+  
   
   constructor(private generalService: GeneralService,
     private shopService: ShopService,

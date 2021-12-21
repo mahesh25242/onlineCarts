@@ -14,3 +14,4 @@ $custom-typography: mat-typography-config(
 );
 
 @include theming($theme, $custom-typography);
+@import './css-variables.scss';

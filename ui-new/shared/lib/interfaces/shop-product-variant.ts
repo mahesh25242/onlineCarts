@@ -16,5 +16,5 @@ export interface ShopProductVariant {
   created_at?: string;
   shop_product?: ShopProduct;
   shop_product_image?: ShopProductImage;
-  shop_product_variant_tag?: any;
+  shop_product_variant_tag?: any[];
 }

@@ -9,7 +9,7 @@
         <span>{{spt?.name}}</span>
     </div>
 
-    <ng-container *ngIf="product.shop_product_selected_variant?.shop_product_variant_tag && product.shop_product_selected_variant?.shop_product_variant_tag.length">
+    <ng-container *ngIf="product.shop_product_selected_variant?.shop_product_variant_tag && product.shop_product_selected_variant?.shop_product_variant_tag!.length">
       <div [fxFlex.gt-sm]="(100/4)" [fxFlex.lt-sm]="(100/2)"
       *ngFor="let shop_product_variant_tag of product.shop_product_selected_variant?.shop_product_variant_tag" fxLayoutAlign="0px 0px">
         <mat-icon color="primary">label_important</mat-icon>

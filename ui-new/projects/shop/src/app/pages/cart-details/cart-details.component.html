@@ -21,7 +21,7 @@
         [ngClass.gt-md]="'grid-my-gt-md-list'" class="full">
 
           <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
-            <a href="javascript:{}" fxFlex.xs="20%" type="button" mat-mini-fab  class="del-item-bt"    color="warn" (click)="deleteItem(item)"
+            <a href="javascript:{}" fxFlex.xs="20%" type="button" mat-icon-button  class="del-item-bt"    color="warn" (click)="deleteItem(item)"
               [matTooltip]="'Remove ' +item?.product?.name+ ' from cart'">
                <mat-icon>delete</mat-icon>
           </a>
