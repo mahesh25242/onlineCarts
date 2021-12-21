@@ -15,7 +15,7 @@ import { GeneralService,  ShopProductService } from '../../../lib/services';
 export class SearchBarComponent implements OnInit, OnDestroy {
   searchFrm!: FormGroup;
   @Input() isHead!: boolean;
-  @Output() closeSearch = new EventEmitter();
+  
   destroy$ = new Subject();
   //recognized$ = this.senseService.getType(RecognizedTextAction);
 
@@ -44,8 +44,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
 
   search(){
     if(this.f?.['q'].value){
-      this.shopProductService.allProduct = [];
-      this.closeSearch.emit(true);
+      this.shopProductService.allProduct = [];      
       this.router.navigate([`/search/${this.f?.['q'].value}`]);
     }
   }

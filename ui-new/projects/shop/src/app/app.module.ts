@@ -27,6 +27,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { getMessaging, provideMessaging } from '@angular/fire/messaging';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @Injectable({providedIn: 'root'})
 export class MyHammerConfig extends HammerGestureConfig {
@@ -60,7 +61,8 @@ export class MyHammerConfig extends HammerGestureConfig {
     MatSnackBarModule,     
     SearchBarModule,
     MatButtonModule,
-
+    ScrollingModule,
+    
     provideFirebaseApp(() => initializeApp(  environment.firebaseConfig )),
     provideAuth(() => getAuth()),
     provideMessaging(() => getMessaging()),

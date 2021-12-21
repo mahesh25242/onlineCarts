@@ -1,12 +1,12 @@
 
 
-<cdk-virtual-scroll-viewport itemSize="1" class="product-viewport" cdkScrollable  (elementScrolled)="handler($event)">
+<!-- <cdk-virtual-scroll-viewport  itemSize="1" class="product-viewport"   (elementScrolled)="handler($event)"> -->
   <div fxLayout="row wrap" fxLayout.xs="column"  *ngIf="(products$ | async) as products else noProduct">    
       <div class="product-itm"  [fxFlex.gt-sm]="(100/4)" [fxFlex.sm]="(100/2)"  *ngFor="let product of allProduct">      
         <app-product-item [shopProduct]="product"></app-product-item>
       </div>    
   </div>
-</cdk-virtual-scroll-viewport>  
+<!-- </cdk-virtual-scroll-viewport>   -->
   <ng-template #noProduct>
     <div class="alert alert-warning">No product found</div>
   </ng-template>

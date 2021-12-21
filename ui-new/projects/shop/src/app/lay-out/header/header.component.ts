@@ -16,7 +16,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   bc$!: Observable<BC | null>;
   title : string | null | undefined= environment.siteName;
   @Output() public sidenavToggle = new EventEmitter();
-  isSearch: boolean = false;
+  
 
   pages$: Observable<any> | null= null;
   isDemoSite: boolean = false;
@@ -32,9 +32,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     }
 
-    showSearch(){
-      this.isSearch = !this.isSearch
-    }
+   
 
   ngOnInit(): void {
     this.isDemoSite = (environment.shopKey == environment.demoShopKey);
