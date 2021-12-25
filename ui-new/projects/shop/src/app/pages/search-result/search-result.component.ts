@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { BehaviorSubject, EMPTY, Observable } from 'rxjs';
 import { mergeMap, tap } from 'rxjs/operators';
 import { ShopProductCategory, ShopProductWithPagination } from '../../lib/interfaces';
 import { GeneralService, ShopProductCategoryService, ShopProductService } from '../../lib/services';
@@ -8,6 +8,7 @@ import { environment } from '../.././../environments/environment';
 import uniq from 'lodash/uniq';
 import { MatDialog } from '@angular/material/dialog';
 import { SearchFilterComponent } from './search-filter/search-filter.component';
+
 
 
 @Component({
@@ -33,6 +34,7 @@ export class SearchResultComponent implements OnInit {
     private shopProductCategoryService: ShopProductCategoryService,
     public dialog: MatDialog,
     private generalService: GeneralService,
+    private router: Router,
     @Inject('NotiflixService') public notiflix: any) { }
 
 
@@ -47,9 +49,12 @@ export class SearchResultComponent implements OnInit {
         data: {varients: this.varients,  selectedItems: this.selectedItems}
       });
 
-      dialogRef.afterClosed().subscribe(result => {
-        if(result)
-          this.ngOnInit();
+      dialogRef.afterClosed().pipe(mergeMap(res=>{
+        if(res) return this.route.params
+        return EMPTY
+      })).subscribe(result => {                     
+        const parms  =  {...this.selectedItems, ...{sort: this.selectedItems.sort?.name, sortField:  this.selectedItems.sort?.type}};
+        this.router.navigate([`/search/${result?.['q']}`, parms]);                            
       });
 
     }
@@ -62,34 +67,49 @@ export class SearchResultComponent implements OnInit {
     }
 
   ngOnInit(): void {
+    // console.log(1)
+    // this.shopProductService.resetShowProducts();
 
-    this.products$ = this.route.params.pipe(mergeMap(res=>{
-        this.notiflix.loading.standard();
-        const postData = {
-          q: res?.['q'],
-          pageSize : 50,
-          selectedItems: this.selectedItems
-        }
+    
+    // this.products$ = this.route.params.pipe(mergeMap(res=>{
+    //     this.notiflix.loading.standard();        
+    //     const parms = {
+    //       categories: res?.['categories']?.split(',').filter((x:string) => x != '0').map((x: string) => +x) ?? [],
+    //       priceFrom: res?.['priceFrom'] ?? '',
+    //       priceTo: res?.['priceTo'] ?? '',
+    //       productTags: res?.['productTags']?.split(',').filter((x:string) => x != '0').map((x: string) => +x) ?? [],
+    //       sort: { name: res?.['sort'] ?? 'name', type: res?.['sortField'] ?? 'ASC'},
+    //       varients: res?.['varients']?.split(',').filter((x:string) => x != '0').map((x: string) => +x) ?? [],
+    //     };
 
-        this.generalService.bc$.next({
-          siteName: environment.siteName ?? '',
-          title: `${res?.['q']}`,
-          url:'',
-          backUrl: `/`,
-          other: res
-        });
+    //     this.selectedItems = {...parms};
+    //     console.log(this.selectedItems)
+    //     const postData = {
+    //       q: res?.['q'],
+    //       pageSize : 50,
+    //       selectedItems: parms
+    //     }
 
-        return this.shopProductService.showProducts(1, postData);
-      }), tap(res=> {
-        res?.data?.map(pdt =>{
-          pdt?.shop_product_variant?.map(spv=>{
-            this.varients.push(spv?.name!.toLowerCase());
-          })
-        })
-        this.varients = uniq(this.varients);
+    //     this.generalService.bc$.next({
+    //       siteName: environment.siteName ?? '',
+    //       title: `${res?.['q']}`,
+    //       url:'',
+    //       backUrl: `/`,
+    //       other: res
+    //     });
 
-        this.notiflix.loading.remove();
-      }));
+    //     return this.shopProductService.showProducts(1, postData);
+    //   }), tap(res=> {
+        
+    //     res?.data?.map(pdt =>{
+    //       pdt?.shop_product_variant?.map(spv=>{
+    //         this.varients.push(spv?.name!.toLowerCase());
+    //       })
+    //     })
+    //     this.varients = uniq(this.varients);
+
+    //     this.notiflix.loading.remove();
+    //   }));
 
       this.categories$ = this.shopProductCategoryService.categories;
 

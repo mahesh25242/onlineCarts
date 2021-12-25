@@ -13,8 +13,7 @@ export class HomeProductsResolver implements Resolve<any> {
     private shopProductService: ShopProductService,
     private shopProductCategoryService: ShopProductCategoryService) { }
 
-  resolve(route: ActivatedRouteSnapshot): Observable<any> {
-
+  resolve(route: ActivatedRouteSnapshot): Observable<any> {    
     if(route.params?.['catUrl']){
       this.shopProductService.allProduct = [];
       return  this.shopProductCategoryService.showCategories().pipe(mergeMap(res=>{

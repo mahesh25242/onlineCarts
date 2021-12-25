@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { map, share, tap } from 'rxjs/operators';
+import { CacheService } from '../cache/core';
+import { HttpRequestCache } from '../cache/utils';
 import { ShopOrder, ShopProduct, ShopProductWithPagination } from '../interfaces';
 
 @Injectable({
@@ -11,8 +13,10 @@ export class ShopProductService {
   allProduct: ShopProduct[] = [];
   filters: any;
   private products$: BehaviorSubject<ShopProductWithPagination | null> = new BehaviorSubject<ShopProductWithPagination | null>(null);
-
-  constructor(private http: HttpClient) { }
+  private readonly refreshProductsSubject = new Subject();
+  
+  constructor(private http: HttpClient,
+    private readonly cache: CacheService,) { }
 
   get products(){
     return this.products$.asObservable();
@@ -37,11 +41,21 @@ export class ShopProductService {
     return this.http.post<any>(`/shop/products/changeStatus`, postData);
   }
 
-  showProducts(page:number= 1,postData: any = null): Observable<ShopProductWithPagination>{
+  @HttpRequestCache<ShopProductService>(function() {
+    return {
+      storage: this.cache,
+      refreshSubject: this.refreshProductsSubject
+    };
+  })
+  showProducts(page:number= 1,postData: any = null): Observable<ShopProductWithPagination>{     
     return this.http.post<ShopProductWithPagination>(`/shop/product/showProducts${(page) ? `?page=${page}` : ''}`, postData).pipe(map(res=>{
       this.products$.next(res);
       return res;
     }));
+  }
+
+  resetShowProducts(){
+    this.refreshProductsSubject.next(null);
   }
 
   showProductDetails(postData: any = null): Observable<ShopProduct>{

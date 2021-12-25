@@ -56,7 +56,7 @@ export class SearchFilterComponent implements OnInit {
 
     changePrice(){
 
-      console.log(this.selectedItems)
+      // console.log(this.selectedItems)
       let filtered:string[] | null = this.fitered$.getValue() ?? [];
       if(filtered.includes("price") &&
       (this.selectedItems.priceFrom == this.options.floor && this.selectedItems.priceTo == this.options.ceil) ){
@@ -102,7 +102,7 @@ export class SearchFilterComponent implements OnInit {
 
       this.selectedItems.priceFrom = this.selectedItems.priceFrom ?? this.options.ceil;
       this.selectedItems.priceTo = this.selectedItems.priceTo ?? this.options.floor;
-      console.log(this.selectedItems, this.options)
+      // console.log(this.selectedItems, this.options)
 
     }));
 

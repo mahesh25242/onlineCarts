@@ -2,7 +2,7 @@
 
 <!-- <cdk-virtual-scroll-viewport  itemSize="1" class="product-viewport"   (elementScrolled)="handler($event)"> -->
   <div fxLayout="row wrap" fxLayout.xs="column"  *ngIf="(products$ | async) as products else noProduct">    
-      <div class="product-itm"  [fxFlex.gt-sm]="(100/4)" [fxFlex.sm]="(100/2)"  *ngFor="let product of allProduct">      
+      <div class="product-itm"  [fxFlex.gt-sm]="(100/4)" [fxFlex.sm]="(100/2)"  *ngFor="let product of products.data">      
         <app-product-item [shopProduct]="product"></app-product-item>
       </div>    
   </div>

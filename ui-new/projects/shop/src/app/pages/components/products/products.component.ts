@@ -1,13 +1,12 @@
-import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
-import { Observable, pipe, Subscription } from 'rxjs';
+import { AfterContentInit, Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 import { ShopProduct, ShopProductWithPagination } from '../../../lib/interfaces';
 import { ShopProductService, CartService, GeneralService, ShopProductCategoryService } from '../../../lib/services';
 import { environment } from '../../../../environments/environment';
-import Notiflix from "notiflix";
 import { ActivatedRoute } from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
 import first from 'lodash/first';
-import { map, mergeMap, tap } from 'rxjs/operators';
+import { map, mergeMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-products',
@@ -27,7 +26,7 @@ export class ProductComponent implements OnInit, OnDestroy {
   productFetchUnsbscr!: Subscription;
   constructor(private shopProductService: ShopProductService,
     private cartService: CartService,
-    private route: ActivatedRoute,
+    public route: ActivatedRoute,
     public dialog: MatDialog,
     private generalService: GeneralService,
     private shopProductCategoryService: ShopProductCategoryService,
@@ -73,40 +72,64 @@ export class ProductComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
+    // this.shopProductService.allProduct = [];
+    // this.route.params.subscribe(console.log)
+    // this.products$ = this.shopProductService.products.pipe(mergeMap(res=>{
+    //   this.current_page = (res?.current_page && res?.next_page_url) ? res?.current_page : 0;
+    //   const product:ShopProduct | undefined = first(res?.data);
+    //   if(!this.isSearch){
+    //     this.shopProductCategoryService.selectedCategory$.next(product?.shop_product_category);
+    //   }else{
+    //     this.shopProductCategoryService.selectedCategory$.next(null);
+    //   }
 
-    this.shopProductService.allProduct = [];
-    this.products$ = this.shopProductService.products.pipe(mergeMap(res=>{
-      this.current_page = (res?.current_page && res?.next_page_url) ? res?.current_page : 0;
-      const product:ShopProduct | undefined = first(res?.data);
+    //   if(res?.data){
+    //     res.data.map(itm =>{
+    //       this.shopProductService.allProduct.push(itm);
+    //     });
+    //   }
+      
+     
+
+    //   return this.route.params.pipe(map(parms=>{
+    //     if(!parms?.['q']){
+    //       this.generalService.bc$.next({
+    //         siteName: environment.siteName ?? '',
+    //         title: product?.shop_product_category?.name ?? '',
+    //         url:'',
+    //         backUrl: ''
+    //       });
+    //     }
+
+    //     return (res?.data && res?.data.length) ? res: null;
+
+    //   }));
+
+
+
+    // }));
+
+
+    this.products$ = this.route.params.pipe(map(parms =>{
+      const product:ShopProduct | undefined = first(this.route.snapshot.data?.['product']?.data);
+
       if(!this.isSearch){
         this.shopProductCategoryService.selectedCategory$.next(product?.shop_product_category);
       }else{
         this.shopProductCategoryService.selectedCategory$.next(null);
       }
-
-      if(res?.data){
-        res.data.map(itm =>{
-          this.shopProductService.allProduct.push(itm);
+      
+      if(!parms?.['q']){
+        this.generalService.bc$.next({
+          siteName: environment.siteName ?? '',
+          title: product?.shop_product_category?.name ?? '',
+          url:'',
+          backUrl: ''
         });
       }
-      this.allProduct = this.shopProductService.allProduct;
-
-      return this.route.params.pipe(map(parms=>{
-        if(!parms?.['q']){
-          this.generalService.bc$.next({
-            siteName: environment.siteName ?? '',
-            title: product?.shop_product_category?.name ?? '',
-            url:'',
-            backUrl: ''
-          });
-        }
-
-        return (res?.data && res?.data.length) ? res: null;
-
-      }));
-
-
-
+      // alert(1)
+// console.log(this.route.snapshot.data?.['product'])
+      return this.route.snapshot.data?.['product'];
     }));
   }
 
@@ -118,4 +141,6 @@ export class ProductComponent implements OnInit, OnDestroy {
       this.productFetchUnsbscr.unsubscribe();
     }
   }
+
+  
 }
