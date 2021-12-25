@@ -40,7 +40,7 @@ export class SearchProductsResolver implements Resolve<any> {
             title: postData.q,
             url:'',
             backUrl: `/`,
-            other: parms
+            other: {...parms, ...{q : postData.q}}
           })
     return this.shopProductService.showProducts(1, postData).pipe(take(1));
 
