@@ -6,17 +6,18 @@ import { take } from 'rxjs/operators';
 import { GeneralService, ShopProductService } from '../../lib/services';
 
 @Injectable()
-export class SearchProductsResolver implements Resolve<any> {
+export class SearchProductsVarientsResolver implements Resolve<any> {
 
   constructor(
     private shopProductService: ShopProductService,
     private generalService: GeneralService) { }
 
   resolve(route: ActivatedRouteSnapshot): Observable<any> {        
-    
+
+    console.log(route?.data)
     const cats = (route.params?.['categories']) ? route.params?.['categories']?.split(',').filter((x:string) => x != '0').map((x: string) => +x) : [];    
     const productTags = (route.params?.['productTags']) ? route.params?.['productTags']?.split(',').filter((x:string) => x != '0').map((x: string) => +x) : [];
-    const varients = (route.params?.['varients']) ? route.params?.['varients']?.split(',') : [];
+    const varients = (route.params?.['varients']) ? route.params?.['varients']?.split(',').filter((x:string) => x != '0').map((x: string) => +x) : [];
 
     const parms = {
       categories: cats,

@@ -47,9 +47,9 @@ class ShopProductController extends Controller
                 $products = $products->whereIn("shop_product_category_id", $request->input("selectedItems.categories", []));
             }
 
-            if($request->input("selectedItems.priceFrom", null) && $request->input("selectedItems.priceTo", null)){
+            if($request->input("selectedItems.priceFrom", 0) || $request->input("selectedItems.priceTo", 0)){
                 $products = $products->whereHas("shopProductVariant", function($q) use($request){
-                    $q->whereBetween("price", [ $request->input("selectedItems.priceFrom", null) , $request->input("selectedItems.priceTo", null) ]);
+                    $q->whereBetween("price", [ $request->input("selectedItems.priceFrom", 0) , $request->input("selectedItems.priceTo", 0) ]);
                 });
             }
 
@@ -138,7 +138,16 @@ class ShopProductController extends Controller
 
 
         $shopProductTags = ($shop->shopCategory) ? $shop->shopCategory->shopProductTag : null;
-        $shopProductVarientTags = ($shop->shopCategory) ? $shop->shopCategory->shopProductVariantTag : null;
+
+        $shopProductVarientTags = \App\Models\ShopProductVariantTag::where("shop_category_id", 0)->get();
+
+        if($shop->shopCategory && $shop->shopCategory->shopProductVariantTag){
+            if($shopProductVarientTags)
+                $shopProductVarientTags =  array_merge($shopProductVarientTags->toArray(), $shop->shopCategory->shopProductVariantTag->toArray()) ;
+            else
+                $shopProductVarientTags = $shop->shopCategory->shopProductVariantTag;
+        }
+        
         return response([
             "max_price" => $maxPrice,
             "min_price" => $minPrice,

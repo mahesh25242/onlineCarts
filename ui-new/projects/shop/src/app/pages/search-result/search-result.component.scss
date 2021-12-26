@@ -1,3 +1,6 @@
+.sr-wrap{
+  margin-top: 70px;
+}
 mat-drawer {
   padding:20px;
   width: 60%;
@@ -16,7 +19,7 @@ mat-drawer {
   position: fixed;
   z-index: 5;
   left: 0px;
-  top: 4em;
+  top: 56px;
   width: 100%;
 
   button{

@@ -3,11 +3,14 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { SearchProductsResolver } from './search-products-resolver';
 
+
 import { SearchResultComponent } from './search-result.component';
 
 
 const routes: Routes = [{ path: '', component: SearchResultComponent,
- resolve: { product: SearchProductsResolver } 
+ resolve: { 
+   product: SearchProductsResolver,   
+  } 
 }];
 
 @NgModule({

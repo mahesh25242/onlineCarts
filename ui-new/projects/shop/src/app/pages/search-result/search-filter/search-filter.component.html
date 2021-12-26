@@ -22,10 +22,17 @@
 
   <div *ngIf="varients && varients.length" class="w-90">
     <h3>Varients</h3>
-    <mat-chip-list aria-label="Fish selection" [multiple]="true" >
+    <mat-selection-list #productCats [(ngModel)]="selectedItems.varients" >
+      <mat-list-option *ngFor="let variant of varients"  [value]="variant">
+        {{variant}}
+      </mat-list-option>
+    </mat-selection-list>
+
+    
+    <!-- <mat-chip-list aria-label="Fish selection" [multiple]="true" >
       <mat-chip *ngFor="let variant of varients"
         [selected]="(selectedItems?.varients.includes(variant))" (click)="searchSelect(variant, 'varients')">{{variant}}</mat-chip>
-    </mat-chip-list>
+    </mat-chip-list> -->
   </div>
 
   <ng-container *ngIf="filters$ | async as filters">
@@ -55,6 +62,7 @@
 
 </mat-dialog-content>
 <mat-dialog-actions align="end">
+  <button mat-button color="warn" [mat-dialog-close]="'reset'">Clear Filter</button>
   <button mat-button mat-dialog-close>Cancel</button>
   <button mat-raised-button color="primary" [mat-dialog-close]="selectedItems" cdkFocusInitial>Search</button>
 </mat-dialog-actions>

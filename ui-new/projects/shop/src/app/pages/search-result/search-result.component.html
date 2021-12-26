@@ -1,5 +1,5 @@
 <!-- *ngIf="(products$ | async) else loading" -->
-<ng-container  >
+<div class="sr-wrap">
   <div  fxHide.gt-xs="true" class="search-filter">
     <ng-container *ngTemplateOutlet="sortTemplate; context: {$implicit: selectedItems}">
     </ng-container>
@@ -18,7 +18,7 @@
   <div class="container" >
     <app-products [isSearch]="true"></app-products>
   </div>
-</ng-container>
+</div>
 <ng-template #loading>
   <div class="container">
     <mat-spinner></mat-spinner>

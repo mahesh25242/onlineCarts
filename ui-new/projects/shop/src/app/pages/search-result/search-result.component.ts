@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { BehaviorSubject, EMPTY, Observable } from 'rxjs';
 import { mergeMap, tap } from 'rxjs/operators';
-import { ShopProductCategory, ShopProductWithPagination } from '../../lib/interfaces';
+import { ShopProduct, ShopProductCategory, ShopProductWithPagination } from '../../lib/interfaces';
 import { GeneralService, ShopProductCategoryService, ShopProductService } from '../../lib/services';
 import { environment } from '../.././../environments/environment';
 import uniq from 'lodash/uniq';
@@ -44,16 +44,28 @@ export class SearchResultComponent implements OnInit {
     }
 
     openFilter(){
+      
       const dialogRef = this.dialog.open(SearchFilterComponent, {
         width: '400px',
         data: {varients: this.varients,  selectedItems: this.selectedItems}
       });
 
-      dialogRef.afterClosed().pipe(mergeMap(res=>{
+      let reset = false;
+      dialogRef.afterClosed().pipe(mergeMap(res=>{     
+        reset   = (res && res =='reset') ? true : false;
         if(res) return this.route.params
         return EMPTY
-      })).subscribe(result => {                     
+      })).subscribe(result => {             
+        if(reset) {
+          this.selectedItems.categories = [];
+          this.selectedItems.priceFrom = 0;
+          this.selectedItems.priceTo = 0;
+          this.selectedItems.varients = [];          
+          reset = false;
+        }
+
         const parms  =  {...this.selectedItems, ...{sort: this.selectedItems.sort?.name, sortField:  this.selectedItems.sort?.type}};
+        
         this.router.navigate([`/search/${result?.['q']}`, parms]);                            
       });
 
@@ -63,7 +75,11 @@ export class SearchResultComponent implements OnInit {
     sortIt(name: string = 'name', type: string = 'ASC'){
       this.selectedItems.sort!.name= name;
       this.selectedItems.sort!.type= type;
-      this.ngOnInit();
+      this.route.params.subscribe(res=>{
+        const parms  =  {...this.selectedItems, ...{sort: this.selectedItems.sort?.name, sortField:  this.selectedItems.sort?.type}};
+
+        this.router.navigate([`/search/${res?.['q']}`, parms]);  
+      });            
     }
 
   ngOnInit(): void {
@@ -111,7 +127,16 @@ export class SearchResultComponent implements OnInit {
     //     this.notiflix.loading.remove();
     //   }));
 
-      this.categories$ = this.shopProductCategoryService.categories;
+    this.route.snapshot.data?.['product']?.data.map((pdt:ShopProduct) =>{
+      pdt?.shop_product_variant?.map(spv=>{
+        this.varients.push(spv?.name!.toLowerCase());
+      })
+      
+    })
+
+    this.varients = uniq(this.varients);
+
+    this.categories$ = this.shopProductCategoryService.categories;
 
   }
 
