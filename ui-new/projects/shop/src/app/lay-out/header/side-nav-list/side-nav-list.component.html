@@ -1,7 +1,7 @@
 <mat-nav-list>
   <ng-container *ngIf="pages$ | async as pages">
-    <a mat-list-item *ngFor="let page of pages" [routerLink]="[page.url]" routerLinkActive="active"   (click)="onSidenavClose()">
-      <mat-icon>assignment_ind</mat-icon><span class="nav-caption" [innerHTML]="page.name"></span>
+    <a mat-list-item [routerLinkActiveOptions]="{exact: true}" *ngFor="let page of pages" [routerLink]="[page.url]" routerLinkActive="active"   (click)="onSidenavClose()">
+      <span class="nav-caption" [innerHTML]="page.name"></span>
     </a>
   </ng-container>
 </mat-nav-list>

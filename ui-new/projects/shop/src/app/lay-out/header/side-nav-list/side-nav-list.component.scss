@@ -4,7 +4,10 @@ a{
   .nav-caption{
     text-transform: uppercase;
   }
-
+  &.active{
+    font-weight: lighter; 
+    color: var(--primary-contrast);  
+  }
 }
 
 
