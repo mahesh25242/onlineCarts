@@ -8,6 +8,7 @@ import {
   NavigationStart,
   Router
 } from '@angular/router';
+import { SwUpdate } from '@angular/service-worker';
 
 import { Observable, of, Subscription } from 'rxjs';
 import { map, mergeMap, tap } from 'rxjs/operators';
@@ -49,6 +50,7 @@ onScroll(event:any) {
     this.lastScroll = event.target.scrollTop;
     if(document.getElementById('botmanWidgetRoot') && !document.getElementById('opened')){
       const botmanWidgetRoot = document.getElementById('botmanWidgetRoot');
+      
       if(botmanWidgetRoot)
         botmanWidgetRoot.style.display = 'block';
     }
@@ -85,25 +87,25 @@ onScroll(event:any) {
   constructor(public router: Router,
     private generalService: GeneralService,
     private themeService: ThemeService,
-    // private swUpdate: SwUpdate,
+    private swUpdate: SwUpdate,
     // private messagingService: MessagingService,
     private matSnackBar: MatSnackBar,
     private shopService: ShopService,
     private cartService: CartService,    
     private cmsService: CmsService) {
 
-      // swUpdate.available.subscribe(event => {
-      //   console.log('current version is', event.current);
-      //   console.log('available version is', event.available);
-      // });
-      // swUpdate.activated.subscribe(event => {
-      //   console.log('old version was', event.previous);
-      //   console.log('new version is', event.current);
-      // });
+      swUpdate.available.subscribe(event => {
+        console.log('current version is', event.current);
+        console.log('available version is', event.available);
+      });
+      swUpdate.activated.subscribe(event => {
+        console.log('old version was', event.previous);
+        console.log('new version is', event.current);
+      });
 
-      // swUpdate.available.subscribe(event => {
-      //     swUpdate.activateUpdate().then(() => this.updateApp());
-      // });
+      swUpdate.available.subscribe(event => {
+          swUpdate.activateUpdate().then(() => this.updateApp());
+      });
 
     this.router.events.subscribe((event: Event) => {
       switch (true) {
@@ -152,10 +154,6 @@ onScroll(event:any) {
       }
 
     }, false);
-
-    // this.shop$ = this.shopService.shopDetail().pipe(tap(res=>{
-    //   document.body.className += ` ${res?.shop_theme?.theme?.class}`;
-    // }))
 
     this.shopUnsbScr = this.shopService.aShop.pipe(mergeMap(res=>{       
       this.themeService._currentTheme$.next(res?.shop_theme?.theme?.class);   

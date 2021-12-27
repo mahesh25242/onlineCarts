@@ -1,6 +1,6 @@
 <div class="header-inner"></div>
 
-<div class="container" *ngIf="breakPointObsr$ | async as bp">
+<div class="cart-container" *ngIf="breakPointObsr$ | async as bp">
   <ng-container *ngIf="(cartDetails$ | async) as cartDetails else loading">
 
     <div fxLayout="row" fxLayoutAlign="space-between" *ngIf="cartDetails?.carts && cartDetails?.carts!.length">
@@ -17,8 +17,8 @@
           My Cart ( {{cartDetails?.carts!.length}} )
         </h1>
         <mat-card *ngFor="let item of cartDetails?.carts"
-        [ngClass.lt-md]="'grid-my-lt-md-list'"
-        [ngClass.gt-md]="'grid-my-gt-md-list'" class="full">
+        [ngClass.lt-sm]="'grid-my-lt-md-list'"
+        [ngClass.gt-xs]="'grid-my-gt-md-list'" class="full">
 
           <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
             <a href="javascript:{}" fxFlex.xs="20%" type="button" mat-icon-button  class="del-item-bt"    color="warn" (click)="deleteItem(item)"
@@ -32,7 +32,7 @@
                 </div>
               </a>
             </div>
-            <div fxFlex="85%" fxFlex.xs="100%">
+            <div fxFlex="85%" fxFlex.xs="100%"  class="pdt-det" >
               <div >
                 <h4 class="cart-item-header pl-1 container">
                   <a class="primary-text-color" href="javascript:{}"

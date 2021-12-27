@@ -26,7 +26,8 @@ import { MatBottomSheet } from '@angular/material/bottom-sheet';
 export class CartDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
   customerFrm!: FormGroup;
 
-
+  botmanWidgetRoot:any;
+  
 
   cart$!: Observable<Cart[]>;
   total:number = 0;
@@ -262,8 +263,10 @@ export class CartDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
     ]);
   }
   ngOnInit(): void {
-
-   
+    this.botmanWidgetRoot = document.getElementById('botmanWidgetRoot')
+   if(this.botmanWidgetRoot){
+    this.botmanWidgetRoot?.classList.add('botman-in-cart');
+   }
     
     this.cartService.hideCartComponent$.next(true);
 
@@ -303,6 +306,11 @@ export class CartDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
 
     if(this.sentToShop){
       this.sentToShop.unsubscribe();
+    }
+
+    this.botmanWidgetRoot = document.getElementById('botmanWidgetRoot')
+    if(this.botmanWidgetRoot){
+      this.botmanWidgetRoot?.classList.remove('botman-in-cart');
     }
 
   }
