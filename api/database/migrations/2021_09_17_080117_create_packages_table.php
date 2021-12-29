@@ -20,6 +20,7 @@ class CreatePackagesTable extends Migration
             $table->double('price', 8, 2)->nullable();
             $table->integer('duration')->nullable();
             $table->boolean('status')->default(1);
+            $table->string('plan_id')->nullable();
             $table->timestamps();
         });
     }

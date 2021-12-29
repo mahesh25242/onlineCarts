@@ -33,6 +33,7 @@ export class EditPackageComponent implements OnInit {
       price: this.f?.['price'].value,
       duration: this.f?.['duration'].value,
       status: this.f?.['status'].value,
+      plan_id: this.f?.['plan_id'].value,
     };
     this.packageService.save(postData).pipe(mergeMap((res) =>{
       return this.packageService.listAllPackages().pipe(map(pkgs => res));
@@ -69,6 +70,7 @@ export class EditPackageComponent implements OnInit {
       price: [this.pkg?.price, []],
       duration: [this.pkg?.duration, []],
       status: [this.pkg?.status ?? 1, []],
+      plan_id: [this.pkg?.plan_id ?? '', []],
     });
   }
 

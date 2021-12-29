@@ -32,7 +32,7 @@ class PlanPurchaseListener
     public function handle(PlanPurchaseEvent $event)
     {
 
-        if($event->shopRenewal->id ){
+        if($event->shopRenewal->id && $event->shopRenewal->status == 1){
             $settings = \App\Models\Setting::whereIn("name", ["site_name", "email", "mobile", "address"])->get();
             $generalSettings = [];
             foreach($settings as $setting){

@@ -7,6 +7,8 @@ import { RenewPackageRoutingModule } from './renew-package-routing.module';
 import { RenewPackageComponent } from './renew-package.component';
 import { ChoosePackageComponent } from './choose-package/choose-package.component';
 
+import { FirebaseModule } from '@shop/app/modules/razor-gateway/razor-gateway.module'
+
 @NgModule({
   declarations: [
     RenewPackageComponent,
@@ -16,7 +18,8 @@ import { ChoosePackageComponent } from './choose-package/choose-package.componen
     CommonModule,
     RenewPackageRoutingModule,
     SharedModuleModule,
-    UploadImageModule
+    UploadImageModule,
+    FirebaseModule
   ]
 })
 export class RenewPackageModule { }

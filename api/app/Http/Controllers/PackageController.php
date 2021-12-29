@@ -52,6 +52,7 @@ class PackageController extends Controller
         $package->price = $request->input("price", '');
         $package->duration = $request->input("duration", '');
         $package->status = $request->input("status", '');
+        $package->plan_id = $request->input("plan_id", '');
         $package->save();
 
         return response([

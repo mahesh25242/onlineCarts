@@ -56,6 +56,17 @@
     </mat-error>
   </mat-form-field>
 
+
+  <mat-form-field class="full-width-text" appearance="standard" fxFill>
+    <mat-label>Plan Id</mat-label>
+    <input type="text" autocomplete="plan_id" matInput formControlName="plan_id" 
+    placeholder="Plan Id"  maxlength="200">
+    <mat-hint>Its the plan id of razorpay site</mat-hint>
+    <mat-hint align="end" *ngIf="f?.['plan_id']?.value?.length">{{f?.['plan_id']?.value?.length}} / 200</mat-hint>
+    <mat-error *ngIf="f?.['plan_id']?.errors && f?.['plan_id']?.errors?.['error']">
+      {{f?.['plan_id']?.errors?.['error']}}
+    </mat-error>
+  </mat-form-field>
 </div>
 <div mat-dialog-actions>
   <button mat-stroked-button color="primary" mat-dialog-close>Close</button>

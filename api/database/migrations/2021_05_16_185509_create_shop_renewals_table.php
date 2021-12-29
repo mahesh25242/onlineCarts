@@ -24,6 +24,8 @@ class CreateShopRenewalsTable extends Migration
             $table->string('attachement')->nullable();
             $table->string('comments')->nullable();
             $table->double('coins_used', 8 , 2)->nullable();
+            $table->string('order_id')->nullable();
+            $table->string('payment_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

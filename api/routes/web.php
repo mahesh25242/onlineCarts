@@ -103,12 +103,16 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
     });
 
 
-
+    // $router->get('createPackageOrder','RazorpayController@createPackageOrder');
+    // $router->get('paymentSuccess','RazorpayController@paymentSuccess');
     $router->group(['middleware' => 'auth'], function () use ($router) {
 
 
 
         $router->group(['middleware' =>  'adminAndShop'], function () use ($router) {
+            $router->post('createPackageOrder','RazorpayController@createPackageOrder');
+            $router->post('paymentSuccess','RazorpayController@paymentSuccess');
+
             $router->post('sentOnWhatsapp','WhatsupAddPhoneController@save');
 
             $router->get('authUser','UsersController@authUser');

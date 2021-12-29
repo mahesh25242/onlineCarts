@@ -22,13 +22,14 @@ class ShopRenewal extends Model implements AuthenticatableContract, Authorizable
      * @var array
      */
     protected $fillable = [
-        'shop_id', 'amount', 'from_date', 'to_date', 'status','package_id', 'attachement', 'comments'
+        'shop_id', 'amount', 'from_date', 'to_date', 'status','package_id', 'attachement', 'comments', 'coins_used', 'order_id'
     ];
     protected $casts = [
         'shop_id' => 'integer',
         'amount' => 'double',
         'status' => 'boolean',
-        'package_id' =>'integer'
+        'package_id' =>'integer',
+        'coins_used' => 'double'
     ];
     protected $appends = array('remaining_days', 'show_message', 'show_message_days');
 

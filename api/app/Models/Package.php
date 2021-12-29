@@ -20,7 +20,7 @@ class Package extends Model implements AuthenticatableContract, AuthorizableCont
      * @var array
      */
     protected $fillable = [
-        'name', 'description', 'price', 'duration', 'status'
+        'name', 'description', 'price', 'duration', 'status', 'plan_id'
     ];
 
 
