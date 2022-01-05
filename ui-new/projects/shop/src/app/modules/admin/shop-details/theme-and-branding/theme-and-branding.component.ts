@@ -4,6 +4,7 @@ import { Shop, Theme } from '../../../../lib/interfaces';
 import { ShopService, ThemeService } from '../../../../lib/services';
 import { mergeMap, tap } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-theme-and-branding',
@@ -23,13 +24,22 @@ export class ThemeAndBrandingComponent implements OnInit {
     private shopService: ShopService,    
     private _snackBar: MatSnackBar,
     @Inject('NotiflixService') public notiflix: any,
-    @Inject('UploadImageService') public uploadImage: any) { }
+    @Inject('UploadImageService') public uploadImage: any,
+    private meta: Meta) { }
 
   chooseTheme(){
     this.notiflix.loading.standard();    
     this.themeService.saveTheme(this.theme_id).pipe(mergeMap(res=>{
       return this.shopService.shopDetail().pipe(tap(res=>{
-        document.body.className = `mat-typography ${res?.shop_theme?.theme?.class}`;
+        if(res?.bg_color){
+          this.meta.updateTag({ 
+              name: 'theme-color',
+              content: res?.bg_color
+          });
+        }
+        
+ 
+        // document.body.className = `mat-typography ${res?.shop_theme?.theme?.class}`;
       }));
     })).subscribe({
       complete: () =>  this._snackBar.open(`Successfully saved theme `, 'Close')
